@@ -19,8 +19,9 @@
     self.view = backgroundImageView;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     // If not logged in, present login view controller
     if (![PFUser currentUser]) {

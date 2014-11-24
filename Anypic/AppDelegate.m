@@ -142,10 +142,27 @@
 
     // Clears out all notifications from Notification Center.
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    application.applicationIconBadgeNumber = 1;
-    application.applicationIconBadgeNumber = 0;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        if ([self checkNotificationType:UIUserNotificationTypeBadge]) {
+            application.applicationIconBadgeNumber = 1;
+            application.applicationIconBadgeNumber = 0;
+        }
+        
+    } else {
+        application.applicationIconBadgeNumber = 1;
+        application.applicationIconBadgeNumber = 0;
+    }
+    
 
     [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+}
+
+- (BOOL)checkNotificationType:(UIUserNotificationType)type
+{
+    UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    
+    return (currentSettings.types & type);
 }
 
 
