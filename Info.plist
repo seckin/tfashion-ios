@@ -50,7 +50,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1374691676157292</string>
+				<string>fb192275100793250</string>
 			</array>
 		</dict>
 		<dict>
@@ -77,13 +77,13 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>1374691676157292</string>
+	<string>192275100793250</string>
 	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.photography</string>
+	<string>Photo</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2013 Parse, Inc.</string>
+	<string>© 2014 TFashion, Inc.</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<false/>
 	<key>UIBackgroundModes</key>
@@ -97,11 +97,11 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array/>
 	<key>UIRequiresPersistentWiFi</key>
-	<false/>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackOpaque</string>
+	<string>UIStatusBarStyleBlackTranslucent</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
