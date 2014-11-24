@@ -30,7 +30,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>$(BUNDLE_IDENTIFIER)com.Parse.Anypic</string>
+	<string>com.Parse.Anypic</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
