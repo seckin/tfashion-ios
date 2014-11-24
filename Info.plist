@@ -50,7 +50,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb231265150320768</string>
+				<string>fb1374691676157292</string>
 			</array>
 		</dict>
 		<dict>
@@ -60,7 +60,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>anypic</string>
+				<string>Anypic</string>
 			</array>
 		</dict>
 		<dict>
