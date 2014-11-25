@@ -219,7 +219,7 @@
     PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
     [loginViewController setDelegate:self];
     loginViewController.fields = PFLogInFieldsFacebook;
-    loginViewController.facebookPermissions = @[ @"user_about_me" ];
+    loginViewController.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
     
     [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
 }
