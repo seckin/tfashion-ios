@@ -312,6 +312,10 @@
 }
 
 - (void)logOut {
+    //MARK: Track Log out event for Analytics
+    [[SEGAnalytics sharedAnalytics] track:@"Logged Out"
+                               properties:nil];
+    
     // clear cache
     [[PAPCache sharedCache] clear];
 
@@ -580,9 +584,10 @@
                                               traits:@{ @"username": user.username,
                                                         @"email": user.email }];
             
-            //MARK: Track Sign up event for Analytics
+            //MARK: Track Login event for Analytics
             [[SEGAnalytics sharedAnalytics] track:@"Logged In"
-                                       properties:nil];
+                                       properties:nil
+                                        options:@{ @"integrations": @{ @"Amplitude": @YES }}];
             
         } else {
             NSLog(@"No user session found. Forcing logOut.");
@@ -612,8 +617,10 @@
             [user saveEventually];
             
             //MARK: Track Sign up event for Analytics
-            [[SEGAnalytics sharedAnalytics] track:@"Signed Up"
-                                       properties:@{ @"isNew": [NSString stringWithFormat:@"%@", user.isNew ? @"YES" : @"NO"] }];
+            if (user.isNew) {
+                [[SEGAnalytics sharedAnalytics] track:@"Signed Up"
+                                           properties:nil];
+            }
         }
         
         [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
