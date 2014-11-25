@@ -17,12 +17,42 @@
 		09ABC07613A1D52D009C3FCF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09ABC07513A1D52D009C3FCF /* CoreGraphics.framework */; };
 		09BEF34C13D51C3F001BBCDB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09BEF34B13D51C3F001BBCDB /* Security.framework */; };
 		2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCDD6AF14A573F500295AAC /* QuartzCore.framework */; };
-		74636BF31578281E00B44132 /* PAPFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 74636BF21578281E00B44132 /* PAPFindFriendsCell.m */; };
-		747FC485156FFF74003349E1 /* PAPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 747FC484156FFF74003349E1 /* PAPConstants.m */; };
 		74B108A7156D7509005B421C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A6156D7509005B421C /* AddressBookUI.framework */; };
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
 		BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC18BDC81A246F970092A384 /* CoreData.framework */; };
+		BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */; };
+		BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D01A24D49B003DD8C4 /* PAPCache.m */; };
+		BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D21A24D49B003DD8C4 /* PAPConstants.m */; };
+		BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D41A24D49B003DD8C4 /* PAPUtility.m */; };
+		BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */; };
+		BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */; };
+		BC2138E11A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */; };
+		BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */; };
+		BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E61A24D577003DD8C4 /* PAPActivityFeedViewController.m */; };
+		BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E91A24D5A0003DD8C4 /* PAPEditPhotoViewController.m */; };
+		BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */; };
+		BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138EE1A24D64A003DD8C4 /* PAPHomeViewController.m */; };
+		BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F01A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m */; };
+		BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F51A24D706003DD8C4 /* PAPLogInViewController.m */; };
+		BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F71A24D706003DD8C4 /* PAPWelcomeViewController.m */; };
+		BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FB1A24D749003DD8C4 /* PAPImageView.m */; };
+		BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FD1A24D749003DD8C4 /* PAPProfileImageView.m */; };
+		BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FF1A24D74A003DD8C4 /* PAPSettingsButtonItem.m */; };
+		BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */; };
+		BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */; };
+		BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC21390E1A24D788003DD8C4 /* Entitlements.plist */; };
+		BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139101A24D788003DD8C4 /* PAPActivityCell.m */; };
+		BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139121A24D788003DD8C4 /* PAPBaseTextCell.m */; };
+		BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139141A24D788003DD8C4 /* PAPFindFriendsCell.m */; };
+		BC21392F1A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139181A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m */; };
+		BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC21391A1A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m */; };
+		BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC21391C1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m */; };
+		BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139231A24D788003DD8C4 /* UIImage+AlphaAdditions.m */; };
+		BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */; };
+		BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */; };
+		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
+		BC54067A1A24E10E00CB0AC6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
@@ -37,7 +67,6 @@
 		C47DDDE915927631002114F6 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = C47DDDE815927631002114F6 /* iTunesArtwork@2x */; };
 		C49F586216028A980027383F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C49F586116028A980027383F /* Default-568h@2x.png */; };
 		C49F586416028AB50027383F /* BackgroundLogin-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C49F586316028AB50027383F /* BackgroundLogin-568h@2x.png */; };
-		C4A6D87C157859AA009FE621 /* PAPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A6D87B157859AA009FE621 /* PAPCache.m */; };
 		C4A8949C15587CA600DC57D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A8949B15587CA600DC57D3 /* CoreLocation.framework */; };
 		C4BE66FB157FC52F00A291C2 /* ShadowProfilePicture-29.png in Resources */ = {isa = PBXBuildFile; fileRef = C4BE66F5157FC52D00A291C2 /* ShadowProfilePicture-29.png */; };
 		C4BE66FC157FC52F00A291C2 /* ShadowProfilePicture-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4BE66F6157FC52D00A291C2 /* ShadowProfilePicture-29@2x.png */; };
@@ -131,38 +160,10 @@
 		C4F101F7156C2D800061BC3E /* HomeTimelineBlank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F101F1156C2D800061BC3E /* HomeTimelineBlank@2x.png */; };
 		C4F101FC156C35EE0061BC3E /* CellLoadMore.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F101FA156C35EE0061BC3E /* CellLoadMore.png */; };
 		C4F101FD156C35EE0061BC3E /* CellLoadMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F101FB156C35EE0061BC3E /* CellLoadMore@2x.png */; };
-		C4F10291156C571C0061BC3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F1028D156C571B0061BC3E /* AppDelegate.m */; };
-		C4F10292156C571C0061BC3E /* PAPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F10290156C571C0061BC3E /* PAPUtility.m */; };
-		C4F102A0156C574A0061BC3E /* PAPImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F1029D156C57490061BC3E /* PAPImageView.m */; };
-		C4F102A1156C574A0061BC3E /* PAPProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F1029F156C574A0061BC3E /* PAPProfileImageView.m */; };
-		C4F102A4156C57560061BC3E /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102A3156C57560061BC3E /* PAPPhotoHeaderView.m */; };
-		C4F102A9156C57620061BC3E /* PAPPhotoDetailsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102A6156C57620061BC3E /* PAPPhotoDetailsFooterView.m */; };
-		C4F102AA156C57620061BC3E /* PAPPhotoDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102A8156C57620061BC3E /* PAPPhotoDetailsHeaderView.m */; };
-		C4F102B3156C57820061BC3E /* PAPActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102AC156C57810061BC3E /* PAPActivityCell.m */; };
-		C4F102B4156C57820061BC3E /* PAPBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102AE156C57810061BC3E /* PAPBaseTextCell.m */; };
-		C4F102B5156C57820061BC3E /* PAPLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102B0156C57820061BC3E /* PAPLoadMoreCell.m */; };
-		C4F102B6156C57820061BC3E /* PAPPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102B2156C57820061BC3E /* PAPPhotoCell.m */; };
-		C4F102B9156C57B90061BC3E /* PAPSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102B8156C57B90061BC3E /* PAPSettingsButtonItem.m */; };
-		C4F102BC156C57CD0061BC3E /* PAPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102BB156C57CD0061BC3E /* PAPTabBarController.m */; };
-		C4F102C2156C57DA0061BC3E /* PAPLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102BE156C57DA0061BC3E /* PAPLogInViewController.m */; };
-		C4F102C3156C57DA0061BC3E /* PAPWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102C0156C57DA0061BC3E /* PAPWelcomeViewController.m */; };
-		C4F102CB156C57EE0061BC3E /* PAPActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102C6156C57ED0061BC3E /* PAPActivityFeedViewController.m */; };
-		C4F102CC156C57EE0061BC3E /* PAPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102C8156C57ED0061BC3E /* PAPHomeViewController.m */; };
-		C4F102CD156C57EE0061BC3E /* PAPPhotoTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102CA156C57EE0061BC3E /* PAPPhotoTimelineViewController.m */; };
-		C4F102D2156C57FD0061BC3E /* PAPAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102CF156C57FD0061BC3E /* PAPAccountViewController.m */; };
-		C4F102D3156C57FD0061BC3E /* PAPPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102D1156C57FD0061BC3E /* PAPPhotoDetailsViewController.m */; };
-		C4F102D8156C580C0061BC3E /* PAPFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102D5156C580C0061BC3E /* PAPFindFriendsViewController.m */; };
-		C4F102D9156C580C0061BC3E /* PAPSettingsActionSheetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102D7156C580C0061BC3E /* PAPSettingsActionSheetDelegate.m */; };
-		C4F102DC156C58170061BC3E /* PAPEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102DB156C58170061BC3E /* PAPEditPhotoViewController.m */; };
-		C4F102E2156C58440061BC3E /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4F102DF156C58440061BC3E /* Entitlements.plist */; };
-		C4F102E7156C58570061BC3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4F102E5156C58570061BC3E /* InfoPlist.strings */; };
 		C4F102EF156C58E00061BC3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102EC156C58E00061BC3E /* main.m */; };
 		E53E07243D0490596262872E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64CAF6CE3BD4380359BBD /* libPods.a */; };
 		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
 		E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */; };
-		E7ADD51A17BEA36500E975E2 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD51417BEA34600E975E2 /* UIImage+AlphaAdditions.m */; };
-		E7ADD51B17BEA36800E975E2 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD51617BEA34600E975E2 /* UIImage+ResizeAdditions.m */; };
-		E7ADD51C17BEA36B00E975E2 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD51817BEA34600E975E2 /* UIImage+RoundedCornerAdditions.m */; };
 		E7BB90FA177BDBE6000A68F9 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7BB90F9177BDBE6000A68F9 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -173,7 +174,7 @@
 		092354B613A1D83C00DA740F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		095ACE8513C68EA300566243 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		099CCEAC13F9E3760039A464 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
-		09ABC06D13A1D52D009C3FCF /* Anypic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anypic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		09ABC06D13A1D52D009C3FCF /* TFashion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TFashion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09ABC07113A1D52D009C3FCF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		09ABC07313A1D52D009C3FCF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09ABC07513A1D52D009C3FCF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -181,14 +182,73 @@
 		192EAD6B2595B13292D939E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2FCDD6AF14A573F500295AAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6CCCF19ADF46CF4E4A039B76 /* Pods.ad hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.ad hoc.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.ad hoc.xcconfig"; sourceTree = "<group>"; };
-		74636BF11578281E00B44132 /* PAPFindFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PAPFindFriendsCell.h; path = AnyPic/PAPFindFriendsCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		74636BF21578281E00B44132 /* PAPFindFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPFindFriendsCell.m; path = AnyPic/PAPFindFriendsCell.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		747FC484156FFF74003349E1 /* PAPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPConstants.m; path = AnyPic/PAPConstants.m; sourceTree = SOURCE_ROOT; };
 		74B108A6156D7509005B421C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		74B108A8156D7510005B421C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 		BC18BDC81A246F970092A384 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TFashion/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TFashion/AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		BC2138CF1A24D49B003DD8C4 /* PAPCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPCache.h; path = TFashion/PAPCache.h; sourceTree = SOURCE_ROOT; };
+		BC2138D01A24D49B003DD8C4 /* PAPCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPCache.m; path = TFashion/PAPCache.m; sourceTree = SOURCE_ROOT; };
+		BC2138D11A24D49B003DD8C4 /* PAPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPConstants.h; path = TFashion/PAPConstants.h; sourceTree = SOURCE_ROOT; };
+		BC2138D21A24D49B003DD8C4 /* PAPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPConstants.m; path = TFashion/PAPConstants.m; sourceTree = SOURCE_ROOT; };
+		BC2138D31A24D49B003DD8C4 /* PAPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPUtility.h; path = TFashion/PAPUtility.h; sourceTree = SOURCE_ROOT; };
+		BC2138D41A24D49B003DD8C4 /* PAPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPUtility.m; path = TFashion/PAPUtility.m; sourceTree = SOURCE_ROOT; };
+		BC2138D91A24D4EE003DD8C4 /* PAPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPTabBarController.h; path = TFashion/PAPTabBarController.h; sourceTree = SOURCE_ROOT; };
+		BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPTabBarController.m; path = TFashion/PAPTabBarController.m; sourceTree = SOURCE_ROOT; };
+		BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPFindFriendsViewController.h; path = TFashion/PAPFindFriendsViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPFindFriendsViewController.m; path = TFashion/PAPFindFriendsViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPSettingsActionSheetDelegate.h; path = TFashion/PAPSettingsActionSheetDelegate.h; sourceTree = SOURCE_ROOT; };
+		BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPSettingsActionSheetDelegate.m; path = TFashion/PAPSettingsActionSheetDelegate.m; sourceTree = SOURCE_ROOT; };
+		BC2138E21A24D561003DD8C4 /* PAPPhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsViewController.h; path = TFashion/PAPPhotoDetailsViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsViewController.m; path = TFashion/PAPPhotoDetailsViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138E51A24D577003DD8C4 /* PAPActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPActivityFeedViewController.h; path = TFashion/PAPActivityFeedViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138E61A24D577003DD8C4 /* PAPActivityFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPActivityFeedViewController.m; path = TFashion/PAPActivityFeedViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138E81A24D5A0003DD8C4 /* PAPEditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPEditPhotoViewController.h; path = TFashion/PAPEditPhotoViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138E91A24D5A0003DD8C4 /* PAPEditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPEditPhotoViewController.m; path = TFashion/PAPEditPhotoViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138EB1A24D64A003DD8C4 /* PAPAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPAccountViewController.h; path = TFashion/PAPAccountViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPAccountViewController.m; path = TFashion/PAPAccountViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138ED1A24D64A003DD8C4 /* PAPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPHomeViewController.h; path = TFashion/PAPHomeViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138EE1A24D64A003DD8C4 /* PAPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPHomeViewController.m; path = TFashion/PAPHomeViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138EF1A24D64A003DD8C4 /* PAPPhotoTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoTimelineViewController.h; path = TFashion/PAPPhotoTimelineViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138F01A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoTimelineViewController.m; path = TFashion/PAPPhotoTimelineViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138F41A24D706003DD8C4 /* PAPLogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPLogInViewController.h; path = TFashion/PAPLogInViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138F51A24D706003DD8C4 /* PAPLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPLogInViewController.m; path = TFashion/PAPLogInViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138F61A24D706003DD8C4 /* PAPWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPWelcomeViewController.h; path = TFashion/PAPWelcomeViewController.h; sourceTree = SOURCE_ROOT; };
+		BC2138F71A24D706003DD8C4 /* PAPWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPWelcomeViewController.m; path = TFashion/PAPWelcomeViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2138FA1A24D749003DD8C4 /* PAPImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPImageView.h; path = TFashion/PAPImageView.h; sourceTree = SOURCE_ROOT; };
+		BC2138FB1A24D749003DD8C4 /* PAPImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPImageView.m; path = TFashion/PAPImageView.m; sourceTree = SOURCE_ROOT; };
+		BC2138FC1A24D749003DD8C4 /* PAPProfileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPProfileImageView.h; path = TFashion/PAPProfileImageView.h; sourceTree = SOURCE_ROOT; };
+		BC2138FD1A24D749003DD8C4 /* PAPProfileImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPProfileImageView.m; path = TFashion/PAPProfileImageView.m; sourceTree = SOURCE_ROOT; };
+		BC2138FE1A24D749003DD8C4 /* PAPSettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPSettingsButtonItem.h; path = TFashion/PAPSettingsButtonItem.h; sourceTree = SOURCE_ROOT; };
+		BC2138FF1A24D74A003DD8C4 /* PAPSettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPSettingsButtonItem.m; path = TFashion/PAPSettingsButtonItem.m; sourceTree = SOURCE_ROOT; };
+		BC2139031A24D775003DD8C4 /* PAPLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPLoadMoreCell.h; path = TFashion/PAPLoadMoreCell.h; sourceTree = SOURCE_ROOT; };
+		BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPLoadMoreCell.m; path = TFashion/PAPLoadMoreCell.m; sourceTree = SOURCE_ROOT; };
+		BC2139051A24D775003DD8C4 /* PAPPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoCell.h; path = TFashion/PAPPhotoCell.h; sourceTree = SOURCE_ROOT; };
+		BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoCell.m; path = TFashion/PAPPhotoCell.m; sourceTree = SOURCE_ROOT; };
+		BC21390E1A24D788003DD8C4 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = TFashion/Entitlements.plist; sourceTree = SOURCE_ROOT; };
+		BC21390F1A24D788003DD8C4 /* PAPActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPActivityCell.h; path = TFashion/PAPActivityCell.h; sourceTree = SOURCE_ROOT; };
+		BC2139101A24D788003DD8C4 /* PAPActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPActivityCell.m; path = TFashion/PAPActivityCell.m; sourceTree = SOURCE_ROOT; };
+		BC2139111A24D788003DD8C4 /* PAPBaseTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPBaseTextCell.h; path = TFashion/PAPBaseTextCell.h; sourceTree = SOURCE_ROOT; };
+		BC2139121A24D788003DD8C4 /* PAPBaseTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPBaseTextCell.m; path = TFashion/PAPBaseTextCell.m; sourceTree = SOURCE_ROOT; };
+		BC2139131A24D788003DD8C4 /* PAPFindFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPFindFriendsCell.h; path = TFashion/PAPFindFriendsCell.h; sourceTree = SOURCE_ROOT; };
+		BC2139141A24D788003DD8C4 /* PAPFindFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPFindFriendsCell.m; path = TFashion/PAPFindFriendsCell.m; sourceTree = SOURCE_ROOT; };
+		BC2139171A24D788003DD8C4 /* PAPPhotoDetailsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsFooterView.h; path = TFashion/PAPPhotoDetailsFooterView.h; sourceTree = SOURCE_ROOT; };
+		BC2139181A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsFooterView.m; path = TFashion/PAPPhotoDetailsFooterView.m; sourceTree = SOURCE_ROOT; };
+		BC2139191A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsHeaderView.h; path = TFashion/PAPPhotoDetailsHeaderView.h; sourceTree = SOURCE_ROOT; };
+		BC21391A1A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsHeaderView.m; path = TFashion/PAPPhotoDetailsHeaderView.m; sourceTree = SOURCE_ROOT; };
+		BC21391B1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsTableViewControllerViewController.h; path = TFashion/PAPPhotoDetailsTableViewControllerViewController.h; sourceTree = SOURCE_ROOT; };
+		BC21391C1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsTableViewControllerViewController.m; path = TFashion/PAPPhotoDetailsTableViewControllerViewController.m; sourceTree = SOURCE_ROOT; };
+		BC2139221A24D788003DD8C4 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+AlphaAdditions.h"; path = "TFashion/UIImage+AlphaAdditions.h"; sourceTree = SOURCE_ROOT; };
+		BC2139231A24D788003DD8C4 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+AlphaAdditions.m"; path = "TFashion/UIImage+AlphaAdditions.m"; sourceTree = SOURCE_ROOT; };
+		BC2139241A24D788003DD8C4 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ResizeAdditions.h"; path = "TFashion/UIImage+ResizeAdditions.h"; sourceTree = SOURCE_ROOT; };
+		BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ResizeAdditions.m"; path = "TFashion/UIImage+ResizeAdditions.m"; sourceTree = SOURCE_ROOT; };
+		BC2139261A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCornerAdditions.h"; path = "TFashion/UIImage+RoundedCornerAdditions.h"; sourceTree = SOURCE_ROOT; };
+		BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCornerAdditions.m"; path = "TFashion/UIImage+RoundedCornerAdditions.m"; sourceTree = SOURCE_ROOT; };
+		BC54066C1A24DE7300CB0AC6 /* PAPPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoHeaderView.h; path = TFashion/PAPPhotoHeaderView.h; sourceTree = SOURCE_ROOT; };
+		BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = TFashion/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
+		BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -205,8 +265,6 @@
 		C47DDDE815927631002114F6 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		C49F586116028A980027383F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C49F586316028AB50027383F /* BackgroundLogin-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundLogin-568h@2x.png"; sourceTree = "<group>"; };
-		C4A6D87A157859AA009FE621 /* PAPCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPCache.h; path = Anypic/PAPCache.h; sourceTree = SOURCE_ROOT; };
-		C4A6D87B157859AA009FE621 /* PAPCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPCache.m; path = Anypic/PAPCache.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4A8949B15587CA600DC57D3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C4BE66F5157FC52D00A291C2 /* ShadowProfilePicture-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShadowProfilePicture-29.png"; sourceTree = "<group>"; };
 		C4BE66F6157FC52D00A291C2 /* ShadowProfilePicture-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShadowProfilePicture-29@2x.png"; sourceTree = "<group>"; };
@@ -299,55 +357,6 @@
 		C4F101F1156C2D800061BC3E /* HomeTimelineBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeTimelineBlank@2x.png"; sourceTree = "<group>"; };
 		C4F101FA156C35EE0061BC3E /* CellLoadMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellLoadMore.png; sourceTree = "<group>"; };
 		C4F101FB156C35EE0061BC3E /* CellLoadMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellLoadMore@2x.png"; sourceTree = "<group>"; };
-		C4F1028C156C571A0061BC3E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Anypic/AppDelegate.h; sourceTree = SOURCE_ROOT; };
-		C4F1028D156C571B0061BC3E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AppDelegate.m; path = Anypic/AppDelegate.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F1028E156C571B0061BC3E /* PAPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PAPConstants.h; path = Anypic/PAPConstants.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4F1028F156C571B0061BC3E /* PAPUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPUtility.h; path = Anypic/PAPUtility.h; sourceTree = SOURCE_ROOT; };
-		C4F10290156C571C0061BC3E /* PAPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPUtility.m; path = Anypic/PAPUtility.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F1029C156C57490061BC3E /* PAPImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPImageView.h; path = Anypic/PAPImageView.h; sourceTree = SOURCE_ROOT; };
-		C4F1029D156C57490061BC3E /* PAPImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPImageView.m; path = Anypic/PAPImageView.m; sourceTree = SOURCE_ROOT; };
-		C4F1029E156C57490061BC3E /* PAPProfileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPProfileImageView.h; path = Anypic/PAPProfileImageView.h; sourceTree = SOURCE_ROOT; };
-		C4F1029F156C574A0061BC3E /* PAPProfileImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPProfileImageView.m; path = Anypic/PAPProfileImageView.m; sourceTree = SOURCE_ROOT; };
-		C4F102A2156C57560061BC3E /* PAPPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoHeaderView.h; path = Anypic/PAPPhotoHeaderView.h; sourceTree = SOURCE_ROOT; };
-		C4F102A3156C57560061BC3E /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = Anypic/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
-		C4F102A5156C57620061BC3E /* PAPPhotoDetailsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsFooterView.h; path = Anypic/PAPPhotoDetailsFooterView.h; sourceTree = SOURCE_ROOT; };
-		C4F102A6156C57620061BC3E /* PAPPhotoDetailsFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsFooterView.m; path = Anypic/PAPPhotoDetailsFooterView.m; sourceTree = SOURCE_ROOT; };
-		C4F102A7156C57620061BC3E /* PAPPhotoDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PAPPhotoDetailsHeaderView.h; path = Anypic/PAPPhotoDetailsHeaderView.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4F102A8156C57620061BC3E /* PAPPhotoDetailsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPPhotoDetailsHeaderView.m; path = Anypic/PAPPhotoDetailsHeaderView.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102AB156C57810061BC3E /* PAPActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PAPActivityCell.h; path = Anypic/PAPActivityCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4F102AC156C57810061BC3E /* PAPActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPActivityCell.m; path = Anypic/PAPActivityCell.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102AD156C57810061BC3E /* PAPBaseTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PAPBaseTextCell.h; path = Anypic/PAPBaseTextCell.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C4F102AE156C57810061BC3E /* PAPBaseTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPBaseTextCell.m; path = Anypic/PAPBaseTextCell.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102AF156C57820061BC3E /* PAPLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPLoadMoreCell.h; path = Anypic/PAPLoadMoreCell.h; sourceTree = SOURCE_ROOT; };
-		C4F102B0156C57820061BC3E /* PAPLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPLoadMoreCell.m; path = Anypic/PAPLoadMoreCell.m; sourceTree = SOURCE_ROOT; };
-		C4F102B1156C57820061BC3E /* PAPPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoCell.h; path = Anypic/PAPPhotoCell.h; sourceTree = SOURCE_ROOT; };
-		C4F102B2156C57820061BC3E /* PAPPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoCell.m; path = Anypic/PAPPhotoCell.m; sourceTree = SOURCE_ROOT; };
-		C4F102B7156C57B90061BC3E /* PAPSettingsButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPSettingsButtonItem.h; path = Anypic/PAPSettingsButtonItem.h; sourceTree = SOURCE_ROOT; };
-		C4F102B8156C57B90061BC3E /* PAPSettingsButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPSettingsButtonItem.m; path = Anypic/PAPSettingsButtonItem.m; sourceTree = SOURCE_ROOT; };
-		C4F102BA156C57CD0061BC3E /* PAPTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPTabBarController.h; path = Anypic/PAPTabBarController.h; sourceTree = SOURCE_ROOT; };
-		C4F102BB156C57CD0061BC3E /* PAPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPTabBarController.m; path = Anypic/PAPTabBarController.m; sourceTree = SOURCE_ROOT; };
-		C4F102BD156C57DA0061BC3E /* PAPLogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPLogInViewController.h; path = Anypic/PAPLogInViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102BE156C57DA0061BC3E /* PAPLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPLogInViewController.m; path = Anypic/PAPLogInViewController.m; sourceTree = SOURCE_ROOT; };
-		C4F102BF156C57DA0061BC3E /* PAPWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPWelcomeViewController.h; path = Anypic/PAPWelcomeViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102C0156C57DA0061BC3E /* PAPWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPWelcomeViewController.m; path = Anypic/PAPWelcomeViewController.m; sourceTree = SOURCE_ROOT; };
-		C4F102C5156C57ED0061BC3E /* PAPActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPActivityFeedViewController.h; path = Anypic/PAPActivityFeedViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102C6156C57ED0061BC3E /* PAPActivityFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPActivityFeedViewController.m; path = Anypic/PAPActivityFeedViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102C7156C57ED0061BC3E /* PAPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPHomeViewController.h; path = Anypic/PAPHomeViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102C8156C57ED0061BC3E /* PAPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPHomeViewController.m; path = Anypic/PAPHomeViewController.m; sourceTree = SOURCE_ROOT; };
-		C4F102C9156C57ED0061BC3E /* PAPPhotoTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoTimelineViewController.h; path = Anypic/PAPPhotoTimelineViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102CA156C57EE0061BC3E /* PAPPhotoTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPPhotoTimelineViewController.m; path = Anypic/PAPPhotoTimelineViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102CE156C57FD0061BC3E /* PAPAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPAccountViewController.h; path = Anypic/PAPAccountViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102CF156C57FD0061BC3E /* PAPAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPAccountViewController.m; path = Anypic/PAPAccountViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102D0156C57FD0061BC3E /* PAPPhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsViewController.h; path = Anypic/PAPPhotoDetailsViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102D1156C57FD0061BC3E /* PAPPhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPPhotoDetailsViewController.m; path = Anypic/PAPPhotoDetailsViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102D4156C580C0061BC3E /* PAPFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPFindFriendsViewController.h; path = Anypic/PAPFindFriendsViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102D5156C580C0061BC3E /* PAPFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PAPFindFriendsViewController.m; path = Anypic/PAPFindFriendsViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C4F102D6156C580C0061BC3E /* PAPSettingsActionSheetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPSettingsActionSheetDelegate.h; path = Anypic/PAPSettingsActionSheetDelegate.h; sourceTree = SOURCE_ROOT; };
-		C4F102D7156C580C0061BC3E /* PAPSettingsActionSheetDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPSettingsActionSheetDelegate.m; path = Anypic/PAPSettingsActionSheetDelegate.m; sourceTree = SOURCE_ROOT; };
-		C4F102DA156C58170061BC3E /* PAPEditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPEditPhotoViewController.h; path = Anypic/PAPEditPhotoViewController.h; sourceTree = SOURCE_ROOT; };
-		C4F102DB156C58170061BC3E /* PAPEditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPEditPhotoViewController.m; path = Anypic/PAPEditPhotoViewController.m; sourceTree = SOURCE_ROOT; };
-		C4F102DF156C58440061BC3E /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = Anypic/Entitlements.plist; sourceTree = SOURCE_ROOT; };
-		C4F102E6156C58570061BC3E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Anypic/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		C4F102EB156C58E00061BC3E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		C4F102EC156C58E00061BC3E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		C4F102ED156C58E00061BC3E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -356,12 +365,6 @@
 		E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		E7ADD4BF17BEA09500E975E2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
-		E7ADD51317BEA34600E975E2 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+AlphaAdditions.h"; path = "AnyPic/UIImage+AlphaAdditions.h"; sourceTree = SOURCE_ROOT; };
-		E7ADD51417BEA34600E975E2 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+AlphaAdditions.m"; path = "AnyPic/UIImage+AlphaAdditions.m"; sourceTree = SOURCE_ROOT; };
-		E7ADD51517BEA34600E975E2 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+ResizeAdditions.h"; path = "AnyPic/UIImage+ResizeAdditions.h"; sourceTree = SOURCE_ROOT; };
-		E7ADD51617BEA34600E975E2 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ResizeAdditions.m"; path = "AnyPic/UIImage+ResizeAdditions.m"; sourceTree = SOURCE_ROOT; };
-		E7ADD51717BEA34600E975E2 /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCornerAdditions.h"; path = "AnyPic/UIImage+RoundedCornerAdditions.h"; sourceTree = SOURCE_ROOT; };
-		E7ADD51817BEA34600E975E2 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCornerAdditions.m"; path = "AnyPic/UIImage+RoundedCornerAdditions.m"; sourceTree = SOURCE_ROOT; };
 		E7BB90F9177BDBE6000A68F9 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		FC6EB0D9AA47FEBCDCD7B557 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,7 +410,7 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
-				09ABC07713A1D52D009C3FCF /* Anypic */,
+				09ABC07713A1D52D009C3FCF /* TFashion */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
 				E7ADD44517BEA09500E975E2 /* Vendor */,
 				09ABC06E13A1D52D009C3FCF /* Products */,
@@ -418,7 +421,7 @@
 		09ABC06E13A1D52D009C3FCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09ABC06D13A1D52D009C3FCF /* Anypic.app */,
+				09ABC06D13A1D52D009C3FCF /* TFashion.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -455,24 +458,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		09ABC07713A1D52D009C3FCF /* Anypic */ = {
+		09ABC07713A1D52D009C3FCF /* TFashion */ = {
 			isa = PBXGroup;
 			children = (
 				E7ADD51917BEA34A00E975E2 /* Categories */,
 				C4A89497155879FC00DC57D3 /* Views */,
 				C4A89496155879F600DC57D3 /* Controllers */,
-				C4F1028C156C571A0061BC3E /* AppDelegate.h */,
-				C4F1028D156C571B0061BC3E /* AppDelegate.m */,
-				C4F1028E156C571B0061BC3E /* PAPConstants.h */,
-				747FC484156FFF74003349E1 /* PAPConstants.m */,
-				C4F1028F156C571B0061BC3E /* PAPUtility.h */,
-				C4F10290156C571C0061BC3E /* PAPUtility.m */,
-				C4A6D87A157859AA009FE621 /* PAPCache.h */,
-				C4A6D87B157859AA009FE621 /* PAPCache.m */,
+				BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */,
+				BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */,
+				BC2138CF1A24D49B003DD8C4 /* PAPCache.h */,
+				BC2138D01A24D49B003DD8C4 /* PAPCache.m */,
+				BC2138D11A24D49B003DD8C4 /* PAPConstants.h */,
+				BC2138D21A24D49B003DD8C4 /* PAPConstants.m */,
+				BC2138D31A24D49B003DD8C4 /* PAPUtility.h */,
+				BC2138D41A24D49B003DD8C4 /* PAPUtility.m */,
 				C4B60864155B085600EFA90C /* Resources */,
 				09ABC07813A1D52D009C3FCF /* Supporting Files */,
 			);
-			name = Anypic;
+			name = TFashion;
 			path = ParseStarterProject;
 			sourceTree = "<group>";
 		};
@@ -482,8 +485,8 @@
 				C4F102EB156C58E00061BC3E /* Info.plist */,
 				C4F102EC156C58E00061BC3E /* main.m */,
 				C4F102ED156C58E00061BC3E /* Prefix.pch */,
-				C4F102E5156C58570061BC3E /* InfoPlist.strings */,
-				C4F102DF156C58440061BC3E /* Entitlements.plist */,
+				BC21390E1A24D788003DD8C4 /* Entitlements.plist */,
+				BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -582,10 +585,10 @@
 			isa = PBXGroup;
 			children = (
 				C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */,
-				C4F102AF156C57820061BC3E /* PAPLoadMoreCell.h */,
-				C4F102B0156C57820061BC3E /* PAPLoadMoreCell.m */,
-				C4F102B1156C57820061BC3E /* PAPPhotoCell.h */,
-				C4F102B2156C57820061BC3E /* PAPPhotoCell.m */,
+				BC2139031A24D775003DD8C4 /* PAPLoadMoreCell.h */,
+				BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */,
+				BC2139051A24D775003DD8C4 /* PAPPhotoCell.h */,
+				BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */,
 			);
 			name = UITableViewCells;
 			sourceTree = "<group>";
@@ -593,8 +596,8 @@
 		74A504E31565F0E400CFA4E3 /* TimelineViews */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102A2156C57560061BC3E /* PAPPhotoHeaderView.h */,
-				C4F102A3156C57560061BC3E /* PAPPhotoHeaderView.m */,
+				BC21391B1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.h */,
+				BC21391C1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m */,
 			);
 			name = TimelineViews;
 			sourceTree = "<group>";
@@ -602,8 +605,8 @@
 		74A504E41565F13C00CFA4E3 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102D0156C57FD0061BC3E /* PAPPhotoDetailsViewController.h */,
-				C4F102D1156C57FD0061BC3E /* PAPPhotoDetailsViewController.m */,
+				BC2138E21A24D561003DD8C4 /* PAPPhotoDetailsViewController.h */,
+				BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -611,10 +614,10 @@
 		74A504E51565F17E00CFA4E3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102BF156C57DA0061BC3E /* PAPWelcomeViewController.h */,
-				C4F102C0156C57DA0061BC3E /* PAPWelcomeViewController.m */,
-				C4F102BD156C57DA0061BC3E /* PAPLogInViewController.h */,
-				C4F102BE156C57DA0061BC3E /* PAPLogInViewController.m */,
+				BC2138F41A24D706003DD8C4 /* PAPLogInViewController.h */,
+				BC2138F51A24D706003DD8C4 /* PAPLogInViewController.m */,
+				BC2138F61A24D706003DD8C4 /* PAPWelcomeViewController.h */,
+				BC2138F71A24D706003DD8C4 /* PAPWelcomeViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -622,10 +625,12 @@
 		74B86B911562DB2600CAFFD2 /* PhotoDetailsViews */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102A7156C57620061BC3E /* PAPPhotoDetailsHeaderView.h */,
-				C4F102A8156C57620061BC3E /* PAPPhotoDetailsHeaderView.m */,
-				C4F102A5156C57620061BC3E /* PAPPhotoDetailsFooterView.h */,
-				C4F102A6156C57620061BC3E /* PAPPhotoDetailsFooterView.m */,
+				BC54066C1A24DE7300CB0AC6 /* PAPPhotoHeaderView.h */,
+				BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */,
+				BC2139171A24D788003DD8C4 /* PAPPhotoDetailsFooterView.h */,
+				BC2139181A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m */,
+				BC2139191A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.h */,
+				BC21391A1A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m */,
 			);
 			name = PhotoDetailsViews;
 			sourceTree = "<group>";
@@ -633,12 +638,12 @@
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102AD156C57810061BC3E /* PAPBaseTextCell.h */,
-				C4F102AE156C57810061BC3E /* PAPBaseTextCell.m */,
-				C4F102AB156C57810061BC3E /* PAPActivityCell.h */,
-				C4F102AC156C57810061BC3E /* PAPActivityCell.m */,
-				74636BF11578281E00B44132 /* PAPFindFriendsCell.h */,
-				74636BF21578281E00B44132 /* PAPFindFriendsCell.m */,
+				BC21390F1A24D788003DD8C4 /* PAPActivityCell.h */,
+				BC2139101A24D788003DD8C4 /* PAPActivityCell.m */,
+				BC2139111A24D788003DD8C4 /* PAPBaseTextCell.h */,
+				BC2139121A24D788003DD8C4 /* PAPBaseTextCell.m */,
+				BC2139131A24D788003DD8C4 /* PAPFindFriendsCell.h */,
+				BC2139141A24D788003DD8C4 /* PAPFindFriendsCell.m */,
 			);
 			name = PAPBaseTextCell;
 			sourceTree = "<group>";
@@ -646,12 +651,12 @@
 		C4A894921558795F00DC57D3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102C9156C57ED0061BC3E /* PAPPhotoTimelineViewController.h */,
-				C4F102CA156C57EE0061BC3E /* PAPPhotoTimelineViewController.m */,
-				C4F102C7156C57ED0061BC3E /* PAPHomeViewController.h */,
-				C4F102C8156C57ED0061BC3E /* PAPHomeViewController.m */,
-				C4F102CE156C57FD0061BC3E /* PAPAccountViewController.h */,
-				C4F102CF156C57FD0061BC3E /* PAPAccountViewController.m */,
+				BC2138EB1A24D64A003DD8C4 /* PAPAccountViewController.h */,
+				BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */,
+				BC2138ED1A24D64A003DD8C4 /* PAPHomeViewController.h */,
+				BC2138EE1A24D64A003DD8C4 /* PAPHomeViewController.m */,
+				BC2138EF1A24D64A003DD8C4 /* PAPPhotoTimelineViewController.h */,
+				BC2138F01A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -659,10 +664,10 @@
 		C4A894931558796400DC57D3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102D4156C580C0061BC3E /* PAPFindFriendsViewController.h */,
-				C4F102D5156C580C0061BC3E /* PAPFindFriendsViewController.m */,
-				C4F102D6156C580C0061BC3E /* PAPSettingsActionSheetDelegate.h */,
-				C4F102D7156C580C0061BC3E /* PAPSettingsActionSheetDelegate.m */,
+				BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */,
+				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
+				BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */,
+				BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -670,8 +675,8 @@
 		C4A894941558796C00DC57D3 /* Take Photo */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102DA156C58170061BC3E /* PAPEditPhotoViewController.h */,
-				C4F102DB156C58170061BC3E /* PAPEditPhotoViewController.m */,
+				BC2138E81A24D5A0003DD8C4 /* PAPEditPhotoViewController.h */,
+				BC2138E91A24D5A0003DD8C4 /* PAPEditPhotoViewController.m */,
 			);
 			name = "Take Photo";
 			sourceTree = "<group>";
@@ -685,8 +690,8 @@
 				C4BB4B85156D5CB7008B4B56 /* Activity */,
 				74A504E41565F13C00CFA4E3 /* Detail */,
 				C4A894931558796400DC57D3 /* Settings */,
-				C4F102BA156C57CD0061BC3E /* PAPTabBarController.h */,
-				C4F102BB156C57CD0061BC3E /* PAPTabBarController.m */,
+				BC2138D91A24D4EE003DD8C4 /* PAPTabBarController.h */,
+				BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -697,12 +702,12 @@
 				74A504E31565F0E400CFA4E3 /* TimelineViews */,
 				74B86B911562DB2600CAFFD2 /* PhotoDetailsViews */,
 				74A504E21565F0C200CFA4E3 /* UITableViewCells */,
-				C4F102B7156C57B90061BC3E /* PAPSettingsButtonItem.h */,
-				C4F102B8156C57B90061BC3E /* PAPSettingsButtonItem.m */,
-				C4F1029C156C57490061BC3E /* PAPImageView.h */,
-				C4F1029D156C57490061BC3E /* PAPImageView.m */,
-				C4F1029E156C57490061BC3E /* PAPProfileImageView.h */,
-				C4F1029F156C574A0061BC3E /* PAPProfileImageView.m */,
+				BC2138FA1A24D749003DD8C4 /* PAPImageView.h */,
+				BC2138FB1A24D749003DD8C4 /* PAPImageView.m */,
+				BC2138FC1A24D749003DD8C4 /* PAPProfileImageView.h */,
+				BC2138FD1A24D749003DD8C4 /* PAPProfileImageView.m */,
+				BC2138FE1A24D749003DD8C4 /* PAPSettingsButtonItem.h */,
+				BC2138FF1A24D74A003DD8C4 /* PAPSettingsButtonItem.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -731,8 +736,8 @@
 		C4BB4B85156D5CB7008B4B56 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102C5156C57ED0061BC3E /* PAPActivityFeedViewController.h */,
-				C4F102C6156C57ED0061BC3E /* PAPActivityFeedViewController.m */,
+				BC2138E51A24D577003DD8C4 /* PAPActivityFeedViewController.h */,
+				BC2138E61A24D577003DD8C4 /* PAPActivityFeedViewController.m */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -782,12 +787,12 @@
 		E7ADD51917BEA34A00E975E2 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				E7ADD51317BEA34600E975E2 /* UIImage+AlphaAdditions.h */,
-				E7ADD51417BEA34600E975E2 /* UIImage+AlphaAdditions.m */,
-				E7ADD51517BEA34600E975E2 /* UIImage+ResizeAdditions.h */,
-				E7ADD51617BEA34600E975E2 /* UIImage+ResizeAdditions.m */,
-				E7ADD51717BEA34600E975E2 /* UIImage+RoundedCornerAdditions.h */,
-				E7ADD51817BEA34600E975E2 /* UIImage+RoundedCornerAdditions.m */,
+				BC2139221A24D788003DD8C4 /* UIImage+AlphaAdditions.h */,
+				BC2139231A24D788003DD8C4 /* UIImage+AlphaAdditions.m */,
+				BC2139241A24D788003DD8C4 /* UIImage+ResizeAdditions.h */,
+				BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */,
+				BC2139261A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.h */,
+				BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */,
 			);
 			name = Categories;
 			path = ../Vendor;
@@ -796,9 +801,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		09ABC06C13A1D52D009C3FCF /* Anypic */ = {
+		09ABC06C13A1D52D009C3FCF /* TFashion */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "Anypic" */;
+			buildConfigurationList = 09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "TFashion" */;
 			buildPhases = (
 				5559E15A6795023894ACA713 /* Label Optimizely Views */,
 				878A4448CD9A2B73B98BDD49 /* Check Pods Manifest.lock */,
@@ -811,9 +816,9 @@
 			);
 			dependencies = (
 			);
-			name = Anypic;
+			name = TFashion;
 			productName = ParseStarterProject;
-			productReference = 09ABC06D13A1D52D009C3FCF /* Anypic.app */;
+			productReference = 09ABC06D13A1D52D009C3FCF /* TFashion.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -829,7 +834,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "Anypic" */;
+			buildConfigurationList = 09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "TFashion" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -841,7 +846,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				09ABC06C13A1D52D009C3FCF /* Anypic */,
+				09ABC06C13A1D52D009C3FCF /* TFashion */,
 			);
 		};
 /* End PBXProject section */
@@ -859,8 +864,6 @@
 				C4F101F7156C2D800061BC3E /* HomeTimelineBlank@2x.png in Resources */,
 				C4F101FC156C35EE0061BC3E /* CellLoadMore.png in Resources */,
 				C4F101FD156C35EE0061BC3E /* CellLoadMore@2x.png in Resources */,
-				C4F102E2156C58440061BC3E /* Entitlements.plist in Resources */,
-				C4F102E7156C58570061BC3E /* InfoPlist.strings in Resources */,
 				C4BE66FB157FC52F00A291C2 /* ShadowProfilePicture-29.png in Resources */,
 				C4BE66FC157FC52F00A291C2 /* ShadowProfilePicture-29@2x.png in Resources */,
 				C4BE66FD157FC52F00A291C2 /* ShadowProfilePicture-35.png in Resources */,
@@ -896,6 +899,7 @@
 				C4BE6783157FC7F700A291C2 /* ButtonCamera.png in Resources */,
 				C4BE6784157FC7F700A291C2 /* ButtonCamera@2x.png in Resources */,
 				C4BE6785157FC7F700A291C2 /* ButtonCameraSelected.png in Resources */,
+				BC54067A1A24E10E00CB0AC6 /* InfoPlist.strings in Resources */,
 				C4BE6786157FC7F700A291C2 /* ButtonCameraSelected@2x.png in Resources */,
 				C4BE678B157FC7F700A291C2 /* ButtonFollow.png in Resources */,
 				C4BE678C157FC7F700A291C2 /* ButtonFollow@2x.png in Resources */,
@@ -940,6 +944,7 @@
 				C4BE67BF157FC7F700A291C2 /* SeparatorTimelineDark.png in Resources */,
 				C4BE67C0157FC7F700A291C2 /* SeparatorTimelineDark@2x.png in Resources */,
 				C4BE67C3157FC7F700A291C2 /* TitleFindFriends.png in Resources */,
+				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
 				C4BE67C4157FC7F700A291C2 /* TitleFindFriends@2x.png in Resources */,
 				C4BE67C7157FC8F600A291C2 /* TextFieldComment.png in Resources */,
 				C4BE67C8157FC8F600A291C2 /* TextFieldComment@2x.png in Resources */,
@@ -1006,53 +1011,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F10291156C571C0061BC3E /* AppDelegate.m in Sources */,
-				C4F10292156C571C0061BC3E /* PAPUtility.m in Sources */,
-				C4F102A0156C574A0061BC3E /* PAPImageView.m in Sources */,
-				C4F102A1156C574A0061BC3E /* PAPProfileImageView.m in Sources */,
-				E7ADD51A17BEA36500E975E2 /* UIImage+AlphaAdditions.m in Sources */,
-				C4F102A4156C57560061BC3E /* PAPPhotoHeaderView.m in Sources */,
-				C4F102A9156C57620061BC3E /* PAPPhotoDetailsFooterView.m in Sources */,
-				C4F102AA156C57620061BC3E /* PAPPhotoDetailsHeaderView.m in Sources */,
+				BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */,
+				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
+				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
+				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
+				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
+				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
+				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
 				E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */,
-				C4F102B3156C57820061BC3E /* PAPActivityCell.m in Sources */,
-				C4F102B4156C57820061BC3E /* PAPBaseTextCell.m in Sources */,
-				C4F102B5156C57820061BC3E /* PAPLoadMoreCell.m in Sources */,
-				C4F102B6156C57820061BC3E /* PAPPhotoCell.m in Sources */,
-				C4F102B9156C57B90061BC3E /* PAPSettingsButtonItem.m in Sources */,
-				C4F102BC156C57CD0061BC3E /* PAPTabBarController.m in Sources */,
-				C4F102C2156C57DA0061BC3E /* PAPLogInViewController.m in Sources */,
-				C4F102C3156C57DA0061BC3E /* PAPWelcomeViewController.m in Sources */,
-				C4F102CB156C57EE0061BC3E /* PAPActivityFeedViewController.m in Sources */,
-				E7ADD51B17BEA36800E975E2 /* UIImage+ResizeAdditions.m in Sources */,
-				C4F102CC156C57EE0061BC3E /* PAPHomeViewController.m in Sources */,
-				C4F102CD156C57EE0061BC3E /* PAPPhotoTimelineViewController.m in Sources */,
-				C4F102D2156C57FD0061BC3E /* PAPAccountViewController.m in Sources */,
-				E7ADD51C17BEA36B00E975E2 /* UIImage+RoundedCornerAdditions.m in Sources */,
-				C4F102D3156C57FD0061BC3E /* PAPPhotoDetailsViewController.m in Sources */,
-				C4F102D8156C580C0061BC3E /* PAPFindFriendsViewController.m in Sources */,
-				C4F102D9156C580C0061BC3E /* PAPSettingsActionSheetDelegate.m in Sources */,
-				C4F102DC156C58170061BC3E /* PAPEditPhotoViewController.m in Sources */,
+				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
+				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
+				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
+				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
+				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
+				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
+				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
+				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
+				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
+				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
+				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
+				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
+				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
+				BC2138E11A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m in Sources */,
+				BC21392F1A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m in Sources */,
+				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
 				C4F102EF156C58E00061BC3E /* main.m in Sources */,
-				747FC485156FFF74003349E1 /* PAPConstants.m in Sources */,
+				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
+				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
+				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
+				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
+				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
+				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
-				74636BF31578281E00B44132 /* PAPFindFriendsCell.m in Sources */,
-				C4A6D87C157859AA009FE621 /* PAPCache.m in Sources */,
+				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C4F102E5156C58570061BC3E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C4F102E6156C58570061BC3E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		09ABC08C13A1D52E009C3FCF /* Debug */ = {
@@ -1140,7 +1135,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Anypic;
+				PRODUCT_NAME = TFashion;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1163,7 +1158,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Anypic;
+				PRODUCT_NAME = TFashion;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1216,7 +1211,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Anypic;
+				PRODUCT_NAME = TFashion;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1269,7 +1264,7 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Anypic;
+				PRODUCT_NAME = TFashion;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1278,7 +1273,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "Anypic" */ = {
+		09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "TFashion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				09ABC08C13A1D52E009C3FCF /* Debug */,
@@ -1289,7 +1284,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Distribution;
 		};
-		09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "Anypic" */ = {
+		09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "TFashion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				09ABC08F13A1D52E009C3FCF /* Debug */,
