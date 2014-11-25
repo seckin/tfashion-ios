@@ -30,7 +30,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.Parse.Anypic</string>
+	<string>com.tfashion.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -60,7 +60,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Anypic</string>
+				<string>TFashion</string>
 			</array>
 		</dict>
 		<dict>
