@@ -18,9 +18,9 @@
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
 
-
+#if ENABLE_PONYDEBUGGER
 #import <PonyDebugger/PonyDebugger.h>
-
+#endif
 
 @interface AppDelegate () {
     NSMutableData *_data;
@@ -49,7 +49,7 @@
     // should be added to "Other linker flags" settings.
     // Release builds should not use PonyDebugger
     
-
+#if ENABLE_PONYDEBUGGER
     
     PDDebugger *debugger = [PDDebugger defaultInstance];
     
@@ -76,7 +76,7 @@
     // Enable remote logging to the DevTools Console via PDLog()/PDLogObjects().
     [debugger enableRemoteLogging];
     
-
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
