@@ -88,6 +88,7 @@ extern NSString *const kPAPUserProfilePicSmallKey;
 extern NSString *const kPAPUserProfilePicMediumKey;
 extern NSString *const kPAPUserFacebookFriendsKey;
 extern NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey;
+extern NSString *const kPAPUserEmailKey;
 
 
 #pragma mark - PFObject Photo Class

@@ -17,6 +17,7 @@
 #import "PAPWelcomeViewController.h"
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
+#import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
 #import <PonyDebugger/PonyDebugger.h>
@@ -44,10 +45,6 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Don't use PonyDebugger unless we have ENABLE_PONYDEBUGGER enabled.
-    // When ENABLE_PONYDEBUGGER is enabled -lSocketRocket -lPonyDebugger
-    // should be added to "Other linker flags" settings.
-    // Release builds should not use PonyDebugger
     
 #if ENABLE_PONYDEBUGGER
     
@@ -78,6 +75,11 @@
     
 #endif
     
+    //MARK: Analytics Integration
+    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
+    
+    
+    //MARK: Initialize window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // ****************************************************************************
@@ -572,6 +574,16 @@
             }
             
             [user saveEventually];
+            
+            //MARK: Identify who current user is for Analytics
+            [[SEGAnalytics sharedAnalytics] identify:@"f4ca124298"
+                                              traits:@{ @"username": user.username,
+                                                        @"email": user.email }];
+            
+            //MARK: Track Sign up event for Analytics
+            [[SEGAnalytics sharedAnalytics] track:@"Logged In"
+                                       properties:nil];
+            
         } else {
             NSLog(@"No user session found. Forcing logOut.");
             [self logOut];
@@ -592,7 +604,16 @@
                 [user setObject:facebookId forKey:kPAPUserFacebookIDKey];
             }
             
+            NSString *email = result[@"email"];
+            if (email && [email length] != 0) {
+                [user setObject:email forKey:kPAPUserEmailKey];
+            }
+            
             [user saveEventually];
+            
+            //MARK: Track Sign up event for Analytics
+            [[SEGAnalytics sharedAnalytics] track:@"Signed Up"
+                                       properties:@{ @"isNew": [NSString stringWithFormat:@"%@", user.isNew ? @"YES" : @"NO"] }];
         }
         
         [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
