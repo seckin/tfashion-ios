@@ -22,6 +22,7 @@
 		74B108A7156D7509005B421C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A6156D7509005B421C /* AddressBookUI.framework */; };
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
+		BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC18BDC81A246F970092A384 /* CoreData.framework */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
@@ -187,6 +188,7 @@
 		74B108A8156D7510005B421C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
+		BC18BDC81A246F970092A384 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */,
 				BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */,
 				E7BB90FA177BDBE6000A68F9 /* Accelerate.framework in Frameworks */,
 				BCC0854B1A238B770026C4B6 /* ParseUI.framework in Frameworks */,
@@ -423,6 +426,7 @@
 		09ABC07013A1D52D009C3FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC18BDC81A246F970092A384 /* CoreData.framework */,
 				BCC085461A2387580026C4B6 /* StoreKit.framework */,
 				E7BB90F9177BDBE6000A68F9 /* Accelerate.framework */,
 				C4C9B94616B877AE00BB2862 /* AdSupport.framework */,
