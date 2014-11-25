@@ -276,10 +276,6 @@
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
     UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
     
-    [PAPUtility addBottomDropShadowToNavigationBarForNavigationController:homeNavigationController];
-    [PAPUtility addBottomDropShadowToNavigationBarForNavigationController:emptyNavigationController];
-    [PAPUtility addBottomDropShadowToNavigationBarForNavigationController:activityFeedNavigationController];
-    
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[[UIImage imageNamed:@"IconHome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"IconHomeSelected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor colorWithRed:86.0f/255.0f green:55.0f/255.0f blue:42.0f/255.0f alpha:1.0f] } forState:UIControlStateNormal];
     [homeTabBarItem setTitleTextAttributes: @{ NSForegroundColorAttributeName: [UIColor colorWithRed:129.0f/255.0f green:99.0f/255.0f blue:69.0f/255.0f alpha:1.0f] } forState:UIControlStateSelected];
@@ -352,14 +348,14 @@
     shadow.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.750f];
     shadow.shadowOffset = CGSizeMake(0.0f, 1.0f);
 
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.498f green:0.388f blue:0.329f alpha:1.0f]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                NSForegroundColorAttributeName: [UIColor whiteColor],
-                                NSShadowAttributeName: shadow
-                                }];
-
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BackgroundNavigationBar.png"]
-                                       forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.498f green:0.388f blue:0.329f alpha:1.0f]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{
+//                                NSForegroundColorAttributeName: [UIColor whiteColor],
+//                                NSShadowAttributeName: shadow
+//                                }];
+//
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BackgroundNavigationBar.png"]
+//                                       forBarMetrics:UIBarMetricsDefault];
     
     [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil]
      setTitleColor:[UIColor colorWithRed:214.0f/255.0f green:210.0f/255.0f blue:197.0f/255.0f alpha:1.0f]
