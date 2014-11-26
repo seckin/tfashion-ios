@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
+		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
 		092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B213A1D7EB00DA740F /* CFNetwork.framework */; };
 		092354B513A1D7F000DA740F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B413A1D7F000DA740F /* SystemConfiguration.framework */; };
 		092354B713A1D83C00DA740F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B613A1D83C00DA740F /* MobileCoreServices.framework */; };
@@ -168,6 +170,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		092354AF13A1D7E200DA740F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		092354B213A1D7EB00DA740F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		092354B413A1D7F000DA740F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -380,6 +384,7 @@
 				BCC0854B1A238B770026C4B6 /* ParseUI.framework in Frameworks */,
 				C4C9B94816B877AE00BB2862 /* AdSupport.framework in Frameworks */,
 				C4C9B94916B877AE00BB2862 /* Social.framework in Frameworks */,
+				059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */,
 				C4C9B94516B877AE00BB2862 /* Accounts.framework in Frameworks */,
 				C4CD219915ED790500BC387F /* libsqlite3.dylib in Frameworks */,
 				74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */,
@@ -394,6 +399,7 @@
 				09BEF34C13D51C3F001BBCDB /* Security.framework in Frameworks */,
 				095ACE8613C68EA300566243 /* AudioToolbox.framework in Frameworks */,
 				092354B513A1D7F000DA740F /* SystemConfiguration.framework in Frameworks */,
+				059881331A257E64006AD82A /* Fabric.framework in Frameworks */,
 				092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */,
 				09ABC07613A1D52D009C3FCF /* CoreGraphics.framework in Frameworks */,
 				09ABC07213A1D52D009C3FCF /* UIKit.framework in Frameworks */,
@@ -410,6 +416,8 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
+				059881301A257E64006AD82A /* Crashlytics.framework */,
+				059881311A257E64006AD82A /* Fabric.framework */,
 				09ABC07713A1D52D009C3FCF /* TFashion */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
 				E7ADD44517BEA09500E975E2 /* Vendor */,
@@ -811,6 +819,7 @@
 				09ABC06A13A1D52D009C3FCF /* Frameworks */,
 				09ABC06B13A1D52D009C3FCF /* Resources */,
 				A956C7A00485A30BE48909C5 /* Copy Pods Resources */,
+				054987591A257A31009EF4FD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -960,6 +969,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		054987591A257A31009EF4FD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run db1cd5c518c501e7dcaccc07c3560dd4797ec9d3 5ddabe4998059075aed3766d24077b25b20e85bdbef127fb6e18044f605c1492";
+		};
 		5559E15A6795023894ACA713 /* Label Optimizely Views */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1124,6 +1146,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1153,6 +1176,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -1206,6 +1230,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -1259,6 +1284,7 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/Vendor",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
