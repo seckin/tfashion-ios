@@ -76,6 +76,20 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>db1cd5c518c501e7dcaccc07c3560dd4797ec9d3</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>192275100793250</string>
 	<key>LSApplicationCategoryType</key>
@@ -113,7 +127,7 @@
 				<key>Blue</key>
 				<real>0.117841511964798</real>
 				<key>Green</key>
-				<real>0.1536859273910522</real>
+				<real>0.15368592739105219</real>
 				<key>Red</key>
 				<real>0.2008436918258667</real>
 			</dict>
