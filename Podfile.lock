@@ -85,6 +85,7 @@ PODS:
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
   - GoogleAnalytics-iOS-SDK (3.0.9)
+  - HexColors (2.2.1)
   - Localytics-AMP (2.71.0)
   - MBProgressHUD (0.9)
   - Mixpanel (2.5.4)
@@ -100,12 +101,15 @@ PODS:
   - Tapstream (2.8.3)
   - TestFlightSDK (3.0.2)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
+  - TSMessages (0.9.11):
+    - HexColors
 
 DEPENDENCIES:
   - Analytics
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
   - Reachability (~> 3.2)
+  - TSMessages
 
 SPEC CHECKSUMS:
   Amplitude-iOS: e72b65479dc035ef671a57e34e1a981767224318
@@ -116,6 +120,7 @@ SPEC CHECKSUMS:
   CrittercismSDK: 0f3bfca5d5e7b11ba8042a119c7aeb32c034c3aa
   FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
+  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   Localytics-AMP: 4d158e216541912109b1ae7ca20b153d053d68c5
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Mixpanel: 87167a0b0a74f11f0ee3787f291357494730617c
@@ -128,5 +133,6 @@ SPEC CHECKSUMS:
   Tapstream: b2d949e963c393938697db68256ba70aadddb820
   TestFlightSDK: 0c24c533748d0d84bfe7a3cb6036fa79124d84ee
   TRVSDictionaryWithCaseInsensitivity: a61daa8469fa079e05b694f6aad5441785c837d1
+  TSMessages: e21ef5b1c7518cc590a4826c8b05b16b79b10c2c
 
 COCOAPODS: 0.35.0

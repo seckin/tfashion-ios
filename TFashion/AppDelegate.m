@@ -586,8 +586,7 @@
             
             //MARK: Track Login event for Analytics
             [[SEGAnalytics sharedAnalytics] track:@"Logged In"
-                                       properties:nil
-                                        options:@{ @"integrations": @{ @"Amplitude": @YES }}];
+                                       properties:nil];
             
         } else {
             NSLog(@"No user session found. Forcing logOut.");
