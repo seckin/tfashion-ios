@@ -23,6 +23,8 @@
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
 		BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC18BDC81A246F970092A384 /* CoreData.framework */; };
+		BC19D29C1A25FC96002B9944 /* TFInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */; };
+		BC19D2A01A25FF9A002B9944 /* TFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29F1A25FF9A002B9944 /* TFPerson.m */; };
 		BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */; };
 		BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D01A24D49B003DD8C4 /* PAPCache.m */; };
 		BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D21A24D49B003DD8C4 /* PAPConstants.m */; };
@@ -170,8 +172,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
+		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
 		092354AF13A1D7E200DA740F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		092354B213A1D7EB00DA740F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		092354B413A1D7F000DA740F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -191,6 +193,10 @@
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 		BC18BDC81A246F970092A384 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFInviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
+		BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFInviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
+		BC19D29E1A25FF9A002B9944 /* TFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFPerson.h; sourceTree = SOURCE_ROOT; };
+		BC19D29F1A25FF9A002B9944 /* TFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPerson.m; sourceTree = SOURCE_ROOT; };
 		BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TFashion/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TFashion/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		BC2138CF1A24D49B003DD8C4 /* PAPCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPCache.h; path = TFashion/PAPCache.h; sourceTree = SOURCE_ROOT; };
@@ -416,8 +422,6 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
-				059881301A257E64006AD82A /* Crashlytics.framework */,
-				059881311A257E64006AD82A /* Fabric.framework */,
 				09ABC07713A1D52D009C3FCF /* TFashion */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
 				E7ADD44517BEA09500E975E2 /* Vendor */,
@@ -472,6 +476,7 @@
 				E7ADD51917BEA34A00E975E2 /* Categories */,
 				C4A89497155879FC00DC57D3 /* Views */,
 				C4A89496155879F600DC57D3 /* Controllers */,
+				BC19D29D1A25FF62002B9944 /* Models */,
 				BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */,
 				BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */,
 				BC2138CF1A24D49B003DD8C4 /* PAPCache.h */,
@@ -643,6 +648,15 @@
 			name = PhotoDetailsViews;
 			sourceTree = "<group>";
 		};
+		BC19D29D1A25FF62002B9944 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC19D29E1A25FF9A002B9944 /* TFPerson.h */,
+				BC19D29F1A25FF9A002B9944 /* TFPerson.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,6 +690,8 @@
 				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
 				BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */,
 				BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */,
+				BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */,
+				BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -764,6 +780,8 @@
 		E7ADD44517BEA09500E975E2 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				059881301A257E64006AD82A /* Crashlytics.framework */,
+				059881311A257E64006AD82A /* Fabric.framework */,
 				BCC0854C1A238C750026C4B6 /* ParseFacebookUtils.framework */,
 				BCC0854A1A238B770026C4B6 /* ParseUI.framework */,
 				BCC085481A238B170026C4B6 /* Parse.framework */,
@@ -836,6 +854,7 @@
 		09ABC06413A1D52D009C3FCF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = TF;
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
 					09ABC06C13A1D52D009C3FCF = {
@@ -1041,9 +1060,11 @@
 				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
 				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
 				E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */,
+				BC19D2A01A25FF9A002B9944 /* TFPerson.m in Sources */,
 				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
 				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
+				BC19D29C1A25FC96002B9944 /* TFInviteFriendsViewController.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,

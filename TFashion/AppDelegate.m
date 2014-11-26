@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #import "Reachability.h"
 #import "MBProgressHUD.h"
 #import "PAPHomeViewController.h"
@@ -78,6 +80,8 @@
     //MARK: Analytics Integration
     [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
     
+    //MARK: Crashlytics
+    [Fabric with:@[CrashlyticsKit]];
     
     //MARK: Initialize window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

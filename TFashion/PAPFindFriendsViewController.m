@@ -12,6 +12,7 @@
 #import "PAPLoadMoreCell.h"
 #import "PAPAccountViewController.h"
 #import "MBProgressHUD.h"
+#import "TFInviteFriendsViewController.h"
 
 typedef enum {
     PAPFindFriendsFollowingNone = 0,    // User isn't following anybody in Friends list
@@ -73,32 +74,30 @@ typedef enum {
         
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitleFindFriends.png"]];
     
-    if ([MFMailComposeViewController canSendMail] || [MFMessageComposeViewController canSendText]) {
-        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
-        [self.headerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]]];
-        UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [clearButton setBackgroundColor:[UIColor clearColor]];
-        [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [clearButton setFrame:self.headerView.frame];
-        [self.headerView addSubview:clearButton];
-        NSString *inviteString = NSLocalizedString(@"Invite friends", @"Invite friends");
-        CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
-                                                         options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                      attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f]}
-                                                         context:nil];
-        CGSize inviteStringSize = boundingRect.size;
-        
-        UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
-        [inviteLabel setText:inviteString];
-        [inviteLabel setFont:[UIFont boldSystemFontOfSize:18]];
-        [inviteLabel setTextColor:[UIColor colorWithRed:87.0f/255.0f green:72.0f/255.0f blue:49.0f/255.0f alpha:1.0]];
-        [inviteLabel setBackgroundColor:[UIColor clearColor]];
-        [self.headerView addSubview:inviteLabel];
-        UIImageView *separatorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SeparatorTimeline.png"]];
-        [separatorImage setFrame:CGRectMake(0, self.headerView.frame.size.height-2, 320, 2)];
-        [self.headerView addSubview:separatorImage];
-        [self.tableView setTableHeaderView:self.headerView];
-    }
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
+    [self.headerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]]];
+    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [clearButton setBackgroundColor:[UIColor clearColor]];
+    [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [clearButton setFrame:self.headerView.frame];
+    [self.headerView addSubview:clearButton];
+    NSString *inviteString = NSLocalizedString(@"Invite friends", @"Invite friends");
+    CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
+                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f]}
+                                                     context:nil];
+    CGSize inviteStringSize = boundingRect.size;
+    
+    UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
+    [inviteLabel setText:inviteString];
+    [inviteLabel setFont:[UIFont boldSystemFontOfSize:18]];
+    [inviteLabel setTextColor:[UIColor colorWithRed:87.0f/255.0f green:72.0f/255.0f blue:49.0f/255.0f alpha:1.0]];
+    [inviteLabel setBackgroundColor:[UIColor clearColor]];
+    [self.headerView addSubview:inviteLabel];
+    UIImageView *separatorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SeparatorTimeline.png"]];
+    [separatorImage setFrame:CGRectMake(0, self.headerView.frame.size.height-2, 320, 2)];
+    [self.headerView addSubview:separatorImage];
+    [self.tableView setTableHeaderView:self.headerView];
 }
 
 
@@ -287,83 +286,6 @@ typedef enum {
     [self shouldToggleFollowFriendForCell:cellView];
 }
 
-
-#pragma mark - ABPeoplePickerDelegate
-
-/* Called when the user cancels the address book view controller. We simply dismiss it. */
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-/* Called when a member of the address book is selected, we return YES to display the member's details. */
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-    return YES;
-}
-
-/* Called when the user selects a property of a person in their address book (ex. phone, email, location,...)
-   This method will allow them to send a text or email inviting them to Anypic.  */
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier {
-
-    if (property == kABPersonEmailProperty) {
-
-        ABMultiValueRef emailProperty = ABRecordCopyValue(person,property);
-        NSString *email = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(emailProperty,identifier);
-        self.selectedEmailAddress = email;
-
-        if ([MFMailComposeViewController canSendMail] && [MFMessageComposeViewController canSendText]) {
-            // ask user
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Invite %@",@""] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"iMessage", nil];
-            [actionSheet showFromTabBar:self.tabBarController.tabBar];
-        } else if ([MFMailComposeViewController canSendMail]) {
-            // go directly to mail
-            [self presentMailComposeViewController:email];
-        } else if ([MFMessageComposeViewController canSendText]) {
-            // go directly to iMessage
-            [self presentMessageComposeViewController:email];
-        }
-
-    } else if (property == kABPersonPhoneProperty) {
-        ABMultiValueRef phoneProperty = ABRecordCopyValue(person,property);
-        NSString *phone = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phoneProperty,identifier);
-        
-        if ([MFMessageComposeViewController canSendText]) {
-            [self presentMessageComposeViewController:phone];
-        }
-    }
-    
-    return NO;
-}
-
-#pragma mark - MFMailComposeDelegate
-
-/* Simply dismiss the MFMailComposeViewController when the user sends an email or cancels */
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark - MFMessageComposeDelegate
-
-/* Simply dismiss the MFMessageComposeViewController when the user sends a text or cancels */
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    }
-
-    if (buttonIndex == 0) {
-        [self presentMailComposeViewController:self.selectedEmailAddress];
-    } else if (buttonIndex == 1) {
-        [self presentMessageComposeViewController:self.selectedEmailAddress];
-    }
-}
-
 #pragma mark - ()
 
 - (void)backButtonAction:(id)sender {
@@ -371,18 +293,9 @@ typedef enum {
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {
-    ABPeoplePickerNavigationController *addressBook = [[ABPeoplePickerNavigationController alloc] init];
-    addressBook.peoplePickerDelegate = self;
-    
-    if ([MFMailComposeViewController canSendMail] && [MFMessageComposeViewController canSendText]) {
-        addressBook.displayedProperties = [NSArray arrayWithObjects:[NSNumber numberWithInt:kABPersonEmailProperty], [NSNumber numberWithInt:kABPersonPhoneProperty], nil];
-    } else if ([MFMailComposeViewController canSendMail]) {
-        addressBook.displayedProperties = [NSArray arrayWithObject:[NSNumber numberWithInt:kABPersonEmailProperty]];
-    } else if ([MFMessageComposeViewController canSendText]) {
-        addressBook.displayedProperties = [NSArray arrayWithObject:[NSNumber numberWithInt:kABPersonPhoneProperty]];
-    }
-
-    [self presentViewController:addressBook animated:YES completion:nil];
+    TFInviteFriendsViewController *inviteVC = [[TFInviteFriendsViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:inviteVC];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)followAllFriendsButtonAction:(id)sender {
@@ -471,38 +384,6 @@ typedef enum {
 
 - (void)configureFollowAllButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStyleBordered target:self action:@selector(followAllFriendsButtonAction:)];
-}
-
-- (void)presentMailComposeViewController:(NSString *)recipient {
-    // Create the compose email view controller
-    MFMailComposeViewController *composeEmailViewController = [[MFMailComposeViewController alloc] init];
-    
-    // Set the recipient to the selected email and a default text
-    [composeEmailViewController setMailComposeDelegate:self];
-    [composeEmailViewController setSubject:@"Join me on Anypic"];
-    [composeEmailViewController setToRecipients:[NSArray arrayWithObjects:recipient, nil]];
-    [composeEmailViewController setMessageBody:@"<h2>Share your pictures, share your story.</h2><p><a href=\"http://anypic.org\">Anypic</a> is the easiest way to share photos with your friends. Get the app and share your fun photos with the world.</p><p><a href=\"http://anypic.org\">Anypic</a> is fully powered by <a href=\"http://parse.com\">Parse</a>.</p>" isHTML:YES];
-    
-    // Dismiss the current modal view controller and display the compose email one.
-    // Note that we do not animate them. Doing so would require us to present the compose
-    // mail one only *after* the address book is dismissed.
-    [self dismissViewControllerAnimated:NO completion:nil];
-    [self presentViewController:composeEmailViewController animated:NO completion:nil];
-}
-
-- (void)presentMessageComposeViewController:(NSString *)recipient {
-    // Create the compose text message view controller
-    MFMessageComposeViewController *composeTextViewController = [[MFMessageComposeViewController alloc] init];
-    
-    // Send the destination phone number and a default text
-    [composeTextViewController setMessageComposeDelegate:self];
-    [composeTextViewController setRecipients:[NSArray arrayWithObjects:recipient, nil]];
-    [composeTextViewController setBody:@"Check out Anypic! http://anypic.org"];
-    
-    // Dismiss the current modal view controller and display the compose text one.
-    // See previous use for reason why these are not animated.
-    [self dismissViewControllerAnimated:NO completion:nil];
-    [self presentViewController:composeTextViewController animated:NO completion:nil];
 }
 
 - (void)followUsersTimerFired:(NSTimer *)timer {
