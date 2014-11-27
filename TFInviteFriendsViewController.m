@@ -203,11 +203,17 @@ ABAddressBookRef addressBook;
     if (addressBook != nil)
     {
         NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+        NSMutableSet *linkedPersonsToSkip = [[NSMutableSet alloc] init];
         
         NSUInteger i = 0;
         for (i = 0; i < [allContacts count]; i++)
         {
             ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+            
+            // skip if contact has already been merged
+            if ([linkedPersonsToSkip containsObject:(__bridge id)(contactPerson)]) {
+                continue;
+            }
             
             TFPerson *person = [[TFPerson alloc] init];
             
@@ -240,6 +246,22 @@ ABAddressBookRef addressBook;
                 [emailsMutable addObject:email];
             }
             person.emails = emailsMutable;
+            
+            //linked accounts
+            NSArray *linked = (__bridge NSArray *) ABPersonCopyArrayOfAllLinkedPeople(contactPerson);
+            if (linked.count > 1) {
+                [linkedPersonsToSkip addObjectsFromArray:linked];
+                
+                // merge linked contact info
+                for (int m = 0; m < [linked count]; m++) {
+                    ABRecordRef iLinkedPerson = (__bridge ABRecordRef)([linked objectAtIndex:m]);
+                    // don't merge the same contact
+                    if (iLinkedPerson == contactPerson) {
+                        continue;
+                    }
+//                    [person mergeInfoFromPersonRef:iLinkedPerson];
+                }
+            }
             
             if (person.fullName.length > 0) {
                 [self.people addObject:person];
