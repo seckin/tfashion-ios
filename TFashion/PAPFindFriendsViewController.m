@@ -72,7 +72,7 @@ typedef enum {
     [texturedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]]];
     self.tableView.backgroundView = texturedBackgroundView;
         
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitleFindFriends.png"]];
+    self.navigationItem.title = @"Find Friends";
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
     [self.headerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]]];

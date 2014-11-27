@@ -71,7 +71,9 @@
             [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
             [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
             [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
-            [self.commentButton setBackgroundImage:[UIImage imageNamed:@"IconComment.png"] forState:UIControlStateNormal];
+            FAKIonIcons *commentIcon = [FAKIonIcons ios7ChatbubbleOutlineIconWithSize:29.0f];
+            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:73.0f/255.0f green:55.0f/255.0f blue:35.0f/255.0f alpha:1.0f]];
+            [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(29.0f, 24.0f)] forState:UIControlStateNormal];
             [self.commentButton setSelected:NO];
         }
         

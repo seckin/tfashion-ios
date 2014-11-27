@@ -42,7 +42,6 @@
                                                                  whiteColor]];
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.frame = CGRectMake( 129.0f, 7.0f, 61.0f, 35.0f);
-    NSLog(@"%f", self.tabBar.bounds.size.height);
     [cameraButton setImage:[cameraIcon imageWithSize:CGSizeMake(30.0f, 30.0f)] forState:UIControlStateNormal];
     [cameraButton setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
     cameraButton.layer.cornerRadius = 5.0f;

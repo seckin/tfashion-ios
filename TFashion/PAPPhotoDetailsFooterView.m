@@ -32,7 +32,9 @@
         mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]];
         [self addSubview:mainView];
         
-        UIImageView *messageIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconAddComment.png"]];
+        FAKIonIcons *addCommentIcon = [FAKIonIcons chatboxWorkingIconWithSize:19];
+        [addCommentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+        UIImageView *messageIcon = [[UIImageView alloc] initWithImage:[addCommentIcon imageWithSize:CGSizeMake(19.0f, 17.0f)]];
         messageIcon.frame = CGRectMake( 9.0f, 17.0f, 19.0f, 17.0f);
         [mainView addSubview:messageIcon];
         
