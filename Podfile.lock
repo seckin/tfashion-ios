@@ -84,6 +84,21 @@ PODS:
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
+  - FontAwesomeKit (2.1.8):
+    - FontAwesomeKit/Core (= 2.1.8)
+    - FontAwesomeKit/FontAwesome (= 2.1.8)
+    - FontAwesomeKit/FoundationIcons (= 2.1.8)
+    - FontAwesomeKit/IonIcons (= 2.1.8)
+    - FontAwesomeKit/Zocial (= 2.1.8)
+  - FontAwesomeKit/Core (2.1.8)
+  - FontAwesomeKit/FontAwesome (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.8):
+    - FontAwesomeKit/Core
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - HexColors (2.2.1)
   - Localytics-AMP (2.71.0)
@@ -106,6 +121,7 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
+  - FontAwesomeKit
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
   - Reachability (~> 3.2)
@@ -119,6 +135,7 @@ SPEC CHECKSUMS:
   Countly: f26a3483a660b5790b2c76e1f91dea4f276b3c33
   CrittercismSDK: 0f3bfca5d5e7b11ba8042a119c7aeb32c034c3aa
   FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
+  FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   Localytics-AMP: 4d158e216541912109b1ae7ca20b153d053d68c5

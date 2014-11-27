@@ -19,5 +19,7 @@
     #import "PAPCache.h"
     #import "PAPConstants.h"
     #import "PAPUtility.h"
+    #import <FontAwesomeKit/FontAwesomeKit.h>
+    #import <TSMessages/TSMessage.h>
 #endif
 

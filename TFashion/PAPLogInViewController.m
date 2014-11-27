@@ -35,7 +35,7 @@
     [textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [textLabel setNumberOfLines:0];
     [textLabel setText:text];
-    [textLabel setTextColor:[UIColor colorWithRed:214.0f/255.0f green:206.0f/255.0f blue:191.0f/255.0f alpha:1.0f]];
+    [textLabel setTextColor:[UIColor whiteColor]];
     [textLabel setBackgroundColor:[UIColor clearColor]];
     [textLabel setTextAlignment:NSTextAlignmentCenter];
 

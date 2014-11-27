@@ -8,7 +8,6 @@
 
 #import "TFInviteFriendsViewController.h"
 #import "TFPerson.h"
-#import <TSMessages/TSMessage.h>
 
 NSString *const kDeniedTitle = @"Access to address book is denied";
 NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";

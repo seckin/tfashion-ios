@@ -21,17 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[self tabBar] setBackgroundImage:[UIImage imageNamed:@"BackgroundTabBar.png"]];
-//    [[self tabBar] setSelectionIndicatorImage:[UIImage imageNamed:@"BackgroundTabBarItemSelected.png"]];
-    self.tabBar.tintColor = [UIColor colorWithRed:139.0f/255.0f green:111.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+    [[self tabBar] setBarTintColor:[UIColor whiteColor]];
+    self.tabBar.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]];
     
-    /*
-     // iOS 7 style
-     self.tabBar.tintColor = [UIColor colorWithRed:139.0f/255.0f green:111.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-     self.tabBar.barTintColor = [UIColor colorWithRed:77.0f/255.0f green:49.0f/255.0f blue:37.0f/255.0f alpha:1.0f];
-     */
     self.navController = [[UINavigationController alloc] init];
-    [PAPUtility addBottomDropShadowToNavigationBarForNavigationController:self.navController];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -44,10 +37,15 @@
 - (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
     [super setViewControllers:viewControllers animated:animated];
     
+    FAKIonIcons *cameraIcon = [FAKIonIcons ios7CameraIconWithSize:30.0f];
+    [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
+                                                                 whiteColor]];
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cameraButton.frame = CGRectMake( 94.0f, 0.0f, 131.0f, self.tabBar.bounds.size.height);
-    [cameraButton setImage:[UIImage imageNamed:@"ButtonCamera.png"] forState:UIControlStateNormal];
-    [cameraButton setImage:[UIImage imageNamed:@"ButtonCameraSelected.png"] forState:UIControlStateHighlighted];
+    cameraButton.frame = CGRectMake( 129.0f, 7.0f, 61.0f, 35.0f);
+    NSLog(@"%f", self.tabBar.bounds.size.height);
+    [cameraButton setImage:[cameraIcon imageWithSize:CGSizeMake(30.0f, 30.0f)] forState:UIControlStateNormal];
+    [cameraButton setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+    cameraButton.layer.cornerRadius = 5.0f;
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.tabBar addSubview:cameraButton];
     

@@ -93,8 +93,12 @@
             [[self.likeButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
             [self.likeButton setAdjustsImageWhenHighlighted:NO];
             [self.likeButton setAdjustsImageWhenDisabled:NO];
-            [self.likeButton setBackgroundImage:[UIImage imageNamed:@"ButtonLike.png"] forState:UIControlStateNormal];
-            [self.likeButton setBackgroundImage:[UIImage imageNamed:@"ButtonLikeSelected.png"] forState:UIControlStateSelected];
+            FAKIonIcons *likeIcon = [FAKIonIcons ios7HeartOutlineIconWithSize:29.0f];
+            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:73.0f/255.0f green:55.0f/255.0f blue:35.0f/255.0f alpha:1.0f]];
+            [likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateNormal];
+            FAKIonIcons *likeIconSelected = [FAKIonIcons ios7HeartIconWithSize:29.0f];
+            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+            [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
             [self.likeButton setSelected:NO];
         }
         
