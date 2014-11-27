@@ -251,16 +251,6 @@ ABAddressBookRef addressBook;
             NSArray *linked = (__bridge NSArray *) ABPersonCopyArrayOfAllLinkedPeople(contactPerson);
             if (linked.count > 1) {
                 [linkedPersonsToSkip addObjectsFromArray:linked];
-                
-                // merge linked contact info
-                for (int m = 0; m < [linked count]; m++) {
-                    ABRecordRef iLinkedPerson = (__bridge ABRecordRef)([linked objectAtIndex:m]);
-                    // don't merge the same contact
-                    if (iLinkedPerson == contactPerson) {
-                        continue;
-                    }
-//                    [person mergeInfoFromPersonRef:iLinkedPerson];
-                }
             }
             
             if (person.fullName.length > 0) {
