@@ -64,7 +64,7 @@
             [self.commentButton setFrame:CGRectMake( 242.0f, 10.0f, 29.0f, 28.0f)];
             [self.commentButton setBackgroundColor:[UIColor clearColor]];
             [self.commentButton setTitle:@"" forState:UIControlStateNormal];
-            [self.commentButton setTitleColor:[UIColor colorWithRed:0.369f green:0.271f blue:0.176f alpha:1.0f] forState:UIControlStateNormal];
+            [self.commentButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [self.commentButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];
             [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( -4.0f, 0.0f, 0.0f, 0.0f)];
             [[self.commentButton titleLabel] setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
@@ -72,7 +72,7 @@
             [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
             [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
             FAKIonIcons *commentIcon = [FAKIonIcons ios7ChatbubbleOutlineIconWithSize:29.0f];
-            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:73.0f/255.0f green:55.0f/255.0f blue:35.0f/255.0f alpha:1.0f]];
+            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
             [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(29.0f, 24.0f)] forState:UIControlStateNormal];
             [self.commentButton setSelected:NO];
         }
@@ -84,7 +84,7 @@
             [self.likeButton setFrame:CGRectMake(206.0f, 8.0f, 29.0f, 29.0f)];
             [self.likeButton setBackgroundColor:[UIColor clearColor]];
             [self.likeButton setTitle:@"" forState:UIControlStateNormal];
-            [self.likeButton setTitleColor:[UIColor colorWithRed:0.369f green:0.271f blue:0.176f alpha:1.0f] forState:UIControlStateNormal];
+            [self.likeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
             [self.likeButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];
             [self.likeButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.750f] forState:UIControlStateSelected];
@@ -96,10 +96,10 @@
             [self.likeButton setAdjustsImageWhenHighlighted:NO];
             [self.likeButton setAdjustsImageWhenDisabled:NO];
             FAKIonIcons *likeIcon = [FAKIonIcons ios7HeartOutlineIconWithSize:29.0f];
-            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:73.0f/255.0f green:55.0f/255.0f blue:35.0f/255.0f alpha:1.0f]];
+            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
             [likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateNormal];
             FAKIonIcons *likeIconSelected = [FAKIonIcons ios7HeartIconWithSize:29.0f];
-            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
             [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
             [self.likeButton setSelected:NO];
         }
@@ -110,8 +110,8 @@
             [containerView addSubview:self.userButton];
             [self.userButton setBackgroundColor:[UIColor clearColor]];
             [[self.userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
-            [self.userButton setTitleColor:[UIColor colorWithRed:73.0f/255.0f green:55.0f/255.0f blue:35.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-            [self.userButton setTitleColor:[UIColor colorWithRed:134.0f/255.0f green:100.0f/255.0f blue:65.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+            [self.userButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [self.userButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [[self.userButton titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
             [[self.userButton titleLabel] setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
             [self.userButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];

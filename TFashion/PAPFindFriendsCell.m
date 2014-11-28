@@ -32,7 +32,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 
         self.avatarImageView = [[PAPProfileImageView alloc] init];
@@ -50,9 +49,9 @@
         self.nameButton.backgroundColor = [UIColor clearColor];
         self.nameButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
         self.nameButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [self.nameButton setTitleColor:[UIColor colorWithRed:87.0f/255.0f green:72.0f/255.0f blue:49.0f/255.0f alpha:1.0f]
+        [self.nameButton setTitleColor:[UIColor darkGrayColor]
                               forState:UIControlStateNormal];
-        [self.nameButton setTitleColor:[UIColor colorWithRed:134.0f/255.0f green:100.0f/255.0f blue:65.0f/255.0f alpha:1.0f]
+        [self.nameButton setTitleColor:[UIColor lightGrayColor]
                               forState:UIControlStateHighlighted];
         [self.nameButton setTitleShadowColor:[UIColor whiteColor]
                                     forState:UIControlStateNormal];
@@ -76,25 +75,30 @@
         self.followButton.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 0.0f);
         [self.followButton setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"]
                                      forState:UIControlStateNormal];
-        [self.followButton setBackgroundImage:[UIImage imageNamed:@"ButtonFollowing.png"]
+        [self.followButton setBackgroundImage:[UIImage imageNamed:@"BackgroundTabBar"]
                                      forState:UIControlStateSelected];
-        [self.followButton setImage:[UIImage imageNamed:@"IconTick.png"]
+        FAKFoundationIcons *plusIcon = [FAKFoundationIcons plusIconWithSize:15.0f];
+        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+        [self.followButton setImage:[plusIcon imageWithSize:CGSizeMake(15.0f, 15.0f)] forState:UIControlStateNormal];
+        FAKFoundationIcons *checkIcon = [FAKFoundationIcons checkIconWithSize:15.0f];
+        [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        [self.followButton setImage:[checkIcon imageWithSize:CGSizeMake(15.0f, 15.0f)]
                            forState:UIControlStateSelected];
         [self.followButton setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering")
                            forState:UIControlStateNormal];
         [self.followButton setTitle:@"Following"
                            forState:UIControlStateSelected];
-        [self.followButton setTitleColor:[UIColor colorWithRed:84.0f/255.0f green:57.0f/255.0f blue:45.0f/255.0f alpha:1.0f]
+        [self.followButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]
                                 forState:UIControlStateNormal];
         [self.followButton setTitleColor:[UIColor whiteColor]
                                 forState:UIControlStateSelected];
-        [self.followButton setTitleShadowColor:[UIColor colorWithRed:232.0f/255.0f green:203.0f/255.0f blue:168.0f/255.0f alpha:1.0f]
-                                      forState:UIControlStateNormal];
-        [self.followButton setTitleShadowColor:[UIColor blackColor]
-                                      forState:UIControlStateSelected];
-        self.followButton.titleLabel.shadowOffset = CGSizeMake( 0.0f, -1.0f);
         [self.followButton addTarget:self action:@selector(didTapFollowButtonAction:)
                     forControlEvents:UIControlEventTouchUpInside];
+        
+        self.followButton.clipsToBounds = YES;
+        self.followButton.layer.cornerRadius = 5.0f;
+        self.followButton.layer.borderWidth = 1.0f;
+        self.followButton.layer.borderColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]].CGColor;
         [self.contentView addSubview:self.followButton];
     }
     return self;

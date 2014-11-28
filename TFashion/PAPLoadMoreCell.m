@@ -39,7 +39,9 @@
         mainView = [[UIView alloc] initWithFrame:self.contentView.frame];
         [mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
         
-        self.loadMoreImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellLoadMore.png"]];
+        FAKIonIcons *loadMoreIcon = [FAKIonIcons ios7MoreIconWithSize:31.0f];
+        [loadMoreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
+        self.loadMoreImageView = [[UIImageView alloc] initWithImage:[loadMoreIcon imageWithSize:CGSizeMake(31.0f, 31.0f)]];
         [mainView addSubview:self.loadMoreImageView];
         
         self.separatorImageTop = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake( 0.0f, 1.0f, 0.0f, 1.0f)]];
@@ -61,7 +63,7 @@
     [mainView setFrame:CGRectMake( self.cellInsetWidth, self.contentView.frame.origin.y, self.contentView.frame.size.width-2*self.cellInsetWidth, self.contentView.frame.size.height)];
     
     // Layout load more text
-    [self.loadMoreImageView setFrame:CGRectMake( -self.cellInsetWidth, -2.0f, 320.0f, 31.0f)];
+    [self.loadMoreImageView setFrame:CGRectMake(144.5f, 10.0f, 31.0f, 31.0f)];
 
     // Layout separator
     [self.separatorImageBottom setFrame:CGRectMake( 0.0f, self.frame.size.height - 2.0f, self.frame.size.width-self.cellInsetWidth * 2.0f, 2.0f)];

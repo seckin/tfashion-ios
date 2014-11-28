@@ -67,15 +67,10 @@ typedef enum {
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [texturedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]]];
-    self.tableView.backgroundView = texturedBackgroundView;
-        
+    
     self.navigationItem.title = @"Find Friends";
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
-    [self.headerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]]];
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clearButton setBackgroundColor:[UIColor clearColor]];
     [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,7 +86,7 @@ typedef enum {
     UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
     [inviteLabel setText:inviteString];
     [inviteLabel setFont:[UIFont boldSystemFontOfSize:18]];
-    [inviteLabel setTextColor:[UIColor colorWithRed:87.0f/255.0f green:72.0f/255.0f blue:49.0f/255.0f alpha:1.0]];
+    [inviteLabel setTextColor:[UIColor darkGrayColor]];
     [inviteLabel setBackgroundColor:[UIColor clearColor]];
     [self.headerView addSubview:inviteLabel];
     UIImageView *separatorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SeparatorTimeline.png"]];
@@ -262,7 +257,6 @@ typedef enum {
     
     if (cell == nil) {
         cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];
-        [cell.mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundFindFriendsCell.png"]]];
         cell.hideSeparatorBottom = YES;
         cell.hideSeparatorTop = YES;
     }

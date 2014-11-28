@@ -35,8 +35,23 @@
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake( 33.0f, 96.0f, 253.0f, 173.0f);
-    [button setBackgroundImage:[UIImage imageNamed:@"HomeTimelineBlank.png"] forState:UIControlStateNormal];
+    NSDictionary *lightAttributes = @{NSForegroundColorAttributeName: [UIColor lightGrayColor] };
+    NSDictionary *darkAttributes = @{ NSForegroundColorAttributeName: [UIColor darkGrayColor] };
+    NSDictionary *underlineAttributes = @{ NSUnderlineStyleAttributeName: @1 };
+    
+    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"You don't have any\n friends on TFashion yet.\n\nInvite Friends"];
+    [buttonTitle setAttributes:underlineAttributes range:NSMakeRange(44, 16)];
+    NSMutableAttributedString *buttonTitleHighlighted = [[NSMutableAttributedString alloc] initWithAttributedString:buttonTitle];
+    [buttonTitle addAttributes:darkAttributes range:NSMakeRange(0, 60)];
+    [buttonTitleHighlighted addAttributes:lightAttributes range:NSMakeRange(0, 60)];
+    
+    [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
+    [button setAttributedTitle:buttonTitleHighlighted forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
+    [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [button.titleLabel setNumberOfLines:0];
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [button setFrame:CGRectMake(24.0f, 133.0f, 271.0f, 140.0f)];
     [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.blankTimelineView addSubview:button];
 }

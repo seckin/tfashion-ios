@@ -35,13 +35,8 @@
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 222.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
-    
-    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [texturedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]]];
-    self.tableView.backgroundView = texturedBackgroundView;
 
     UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
-    [profilePictureBackgroundView setBackgroundColor:[UIColor darkGrayColor]];
     profilePictureBackgroundView.alpha = 0.0f;
     CALayer *layer = [profilePictureBackgroundView layer];
     layer.cornerRadius = 10.0f;
@@ -55,11 +50,6 @@
     layer.cornerRadius = 10.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 0.0f;
-    UIImageView *profilePictureStrokeImageView = [[UIImageView alloc] initWithFrame:CGRectMake( 88.0f, 34.0f, 143.0f, 143.0f)];
-    profilePictureStrokeImageView.alpha = 0.0f;
-    [profilePictureStrokeImageView setImage:[UIImage imageNamed:@"ProfilePictureStroke.png"]];
-    [self.headerView addSubview:profilePictureStrokeImageView];
-
     
     PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
     if (imageFile) {
@@ -68,7 +58,6 @@
             if (!error) {
                 [UIView animateWithDuration:0.2f animations:^{
                     profilePictureBackgroundView.alpha = 1.0f;
-                    profilePictureStrokeImageView.alpha = 1.0f;
                     profilePictureImageView.alpha = 1.0f;
                 }];
                 
@@ -85,48 +74,44 @@
     }
     
     UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
-    [photoCountIconImageView setImage:[UIImage imageNamed:@"IconPics.png"]];
+    FAKIonIcons *iconImages = [FAKIonIcons imagesIconWithSize:45.0f];
+    [iconImages addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
+    [photoCountIconImageView setImage:[iconImages imageWithSize:CGSizeMake(45.0f, 37.0f)]];
     [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
     [self.headerView addSubview:photoCountIconImageView];
     
     UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
-    [photoCountLabel setTextColor:[UIColor whiteColor]];
-    [photoCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [photoCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [photoCountLabel setTextColor:[UIColor colorWithRed:87.0f/255.0f green:72.0f/255.0f blue:49.0f/255.0f alpha:1.0f]];
     [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
     [self.headerView addSubview:photoCountLabel];
     
     UIImageView *followersIconImageView = [[UIImageView alloc] initWithImage:nil];
-    [followersIconImageView setImage:[UIImage imageNamed:@"IconFollowers.png"]];
+    FAKIonIcons *followersIcon = [FAKIonIcons ios7PeopleIconWithSize:52.0f];
+    [followersIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
+    [followersIconImageView setImage:[followersIcon imageWithSize:CGSizeMake(52.0f, 37.0f)]];
     [followersIconImageView setFrame:CGRectMake( 247.0f, 50.0f, 52.0f, 37.0f)];
     [self.headerView addSubview:followersIconImageView];
     
     UILabel *followerCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followerCountLabel setTextAlignment:NSTextAlignmentCenter];
     [followerCountLabel setBackgroundColor:[UIColor clearColor]];
-    [followerCountLabel setTextColor:[UIColor whiteColor]];
-    [followerCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [followerCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [followerCountLabel setTextColor:[UIColor darkGrayColor]];
     [followerCountLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:followerCountLabel];
     
     UILabel *followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followingCountLabel setTextAlignment:NSTextAlignmentCenter];
     [followingCountLabel setBackgroundColor:[UIColor clearColor]];
-    [followingCountLabel setTextColor:[UIColor whiteColor]];
-    [followingCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [followingCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [followingCountLabel setTextColor:[UIColor darkGrayColor]];
     [followingCountLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:followingCountLabel];
     
     UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
-    [userDisplayNameLabel setTextColor:[UIColor whiteColor]];
-    [userDisplayNameLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [userDisplayNameLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [userDisplayNameLabel setTextColor:[UIColor darkGrayColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
     [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [self.headerView addSubview:userDisplayNameLabel];

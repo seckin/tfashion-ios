@@ -74,11 +74,6 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     
-    // Set table view properties
-    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    texturedBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]];
-    self.tableView.backgroundView = texturedBackgroundView;
-    
     // Set table header
     self.headerView = [[PAPPhotoDetailsHeaderView alloc] initWithFrame:[PAPPhotoDetailsHeaderView rectForView] photo:self.photo];
     self.headerView.delegate = self;

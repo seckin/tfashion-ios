@@ -62,10 +62,6 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [super viewDidLoad];
-    
-    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [texturedBackgroundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]]];
-    self.tableView.backgroundView = texturedBackgroundView;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
@@ -77,8 +73,24 @@
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[UIImage imageNamed:@"ActivityFeedBlank.png"] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(24.0f, 113.0f, 271.0f, 140.0f)];
+
+    NSDictionary *lightAttributes = @{NSForegroundColorAttributeName: [UIColor lightGrayColor] };
+    NSDictionary *darkAttributes = @{ NSForegroundColorAttributeName: [UIColor darkGrayColor] };
+    NSDictionary *underlineAttributes = @{ NSUnderlineStyleAttributeName: @1 };
+    
+    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"Your activity timeline\n is currently empty.\n\nInvite Friends"];
+    [buttonTitle setAttributes:underlineAttributes range:NSMakeRange(44, 15)];
+    NSMutableAttributedString *buttonTitleHighlighted = [[NSMutableAttributedString alloc] initWithAttributedString:buttonTitle];
+    [buttonTitle addAttributes:darkAttributes range:NSMakeRange(0, 59)];
+    [buttonTitleHighlighted addAttributes:lightAttributes range:NSMakeRange(0, 59)];
+    
+    [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
+    [button setAttributedTitle:buttonTitleHighlighted forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
+    [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [button.titleLabel setNumberOfLines:0];
+    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [button setFrame:CGRectMake(24.0f, 133.0f, 271.0f, 140.0f)];
     [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.blankTimelineView addSubview:button];
 
