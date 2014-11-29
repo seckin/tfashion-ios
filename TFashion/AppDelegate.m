@@ -82,6 +82,7 @@
     
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
+    [Crashlytics startWithAPIKey:@"db1cd5c518c501e7dcaccc07c3560dd4797ec9d3"];
     
     //MARK: Initialize window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
