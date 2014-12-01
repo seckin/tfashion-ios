@@ -570,7 +570,7 @@
             [user saveEventually];
             
             //MARK: Identify who current user is for Analytics
-            [[SEGAnalytics sharedAnalytics] identify:@"f4ca124298"
+            [[SEGAnalytics sharedAnalytics] identify:user.objectId
                                               traits:@{ @"username": user.username,
                                                         @"email": user.email }];
             
