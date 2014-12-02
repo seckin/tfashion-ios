@@ -33,6 +33,8 @@ ABAddressBookRef addressBook;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Invite Friends";
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(actionSend:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(actionCancel:)];
     

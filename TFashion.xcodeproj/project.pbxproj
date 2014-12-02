@@ -22,6 +22,7 @@
 		74B108A7156D7509005B421C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A6156D7509005B421C /* AddressBookUI.framework */; };
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
+		BC139CDC1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */; };
 		BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC18BDC81A246F970092A384 /* CoreData.framework */; };
 		BC19D29C1A25FC96002B9944 /* TFInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */; };
 		BC19D2A01A25FF9A002B9944 /* TFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29F1A25FF9A002B9944 /* TFPerson.m */; };
@@ -97,6 +98,8 @@
 		74B108A8156D7510005B421C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
+		BC139CDA1A2DCC8700F1F3E5 /* TFShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFShareSettingsViewController.h; sourceTree = "<group>"; };
+		BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFShareSettingsViewController.m; sourceTree = "<group>"; };
 		BC18BDC81A246F970092A384 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFInviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
 		BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFInviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
@@ -412,6 +415,8 @@
 				BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */,
 				BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */,
 				BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */,
+				BC139CDA1A2DCC8700F1F3E5 /* TFShareSettingsViewController.h */,
+				BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -682,6 +687,7 @@
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
+				BC139CDC1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
