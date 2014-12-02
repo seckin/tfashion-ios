@@ -14,7 +14,11 @@ NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";
 NSString *const kRestrictedMessage = @"Access to address book is restricted";
 NSString *const kNotGrantedMessage = @"Access to address book is not granted";
 
-@interface TFInviteFriendsViewController ()
+@interface TFInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+{
+    UISearchBar *searchBar;
+    UISearchDisplayController *searchDisplayController;
+}
 
 @property (nonatomic, strong) NSArray *tableData;
 @property (nonatomic, strong) NSArray *searchResults;
@@ -29,14 +33,23 @@ ABAddressBookRef addressBook;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Invite Friends";
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(actionSend:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(actionCancel:)];
     
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
     self.tableView.editing = YES;
     
-    self.searchDisplayController.searchResultsTableView.allowsMultipleSelectionDuringEditing = YES;
-    self.searchDisplayController.searchResultsTableView.editing = YES;
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    searchDisplayController.delegate = self;
+    searchDisplayController.searchResultsDataSource = self;
+    searchDisplayController.searchResultsDelegate = self;
+    searchDisplayController.searchResultsTableView.allowsMultipleSelectionDuringEditing = YES;
+    searchDisplayController.searchResultsTableView.editing = YES;
+    
+    self.tableView.tableHeaderView = searchBar;
     
     [self addressBookAuthorization];
 }
@@ -65,9 +78,15 @@ ABAddressBookRef addressBook;
 
 #pragma mark - Private
 
-- (void)updateSelectionButtons
+- (void)updateSelectionButtons:(UITableView *)tableView forSelectedRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    if (tableView == searchDisplayController.searchResultsTableView){
+        TFPerson *person = [self.searchResults objectAtIndex:indexPath.row];
+        NSUInteger indexOfPerson = [self.tableData indexOfObject:person];
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:indexOfPerson inSection:indexPath.section] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    
+    NSArray *selectedRows = [tableView indexPathsForSelectedRows];
     
     if (selectedRows.count != 0) {
         //TODO: Count
@@ -87,7 +106,7 @@ ABAddressBookRef addressBook;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView == searchDisplayController.searchResultsTableView) {
         return [self.searchResults count];
     } else {
         return [self.tableData count];
@@ -96,12 +115,12 @@ ABAddressBookRef addressBook;
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self updateSelectionButtons];
+    [self updateSelectionButtons:tableView forSelectedRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self updateSelectionButtons];
+    [self updateSelectionButtons:tableView forSelectedRowAtIndexPath:indexPath];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +133,7 @@ ABAddressBookRef addressBook;
     }
     
     TFPerson *person;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView == searchDisplayController.searchResultsTableView) {
         person = [self.searchResults objectAtIndex:indexPath.row];
         
         // secilen kisilerin search tablosunda da secili gelmesi icin
@@ -126,7 +145,7 @@ ABAddressBookRef addressBook;
         NSArray *selectedPeople = [_tableData objectsAtIndexes:selectedIndexSet];
         
         if ([selectedPeople containsObject:person]) {
-            [self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:indexPath
+            [searchDisplayController.searchResultsTableView selectRowAtIndexPath:indexPath
                                                                              animated:NO
                                                                        scrollPosition:UITableViewScrollPositionNone];
         }
@@ -144,8 +163,8 @@ ABAddressBookRef addressBook;
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterContentForSearchText:searchString
-                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
-                                      objectAtIndex:[self.searchDisplayController.searchBar
+                               scope:[[searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[searchDisplayController.searchBar
                                                      selectedScopeButtonIndex]]];
     
     return YES;

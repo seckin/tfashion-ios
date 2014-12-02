@@ -9,12 +9,14 @@
 #import "PAPSettingsActionSheetDelegate.h"
 #import "PAPFindFriendsViewController.h"
 #import "PAPAccountViewController.h"
+#import "TFShareSettingsViewController.h"
 #import "AppDelegate.h"
 
 // ActionSheet button indexes
 typedef enum {
 	kPAPSettingsProfile = 0,
 	kPAPSettingsFindFriends,
+    kPAPSettingsShare,
 	kPAPSettingsLogout,
     kPAPSettingsNumberOfButtons
 } kPAPSettingsActionSheetButtons;
@@ -58,6 +60,12 @@ typedef enum {
         {
             PAPFindFriendsViewController *findFriendsVC = [[PAPFindFriendsViewController alloc] init];
             [navController pushViewController:findFriendsVC animated:YES];
+            break;
+        }
+        case kPAPSettingsShare:
+        {
+            TFShareSettingsViewController *shareSettingsVC = [[TFShareSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [navController pushViewController:shareSettingsVC animated:YES];
             break;
         }
         case kPAPSettingsLogout:
