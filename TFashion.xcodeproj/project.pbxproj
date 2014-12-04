@@ -22,10 +22,13 @@
 		74B108A7156D7509005B421C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A6156D7509005B421C /* AddressBookUI.framework */; };
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
+		BC09CAD01A309098001F8DC8 /* TFInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CACF1A309098001F8DC8 /* TFInviteFriendsViewController.m */; };
+		BC09CAD31A3090AA001F8DC8 /* TFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* TFPerson.m */; };
+		BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */; };
+		BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE91A309456001F8DC8 /* Info.plist */; };
+		BC09CAED1A309456001F8DC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAEA1A309456001F8DC8 /* main.m */; };
 		BC139CDC1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */; };
 		BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC18BDC81A246F970092A384 /* CoreData.framework */; };
-		BC19D29C1A25FC96002B9944 /* TFInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */; };
-		BC19D2A01A25FF9A002B9944 /* TFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC19D29F1A25FF9A002B9944 /* TFPerson.m */; };
 		BC19D2A71A278686002B9944 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC19D2A61A278686002B9944 /* Images.xcassets */; };
 		BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */; };
 		BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D01A24D49B003DD8C4 /* PAPCache.m */; };
@@ -58,7 +61,6 @@
 		BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */; };
 		BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */; };
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
-		BC54067A1A24E10E00CB0AC6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
@@ -70,7 +72,6 @@
 		C4C9B94816B877AE00BB2862 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94616B877AE00BB2862 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4C9B94916B877AE00BB2862 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94716B877AE00BB2862 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4CD219915ED790500BC387F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD219815ED790500BC387F /* libsqlite3.dylib */; };
-		C4F102EF156C58E00061BC3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F102EC156C58E00061BC3E /* main.m */; };
 		E53E07243D0490596262872E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64CAF6CE3BD4380359BBD /* libPods.a */; };
 		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
 		E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */; };
@@ -98,13 +99,17 @@
 		74B108A8156D7510005B421C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
+		BC09CACE1A309098001F8DC8 /* TFInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFInviteFriendsViewController.h; sourceTree = "<group>"; };
+		BC09CACF1A309098001F8DC8 /* TFInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFInviteFriendsViewController.m; sourceTree = "<group>"; };
+		BC09CAD11A3090AA001F8DC8 /* TFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFPerson.h; sourceTree = "<group>"; };
+		BC09CAD21A3090AA001F8DC8 /* TFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPerson.m; sourceTree = "<group>"; };
+		BC09CAE21A3091E5001F8DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BC09CAE91A309456001F8DC8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC09CAEA1A309456001F8DC8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC09CAEB1A309456001F8DC8 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		BC139CDA1A2DCC8700F1F3E5 /* TFShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFShareSettingsViewController.h; sourceTree = "<group>"; };
 		BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFShareSettingsViewController.m; sourceTree = "<group>"; };
 		BC18BDC81A246F970092A384 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFInviteFriendsViewController.h; sourceTree = SOURCE_ROOT; };
-		BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFInviteFriendsViewController.m; sourceTree = SOURCE_ROOT; };
-		BC19D29E1A25FF9A002B9944 /* TFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFPerson.h; sourceTree = SOURCE_ROOT; };
-		BC19D29F1A25FF9A002B9944 /* TFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPerson.m; sourceTree = SOURCE_ROOT; };
 		BC19D2A61A278686002B9944 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TFashion/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TFashion/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TFashion/AppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -167,7 +172,6 @@
 		BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCornerAdditions.m"; path = "TFashion/UIImage+RoundedCornerAdditions.m"; sourceTree = SOURCE_ROOT; };
 		BC54066C1A24DE7300CB0AC6 /* PAPPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoHeaderView.h; path = TFashion/PAPPhotoHeaderView.h; sourceTree = SOURCE_ROOT; };
 		BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = TFashion/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
-		BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -180,9 +184,6 @@
 		C4C9B94616B877AE00BB2862 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C4C9B94716B877AE00BB2862 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		C4CD219815ED790500BC387F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		C4F102EB156C58E00061BC3E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		C4F102EC156C58E00061BC3E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
-		C4F102ED156C58E00061BC3E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = SOURCE_ROOT; };
 		E6F64CAF6CE3BD4380359BBD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ADD4BC17BEA09500E975E2 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -308,11 +309,11 @@
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4F102EB156C58E00061BC3E /* Info.plist */,
-				C4F102EC156C58E00061BC3E /* main.m */,
-				C4F102ED156C58E00061BC3E /* Prefix.pch */,
+				BC09CAE91A309456001F8DC8 /* Info.plist */,
+				BC09CAEA1A309456001F8DC8 /* main.m */,
+				BC09CAEB1A309456001F8DC8 /* Prefix.pch */,
+				BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */,
 				BC21390E1A24D788003DD8C4 /* Entitlements.plist */,
-				BC5406791A24E10E00CB0AC6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -374,8 +375,8 @@
 		BC19D29D1A25FF62002B9944 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BC19D29E1A25FF9A002B9944 /* TFPerson.h */,
-				BC19D29F1A25FF9A002B9944 /* TFPerson.m */,
+				BC09CAD11A3090AA001F8DC8 /* TFPerson.h */,
+				BC09CAD21A3090AA001F8DC8 /* TFPerson.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -413,8 +414,8 @@
 				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
 				BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */,
 				BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */,
-				BC19D29A1A25FC96002B9944 /* TFInviteFriendsViewController.h */,
-				BC19D29B1A25FC96002B9944 /* TFInviteFriendsViewController.m */,
+				BC09CACE1A309098001F8DC8 /* TFInviteFriendsViewController.h */,
+				BC09CACF1A309098001F8DC8 /* TFInviteFriendsViewController.m */,
 				BC139CDA1A2DCC8700F1F3E5 /* TFShareSettingsViewController.h */,
 				BC139CDB1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m */,
 			);
@@ -595,8 +596,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC54067A1A24E10E00CB0AC6 /* InfoPlist.strings in Resources */,
+				BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */,
 				BC19D2A71A278686002B9944 /* Images.xcassets in Resources */,
+				BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */,
 				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,11 +678,10 @@
 				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
 				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
 				E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */,
-				BC19D2A01A25FF9A002B9944 /* TFPerson.m in Sources */,
 				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
 				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
+				BC09CAD31A3090AA001F8DC8 /* TFPerson.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
-				BC19D29C1A25FC96002B9944 /* TFInviteFriendsViewController.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
@@ -690,12 +691,12 @@
 				BC139CDC1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
+				BC09CAD01A309098001F8DC8 /* TFInviteFriendsViewController.m in Sources */,
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
 				BC2138E11A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m in Sources */,
 				BC21392F1A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
-				C4F102EF156C58E00061BC3E /* main.m in Sources */,
 				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
 				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
@@ -703,11 +704,23 @@
 				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
+				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC09CAE21A3091E5001F8DC8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		09ABC08C13A1D52E009C3FCF /* Debug */ = {
