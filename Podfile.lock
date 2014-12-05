@@ -129,10 +129,17 @@ PODS:
   - SimpleAuth/Core (0.3.6):
     - CMDQueryStringSerialization
     - ReactiveCocoa
+  - SimpleAuth/FacebookWeb (0.3.6):
+    - SimpleAuth/Core
+    - SimpleAuth/UI
   - SimpleAuth/Instagram (0.3.6):
     - SimpleAuth/Core
     - SimpleAuth/UI
   - SimpleAuth/Tumblr (0.3.6):
+    - cocoa-oauth
+    - SimpleAuth/Core
+    - SimpleAuth/UI
+  - SimpleAuth/TwitterWeb (0.3.6):
     - cocoa-oauth
     - SimpleAuth/Core
     - SimpleAuth/UI
@@ -153,8 +160,10 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
   - Reachability (~> 3.2)
+  - SimpleAuth/FacebookWeb
   - SimpleAuth/Instagram
   - SimpleAuth/Tumblr
+  - SimpleAuth/TwitterWeb
   - SocialAccounts
   - TSMessages
 
