@@ -153,6 +153,7 @@ PODS:
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - TSMessages (0.9.11):
     - HexColors
+  - TTTAttributedLabel (1.12.0)
 
 DEPENDENCIES:
   - Analytics
@@ -166,6 +167,7 @@ DEPENDENCIES:
   - SimpleAuth/TwitterWeb
   - SocialAccounts
   - TSMessages
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   Amplitude-iOS: e72b65479dc035ef671a57e34e1a981767224318
@@ -198,5 +200,6 @@ SPEC CHECKSUMS:
   TestFlightSDK: 0c24c533748d0d84bfe7a3cb6036fa79124d84ee
   TRVSDictionaryWithCaseInsensitivity: a61daa8469fa079e05b694f6aad5441785c837d1
   TSMessages: e21ef5b1c7518cc590a4826c8b05b16b79b10c2c
+  TTTAttributedLabel: 9825f9b6c8f1c01939fa26827e59b7586483a45b
 
 COCOAPODS: 0.35.0

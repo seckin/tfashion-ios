@@ -8,8 +8,10 @@
 
 #import "PAPPhotoDetailsHeaderView.h"
 #import "PAPBaseTextCell.h"
+#import "MPGTextField.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 
-@interface PAPPhotoDetailsViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate, PAPPhotoDetailsHeaderViewDelegate, PAPBaseTextCellDelegate>
+@interface PAPPhotoDetailsViewController : PFQueryTableViewController <UITextFieldDelegate, UIActionSheetDelegate, PAPPhotoDetailsHeaderViewDelegate, PAPBaseTextCellDelegate, MPGTextFieldDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) PFObject *photo;
 

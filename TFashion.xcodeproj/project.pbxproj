@@ -61,6 +61,7 @@
 		BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */; };
 		BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */; };
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
+		BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BDA841A35A28300B6B875 /* MPGTextField.m */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
@@ -172,6 +173,8 @@
 		BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCornerAdditions.m"; path = "TFashion/UIImage+RoundedCornerAdditions.m"; sourceTree = SOURCE_ROOT; };
 		BC54066C1A24DE7300CB0AC6 /* PAPPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoHeaderView.h; path = TFashion/PAPPhotoHeaderView.h; sourceTree = SOURCE_ROOT; };
 		BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = TFashion/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
+		BC5BDA831A35A28300B6B875 /* MPGTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGTextField.h; sourceTree = "<group>"; };
+		BC5BDA841A35A28300B6B875 /* MPGTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGTextField.m; sourceTree = "<group>"; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -405,6 +408,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		BC5BDA821A35A26F00B6B875 /* MPGTextField */ = {
+			isa = PBXGroup;
+			children = (
+				BC5BDA831A35A28300B6B875 /* MPGTextField.h */,
+				BC5BDA841A35A28300B6B875 /* MPGTextField.m */,
+			);
+			name = MPGTextField;
+			sourceTree = "<group>";
+		};
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,6 +534,7 @@
 				BCC0854A1A238B770026C4B6 /* ParseUI.framework */,
 				BCC085481A238B170026C4B6 /* Parse.framework */,
 				BCC085431A2314620026C4B6 /* FacebookSDK.framework */,
+				BC5BDA821A35A26F00B6B875 /* MPGTextField */,
 				E7ADD4BB17BEA09500E975E2 /* TTTTimeIntervalFormatter */,
 				E7ADD4BE17BEA09500E975E2 /* UIImageEffects */,
 			);
@@ -712,6 +725,7 @@
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
+				BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */,
 				BC139CDC1A2DCC8700F1F3E5 /* TFShareSettingsViewController.m in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,

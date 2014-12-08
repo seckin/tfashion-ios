@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
+#import "MPGTextField.h"
+
 @interface PAPPhotoDetailsFooterView : UIView
 
-@property (nonatomic, strong) UITextField *commentField;
+@property (nonatomic, strong) MPGTextField *commentField;
 @property (nonatomic) BOOL hideDropShadow;
 
 + (CGRect)rectForView;
