@@ -23,9 +23,11 @@ enum ActionSheetTags {
 };
 
 @interface PAPPhotoDetailsViewController ()
-@property (nonatomic, strong) UITextField *commentTextField;
+@property (nonatomic, strong) MPGTextField *commentTextField;
 @property (nonatomic, strong) PAPPhotoDetailsHeaderView *headerView;
 @property (nonatomic, assign) BOOL likersQueryInProgress;
+@property (nonatomic, strong) NSMutableArray *mentionResults;
+@property (nonatomic, strong) NSMutableArray *mentionLinkArray;
 @end
 
 static const CGFloat kPAPCellInsetWidth = 20.0f;
@@ -84,6 +86,8 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     PAPPhotoDetailsFooterView *footerView = [[PAPPhotoDetailsFooterView alloc] initWithFrame:[PAPPhotoDetailsFooterView rectForView]];
     commentTextField = footerView.commentField;
     commentTextField.delegate = self;
+    commentTextField.backgroundColor = [UIColor whiteColor];
+//    commentTextField.keyboardType = UIKeyboardTypeTwitter;
     self.tableView.tableFooterView = footerView;
 
     if (NSClassFromString(@"UIActivityViewController")) {
@@ -97,6 +101,18 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     // Register to be notified when the keyboard will be shown to scroll the view
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
+    
+    // Generate mention data
+    NSArray *facebookIds = [[PAPCache sharedCache] facebookFriends];
+    // find common Facebook friends already using app
+    PFQuery *facebookFriendsQuery = [PFUser query];
+    [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
+    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:facebookFriendsQuery, nil]];
+    NSError *error = nil;
+    NSArray *friends = [query findObjects:&error];
+    [self generateMentionData:friends];
+
+    self.mentionLinkArray = [[NSMutableArray alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -111,6 +127,57 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
 }
 
+- (void)generateMentionData:(NSArray *)contents
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Add code here to do background processing
+        //
+        //
+        self.mentionResults = [[NSMutableArray alloc] init];
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // Add code here to update the UI/send notifications based on the
+            // results of the background processing
+            [contents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [self.mentionResults addObject:[NSDictionary dictionaryWithObjectsAndKeys:[obj objectForKey:kPAPUserDisplayNameKey], @"DisplayText",obj,@"CustomObject", nil]];
+            }];
+        });
+    });
+}
+
+#pragma mark MPGTextField Delegate Methods
+
+- (NSArray *)dataForPopoverInTextField:(MPGTextField *)textField
+{
+    if ([textField isEqual:commentTextField]) {
+        return self.mentionResults;
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)textFieldShouldSelect:(MPGTextField *)textField
+{
+    return YES;
+}
+
+- (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
+{
+    if ([textField isEqual:commentTextField]) {
+        [self.mentionLinkArray addObject:[result valueForKey:@"DisplayText"]];
+    }
+}
+
+#pragma mark - TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url {
+    NSString *mention = [url absoluteString];
+    NSString *facebookId = [mention substringFromIndex:1];
+    PFQuery *query = [PFUser query];
+    [query whereKey:kPAPUserFacebookIDKey equalTo:facebookId];
+    PFUser *user = (PFUser *)[query getFirstObject];
+    [self shouldPresentAccountViewForUser:user];
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -175,9 +242,12 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
         cell = [[PAPBaseTextCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.cellInsetWidth = kPAPCellInsetWidth;
         cell.delegate = self;
+        cell.contentLabel.delegate = self;
+        cell.contentLabel.userInteractionEnabled = YES;
     }
     
     [cell setUser:[object objectForKey:kPAPActivityFromUserKey]];
+    [cell setLinks:[object objectForKey:kPAPActivityMentionsKey]];
     [cell setContentText:[object objectForKey:kPAPActivityContentKey]];
     [cell setDate:[object createdAt]];
 
@@ -210,6 +280,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
         [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
         [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
         [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
+        [comment setObject:self.mentionLinkArray forKey:kPAPActivityMentionsKey];
         
         PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [ACL setPublicReadAccess:YES];
@@ -242,9 +313,9 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
     
     [textField setText:@""];
+    [self.mentionLinkArray removeAllObjects];
     return [textField resignFirstResponder];
 }
-
 
 #pragma mark - UIActionSheetDelegate
 
@@ -367,6 +438,12 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     NSDictionary* info = [note userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     [self.tableView setContentOffset:CGPointMake(0.0f, self.tableView.contentSize.height-kbSize.height) animated:YES];
+    
+    // Set comment text field popover frame
+    CGFloat navBarBottom = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    CGFloat footerTop = CGRectGetMinY(self.tableView.tableFooterView.frame);
+    CGFloat width = self.tableView.frame.size.width-2*kPAPCellInsetWidth;
+    [commentTextField setPopoverSize:CGRectMake(kPAPCellInsetWidth, self.tableView.contentSize.height-kbSize.height+20, width, self.tableView.contentSize.height+navBarBottom+30-footerTop)];
 }
 
 - (void)loadLikers {

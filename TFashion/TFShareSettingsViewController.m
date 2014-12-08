@@ -12,14 +12,8 @@
 
 @interface TFShareSettingsViewController ()
 
-@property (nonatomic, strong) SOAccountStore *store;
 @property (nonatomic, strong) NSArray *socialAccountProviders;
 @property (nonatomic, strong) NSArray *providerIcons;
-
-@property (nonatomic, strong) FAKZocial *facebookIcon;
-@property (nonatomic, strong) FAKZocial *instagramIcon;
-@property (nonatomic, strong) FAKZocial *pinterestIcon;
-@property (nonatomic, strong) FAKZocial *tumblrIcon;
 
 @end
 
@@ -31,13 +25,11 @@
     self.title = @"Share Settings";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    self.socialAccountProviders = [NSArray arrayWithObjects:@"Facebook", @"Instagram", @"Pinterest", @"Tumblr", nil];
+    self.socialAccountProviders = [NSArray arrayWithObjects:@"Facebook", @"Twitter", @"Instagram", @"Tumblr", nil];
     
     [self initializeProviderIcons];
     
     [self configureAuthorizationProviders];
-    
-    self.store = [[SOAccountStore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,12 +41,12 @@
 
 - (void)initializeProviderIcons
 {
-    self.facebookIcon = [FAKZocial facebookIconWithSize:20.0f];
-    self.instagramIcon = [FAKZocial instagramIconWithSize:20.0f];
-    self.pinterestIcon = [FAKZocial pinterestIconWithSize:20.0f];
-    self.tumblrIcon = [FAKZocial tumblrIconWithSize:20.0f];
+    FAKZocial *facebookIcon = [FAKZocial facebookIconWithSize:20.0f];
+    FAKZocial *twitterIcon = [FAKZocial twitterIconWithSize:20.0f];
+    FAKZocial *instagramIcon = [FAKZocial instagramIconWithSize:20.0f];
+    FAKZocial *tumblrIcon = [FAKZocial tumblrIconWithSize:20.0f];
     
-    self.providerIcons = [NSArray arrayWithObjects:self.facebookIcon,self.instagramIcon,self.pinterestIcon,self.tumblrIcon, nil];
+    self.providerIcons = [NSArray arrayWithObjects:facebookIcon,twitterIcon,instagramIcon,tumblrIcon, nil];
     
     for (FAKZocial *icon in self.providerIcons) {
         [icon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
@@ -63,13 +55,18 @@
 
 - (void)configureAuthorizationProviders
 {
+    SimpleAuth.configuration[@"facebook-web"] = @{
+                                                  @"app_id" : @"192275100793250"
+                                                  };
+    
+    SimpleAuth.configuration[@"twitter-web"] = @{
+                                                 @"consumer_key" : @"FBKTVDw0LZBu0SqvxfehdddPM",
+                                                 @"consumer_secret" : @"FXMwptY5tSHP2S8gi1IlSqIoSLQdl2wuWwAoEDKZJUBKSJyZiN"
+                                                 };
+    
     SimpleAuth.configuration[@"instagram"] = @{
                                                @"client_id" : @"7335834df76b4db2afdcdcf147177e3e",
                                                SimpleAuthRedirectURIKey : @"ig7335834df76b4db2afdcdcf147177e3e://authorize"
-                                               };
-    
-    SimpleAuth.configuration[@"pinterest"] = @{
-                                               @"client_id" : @"1441756"
                                                };
     
     SimpleAuth.configuration[@"tumblr"] = @{
@@ -98,12 +95,6 @@
     cell.textLabel.textColor = [UIColor grayColor];
     
     FAKZocial *icon = [self.providerIcons objectAtIndex:indexPath.row];
-    if (indexPath.row == 0) {
-        cell.textLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]];
-        [icon removeAttribute:NSForegroundColorAttributeName];
-        [icon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
-    }
-    
     cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -118,12 +109,13 @@
     NSInteger row = [indexPath row];
     switch (row) {
         case 0:
+            [self actionAuthorizeFacebook];
             break;
         case 1:
-            [self actionAuthorizeInstagram];
+            [self actionAuthorizeTwitter];
             break;
         case 2:
-            [self actionAuthorizePinterest];
+            [self actionAuthorizeInstagram];
             break;
         case 3:
             [self actionAuthorizeTumblr];
@@ -144,38 +136,36 @@
 }
 */
 
+#pragma mark - Authentication
+
+- (void)actionAuthorizeFacebook
+{
+    [SimpleAuth authorize:@"facebook-web" completion:^(id responseObject, NSError *error) {
+        NSLog(@"\nResponse: %@\nError: %@", responseObject, error);
+        if (responseObject) {
+            [self setUserFacebookAccountWithResponse:responseObject];
+        }
+    }];
+}
+
+- (void)actionAuthorizeTwitter
+{
+    [SimpleAuth authorize:@"twitter-web" completion:^(id responseObject, NSError *error) {
+        NSLog(@"\nResponse: %@\nError: %@", responseObject, error);
+        if (responseObject) {
+            [self setUserTwitterAccountWithResponse:responseObject];
+        }
+    }];
+}
+
 - (void)actionAuthorizeInstagram
 {
     [SimpleAuth authorize:@"instagram" completion:^(id responseObject, NSError *error) {
         NSLog(@"\nResponse: %@\nError: %@", responseObject, error);
         
         if (responseObject) {
-            SOAccountStore *store = [[SOAccountStore alloc] init];
-            
-            SOAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:SOAccountTypeIdentifierInstagram];
-            
-            SOAccount *account = [[SOAccount alloc] initWithAccountType:accountType];
-            
-            account.username = @"john";
-            //        SOAccountCredential* credential = [[SOAccountCredential alloc] initWithOAuth2Token:@"2342341.b6fw422.b8f5ffs9sjqljq7a70e788884b67c" refreshToken:nil expiryDate:nil];
-            //        credential.scope = @"relationships";
-            //        account.credential = credential;
-            //
-            //        [store saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
-            //            NSLog(@"Saved Account");
-            //            NSLog(@"%@", [account description]);
-            //        }];
-            
-            //        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"isAuthenticated"];
-            //        [[NSUserDefaults standardUserDefaults] synchronize];
+            [self setUserInstagramAccountWithResponse:responseObject];
         }
-    }];
-}
-
-- (void)actionAuthorizePinterest
-{
-    [SimpleAuth authorize:@"pinterest" completion:^(id responseObject, NSError *error) {
-        NSLog(@"\nResponse: %@\nError: %@", responseObject, error);
     }];
 }
 
@@ -183,7 +173,115 @@
 {
     [SimpleAuth authorize:@"tumblr" completion:^(id responseObject, NSError *error) {
         NSLog(@"\nResponse: %@\nError: %@", responseObject, error);
+        
+        if (responseObject) {
+            [self setUserTumblrAccountWithResponse:responseObject];
+        }
     }];
+}
+
+#pragma mark - Response
+
+- (void)setUserFacebookAccountWithResponse:(id)response
+{
+    SOAccountStore *store = [[SOAccountStore alloc] init];
+    
+    SOAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:SOAccountTypeIdentifierFacebook];
+    
+    SOAccount *account = [[SOAccount alloc] initWithAccountType:accountType];
+    
+    account.userId = [response valueForKey:@"uid"];
+    id info = [response valueForKey:@"info"];
+    account.username = [info valueForKey:@"email"];
+    id credentials = [response valueForKey:@"credentials"];
+    SOAccountCredential *credential = [[SOAccountCredential alloc] initWithOAuth2Token:[credentials valueForKey:@"token"] refreshToken:nil expiryDate:[credentials valueForKey:@"expires_at"]];
+    credential.scope = @"";
+    account.credential = credential;
+    
+    [store saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+        NSLog(@"Saved Account");
+        [self.tableView reloadData];
+    }];
+    
+    for (SOAccount* account in store.accounts) {
+        NSLog(@"loaded account %@", account.credential.oauthToken);
+    }
+}
+
+- (void)setUserTwitterAccountWithResponse:(id)response
+{
+    SOAccountStore *store = [[SOAccountStore alloc] init];
+    
+    SOAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:SOAccountTypeIdentifierTwitter];
+    
+    SOAccount *account = [[SOAccount alloc] initWithAccountType:accountType];
+    
+    account.userId = [response valueForKey:@"uid"];
+    id info = [response valueForKey:@"info"];
+    account.username = [info valueForKey:@"nickname"];
+    id credentials = [response valueForKey:@"credentials"];
+    SOAccountCredential *credential = [[SOAccountCredential alloc] initWithOAuthToken:[credentials valueForKey:@"token"] tokenSecret:[credentials valueForKey:@"secret"]];
+    account.credential = credential;
+    
+    [store saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+        NSLog(@"Saved Account");
+        [self.tableView reloadData];
+    }];
+    
+    for (SOAccount* account in store.accounts) {
+        NSLog(@"loaded account %@", account.credential.oauthToken);
+    }
+}
+
+- (void)setUserInstagramAccountWithResponse:(id)response
+{
+    SOAccountStore *store = [[SOAccountStore alloc] init];
+    
+    SOAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:SOAccountTypeIdentifierInstagram];
+    
+    SOAccount *account = [[SOAccount alloc] initWithAccountType:accountType];
+    
+    account.userId = [response valueForKey:@"uid"];
+    id userInfo = [response valueForKey:@"user_info"];
+    account.username = [userInfo valueForKey:@"username"];
+    id credentials = [response valueForKey:@"credentials"];
+    SOAccountCredential *credential = [[SOAccountCredential alloc] initWithOAuth2Token:[credentials valueForKey:@"token"] refreshToken:nil expiryDate:nil];
+    credential.scope = @"";
+    account.credential = credential;
+    
+    [store saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+        NSLog(@"Saved Account");
+        [self.tableView reloadData];
+    }];
+    
+    for (SOAccount* account in store.accounts) {
+        NSLog(@"loaded account %@", account.credential.oauthToken);
+    }
+}
+
+- (void)setUserTumblrAccountWithResponse:(id)response
+{
+    SOAccountStore *store = [[SOAccountStore alloc] init];
+    
+    SOAccountType *accountType = [store accountTypeWithAccountTypeIdentifier:SOAccountTypeIdentifierTumblr];
+    
+    SOAccount *account = [[SOAccount alloc] initWithAccountType:accountType];
+    
+    account.userId = [response valueForKey:@"uid"];
+    id info = [response valueForKey:@"info"];
+    account.username = [info valueForKey:@"nickname"];
+    id credentials = [response valueForKey:@"credentials"];
+    SOAccountCredential *credential = [[SOAccountCredential alloc] initWithOAuthToken:[credentials valueForKey:@"token"] tokenSecret:[credentials valueForKey:@"secret"]];
+    account.credential = credential;
+    
+    [store saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
+        NSLog(@"Saved Account");
+        [self.tableView reloadData];
+    }];
+    
+    for (SOAccount* account in store.accounts) {
+        NSLog(@"loaded account %@", account.credential.oauthToken);
+    }
 }
 
 @end

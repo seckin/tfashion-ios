@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
+
 @class PAPProfileImageView;
 @protocol PAPBaseTextCellDelegate;
 
@@ -29,7 +31,8 @@
 @property (nonatomic, strong) UIButton *nameButton;
 @property (nonatomic, strong) UIButton *avatarImageButton;
 @property (nonatomic, strong) PAPProfileImageView *avatarImageView;
-@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) TTTAttributedLabel *contentLabel;
+@property (nonatomic, strong) NSArray *links;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *separatorImage;
 

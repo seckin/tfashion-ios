@@ -77,7 +77,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.nameButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:self.nameButton];
         
-        self.contentLabel = [[UILabel alloc] init];
+        self.contentLabel = [[TTTAttributedLabel alloc] init];
         [self.contentLabel setFont:[UIFont systemFontOfSize:13.0f]];
         [self.contentLabel setTextColor:[UIColor grayColor]];
         [self.contentLabel setNumberOfLines:0];
@@ -85,6 +85,13 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.contentLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentLabel setShadowColor:[UIColor colorWithWhite:1.0f alpha:0.70f]];
         [self.contentLabel setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
+        UIColor *patternColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]];
+        self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObject:(__bridge id)[patternColor CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
+        NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
+        [mutableActiveLinkAttributes setValue:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+        [mutableActiveLinkAttributes setValue:(__bridge id)[patternColor CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
+        [mutableActiveLinkAttributes setValue:(__bridge id)[[UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.1f] CGColor] forKey:(NSString *)kTTTBackgroundFillColorAttributeName];
+        self.contentLabel.activeLinkAttributes = mutableActiveLinkAttributes;
         [mainView addSubview:self.contentLabel];
         
         self.timeLabel = [[UILabel alloc] init];
@@ -252,6 +259,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.contentLabel setText:paddedString];
     } else { // Otherwise we ignore the padding and we'll add it after we set the user
         [self.contentLabel setText:contentString];
+    }
+    
+    // Set links
+    for (NSString *link in self.links) {
+        NSRange range = [self.contentLabel.text rangeOfString:link];
+        [self.contentLabel addLinkToURL:[NSURL URLWithString:link] withRange:range];
     }
     [self setNeedsDisplay];
 }
