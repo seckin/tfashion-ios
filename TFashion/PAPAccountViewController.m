@@ -39,7 +39,7 @@
     UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
     profilePictureBackgroundView.alpha = 0.0f;
     CALayer *layer = [profilePictureBackgroundView layer];
-    layer.cornerRadius = 10.0f;
+//    layer.cornerRadius = 10.0f;
     layer.masksToBounds = YES;
     [self.headerView addSubview:profilePictureBackgroundView];
     
@@ -47,7 +47,7 @@
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
     layer = [profilePictureImageView layer];
-    layer.cornerRadius = 10.0f;
+//    layer.cornerRadius = 10.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 0.0f;
     

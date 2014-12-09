@@ -9,6 +9,7 @@
 #import "PAPEditPhotoViewController.h"
 #import "PAPPhotoDetailsFooterView.h"
 #import "UIImage+ResizeAdditions.h"
+#import "AppDelegate.h"
 
 @interface PAPEditPhotoViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -62,6 +63,7 @@
 - (void)loadView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.scrollView.delegate = self;
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     self.view = self.scrollView;
     
     UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20.0f, 42.0f, 280.0f, 280.0f)];
@@ -118,12 +120,13 @@
     [self.commentTextField resignFirstResponder];  
 }
 
-
 #pragma mark - ()
 
 - (BOOL)shouldUploadImage:(UIImage *)anImage {    
-    UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
-    UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
+//    UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
+//    UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
+    UIImage *resizedImage = [anImage resizeImageScaledToSize:CGSizeMake(560.0f, 560.0f)];
+    UIImage *thumbnailImage = [anImage resizeImageScaledToSize:CGSizeMake(86.0f, 86.0f)];
     
     // JPEG to decrease file size and enable faster uploads & downloads
     NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.8f);
@@ -246,11 +249,12 @@
     }];
     
     // Dismiss this screen
-    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)cancelButtonAction:(id)sender {
-    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 @end

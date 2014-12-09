@@ -42,7 +42,8 @@
     
     UIImage *transparentBorderImage = borderSize ? [croppedImage transparentBorderImage:borderSize] : croppedImage;
     
-    return [transparentBorderImage roundedCornerImage:cornerRadius borderSize:borderSize];
+//    return [transparentBorderImage roundedCornerImage:cornerRadius borderSize:borderSize];
+    return [transparentBorderImage roundedCornerImage:0 borderSize:borderSize];
 }
 
 // Returns a rescaled copy of the image, taking into account its orientation
@@ -179,6 +180,16 @@
     }
     
     return transform;
+}
+
+- (UIImage *)resizeImageScaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContext( newSize );
+    [self drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 @end

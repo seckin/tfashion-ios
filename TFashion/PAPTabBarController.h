@@ -7,10 +7,12 @@
 //
 
 #import "PAPEditPhotoViewController.h"
+#import <DBCamera/DBCameraContainerViewController.h>
+#import <DBCamera/DBCameraViewController.h>
 
 @protocol PAPTabBarControllerDelegate;
 
-@interface PAPTabBarController : UITabBarController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface PAPTabBarController : UITabBarController <DBCameraViewControllerDelegate>
 
 - (BOOL)shouldPresentPhotoCaptureController;
 

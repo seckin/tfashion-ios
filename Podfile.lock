@@ -85,6 +85,8 @@ PODS:
     - NSData+Base64 (~> 1.0)
   - Countly (1.0.0)
   - CrittercismSDK (5.0.5)
+  - DBCamera (2.3.6):
+    - GPUImage (~> 0.1)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -104,6 +106,7 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
   - GoogleAnalytics-iOS-SDK (3.0.9)
+  - GPUImage (0.1.6)
   - HexColors (2.2.1)
   - ISO8601 (0.1.1)
   - Localytics-AMP (2.71.0)
@@ -157,6 +160,7 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
+  - DBCamera
   - FontAwesomeKit
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
@@ -178,9 +182,11 @@ SPEC CHECKSUMS:
   cocoa-oauth: 418c70e6ce4130fa7ebdf05232018c8f391030d8
   Countly: f26a3483a660b5790b2c76e1f91dea4f276b3c33
   CrittercismSDK: 0f3bfca5d5e7b11ba8042a119c7aeb32c034c3aa
+  DBCamera: 95813e91d79b933b34e7e7a8ba2e74ad4289b9d2
   FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
   FontAwesomeKit: a2edea3111dab107b4cc43b85881b404eb063385
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
+  GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   ISO8601: a6afce5fbe854024802367c814fac4aa8d3586f9
   Localytics-AMP: 4d158e216541912109b1ae7ca20b153d053d68c5

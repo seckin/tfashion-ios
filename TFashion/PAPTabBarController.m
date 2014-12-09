@@ -47,140 +47,84 @@
     cameraButton.layer.cornerRadius = 5.0f;
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.tabBar addSubview:cameraButton];
-    
-    UISwipeGestureRecognizer *swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    [swipeUpGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
-    [swipeUpGestureRecognizer setNumberOfTouchesRequired:1];
-    [cameraButton addGestureRecognizer:swipeUpGestureRecognizer];
 }
 
 
-#pragma mark - UIImagePickerDelegate
+//#pragma mark - UIImagePickerDelegate
+//
+//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+//
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+//    [self dismissViewControllerAnimated:NO completion:nil];
+//    
+//    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+//     
+//    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
+//    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    
+//    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    [self.navController pushViewController:viewController animated:NO];
+//    
+//    [self presentViewController:self.navController animated:YES completion:nil];
+//}
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [self dismissViewControllerAnimated:NO completion:nil];
-    
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-     
-    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
-    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    
-    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self.navController pushViewController:viewController animated:NO];
-    
-    [self presentViewController:self.navController animated:YES completion:nil];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self shouldStartCameraController];
-    } else if (buttonIndex == 1) {
-        [self shouldStartPhotoLibraryPickerController];
-    }
-}
-
-
-#pragma mark - PAPTabBarController
-
-- (BOOL)shouldPresentPhotoCaptureController {
-    BOOL presentedPhotoCaptureController = [self shouldStartCameraController];
-    
-    if (!presentedPhotoCaptureController) {
-        presentedPhotoCaptureController = [self shouldStartPhotoLibraryPickerController];
+- (BOOL)shouldPresentPhotoCaptureController
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
+        return NO;
     }
     
-    return presentedPhotoCaptureController;
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
+         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
+        return NO;
+    }
+
+
+    [self photoCaptureButtonAction:nil];
+    return YES;
 }
 
 #pragma mark - ()
 
 - (void)photoCaptureButtonAction:(id)sender {
-    BOOL cameraDeviceAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    BOOL photoLibraryAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
+    DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
+    [cameraController setForceQuadCrop:YES];
     
-    if (cameraDeviceAvailable && photoLibraryAvailable) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
-        [actionSheet showFromTabBar:self.tabBar];
-    } else {
-        // if we don't have at least two options, we automatically show whichever is available (camera or roll)
-        [self shouldPresentPhotoCaptureController];
-    }
+    DBCameraContainerViewController *container = [[DBCameraContainerViewController alloc] initWithDelegate:self];
+    [container setCameraViewController:cameraController];
+    [container setFullScreenMode];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:container];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (BOOL)shouldStartCameraController {
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
-        return NO;
-    }
-    
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
-        && [[UIImagePickerController availableMediaTypesForSourceType:
-             UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]) {
-        
-        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-        cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
-            cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        } else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
-            cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-        }
-        
-    } else {
-        return NO;
-    }
-    
-    cameraUI.allowsEditing = YES;
-    cameraUI.showsCameraControls = YES;
-    cameraUI.delegate = self;
+#pragma mark - DBCameraViewControllerDelegate
 
-    [self presentViewController:cameraUI animated:YES completion:nil];
-    
-    return YES;
+- (void) dismissCamera:(id)cameraViewController{
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [cameraViewController restoreFullScreenMode];
 }
 
+- (void) camera:(id)cameraViewController didFinishWithImage:(UIImage *)image withMetadata:(NSDictionary *)metadata
+{
+//    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
+//    self.navigationController.navigationBarHidden = NO;
+//    [self.navigationController pushViewController:viewController animated:NO];
+//    [cameraViewController restoreFullScreenMode];
+//    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
+    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    [self.presentedViewController.navigationController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    [self.presentedViewController.navigationController pushViewController:viewController animated:NO];
+    [self.presentedViewController presentViewController:nav animated:YES completion:nil];
+    
+//    [self presentViewController:self.presentedViewController.navigationController animated:YES completion:nil];
 
-- (BOOL)shouldStartPhotoLibraryPickerController {
-    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO 
-         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
-        return NO;
-    }
-    
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
-        && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
-        
-        cameraUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-        
-    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
-               && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
-        
-        cameraUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-        
-    } else {
-        return NO;
-    }
-    
-    cameraUI.allowsEditing = YES;
-    cameraUI.delegate = self;
-    
-    [self presentViewController:cameraUI animated:YES completion:nil];
-    
-    return YES;
-}
-
-- (void)handleGesture:(UIGestureRecognizer *)gestureRecognizer {
-    [self shouldPresentPhotoCaptureController];
 }
 
 @end
