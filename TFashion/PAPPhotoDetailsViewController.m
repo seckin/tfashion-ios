@@ -88,6 +88,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     commentTextField.delegate = self;
     commentTextField.backgroundColor = [UIColor whiteColor];
 //    commentTextField.keyboardType = UIKeyboardTypeTwitter;
+    commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.tableView.tableFooterView = footerView;
 
     if (NSClassFromString(@"UIActivityViewController")) {
@@ -108,9 +109,11 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     PFQuery *facebookFriendsQuery = [PFUser query];
     [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
     PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:facebookFriendsQuery, nil]];
-    NSError *error = nil;
-    NSArray *friends = [query findObjects:&error];
-    [self generateMentionData:friends];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects) {
+            [self generateMentionData:objects];
+        }
+    }];
 
     self.mentionLinkArray = [[NSMutableArray alloc] init];
 }
@@ -443,7 +446,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     CGFloat navBarBottom = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     CGFloat footerTop = CGRectGetMinY(self.tableView.tableFooterView.frame);
     CGFloat width = self.tableView.frame.size.width-2*kPAPCellInsetWidth;
-    [commentTextField setPopoverSize:CGRectMake(kPAPCellInsetWidth, self.tableView.contentSize.height-kbSize.height+20, width, self.tableView.contentSize.height+navBarBottom+30-footerTop)];
+    [commentTextField setPopoverSize:CGRectMake(kPAPCellInsetWidth, self.tableView.contentSize.height-kbSize.height-51, width, self.tableView.contentSize.height+navBarBottom+64-footerTop)];
 }
 
 - (void)loadLikers {
