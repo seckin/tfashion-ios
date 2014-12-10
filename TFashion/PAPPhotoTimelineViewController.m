@@ -15,6 +15,12 @@
 #import "AppDelegate.h"
 
 @interface PAPPhotoTimelineViewController ()
+{
+    NSMutableArray *_mutableObjects;
+    
+    NSInteger _currentPage;    // The last page that was loaded
+    NSInteger _lastLoadCount;  // The count of objects from the last load.
+}
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
@@ -40,6 +46,8 @@
     self = [super initWithStyle:style];
     if (self) {
         
+        _mutableObjects = [NSMutableArray array];
+        
         self.outstandingSectionHeaderQueries = [NSMutableDictionary dictionary];
         
         // The className to query on
@@ -58,6 +66,8 @@
         self.reusableSectionHeaderViews = [NSMutableSet setWithCapacity:3];
         
         self.shouldReloadOnAppear = NO;
+        
+        _lastLoadCount = -1;
     }
     return self;
 }
@@ -95,10 +105,13 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger sections = self.objects.count;
-    if (self.paginationEnabled && sections != 0)
-        sections++;
-    return sections;
+    NSInteger count = [self.objects count];
+    
+    if ([self _shouldShowPaginationCell]) {
+        count += 1;
+    }
+    
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -241,8 +254,90 @@
     }
 }
 
+#pragma mark - Private
+
+// Whether we need to show the pagination cell
+- (BOOL)_shouldShowPaginationCell {
+    return (self.paginationEnabled &&
+            [self.objects count] != 0 &&
+            (_lastLoadCount == -1 || _lastLoadCount >= (NSInteger)self.objectsPerPage));
+}
+
+// Selectively refresh pagination cell
+- (void)_refreshPaginationCell {
+    if ([self _shouldShowPaginationCell]) {
+        [self.tableView reloadRowsAtIndexPaths:@[ [self _indexPathForPaginationCell] ]
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
+// The row of the pagination cell
+- (NSIndexPath *)_indexPathForPaginationCell {
+    return [NSIndexPath indexPathForRow:0 inSection:[self.objects count]];
+}
 
 #pragma mark - PFQueryTableViewController
+
+- (void)loadNextPage {
+    if (!self.loading) {
+        [self loadObjects:(_currentPage + 1) clear:NO];
+        [self _refreshPaginationCell];
+    }
+}
+
+- (void)clear {
+    [_mutableObjects removeAllObjects];
+    [self.tableView reloadData];
+    _currentPage = 0;
+}
+
+- (NSArray *)objects {
+    return _mutableObjects;
+}
+
+// Alters a query to add functionality like pagination
+- (void)_alterQuery:(PFQuery *)query forLoadingPage:(NSInteger)page {
+    if (self.paginationEnabled && self.objectsPerPage) {
+        query.limit = self.objectsPerPage;
+        query.skip = page * self.objectsPerPage;
+    }
+}
+
+- (void)loadObjects:(NSInteger)page clear:(BOOL)clear {
+    self.loading = YES;
+    [self objectsWillLoad];
+    
+    PFQuery *query = [self queryForTable];
+    [self _alterQuery:query forLoadingPage:page];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *foundObjects, NSError *error) {
+        if (query.cachePolicy != kPFCachePolicyCacheOnly && error.code == kPFErrorCacheMiss) {
+            // no-op on cache miss
+            return;
+        }
+        
+        self.loading = NO;
+        
+        if (error) {
+            _lastLoadCount = -1;
+            [self _refreshPaginationCell];
+        } else {
+            _currentPage = page;
+            _lastLoadCount = [foundObjects count];
+            
+            if (clear) {
+                [_mutableObjects removeAllObjects];
+            }
+            [_mutableObjects addObjectsFromArray:foundObjects];
+            
+            // Reload the table data
+            [self.tableView reloadData];
+        }
+        
+        [self objectsDidLoad:error];
+        [self.refreshControl endRefreshing];
+    }];
+    
+}
 
 - (PFQuery *)queryForTable {
     if (![PFUser currentUser]) {
@@ -317,8 +412,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"Cell";
     
-    if (indexPath.section == self.objects.count) {
-        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+//    if (indexPath.section == self.objects.count) {
+//        // this behavior is normally handled by PFQueryTableViewController, but we are using sections for each object and we must handle this ourselves
+//        UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
+//        return cell;
+    if ([self _shouldShowPaginationCell] && [indexPath isEqual:[self _indexPathForPaginationCell]]) {
+        // Return the pagination cell on the last cell
         UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
         return cell;
     } else {
