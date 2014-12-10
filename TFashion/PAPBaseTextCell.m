@@ -92,7 +92,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [mutableActiveLinkAttributes setValue:(__bridge id)[patternColor CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         [mutableActiveLinkAttributes setValue:(__bridge id)[[UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.1f] CGColor] forKey:(NSString *)kTTTBackgroundFillColorAttributeName];
         self.contentLabel.activeLinkAttributes = mutableActiveLinkAttributes;
-        [mainView addSubview:self.contentLabel];
+        [mainView insertSubview:self.contentLabel belowSubview:self.nameButton];
         
         self.timeLabel = [[UILabel alloc] init];
         [self.timeLabel setFont:[UIFont systemFontOfSize:11]];
@@ -143,6 +143,10 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
                                                     context:nil].size;
     [self.contentLabel setFrame:CGRectMake(nameX, vertTextBorderSpacing, contentSize.width, contentSize.height)];
+    self.contentLabel.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//    NSLog(@"avatar: %f %f %f", self.avatarImageButton.frame.origin.x, avatarDim, avatarDim);
+//    NSLog(@"name: %f %f %f", self.nameButton.frame.origin.x, nameSize.width, nameSize.height);
+//    NSLog(@"content: %f %f %f", self.contentLabel.frame.origin.x, contentSize.width, contentSize.height);
     
     // Layout the timestamp label
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
