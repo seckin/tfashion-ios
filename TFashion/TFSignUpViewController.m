@@ -120,7 +120,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"SignupAttemp"];
     [query whereKey:@"objectId" equalTo:_objectId];
     [query whereKey:@"verificationCode" equalTo:_code];
-    [query whereKey:@"messageArrived" equalTo:[NSNumber numberWithBool:NO]];
+    [query whereKey:@"messageArrived" equalTo:[NSNumber numberWithBool:YES]];
     [self sendQuery:query];
 }
 
