@@ -6,10 +6,10 @@
 //
 //
 
-#import "TFSignupAttemp.h"
+#import "TFSignupAttempt.h"
 #import <Parse/PFObject+Subclass.h>
 
-@implementation TFSignupAttemp
+@implementation TFSignupAttempt
 @dynamic verificationCode;
 @dynamic messageArrived;
 @dynamic user;
@@ -19,7 +19,7 @@
 }
 
 + (NSString *)parseClassName {
-    return @"SignupAttemp";
+    return @"SignupAttempt";
 }
 
 @end

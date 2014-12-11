@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface TFSignupAttemp : PFObject <PFSubclassing>
+@interface TFSignupAttempt : PFObject <PFSubclassing>
 
 + (NSString *)parseClassName;
 

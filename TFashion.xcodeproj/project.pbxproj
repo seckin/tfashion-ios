@@ -63,7 +63,7 @@
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
 		BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BDA841A35A28300B6B875 /* MPGTextField.m */; };
 		BC9F044B1A39D88100088C96 /* TFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* TFSignUpViewController.m */; };
-		BC9F044E1A39E3D600088C96 /* TFSignupAttemp.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* TFSignupAttemp.m */; };
+		BC9F044E1A39E3D600088C96 /* TFSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* TFSignupAttempt.m */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
@@ -179,8 +179,8 @@
 		BC5BDA841A35A28300B6B875 /* MPGTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGTextField.m; sourceTree = "<group>"; };
 		BC9F04491A39D88100088C96 /* TFSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFSignUpViewController.h; sourceTree = "<group>"; };
 		BC9F044A1A39D88100088C96 /* TFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFSignUpViewController.m; sourceTree = "<group>"; };
-		BC9F044C1A39E3D600088C96 /* TFSignupAttemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFSignupAttemp.h; sourceTree = "<group>"; };
-		BC9F044D1A39E3D600088C96 /* TFSignupAttemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFSignupAttemp.m; sourceTree = "<group>"; };
+		BC9F044C1A39E3D600088C96 /* TFSignupAttempt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFSignupAttempt.h; sourceTree = "<group>"; };
+		BC9F044D1A39E3D600088C96 /* TFSignupAttempt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFSignupAttempt.m; sourceTree = "<group>"; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -410,8 +410,8 @@
 			children = (
 				BC09CAD11A3090AA001F8DC8 /* TFPerson.h */,
 				BC09CAD21A3090AA001F8DC8 /* TFPerson.m */,
-				BC9F044C1A39E3D600088C96 /* TFSignupAttemp.h */,
-				BC9F044D1A39E3D600088C96 /* TFSignupAttemp.m */,
+				BC9F044C1A39E3D600088C96 /* TFSignupAttempt.h */,
+				BC9F044D1A39E3D600088C96 /* TFSignupAttempt.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -759,7 +759,7 @@
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
 				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
 				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
-				BC9F044E1A39E3D600088C96 /* TFSignupAttemp.m in Sources */,
+				BC9F044E1A39E3D600088C96 /* TFSignupAttempt.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,

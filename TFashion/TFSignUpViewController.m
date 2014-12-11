@@ -7,7 +7,7 @@
 //
 
 #import "TFSignUpViewController.h"
-#import "TFSignupAttemp.h"
+#import "TFSignupAttempt.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
 @interface TFSignUpViewController ()
@@ -31,7 +31,7 @@
                                                  blue:1.0f
                                                 alpha:1.0f];
 
-    TFSignupAttemp *signupAttemp = [TFSignupAttemp object];
+    TFSignupAttempt *signupAttemp = [TFSignupAttempt object];
     signupAttemp.verificationCode = [self randomStringWithLength:6];
     signupAttemp.messageArrived = NO;
     [signupAttemp saveEventually:^(BOOL succeeded, NSError *error) {
@@ -117,7 +117,7 @@
     self.hud.labelText = NSLocalizedString(@"Verifying", nil);
     self.hud.dimBackground = YES;
     
-    PFQuery *query = [PFQuery queryWithClassName:@"SignupAttemp"];
+    PFQuery *query = [PFQuery queryWithClassName:@"SignupAttempt"];
     [query whereKey:@"objectId" equalTo:_objectId];
     [query whereKey:@"verificationCode" equalTo:_code];
     [query whereKey:@"messageArrived" equalTo:[NSNumber numberWithBool:YES]];
