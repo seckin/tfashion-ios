@@ -19,6 +19,7 @@
 #import "PAPWelcomeViewController.h"
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
+#import "TFSignUpViewController.h"
 #import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -262,8 +263,15 @@
 - (void)presentLoginViewControllerAnimated:(BOOL)animated {
     PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
     [loginViewController setDelegate:self];
-    loginViewController.fields = PFLogInFieldsFacebook;
+    loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
     loginViewController.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
+    
+    
+    // Instantiate our custom sign up view controller
+    TFSignUpViewController *signUpViewController = [[TFSignUpViewController alloc] init];
+    
+    // Link the sign up view controller
+    [loginViewController setSignUpController:signUpViewController];
     
     [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
 }
