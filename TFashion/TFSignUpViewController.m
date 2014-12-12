@@ -9,12 +9,12 @@
 #import "TFSignUpViewController.h"
 #import "TFSignupAttempt.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "AppDelegate.h"
 
 @interface TFSignUpViewController ()
 
 @property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) UILabel *codeLabel;
-@property (nonatomic, strong) UIButton *smsButton;
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSString *objectId;
 
@@ -26,11 +26,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor colorWithRed:249/255.0f
-                                                green:251.0f/255.0f
-                                                 blue:1.0f
-                                                alpha:1.0f];
-
+    // Customize sign up view
+    self.signUpView.logo = nil;
+    [self.signUpView.usernameField removeFromSuperview];
+    [self.signUpView.passwordField removeFromSuperview];
+    [self.signUpView.signUpButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateNormal];
+    [self.signUpView.signUpButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateHighlighted];
+    NSArray *signUpButtonActions = [self.signUpView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
+    for (int i = 0; i<signUpButtonActions.count; i++) {
+        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
+        [self.signUpView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.signUpView.signUpButton addTarget:self action:@selector(showSMS:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // If there is no network connection, we will not perform sign up event.
+    if (!(AppDelegate *)[[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        self.signUpView.signUpButton.hidden = YES;
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"There is no network connection" message:@"Please check your connection and try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    // Create sign up attemp instance
     PFACL *acl = [PFACL ACL];
     [acl setPublicReadAccess:YES];
     [acl setPublicWriteAccess:YES];
@@ -45,16 +62,11 @@
             
             _codeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
             [_codeLabel setText:_code];
-            [self.view addSubview:_codeLabel];
+            [_codeLabel setFont:[UIFont boldSystemFontOfSize:35]];
+            [_codeLabel setTextColor:[UIColor colorWithRed:91.0f/255.0f green:107.0f/255.0f blue:118.0f/255.0f alpha:1.0f]];
+            [self.signUpView addSubview:_codeLabel];
             [_codeLabel sizeToFit];
-            _codeLabel.center = CGPointMake(160, 240);
-            
-            _smsButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [_smsButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateNormal];
-            [_smsButton addTarget:self action:@selector(showSMS:) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:_smsButton];
-            [_smsButton sizeToFit];
-            _smsButton.center = CGPointMake(160, 280);
+            _codeLabel.center = CGPointMake(self.signUpView.center.x, CGRectGetMinY(self.signUpView.signUpButton.frame)-60);
         }
     }];
     
@@ -65,20 +77,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - Actions
 
 - (void)showSMS:(id)sender
 {
+    // If there is no network connection, we will not perform show sms event.
+    if (_code.length == 0 || !(AppDelegate *)[[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"There is no network connection" message:@"Please check your connection and try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
@@ -116,7 +125,7 @@
 - (void)getResult
 {
     _codeLabel.hidden = YES;
-    _smsButton.hidden = YES;
+    self.signUpView.signUpButton.hidden = YES;
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = NSLocalizedString(@"Verifying", nil);
     self.hud.dimBackground = YES;
@@ -146,10 +155,13 @@
             }
         } else {
             [self.hud hide:YES];
+            _codeLabel.hidden = NO;
+            self.signUpView.signUpButton.hidden = NO;
+            
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Something went wrong. Please try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
-            _codeLabel.hidden = YES;
-            _smsButton.hidden = YES;
         }
     }];
 }

@@ -269,6 +269,7 @@
     
     // Instantiate our custom sign up view controller
     TFSignUpViewController *signUpViewController = [[TFSignUpViewController alloc] init];
+    signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
     
     // Link the sign up view controller
     [loginViewController setSignUpController:signUpViewController];
@@ -277,7 +278,7 @@
 }
 
 - (void)presentLoginViewController {
-    [self presentLoginViewControllerAnimated:YES];
+    [self presentLoginViewControllerAnimated :YES];
 }
 
 - (void)presentTabBarController {    
