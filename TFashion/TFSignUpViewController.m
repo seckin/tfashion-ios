@@ -31,9 +31,13 @@
                                                  blue:1.0f
                                                 alpha:1.0f];
 
+    PFACL *acl = [PFACL ACL];
+    [acl setPublicReadAccess:YES];
+    [acl setPublicWriteAccess:YES];
     TFSignupAttempt *signupAttemp = [TFSignupAttempt object];
     signupAttemp.verificationCode = [self randomStringWithLength:6];
     signupAttemp.messageArrived = NO;
+    signupAttemp.ACL = acl;
     [signupAttemp saveEventually:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             _code = signupAttemp.verificationCode;
