@@ -23,7 +23,7 @@
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
 		BC09CAD01A309098001F8DC8 /* TFInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CACF1A309098001F8DC8 /* TFInviteFriendsViewController.m */; };
-		BC09CAD31A3090AA001F8DC8 /* TFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* TFPerson.m */; };
+		BC09CAD31A3090AA001F8DC8 /* TFContact.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* TFContact.m */; };
 		BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */; };
 		BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE91A309456001F8DC8 /* Info.plist */; };
 		BC09CAED1A309456001F8DC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAEA1A309456001F8DC8 /* main.m */; };
@@ -104,8 +104,8 @@
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 		BC09CACE1A309098001F8DC8 /* TFInviteFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFInviteFriendsViewController.h; sourceTree = "<group>"; };
 		BC09CACF1A309098001F8DC8 /* TFInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFInviteFriendsViewController.m; sourceTree = "<group>"; };
-		BC09CAD11A3090AA001F8DC8 /* TFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFPerson.h; sourceTree = "<group>"; };
-		BC09CAD21A3090AA001F8DC8 /* TFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFPerson.m; sourceTree = "<group>"; };
+		BC09CAD11A3090AA001F8DC8 /* TFContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFContact.h; sourceTree = "<group>"; };
+		BC09CAD21A3090AA001F8DC8 /* TFContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFContact.m; sourceTree = "<group>"; };
 		BC09CAE21A3091E5001F8DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC09CAE91A309456001F8DC8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC09CAEA1A309456001F8DC8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -408,8 +408,8 @@
 		BC19D29D1A25FF62002B9944 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BC09CAD11A3090AA001F8DC8 /* TFPerson.h */,
-				BC09CAD21A3090AA001F8DC8 /* TFPerson.m */,
+				BC09CAD11A3090AA001F8DC8 /* TFContact.h */,
+				BC09CAD21A3090AA001F8DC8 /* TFContact.m */,
 				BC9F044C1A39E3D600088C96 /* TFSignupAttempt.h */,
 				BC9F044D1A39E3D600088C96 /* TFSignupAttempt.m */,
 			);
@@ -735,7 +735,7 @@
 				E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */,
 				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
 				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
-				BC09CAD31A3090AA001F8DC8 /* TFPerson.m in Sources */,
+				BC09CAD31A3090AA001F8DC8 /* TFContact.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
