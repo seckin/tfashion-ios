@@ -13,6 +13,7 @@
 + (NSString *)parseClassName;
 
 @property (retain) NSString *verificationCode;
+@property (retain) NSString *senderNumber;
 @property BOOL messageArrived;
 @property PFUser *user;
 

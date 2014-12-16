@@ -39,14 +39,6 @@
     }
     [self.signUpView.signUpButton addTarget:self action:@selector(showSMS:) forControlEvents:UIControlEventTouchUpInside];
     
-    // If there is no network connection, we will not perform sign up event.
-    if (!(AppDelegate *)[[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
-        self.signUpView.signUpButton.hidden = YES;
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"There is no network connection" message:@"Please check your connection and try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
-        return;
-    }
-    
     // Create sign up attemp instance
     PFACL *acl = [PFACL ACL];
     [acl setPublicReadAccess:YES];
@@ -70,11 +62,6 @@
         }
     }];
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Actions
@@ -124,8 +111,6 @@
 
 - (void)getResult
 {
-    _codeLabel.hidden = YES;
-    self.signUpView.signUpButton.hidden = YES;
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = NSLocalizedString(@"Verifying", nil);
     self.hud.dimBackground = YES;
@@ -146,23 +131,63 @@
             if (objects.count == 0) {
                 [self sendQuery:query];
             } else {
-                [self.hud hide:YES];
-                
-                // Do something with the found objects
-                for (PFObject *object in objects) {
-                    NSLog(@"%@", object.objectId);
-                }
+                TFSignupAttempt *signupAttempt = objects[0];
+                NSLog(@"signup attempt %@", signupAttempt.objectId);
+                [self authenticateUserWithPhoneNumber:signupAttempt.senderNumber];
             }
         } else {
             [self.hud hide:YES];
-            _codeLabel.hidden = NO;
-            self.signUpView.signUpButton.hidden = NO;
             
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Something went wrong. Please try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [warningAlert show];
+            [self showWarning];
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
+    }];
+}
+
+- (void)authenticateUserWithPhoneNumber:(NSString *)phoneNumber
+{
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:phoneNumber];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully retrieved %lu user.", (unsigned long)objects.count);
+            if (objects.count == 0) {
+                [PFUser enableAutomaticUser];
+                PFUser *user = [PFUser currentUser];
+                user.username = phoneNumber;
+                user.password = @"password";
+                [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [self.hud hide:YES];
+                    if (!error) {
+                        [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+                        UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+                        [navController dismissViewControllerAnimated:YES completion:nil];
+                    } else {
+                        NSLog(@"sign up not successful %@", [error userInfo]);
+                        [self showWarning];
+                    }
+                }];
+            } else {
+                PFUser *user = objects[0];
+                [PFUser logInWithUsernameInBackground:user.username password:@"password" block:^(PFUser *user, NSError *error) {
+                    [self.hud hide:YES];
+                    if (!error) {
+                        [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+                        UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+                        [navController dismissViewControllerAnimated:YES completion:nil];
+                    } else {
+                        NSLog(@"login not successful %@", [error userInfo]);
+                        [self showWarning];
+                    }
+                }];
+            }
+        } else {
+            NSLog(@"Become Error: %@ %@", error, [error userInfo]);
+            [self.hud hide:YES];
+            [self showWarning];
+        }
+        
     }];
 }
 
@@ -192,6 +217,14 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Alert
+
+- (void)showWarning
+{
+    UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Something went wrong. Please try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [warningAlert show];
 }
 
 @end

@@ -11,6 +11,7 @@
 
 @implementation TFSignupAttempt
 @dynamic verificationCode;
+@dynamic senderNumber;
 @dynamic messageArrived;
 @dynamic user;
 
