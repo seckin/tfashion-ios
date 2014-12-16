@@ -160,9 +160,17 @@
                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     [self.hud hide:YES];
                     if (!error) {
-                        [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
-                        UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
-                        [navController dismissViewControllerAnimated:YES completion:nil];
+                        [PFUser becomeInBackground:user.sessionToken block:^(PFUser *user, NSError *error) {
+                            if (error) {
+                                // The token could not be validated.
+                                NSLog(@"token could not be validated %@", [error userInfo]);
+                            } else {
+                                // The current user is now set to user.
+                                [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+                                UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+                                [navController dismissViewControllerAnimated:YES completion:nil];
+                            }
+                        }];
                     } else {
                         NSLog(@"sign up not successful %@", [error userInfo]);
                         [self showWarning];
@@ -170,6 +178,7 @@
                 }];
             } else {
                 PFUser *user = objects[0];
+                NSLog(@"session token: %@", user.sessionToken);
                 [PFUser logInWithUsernameInBackground:user.username password:@"password" block:^(PFUser *user, NSError *error) {
                     [self.hud hide:YES];
                     if (!error) {
