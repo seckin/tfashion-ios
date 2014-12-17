@@ -8,6 +8,7 @@
 
 #import "TFInviteFriendsViewController.h"
 #import "TFContact.h"
+#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
 NSString *const kDeniedTitle = @"Access to address book is denied";
 NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";
@@ -291,6 +292,10 @@ void addressBookChanged(ABAddressBookRef reference,
             {
                 
                 NSString *num = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, j);
+                // Format phone number
+                NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
+                NBPhoneNumber *phoneNumber = [phoneUtil parseWithPhoneCarrierRegion:num error:nil];
+                num = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberFormatE164 error:nil];
                 [phonesMutable addObject:num];
             }
             contact.phoneNumbers = phonesMutable;
