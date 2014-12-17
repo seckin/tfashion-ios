@@ -8,15 +8,19 @@
 
 #import "TFSignUpViewController.h"
 #import "TFSignupAttempt.h"
-#import <MBProgressHUD/MBProgressHUD.h>
 #import "AppDelegate.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
 @interface TFSignUpViewController ()
 
-@property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) UILabel *codeLabel;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, strong) UIActivityIndicatorView *signUpActivityIndicatorView;
+
+@property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) NSString *objectId;
+@property (nonatomic, strong) NSString *phoneNumber;
 
 @end
 
@@ -28,43 +32,56 @@
     
     // Customize sign up view
     self.signUpView.logo = nil;
-    [self.signUpView.usernameField removeFromSuperview];
+    self.signUpView.usernameField.hidden = YES;
     [self.signUpView.passwordField removeFromSuperview];
-    [self.signUpView.signUpButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateNormal];
-    [self.signUpView.signUpButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateHighlighted];
-    NSArray *signUpButtonActions = [self.signUpView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
-    for (int i = 0; i<signUpButtonActions.count; i++) {
-        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
-        [self.signUpView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
-    }
-    [self.signUpView.signUpButton addTarget:self action:@selector(showSMS:) forControlEvents:UIControlEventTouchUpInside];
+    [self.signUpView.emailField removeFromSuperview];
+    [self setSignUpButtonToSendVerificationCodeButton];
+    
+    _codeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [_codeLabel setText:[self randomStringWithLength:6]];
+    [_codeLabel setFont:[UIFont boldSystemFontOfSize:35]];
+    [_codeLabel setTextColor:[UIColor colorWithRed:91.0f/255.0f green:107.0f/255.0f blue:118.0f/255.0f alpha:1.0f]];
+    [self.signUpView addSubview:_codeLabel];
+    
+    _signUpActivityIndicatorView = [[UIActivityIndicatorView alloc]
+                              initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [self.signUpView addSubview:_signUpActivityIndicatorView];
     
     // Create sign up attemp instance
     PFACL *acl = [PFACL ACL];
     [acl setPublicReadAccess:YES];
     [acl setPublicWriteAccess:YES];
     TFSignupAttempt *signupAttemp = [TFSignupAttempt object];
-    signupAttemp.verificationCode = [self randomStringWithLength:6];
+    signupAttemp.verificationCode = _codeLabel.text;
     signupAttemp.messageArrived = NO;
     signupAttemp.ACL = acl;
     [signupAttemp saveEventually:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             _code = signupAttemp.verificationCode;
             _objectId = signupAttemp.objectId;
-            
-            _codeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-            [_codeLabel setText:_code];
-            [_codeLabel setFont:[UIFont boldSystemFontOfSize:35]];
-            [_codeLabel setTextColor:[UIColor colorWithRed:91.0f/255.0f green:107.0f/255.0f blue:118.0f/255.0f alpha:1.0f]];
-            [self.signUpView addSubview:_codeLabel];
-            [_codeLabel sizeToFit];
-            _codeLabel.center = CGPointMake(self.signUpView.center.x, CGRectGetMinY(self.signUpView.signUpButton.frame)-60);
         }
     }];
     
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [_codeLabel sizeToFit];
+    _codeLabel.center = self.signUpView.usernameField.center;
+    
+    _signUpActivityIndicatorView.center = CGPointMake(24, self.signUpView.signUpButton.center.y);
+    
+    [self.signUpView layoutIfNeeded];
+}
+
 #pragma mark - Actions
+
+- (void)dismissVC:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)showSMS:(id)sender
 {
@@ -96,6 +113,30 @@
 
 #pragma mark - Private
 
+- (void)setSignUpButtonToSendVerificationCodeButton
+{
+    [self.signUpView.signUpButton setTitle:@"Send Verification Code to Sign Up" forState:UIControlStateNormal];
+    NSArray *signUpButtonActions = [self.signUpView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
+    for (int i = 0; i<signUpButtonActions.count; i++) {
+        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
+        [self.signUpView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.signUpView.signUpButton addTarget:self action:@selector(showSMS:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+- (void)setSendVerificationCodeButtonToSignUpButton
+{
+    [self.signUpView.signUpButton setTitle:@"Sign Up" forState:UIControlStateNormal];
+    NSArray *signUpButtonActions = [self.signUpView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
+    for (int i = 0; i<signUpButtonActions.count; i++) {
+        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
+        [self.signUpView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.signUpView.signUpButton addTarget:self action:@selector(authenticateUser:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
 - (NSString *)randomStringWithLength:(int)len
 {
     NSString *alphabet  = @"0123456789";
@@ -111,15 +152,43 @@
 
 - (void)getResult
 {
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = NSLocalizedString(@"Verifying", nil);
-    self.hud.dimBackground = YES;
-    
+    _phoneNumber = @"";
     PFQuery *query = [PFQuery queryWithClassName:@"SignupAttempt"];
     [query whereKey:@"objectId" equalTo:_objectId];
     [query whereKey:@"verificationCode" equalTo:_code];
     [query whereKey:@"messageArrived" equalTo:[NSNumber numberWithBool:YES]];
     [self sendQuery:query];
+}
+
+- (void)checkIsUserExist
+{
+    PFQuery *query = [PFUser query];
+    [query whereKey:kPAPUserPhoneNumberKey equalTo:_phoneNumber];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.hud hide:YES];
+        if (!error) {
+            NSLog(@"Successfully retrieved %lu user.", (unsigned long)objects.count);
+            if (objects.count == 0) {
+                self.signUpView.usernameField.hidden = NO;
+            } else {
+                PFUser *user = objects[0];
+                [PFUser logInWithUsernameInBackground:user.username password:@"password" block:^(PFUser *user, NSError *error) {
+                    [_signUpActivityIndicatorView stopAnimating];
+                    if (!error) {
+                        [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+                        UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+                        [navController dismissViewControllerAnimated:YES completion:nil];
+                    } else {
+                        NSLog(@"login not successful %@", [error userInfo]);
+                        [self showWarning];
+                    }
+                }];
+            }
+        } else {
+            [self showWarning];
+        }
+    }];
+    
 }
 
 - (void)sendQuery:(PFQuery *)query
@@ -133,11 +202,15 @@
             } else {
                 TFSignupAttempt *signupAttempt = objects[0];
                 NSLog(@"signup attempt %@", signupAttempt.objectId);
-                [self authenticateUserWithPhoneNumber:signupAttempt.senderNumber];
+                
+                // Format phone number
+                NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
+                NBPhoneNumber *phoneNumber = [phoneUtil parseWithPhoneCarrierRegion:signupAttempt.senderNumber error:nil];
+                _phoneNumber = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberFormatE164 error:nil];
+                
+                [self checkIsUserExist];
             }
         } else {
-            [self.hud hide:YES];
-            
             [self showWarning];
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -145,58 +218,43 @@
     }];
 }
 
-- (void)authenticateUserWithPhoneNumber:(NSString *)phoneNumber
+- (void)authenticateUser:(id)sender
 {
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo:phoneNumber];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    NSString *username = self.signUpView.usernameField.text ?: @"";
+    
+    if (username.length == 0) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sign Up Error" message:@"Please enter a username." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        
+        return;
+    }
+    
+    [PFUser enableAutomaticUser];
+    PFUser *user = [PFUser currentUser];
+    user.username = username;
+    user.password = @"password";
+    [user setObject:username forKey:kPAPUserDisplayNameKey];
+    [user setObject:_phoneNumber forKey:kPAPUserPhoneNumberKey];
+    [_signUpActivityIndicatorView startAnimating];
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %lu user.", (unsigned long)objects.count);
-            if (objects.count == 0) {
-                [PFUser enableAutomaticUser];
-                PFUser *user = [PFUser currentUser];
-                user.username = phoneNumber;
-                user.password = @"password";
-                [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [self.hud hide:YES];
-                    if (!error) {
-                        [PFUser becomeInBackground:user.sessionToken block:^(PFUser *user, NSError *error) {
-                            if (error) {
-                                // The token could not be validated.
-                                NSLog(@"token could not be validated %@", [error userInfo]);
-                            } else {
-                                // The current user is now set to user.
-                                [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
-                                UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
-                                [navController dismissViewControllerAnimated:YES completion:nil];
-                            }
-                        }];
-                    } else {
-                        NSLog(@"sign up not successful %@", [error userInfo]);
-                        [self showWarning];
-                    }
-                }];
-            } else {
-                PFUser *user = objects[0];
-                NSLog(@"session token: %@", user.sessionToken);
-                [PFUser logInWithUsernameInBackground:user.username password:@"password" block:^(PFUser *user, NSError *error) {
-                    [self.hud hide:YES];
-                    if (!error) {
-                        [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
-                        UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
-                        [navController dismissViewControllerAnimated:YES completion:nil];
-                    } else {
-                        NSLog(@"login not successful %@", [error userInfo]);
-                        [self showWarning];
-                    }
-                }];
-            }
+            [PFUser becomeInBackground:user.sessionToken block:^(PFUser *user, NSError *error) {
+                [_signUpActivityIndicatorView stopAnimating];
+                if (error) {
+                    // The token could not be validated.
+                    NSLog(@"token could not be validated %@", [error userInfo]);
+                } else {
+                    // The current user is now set to user.
+                    [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+                    UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+                    [navController dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
         } else {
-            NSLog(@"Become Error: %@ %@", error, [error userInfo]);
-            [self.hud hide:YES];
+            NSLog(@"sign up not successful %@", [error userInfo]);
+            [_signUpActivityIndicatorView stopAnimating];
             [self showWarning];
         }
-        
     }];
 }
 
@@ -217,6 +275,11 @@
             
         case MessageComposeResultSent:
         {
+            _codeLabel.hidden = YES;
+            [self setSendVerificationCodeButtonToSignUpButton];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self.hud.labelText = NSLocalizedString(@"Verifying", nil);
+            self.hud.dimBackground = YES;
             [self getResult];
         }
             break;

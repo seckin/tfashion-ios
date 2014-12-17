@@ -37,7 +37,7 @@
 - (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
     [super setViewControllers:viewControllers animated:animated];
     
-    FAKIonIcons *cameraIcon = [FAKIonIcons ios7CameraIconWithSize:30.0f];
+    FAKIonIcons *cameraIcon = [FAKIonIcons iosCameraIconWithSize:30.0f];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
                                                                  whiteColor]];
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -48,27 +48,6 @@
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.tabBar addSubview:cameraButton];
 }
-
-
-//#pragma mark - UIImagePickerDelegate
-//
-//- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-//
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-//    [self dismissViewControllerAnimated:NO completion:nil];
-//    
-//    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-//     
-//    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
-//    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    
-//    [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    [self.navController pushViewController:viewController animated:NO];
-//    
-//    [self presentViewController:self.navController animated:YES completion:nil];
-//}
 
 - (BOOL)shouldPresentPhotoCaptureController
 {
@@ -110,20 +89,12 @@
 
 - (void) camera:(id)cameraViewController didFinishWithImage:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
-//    PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
-//    self.navigationController.navigationBarHidden = NO;
-//    [self.navigationController pushViewController:viewController animated:NO];
-//    [cameraViewController restoreFullScreenMode];
-//    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     PAPEditPhotoViewController *viewController = [[PAPEditPhotoViewController alloc] initWithImage:image];
     [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
     
     [self.presentedViewController.navigationController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    [self.presentedViewController.navigationController pushViewController:viewController animated:NO];
     [self.presentedViewController presentViewController:nav animated:YES completion:nil];
-    
-//    [self presentViewController:self.presentedViewController.navigationController animated:YES completion:nil];
 
 }
 

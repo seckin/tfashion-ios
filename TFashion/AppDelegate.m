@@ -271,9 +271,6 @@
     TFSignUpViewController *signUpViewController = [[TFSignUpViewController alloc] init];
     signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
     
-    // Link the sign up view controller
-    [loginViewController setSignUpController:signUpViewController];
-    
     [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
 }
 
@@ -294,7 +291,7 @@
     FAKIonIcons *homeIcon = [FAKIonIcons homeIconWithSize:27.0f];
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
     
-    FAKIonIcons *activityIcon = [FAKIonIcons ios7BellIconWithSize:27.0f];
+    FAKIonIcons *activityIcon = [FAKIonIcons iosBellIconWithSize:27.0f];
     UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
     
     [homeNavigationController setTabBarItem:homeTabBarItem];
