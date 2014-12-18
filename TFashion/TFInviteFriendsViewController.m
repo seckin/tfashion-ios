@@ -258,7 +258,7 @@ void addressBookChanged(ABAddressBookRef reference,
     
     if (addressBook != nil)
     {
-        NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+        NSArray *allContacts = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, nil, kABPersonSortByFirstName));
         NSMutableSet *linkedPersonsToSkip = [[NSMutableSet alloc] init];
         
         NSDate *lastModificationDate = [[NSUserDefaults standardUserDefaults] valueForKey:kLastModificationDate];
