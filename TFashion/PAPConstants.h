@@ -71,13 +71,18 @@ extern NSString *const kPAPActivityFromUserKey;
 extern NSString *const kPAPActivityToUserKey;
 extern NSString *const kPAPActivityContentKey;
 extern NSString *const kPAPActivityPhotoKey;
-extern NSString *const kPAPActivityMentionsKey;
+extern NSString *const kPAPActivityTagsKey;
+extern NSString *const kPAPTagNameKey;
+extern NSString *const kPAPTagLinkedObjectIdKey;
+extern NSString *const kPAPTagTypeKey;
 
 // Type values
 extern NSString *const kPAPActivityTypeLike;
 extern NSString *const kPAPActivityTypeFollow;
 extern NSString *const kPAPActivityTypeComment;
 extern NSString *const kPAPActivityTypeJoined;
+extern NSString *const kPAPTagTypeMention;
+extern NSString *const kPAPTagTypeHashtag;
 
 
 #pragma mark - PFObject User Class
@@ -91,6 +96,7 @@ extern NSString *const kPAPUserFacebookFriendsKey;
 extern NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey;
 extern NSString *const kPAPUserEmailKey;
 extern NSString *const kPAPUserPhoneNumberKey;
+extern NSString *const kPAPUserObjectIdKey;
 
 
 #pragma mark - PFObject Photo Class

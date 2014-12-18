@@ -235,6 +235,8 @@
     user.password = @"password";
     [user setObject:username forKey:kPAPUserDisplayNameKey];
     [user setObject:_phoneNumber forKey:kPAPUserPhoneNumberKey];
+    [user setObject:[self getProfilePictureIsSmall:NO] forKey:kPAPUserProfilePicMediumKey];
+    [user setObject:[self getProfilePictureIsSmall:YES] forKey:kPAPUserProfilePicSmallKey];
     [_signUpActivityIndicatorView startAnimating];
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -256,6 +258,22 @@
             [self showWarning];
         }
     }];
+}
+
+- (PFFile *)getProfilePictureIsSmall:(BOOL)isSmall
+{
+    PFFile *file = nil;
+    if (isSmall) {
+        UIImage *image = [UIImage imageNamed:@"profilePictureSmall"];
+        NSData *data = UIImagePNGRepresentation(image);
+        file = [PFFile fileWithData:data];
+    } else {
+        UIImage *image = [UIImage imageNamed:@"profilePictureMedium"];
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        file = [PFFile fileWithData:data];
+    }
+    
+    return file;
 }
 
 #pragma mark - Message compose view controller delegate

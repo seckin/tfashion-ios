@@ -60,6 +60,7 @@
 		BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139231A24D788003DD8C4 /* UIImage+AlphaAdditions.m */; };
 		BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */; };
 		BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */; };
+		BC26B9BC1A43575F0094214F /* TFTag.m in Sources */ = {isa = PBXBuildFile; fileRef = BC26B9BB1A43575F0094214F /* TFTag.m */; };
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
 		BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BDA841A35A28300B6B875 /* MPGTextField.m */; };
 		BC9F044B1A39D88100088C96 /* TFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* TFSignUpViewController.m */; };
@@ -173,6 +174,8 @@
 		BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ResizeAdditions.m"; path = "TFashion/UIImage+ResizeAdditions.m"; sourceTree = SOURCE_ROOT; };
 		BC2139261A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCornerAdditions.h"; path = "TFashion/UIImage+RoundedCornerAdditions.h"; sourceTree = SOURCE_ROOT; };
 		BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCornerAdditions.m"; path = "TFashion/UIImage+RoundedCornerAdditions.m"; sourceTree = SOURCE_ROOT; };
+		BC26B9BA1A43575F0094214F /* TFTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFTag.h; sourceTree = "<group>"; };
+		BC26B9BB1A43575F0094214F /* TFTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFTag.m; sourceTree = "<group>"; };
 		BC54066C1A24DE7300CB0AC6 /* PAPPhotoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoHeaderView.h; path = TFashion/PAPPhotoHeaderView.h; sourceTree = SOURCE_ROOT; };
 		BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = TFashion/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
 		BC5BDA831A35A28300B6B875 /* MPGTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGTextField.h; sourceTree = "<group>"; };
@@ -412,6 +415,8 @@
 				BC09CAD21A3090AA001F8DC8 /* TFContact.m */,
 				BC9F044C1A39E3D600088C96 /* TFSignupAttempt.h */,
 				BC9F044D1A39E3D600088C96 /* TFSignupAttempt.m */,
+				BC26B9BA1A43575F0094214F /* TFTag.h */,
+				BC26B9BB1A43575F0094214F /* TFTag.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -759,6 +764,7 @@
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
 				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
 				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
+				BC26B9BC1A43575F0094214F /* TFTag.m in Sources */,
 				BC9F044E1A39E3D600088C96 /* TFSignupAttempt.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,

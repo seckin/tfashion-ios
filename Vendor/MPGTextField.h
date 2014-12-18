@@ -24,6 +24,7 @@
 @property (nonatomic) UIColor *seperatorColor;
 
 @property (nonatomic) NSString *result;
+@property (nonatomic) id resultObject;
 
 @end
 

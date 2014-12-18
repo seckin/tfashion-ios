@@ -16,6 +16,7 @@
 #import "PAPUtility.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
+#import "TFTag.h"
 
 enum ActionSheetTags {
     MainActionSheetTag = 0,
@@ -166,7 +167,12 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
     if ([textField isEqual:commentTextField]) {
-        [self.mentionLinkArray addObject:[result valueForKey:@"DisplayText"]];
+        TFTag *tag = [TFTag object];
+        tag.name = [result valueForKey:@"DisplayText"];
+        PFUser *user = [result valueForKey:@"CustomObject"];
+        tag.linkedObjectId = [user valueForKey:kPAPUserObjectIdKey];
+        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+        [self.mentionLinkArray addObject:tag];
     }
 }
 
@@ -174,12 +180,13 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url {
-    NSString *mention = [url absoluteString];
-    NSString *facebookId = [mention substringFromIndex:1];
+    NSString *userObjectId = [url absoluteString];
     PFQuery *query = [PFUser query];
-    [query whereKey:kPAPUserFacebookIDKey equalTo:facebookId];
-    PFUser *user = (PFUser *)[query getFirstObject];
-    [self shouldPresentAccountViewForUser:user];
+    [query whereKey:kPAPUserObjectIdKey equalTo:userObjectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        PFUser *user = (PFUser *)object;
+        [self shouldPresentAccountViewForUser:user];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -250,7 +257,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
     
     [cell setUser:[object objectForKey:kPAPActivityFromUserKey]];
-    [cell setLinks:[object objectForKey:kPAPActivityMentionsKey]];
+    [cell setTags:[object objectForKey:kPAPActivityTagsKey]];
     [cell setContentText:[object objectForKey:kPAPActivityContentKey]];
     [cell setDate:[object createdAt]];
 
@@ -283,7 +290,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
         [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
         [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
         [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
-        [comment setObject:self.mentionLinkArray forKey:kPAPActivityMentionsKey];
+        [comment setObject:self.mentionLinkArray forKey:kPAPActivityTagsKey];
         
         PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [ACL setPublicReadAccess:YES];
