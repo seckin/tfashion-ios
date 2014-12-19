@@ -9,7 +9,7 @@
 #import "PAPSettingsActionSheetDelegate.h"
 #import "PAPFindFriendsViewController.h"
 #import "PAPAccountViewController.h"
-#import "TFShareSettingsViewController.h"
+#import "CONShareSettingsViewController.h"
 #import "AppDelegate.h"
 
 // ActionSheet button indexes
@@ -64,7 +64,7 @@ typedef enum {
         }
         case kPAPSettingsShare:
         {
-            TFShareSettingsViewController *shareSettingsVC = [[TFShareSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            CONShareSettingsViewController *shareSettingsVC = [[CONShareSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [navController pushViewController:shareSettingsVC animated:YES];
             break;
         }

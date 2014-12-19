@@ -76,7 +76,7 @@ NSArray *data;
             else if (self.text.length > 0){
                 //Make sure that delegate method is not called if no text is present in the text field.
                 if ([[self delegate] respondsToSelector:@selector(textField:didEndEditingWithSelection:)]) {
-                    [[self delegate] textField:self didEndEditingWithSelection:[NSDictionary dictionaryWithObjectsAndKeys:self.result,@"DisplayText",@"NEW",@"CustomObject", nil]];
+                    [[self delegate] textField:self didEndEditingWithSelection:[NSDictionary dictionaryWithObjectsAndKeys:self.result,@"DisplayText",self.resultObject,@"CustomObject", nil]];
                 }
                 else{
                     NSLog(@"<MPGTextField> WARNING: You have not implemented a method from MPGTextFieldDelegate that is called back when the user selects a search suggestion.");
@@ -127,7 +127,8 @@ NSArray *data;
     NSMutableArray *components = [NSMutableArray arrayWithArray:[self.text componentsSeparatedByCharactersInSet:charSet]];
     [components removeObject:components.lastObject];
     
-    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserFacebookIDKey]];
+    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserDisplayNameKey]];
+    self.resultObject = aUser;
     [components addObject:self.result];
     self.text = [components componentsJoinedByString:@" "];
     [self handleExit];
@@ -140,7 +141,8 @@ NSArray *data;
     [components removeObject:components.lastObject];
     
     PFUser *aUser = [[[self applyFilterWithSearchQuery:self.text] objectAtIndex:indexPath.row] objectForKey:@"CustomObject"];
-    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserFacebookIDKey]];
+    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserDisplayNameKey]];
+    self.resultObject = aUser;
     [components addObject:self.result];
     self.text = [components componentsJoinedByString:@" "];
     [self handleExit];

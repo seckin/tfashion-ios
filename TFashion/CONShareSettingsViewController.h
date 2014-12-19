@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TFShareSettingsViewController : UITableViewController
+@interface CONShareSettingsViewController : UITableViewController
 
 @end

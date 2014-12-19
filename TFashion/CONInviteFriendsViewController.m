@@ -6,15 +6,17 @@
 //
 //
 
-#import "TFInviteFriendsViewController.h"
-#import "TFPerson.h"
+#import "CONInviteFriendsViewController.h"
+#import "CONContact.h"
+#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
 NSString *const kDeniedTitle = @"Access to address book is denied";
 NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";
 NSString *const kRestrictedMessage = @"Access to address book is restricted";
 NSString *const kNotGrantedMessage = @"Access to address book is not granted";
+NSString *const kLastModificationDate = @"LastModificationDate";
 
-@interface TFInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface CONInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 {
     UISearchBar *searchBar;
     UISearchDisplayController *searchDisplayController;
@@ -22,11 +24,11 @@ NSString *const kNotGrantedMessage = @"Access to address book is not granted";
 
 @property (nonatomic, strong) NSArray *tableData;
 @property (nonatomic, strong) NSArray *searchResults;
-@property (nonatomic, strong) NSMutableArray *people;
+@property (nonatomic, strong) NSMutableArray *contacts;
 
 @end
 
-@implementation TFInviteFriendsViewController
+@implementation CONInviteFriendsViewController
 
 ABAddressBookRef addressBook;
 
@@ -81,7 +83,7 @@ ABAddressBookRef addressBook;
 - (void)updateSelectionButtons:(UITableView *)tableView forSelectedRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == searchDisplayController.searchResultsTableView){
-        TFPerson *person = [self.searchResults objectAtIndex:indexPath.row];
+        CONContact *person = [self.searchResults objectAtIndex:indexPath.row];
         NSUInteger indexOfPerson = [self.tableData indexOfObject:person];
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:indexOfPerson inSection:indexPath.section] animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
@@ -132,9 +134,9 @@ ABAddressBookRef addressBook;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    TFPerson *person;
+    CONContact *contact;
     if (tableView == searchDisplayController.searchResultsTableView) {
-        person = [self.searchResults objectAtIndex:indexPath.row];
+        contact = [self.searchResults objectAtIndex:indexPath.row];
         
         // secilen kisilerin search tablosunda da secili gelmesi icin
         NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
@@ -144,16 +146,16 @@ ABAddressBookRef addressBook;
         }
         NSArray *selectedPeople = [_tableData objectsAtIndexes:selectedIndexSet];
         
-        if ([selectedPeople containsObject:person]) {
+        if ([selectedPeople containsObject:contact]) {
             [searchDisplayController.searchResultsTableView selectRowAtIndexPath:indexPath
                                                                              animated:NO
                                                                        scrollPosition:UITableViewScrollPositionNone];
         }
     } else {
-        person = [self.tableData objectAtIndex:indexPath.row];
+        contact = [self.tableData objectAtIndex:indexPath.row];
     }
     
-    cell.textLabel.text = ((person.fullName != nil) ? person.fullName : nil);
+    cell.textLabel.text = ((contact.fullName != nil) ? contact.fullName : nil);
     
     return cell;
 }
@@ -182,14 +184,22 @@ ABAddressBookRef addressBook;
 
 - (void)addressBookAuthorization
 {
-    self.people = [[NSMutableArray alloc] init];
+    self.contacts = [[NSMutableArray alloc] init];
     
     CFErrorRef error = NULL;
     switch (ABAddressBookGetAuthorizationStatus()) {
         case kABAuthorizationStatusAuthorized: {
             addressBook = ABAddressBookCreateWithOptions(NULL, &error);
-            /* Do your work and once you are finished ... */
-            [self getPersonOutOfAddressBook:addressBook];
+            
+            // Register address book external change callback to get notification when app is active
+            ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, (__bridge void *)(self));
+            
+            NSDate *lastModificationDate = [[NSUserDefaults standardUserDefaults] valueForKey:kLastModificationDate];
+            if (lastModificationDate) {
+                [self getPersonOutOfAddressBook:addressBook lastModificationDateCheck:YES];
+            } else {
+                [self getPersonOutOfAddressBook:addressBook lastModificationDateCheck:NO];
+            }
             break;
         }
         case kABAuthorizationStatusDenied:{
@@ -204,7 +214,10 @@ ABAddressBookRef addressBook;
                         [self displayMessage:kNotGrantedMessage withTitle:nil];
                         return;
                     }
-                    [self getPersonOutOfAddressBook:addressBook];
+                    // Register address book external change callback to get notification when app is active
+                    ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, (__bridge void *)(self));
+                    
+                    [self getPersonOutOfAddressBook:addressBook lastModificationDateCheck:NO];
                 });
             });
             break;
@@ -216,12 +229,39 @@ ABAddressBookRef addressBook;
     }
 }
 
-- (void)getPersonOutOfAddressBook:(ABAddressBookRef)addressBook
+void addressBookChanged(ABAddressBookRef reference,
+                        CFDictionaryRef dictionary,
+                        void *context)
 {
+    
+    CONInviteFriendsViewController *viewController = (__bridge CONInviteFriendsViewController*)context;
+    [viewController addressBookChanged];
+}
+
+- (void)addressBookChanged
+{
+    CFErrorRef error = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    if (error) {
+        CFRelease(addressBook);
+        return;
+    }
+    
+    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {});
+    
+    [self getPersonOutOfAddressBook:addressBook lastModificationDateCheck:YES];
+}
+
+- (void)getPersonOutOfAddressBook:(ABAddressBookRef)addressBook lastModificationDateCheck:(BOOL)lastModificationDateCheck
+{
+    NSMutableArray *newContacts = [[NSMutableArray alloc] init];
+    
     if (addressBook != nil)
     {
-        NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+        NSArray *allContacts = (__bridge NSArray *)(ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, nil, kABPersonSortByFirstName));
         NSMutableSet *linkedPersonsToSkip = [[NSMutableSet alloc] init];
+        
+        NSDate *lastModificationDate = [[NSUserDefaults standardUserDefaults] valueForKey:kLastModificationDate];
         
         NSUInteger i = 0;
         for (i = 0; i < [allContacts count]; i++)
@@ -233,15 +273,17 @@ ABAddressBookRef addressBook;
                 continue;
             }
             
-            TFPerson *person = [[TFPerson alloc] init];
+            CONContact *contact = [[CONContact alloc] init];
+            contact.addressBookRecordId = [NSNumber numberWithInt:ABRecordGetRecordID(contactPerson)];
+            contact.fromUser = [PFUser currentUser];
             
             NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
             NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
             NSString *fullName = [NSString stringWithFormat:@"%@ %@", ((firstName != nil) ? firstName : @""), ((lastName != nil) ? lastName : @"")];
             
-            person.firstName = firstName;
-            person.lastName = lastName;
-            person.fullName = fullName;
+            contact.firstName = firstName;
+            contact.lastName = lastName;
+            contact.fullName = fullName;
             
             //phone
             ABMultiValueRef phones = ABRecordCopyValue(contactPerson, kABPersonPhoneProperty);
@@ -250,9 +292,13 @@ ABAddressBookRef addressBook;
             {
                 
                 NSString *num = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(phones, j);
+                // Format phone number
+                NBPhoneNumberUtil *phoneUtil = [NBPhoneNumberUtil sharedInstance];
+                NBPhoneNumber *phoneNumber = [phoneUtil parseWithPhoneCarrierRegion:num error:nil];
+                num = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberFormatE164 error:nil];
                 [phonesMutable addObject:num];
             }
-            person.phoneNumbers = phonesMutable;
+            contact.phoneNumbers = phonesMutable;
             
             //email
             ABMultiValueRef emails = ABRecordCopyValue(contactPerson, kABPersonEmailProperty);
@@ -263,7 +309,7 @@ ABAddressBookRef addressBook;
                 NSString *email = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(emails, k);
                 [emailsMutable addObject:email];
             }
-            person.emails = emailsMutable;
+            contact.emails = emailsMutable;
             
             //linked accounts
             NSArray *linked = (__bridge NSArray *) ABPersonCopyArrayOfAllLinkedPeople(contactPerson);
@@ -271,15 +317,68 @@ ABAddressBookRef addressBook;
                 [linkedPersonsToSkip addObjectsFromArray:linked];
             }
             
-            if (person.fullName.length > 0) {
-                [self.people addObject:person];
+            if (contact.fullName.length > 0 && contact.addressBookRecordId != nil) {
+                [self.contacts addObject:contact];
+                
+                if (lastModificationDateCheck == YES && lastModificationDate != nil) {
+                    NSDate *modificationDate = (__bridge NSDate*) ABRecordCopyValue(contactPerson, kABPersonModificationDateProperty);
+                    if ([modificationDate compare:lastModificationDate] != NSOrderedDescending) {
+                        continue;
+                    } else {
+                        [newContacts addObject:contact];
+                    }
+                } else {
+                    [newContacts addObject:contact];
+                }
             }
         }
     }
     CFRelease(addressBook);
     
-    self.tableData = self.people;
+    [CONContact saveAllInBackground:newContacts block:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            //
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];
+        }
+    }];
+    
+    self.tableData = self.contacts;
     [self.tableView reloadData];
+}
+
+- (NSArray *)getSortedContactsOrderByModificationDate:(ABAddressBookRef)addressBook
+{
+    
+    NSMutableArray * modificationDates = [[NSMutableArray alloc] init];
+    if(addressBook != nil)
+    {
+        CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+        if(nPeople > 0)
+        {
+            CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+            for (int index = 0; index < nPeople; ++index)
+            {
+                ABRecordRef person = CFArrayGetValueAtIndex(allPeople, index);
+                NSNumber *contactID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+                NSDate *modificationDate = (__bridge NSDate*) ABRecordCopyValue(person, kABPersonModificationDateProperty);
+                [modificationDates addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:contactID,modificationDate, nil] forKeys:[NSArray arrayWithObjects:@"contactID",@"modificationDate", nil]]];
+            }
+            if(allPeople)
+                CFRelease(allPeople);
+            allPeople = nil;
+        }
+    }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:YES];
+    [modificationDates sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    return modificationDates;
+}
+
+- (NSDate *)getLastModificationDateOfAddressBook:(ABAddressBookRef)addressBook
+{
+    NSArray *sortedContacts = [self getSortedContactsOrderByModificationDate:addressBook];
+    return [[sortedContacts valueForKey:@"modificationDate"] lastObject];
 }
 
 @end

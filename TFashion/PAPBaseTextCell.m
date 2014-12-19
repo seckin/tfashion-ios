@@ -10,6 +10,8 @@
 #import "TTTTimeIntervalFormatter.h"
 #import "PAPProfileImageView.h"
 #import "PAPUtility.h"
+#import "CONTag.h"
+#import "PAPCache.h"
 
 static TTTTimeIntervalFormatter *timeFormatter;
 
@@ -266,10 +268,18 @@ static TTTTimeIntervalFormatter *timeFormatter;
     }
     
     // Set links
-    for (NSString *link in self.links) {
-        NSRange range = [self.contentLabel.text rangeOfString:link];
-        [self.contentLabel addLinkToURL:[NSURL URLWithString:link] withRange:range];
-    }
+    PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
+    [query whereKey:kPAPTagActivityKey equalTo:self.contentObject];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (CONTag *tag in objects) {
+                NSString *linkDisplay = tag.text;
+                NSString *linkUrl = tag.taggedObject.objectId;
+                NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
+                [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
+            }
+        }
+    }];
     [self setNeedsDisplay];
 }
 

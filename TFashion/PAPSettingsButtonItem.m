@@ -17,7 +17,7 @@
 
     self = [super initWithCustomView:settingsButton];
     if (self) {
-        FAKIonIcons *settingsIcon = [FAKIonIcons ios7GearIconWithSize:28];
+        FAKIonIcons *settingsIcon = [FAKIonIcons iosGearIconWithSize:28];
         [settingsIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
                                                                      whiteColor]];
         

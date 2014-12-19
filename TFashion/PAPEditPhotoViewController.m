@@ -10,15 +10,22 @@
 #import "PAPPhotoDetailsFooterView.h"
 #import "UIImage+ResizeAdditions.h"
 #import "AppDelegate.h"
+#import "CONTag.h"
 
 @interface PAPEditPhotoViewController ()
+{
+    PAPPhotoDetailsFooterView *footerView;
+}
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) UITextField *commentTextField;
+@property (nonatomic, strong) MPGTextField *commentTextField;
 @property (nonatomic, strong) PFFile *photoFile;
 @property (nonatomic, strong) PFFile *thumbnailFile;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
+@property (nonatomic, strong) NSMutableArray *mentionResults;
+@property (nonatomic, strong) NSMutableArray *mentionLinkArray;
+
 @end
 
 @implementation PAPEditPhotoViewController
@@ -83,9 +90,12 @@
     CGRect footerRect = [PAPPhotoDetailsFooterView rectForView];
     footerRect.origin.y = photoImageView.frame.origin.y + photoImageView.frame.size.height;
 
-    PAPPhotoDetailsFooterView *footerView = [[PAPPhotoDetailsFooterView alloc] initWithFrame:footerRect];
+    footerView = [[PAPPhotoDetailsFooterView alloc] initWithFrame:footerRect];
     self.commentTextField = footerView.commentField;
     self.commentTextField.delegate = self;
+    self.commentTextField.backgroundColor = [UIColor whiteColor];
+    //    self.commentTextField.keyboardType = UIKeyboardTypeTwitter;
+    self.commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.scrollView addSubview:footerView];
 
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + footerView.frame.size.height)];
@@ -104,6 +114,67 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
     [self shouldUploadImage:self.image];
+    
+    // Generate mention data
+    NSArray *facebookIds = [[PAPCache sharedCache] facebookFriends];
+    // find common Facebook friends already using app
+    PFQuery *facebookFriendsQuery = [PFUser query];
+    [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
+    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:facebookFriendsQuery, nil]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && objects) {
+            [self generateMentionData:objects];
+        }
+    }];
+    
+    self.mentionLinkArray = [[NSMutableArray alloc] init];
+}
+
+#pragma mark - Private
+
+- (void)generateMentionData:(NSArray *)contents
+{
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Add code here to do background processing
+        //
+        //
+        self.mentionResults = [[NSMutableArray alloc] init];
+        dispatch_async( dispatch_get_main_queue(), ^{
+            // Add code here to update the UI/send notifications based on the
+            // results of the background processing
+            [contents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [self.mentionResults addObject:[NSDictionary dictionaryWithObjectsAndKeys:[obj objectForKey:kPAPUserDisplayNameKey], @"DisplayText",obj,@"CustomObject", nil]];
+            }];
+        });
+    });
+}
+
+#pragma mark MPGTextField Delegate Methods
+
+- (NSArray *)dataForPopoverInTextField:(MPGTextField *)textField
+{
+    if ([textField isEqual:commentTextField]) {
+        return self.mentionResults;
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)textFieldShouldSelect:(MPGTextField *)textField
+{
+    return YES;
+}
+
+- (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
+{
+    if ([textField isEqual:commentTextField]) {
+        CONTag *tag = [CONTag object];
+        tag.text = [result valueForKey:@"DisplayText"];
+        PFUser *user = [result valueForKey:@"CustomObject"];
+        tag.taggedObject = user;
+        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+        [self.mentionLinkArray addObject:tag];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -168,6 +239,10 @@
     scrollViewContentOffset.y = scrollViewContentOffset.y + keyboardFrameEnd.size.height*3.0f - [UIScreen mainScreen].bounds.size.height;
     
     [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
+    
+    // Set comment text field popover frame
+    CGFloat footerTop = CGRectGetMinY(footerView.frame);
+    [commentTextField setPopoverSize:CGRectMake(20, scrollViewContentOffset.y, 280, footerTop-scrollViewContentOffset.y)];
 }
 
 - (void)keyboardWillHide:(NSNotification *)note {
@@ -236,11 +311,15 @@
                     comment.ACL = ACL;
                     
                     [comment saveEventually];
+                    for (CONTag *tag in self.mentionLinkArray) {
+                        tag.activity = comment;
+                        [tag saveEventually];
+                    }
+                    
                     [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
                 }
             }
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
             [alert show];

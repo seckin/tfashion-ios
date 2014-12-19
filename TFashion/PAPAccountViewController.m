@@ -88,7 +88,7 @@
     [self.headerView addSubview:photoCountLabel];
     
     UIImageView *followersIconImageView = [[UIImageView alloc] initWithImage:nil];
-    FAKIonIcons *followersIcon = [FAKIonIcons ios7PeopleIconWithSize:52.0f];
+    FAKIonIcons *followersIcon = [FAKIonIcons iosPeopleIconWithSize:52.0f];
     [followersIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
     [followersIconImageView setImage:[followersIcon imageWithSize:CGSizeMake(52.0f, 37.0f)]];
     [followersIconImageView setFrame:CGRectMake( 247.0f, 50.0f, 52.0f, 37.0f)];

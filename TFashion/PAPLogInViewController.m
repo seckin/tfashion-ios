@@ -7,6 +7,7 @@
 //
 
 #import "PAPLogInViewController.h"
+#import "CONSignUpViewController.h"
 
 @implementation PAPLogInViewController
 
@@ -44,6 +45,13 @@
     
     self.fields = PFLogInFieldsUsernameAndPassword;
     self.logInView.usernameField.placeholder = @"Enter your email";
+    
+    NSArray *signUpButtonActions = [self.logInView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
+    for (int i = 0; i<signUpButtonActions.count; i++) {
+        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
+        [self.logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -52,6 +60,16 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Action
+
+- (void)showSignUpController:(id)sender
+{
+    self.signUpController = [[CONSignUpViewController alloc] init];
+    self.signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+
+    [self presentViewController:self.signUpController animated:YES completion:nil];
 }
 
 @end

@@ -39,7 +39,7 @@
         mainView = [[UIView alloc] initWithFrame:self.contentView.frame];
         [mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
         
-        FAKIonIcons *loadMoreIcon = [FAKIonIcons ios7MoreIconWithSize:31.0f];
+        FAKIonIcons *loadMoreIcon = [FAKIonIcons iosMoreIconWithSize:31.0f];
         [loadMoreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
         self.loadMoreImageView = [[UIImageView alloc] initWithImage:[loadMoreIcon imageWithSize:CGSizeMake(31.0f, 31.0f)]];
         [mainView addSubview:self.loadMoreImageView];

@@ -12,7 +12,7 @@
 #import "PAPLoadMoreCell.h"
 #import "PAPAccountViewController.h"
 #import "MBProgressHUD.h"
-#import "TFInviteFriendsViewController.h"
+#import "CONInviteFriendsViewController.h"
 
 typedef enum {
     PAPFindFriendsFollowingNone = 0,    // User isn't following anybody in Friends list
@@ -287,7 +287,7 @@ typedef enum {
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {
-    TFInviteFriendsViewController *inviteVC = [[TFInviteFriendsViewController alloc] init];
+    CONInviteFriendsViewController *inviteVC = [[CONInviteFriendsViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:inviteVC];
     [self presentViewController:navController animated:YES completion:nil];
 }

@@ -16,6 +16,7 @@
 #import "PAPUtility.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
+#import "CONTag.h"
 
 enum ActionSheetTags {
     MainActionSheetTag = 0,
@@ -130,6 +131,8 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
 }
 
+#pragma mark - Private
+
 - (void)generateMentionData:(NSArray *)contents
 {
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -166,7 +169,12 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
     if ([textField isEqual:commentTextField]) {
-        [self.mentionLinkArray addObject:[result valueForKey:@"DisplayText"]];
+        CONTag *tag = [CONTag object];
+        tag.text = [result valueForKey:@"DisplayText"];
+        PFUser *user = [result valueForKey:@"CustomObject"];
+        tag.taggedObject = user;
+        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+        [self.mentionLinkArray addObject:tag];
     }
 }
 
@@ -174,12 +182,13 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label
    didSelectLinkWithURL:(NSURL *)url {
-    NSString *mention = [url absoluteString];
-    NSString *facebookId = [mention substringFromIndex:1];
+    NSString *userObjectId = [url absoluteString];
     PFQuery *query = [PFUser query];
-    [query whereKey:kPAPUserFacebookIDKey equalTo:facebookId];
-    PFUser *user = (PFUser *)[query getFirstObject];
-    [self shouldPresentAccountViewForUser:user];
+    [query whereKey:kPAPUserObjectIdKey equalTo:userObjectId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        PFUser *user = (PFUser *)object;
+        [self shouldPresentAccountViewForUser:user];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -250,7 +259,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
     
     [cell setUser:[object objectForKey:kPAPActivityFromUserKey]];
-    [cell setLinks:[object objectForKey:kPAPActivityMentionsKey]];
+    [cell setContentObject:object];
     [cell setContentText:[object objectForKey:kPAPActivityContentKey]];
     [cell setDate:[object createdAt]];
 
@@ -283,7 +292,6 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
         [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
         [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
         [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
-        [comment setObject:self.mentionLinkArray forKey:kPAPActivityMentionsKey];
         
         PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [ACL setPublicReadAccess:YES];
@@ -308,15 +316,22 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+            for (CONTag *tag in self.mentionLinkArray) {
+                tag.activity = comment;
+            }
             
-            [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
-            [self loadObjects];
+            [CONTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+                    [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
+                    [self loadObjects];
+                    [self.mentionLinkArray removeAllObjects];
+                }
+            }];
         }];
     }
     
     [textField setText:@""];
-    [self.mentionLinkArray removeAllObjects];
     return [textField resignFirstResponder];
 }
 
