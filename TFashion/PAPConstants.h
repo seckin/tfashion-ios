@@ -71,10 +71,10 @@ extern NSString *const kPAPActivityFromUserKey;
 extern NSString *const kPAPActivityToUserKey;
 extern NSString *const kPAPActivityContentKey;
 extern NSString *const kPAPActivityPhotoKey;
-extern NSString *const kPAPTagNameKey;
-extern NSString *const kPAPTagLinkedObjectIdKey;
+extern NSString *const kPAPTagTextKey;
+extern NSString *const kPAPTagTaggedObjectKey;
 extern NSString *const kPAPTagTypeKey;
-extern NSString *const kPAPTagActivityIdKey;
+extern NSString *const kPAPTagActivityKey;
 
 // Type values
 extern NSString *const kPAPActivityTypeLike;

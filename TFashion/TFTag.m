@@ -10,10 +10,10 @@
 
 @implementation TFTag
 
-@dynamic name;
-@dynamic linkedObjectId;
+@dynamic text;
+@dynamic taggedObject;
 @dynamic type;
-@dynamic activityId;
+@dynamic activity;
 
 + (void)load {
     [self registerSubclass];

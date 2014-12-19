@@ -168,9 +168,9 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 {
     if ([textField isEqual:commentTextField]) {
         TFTag *tag = [TFTag object];
-        tag.name = [result valueForKey:@"DisplayText"];
+        tag.text = [result valueForKey:@"DisplayText"];
         PFUser *user = [result valueForKey:@"CustomObject"];
-        tag.linkedObjectId = [user valueForKey:kPAPUserObjectIdKey];
+        tag.taggedObject = user;
         tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
         [self.mentionLinkArray addObject:tag];
     }
@@ -257,7 +257,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
     
     [cell setUser:[object objectForKey:kPAPActivityFromUserKey]];
-    [cell setContentId:object.objectId];
+    [cell setContentObject:object];
     [cell setContentText:[object objectForKey:kPAPActivityContentKey]];
     [cell setDate:[object createdAt]];
 
@@ -315,7 +315,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
             }
             
             for (TFTag *tag in self.mentionLinkArray) {
-                tag.activityId = comment.objectId;
+                tag.activity = comment;
             }
             
             [TFTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {

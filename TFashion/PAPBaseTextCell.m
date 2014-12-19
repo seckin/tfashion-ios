@@ -269,12 +269,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
     
     // Set links
     PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
-    [query whereKey:kPAPTagActivityIdKey equalTo:self.contentId];
+    [query whereKey:kPAPTagActivityKey equalTo:self.contentObject];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (TFTag *tag in objects) {
-                NSString *linkDisplay = tag.name;
-                NSString *linkUrl = tag.linkedObjectId;
+                NSString *linkDisplay = tag.text;
+                NSString *linkUrl = tag.taggedObject.objectId;
                 NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
                 [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
             }

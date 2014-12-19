@@ -49,10 +49,10 @@ NSString *const kPAPActivityFromUserKey    = @"fromUser";
 NSString *const kPAPActivityToUserKey      = @"toUser";
 NSString *const kPAPActivityContentKey     = @"content";
 NSString *const kPAPActivityPhotoKey       = @"photo";
-NSString *const kPAPTagNameKey             = @"name";
-NSString *const kPAPTagLinkedObjectIdKey   = @"linkedObjectId";
+NSString *const kPAPTagTextKey             = @"text";
+NSString *const kPAPTagTaggedObjectKey     = @"taggedObject";
 NSString *const kPAPTagTypeKey             = @"type";
-NSString *const kPAPTagActivityIdKey       = @"activityId";
+NSString *const kPAPTagActivityKey         = @"activity";
 
 
 // Type values

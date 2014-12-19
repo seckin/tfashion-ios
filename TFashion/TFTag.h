@@ -12,9 +12,9 @@
 
 + (NSString *)parseClassName;
 
-@property (retain) NSString *name;
-@property (retain) NSString *linkedObjectId;
+@property (retain) NSString *text;
+@property (retain) PFObject *taggedObject;
 @property (retain) NSString *type;
-@property (retain) NSString *activityId;
+@property (retain) PFObject *activity;
 
 @end
