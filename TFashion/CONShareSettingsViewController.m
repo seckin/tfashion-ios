@@ -6,18 +6,18 @@
 //
 //
 
-#import "TFShareSettingsViewController.h"
+#import "CONShareSettingsViewController.h"
 #import <SocialAccounts/SocialAccounts.h>
 #import <SimpleAuth/SimpleAuth.h>
 
-@interface TFShareSettingsViewController ()
+@interface CONShareSettingsViewController ()
 
 @property (nonatomic, strong) NSArray *socialAccountProviders;
 @property (nonatomic, strong) NSArray *providerIcons;
 
 @end
 
-@implementation TFShareSettingsViewController
+@implementation CONShareSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

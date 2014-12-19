@@ -6,8 +6,8 @@
 //
 //
 
-#import "TFInviteFriendsViewController.h"
-#import "TFContact.h"
+#import "CONInviteFriendsViewController.h"
+#import "CONContact.h"
 #import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
 NSString *const kDeniedTitle = @"Access to address book is denied";
@@ -16,7 +16,7 @@ NSString *const kRestrictedMessage = @"Access to address book is restricted";
 NSString *const kNotGrantedMessage = @"Access to address book is not granted";
 NSString *const kLastModificationDate = @"LastModificationDate";
 
-@interface TFInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface CONInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 {
     UISearchBar *searchBar;
     UISearchDisplayController *searchDisplayController;
@@ -28,7 +28,7 @@ NSString *const kLastModificationDate = @"LastModificationDate";
 
 @end
 
-@implementation TFInviteFriendsViewController
+@implementation CONInviteFriendsViewController
 
 ABAddressBookRef addressBook;
 
@@ -83,7 +83,7 @@ ABAddressBookRef addressBook;
 - (void)updateSelectionButtons:(UITableView *)tableView forSelectedRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == searchDisplayController.searchResultsTableView){
-        TFContact *person = [self.searchResults objectAtIndex:indexPath.row];
+        CONContact *person = [self.searchResults objectAtIndex:indexPath.row];
         NSUInteger indexOfPerson = [self.tableData indexOfObject:person];
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:indexOfPerson inSection:indexPath.section] animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
@@ -134,7 +134,7 @@ ABAddressBookRef addressBook;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    TFContact *contact;
+    CONContact *contact;
     if (tableView == searchDisplayController.searchResultsTableView) {
         contact = [self.searchResults objectAtIndex:indexPath.row];
         
@@ -234,7 +234,7 @@ void addressBookChanged(ABAddressBookRef reference,
                         void *context)
 {
     
-    TFInviteFriendsViewController *viewController = (__bridge TFInviteFriendsViewController*)context;
+    CONInviteFriendsViewController *viewController = (__bridge CONInviteFriendsViewController*)context;
     [viewController addressBookChanged];
 }
 
@@ -273,7 +273,7 @@ void addressBookChanged(ABAddressBookRef reference,
                 continue;
             }
             
-            TFContact *contact = [[TFContact alloc] init];
+            CONContact *contact = [[CONContact alloc] init];
             contact.addressBookRecordId = [NSNumber numberWithInt:ABRecordGetRecordID(contactPerson)];
             contact.fromUser = [PFUser currentUser];
             
@@ -335,7 +335,7 @@ void addressBookChanged(ABAddressBookRef reference,
     }
     CFRelease(addressBook);
     
-    [TFContact saveAllInBackground:newContacts block:^(BOOL succeeded, NSError *error) {
+    [CONContact saveAllInBackground:newContacts block:^(BOOL succeeded, NSError *error) {
         if (!error) {
             //
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];

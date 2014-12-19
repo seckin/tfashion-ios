@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 
-@interface TFInviteFriendsViewController : UITableViewController
+@interface CONInviteFriendsViewController : UITableViewController
 
 @end

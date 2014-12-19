@@ -6,10 +6,10 @@
 //
 //
 
-#import "TFSignupAttempt.h"
+#import "CONSignupAttempt.h"
 #import <Parse/PFObject+Subclass.h>
 
-@implementation TFSignupAttempt
+@implementation CONSignupAttempt
 @dynamic verificationCode;
 @dynamic senderNumber;
 @dynamic messageArrived;

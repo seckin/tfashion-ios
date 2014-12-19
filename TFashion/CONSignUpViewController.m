@@ -6,13 +6,13 @@
 //
 //
 
-#import "TFSignUpViewController.h"
-#import "TFSignupAttempt.h"
+#import "CONSignUpViewController.h"
+#import "CONSignupAttempt.h"
 #import "AppDelegate.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
-@interface TFSignUpViewController ()
+@interface CONSignUpViewController ()
 
 @property (nonatomic, strong) UILabel *codeLabel;
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation TFSignUpViewController
+@implementation CONSignUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +51,7 @@
     PFACL *acl = [PFACL ACL];
     [acl setPublicReadAccess:YES];
     [acl setPublicWriteAccess:YES];
-    TFSignupAttempt *signupAttemp = [TFSignupAttempt object];
+    CONSignupAttempt *signupAttemp = [CONSignupAttempt object];
     signupAttemp.verificationCode = _codeLabel.text;
     signupAttemp.messageArrived = NO;
     signupAttemp.ACL = acl;
@@ -200,7 +200,7 @@
             if (objects.count == 0) {
                 [self sendQuery:query];
             } else {
-                TFSignupAttempt *signupAttempt = objects[0];
+                CONSignupAttempt *signupAttempt = objects[0];
                 NSLog(@"signup attempt %@", signupAttempt.objectId);
                 
                 // Format phone number

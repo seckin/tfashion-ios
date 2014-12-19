@@ -16,7 +16,7 @@
 #import "PAPUtility.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
-#import "TFTag.h"
+#import "CONTag.h"
 
 enum ActionSheetTags {
     MainActionSheetTag = 0,
@@ -167,7 +167,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
     if ([textField isEqual:commentTextField]) {
-        TFTag *tag = [TFTag object];
+        CONTag *tag = [CONTag object];
         tag.text = [result valueForKey:@"DisplayText"];
         PFUser *user = [result valueForKey:@"CustomObject"];
         tag.taggedObject = user;
@@ -314,11 +314,11 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
-            for (TFTag *tag in self.mentionLinkArray) {
+            for (CONTag *tag in self.mentionLinkArray) {
                 tag.activity = comment;
             }
             
-            [TFTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {
+            [CONTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
                     [MBProgressHUD hideHUDForView:self.view.superview animated:YES];

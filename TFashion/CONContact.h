@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface TFContact : PFObject <PFSubclassing>
+@interface CONContact : PFObject <PFSubclassing>
 
 + (NSString *)parseClassName;
 

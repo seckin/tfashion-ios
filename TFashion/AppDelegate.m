@@ -19,7 +19,7 @@
 #import "PAPWelcomeViewController.h"
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
-#import "TFSignUpViewController.h"
+#import "CONSignUpViewController.h"
 #import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -268,7 +268,7 @@
     
     
     // Instantiate our custom sign up view controller
-    TFSignUpViewController *signUpViewController = [[TFSignUpViewController alloc] init];
+    CONSignUpViewController *signUpViewController = [[CONSignUpViewController alloc] init];
     signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
     
     [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];

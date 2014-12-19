@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface TFTag : PFObject <PFSubclassing>
+@interface CONTag : PFObject <PFSubclassing>
 
 + (NSString *)parseClassName;
 

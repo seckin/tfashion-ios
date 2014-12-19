@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@interface TFSignUpViewController : PFSignUpViewController <MFMessageComposeViewControllerDelegate>
+@interface CONSignUpViewController : PFSignUpViewController <MFMessageComposeViewControllerDelegate>
 
 @end

@@ -6,9 +6,9 @@
 //
 //
 
-#import "TFContact.h"
+#import "CONContact.h"
 
-@implementation TFContact
+@implementation CONContact
 @dynamic firstName;
 @dynamic lastName;
 @dynamic fullName;

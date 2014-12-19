@@ -6,9 +6,9 @@
 //
 //
 
-#import "TFTag.h"
+#import "CONTag.h"
 
-@implementation TFTag
+@implementation CONTag
 
 @dynamic text;
 @dynamic taggedObject;
