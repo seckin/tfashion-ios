@@ -257,7 +257,7 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
     }
     
     [cell setUser:[object objectForKey:kPAPActivityFromUserKey]];
-    [cell setTags:[object objectForKey:kPAPActivityTagsKey]];
+    [cell setContentId:object.objectId];
     [cell setContentText:[object objectForKey:kPAPActivityContentKey]];
     [cell setDate:[object createdAt]];
 
@@ -290,7 +290,6 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
         [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
         [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
         [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
-        [comment setObject:self.mentionLinkArray forKey:kPAPActivityTagsKey];
         
         PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [ACL setPublicReadAccess:YES];
@@ -315,15 +314,22 @@ static const CGFloat kPAPCellInsetWidth = 20.0f;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+            for (TFTag *tag in self.mentionLinkArray) {
+                tag.activityId = comment.objectId;
+            }
             
-            [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
-            [self loadObjects];
+            [TFTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+                    [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
+                    [self loadObjects];
+                    [self.mentionLinkArray removeAllObjects];
+                }
+            }];
         }];
     }
     
     [textField setText:@""];
-    [self.mentionLinkArray removeAllObjects];
     return [textField resignFirstResponder];
 }
 

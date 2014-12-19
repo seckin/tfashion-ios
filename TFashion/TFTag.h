@@ -15,5 +15,6 @@
 @property (retain) NSString *name;
 @property (retain) NSString *linkedObjectId;
 @property (retain) NSString *type;
+@property (retain) NSString *activityId;
 
 @end

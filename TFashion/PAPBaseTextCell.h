@@ -32,7 +32,7 @@
 @property (nonatomic, strong) UIButton *avatarImageButton;
 @property (nonatomic, strong) PAPProfileImageView *avatarImageView;
 @property (nonatomic, strong) TTTAttributedLabel *contentLabel;
-@property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSString *contentId;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIImageView *separatorImage;
 

@@ -268,16 +268,18 @@ static TTTTimeIntervalFormatter *timeFormatter;
     }
     
     // Set links
-    for (TFTag *tag in self.tags) {
-        PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
-        [query whereKey:@"objectId" equalTo:tag.objectId];
-        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            NSString *linkDisplay = [object valueForKey:kPAPTagNameKey];
-            NSString *linkUrl = [object valueForKey:kPAPTagLinkedObjectIdKey];
-            NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
-            [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
-        }];
-    }
+    PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
+    [query whereKey:kPAPTagActivityIdKey equalTo:self.contentId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (TFTag *tag in objects) {
+                NSString *linkDisplay = tag.name;
+                NSString *linkUrl = tag.linkedObjectId;
+                NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
+                [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
+            }
+        }
+    }];
     [self setNeedsDisplay];
 }
 

@@ -13,6 +13,7 @@
 @dynamic name;
 @dynamic linkedObjectId;
 @dynamic type;
+@dynamic activityId;
 
 + (void)load {
     [self registerSubclass];
