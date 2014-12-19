@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
-@interface PAPEditPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
+#import "MPGTextField.h"
+
+@interface PAPEditPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, MPGTextFieldDelegate>
 
 - (id)initWithImage:(UIImage *)aImage;
 
