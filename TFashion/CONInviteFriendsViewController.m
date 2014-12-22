@@ -8,13 +8,14 @@
 
 #import "CONInviteFriendsViewController.h"
 #import "CONContact.h"
-#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
+#import "CONInviteRequest.h"
 
 @interface CONInviteFriendsViewController () <THContactPickerDelegate>
 
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 @property (nonatomic, strong) NSMutableArray *privateSelectedContacts;
 @property (nonatomic, strong) NSArray *filteredContacts;
-
 @property (nonatomic, strong) NSArray *tableData;
 @property (nonatomic, strong) NSMutableArray *contacts;
 
@@ -108,7 +109,41 @@ ABAddressBookRef addressBook;
 
 - (void)actionSend:(id)sender
 {
-    //TODO: send mail, sms
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = NSLocalizedString(@"Sending", nil);
+    self.hud.dimBackground = YES;
+    
+    NSMutableArray *inviteRequests = [[NSMutableArray alloc] init];
+    for (CONContact *contact in self.selectedContacts) {
+        //TODO: change when request object limitless (parse 100 object limit)
+        PFQuery *query = [PFQuery queryWithClassName:@"Contact"];
+        [query whereKey:@"fromUser" equalTo:contact.fromUser];
+        [query whereKey:@"addressBookRecordId" equalTo:contact.addressBookRecordId];
+        
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            CONInviteRequest *inviteRequest = [CONInviteRequest object];
+            inviteRequest.fromUser = [PFUser currentUser];
+            inviteRequest.invitationSent = NO;
+            if (object) {
+                inviteRequest.contact = object;
+            } else {
+                inviteRequest.contact = contact;
+            }
+            [inviteRequests addObject:inviteRequest];
+            
+            if (inviteRequests.count == self.selectedContacts.count) {
+                [CONInviteRequest saveAllInBackground:inviteRequests block:^(BOOL succeeded, NSError *error) {
+                    [self.hud hide:YES];
+                    if(error) {
+                        NSLog(@"error %@", [error userInfo]);
+                        [self displayMessage:@"Invitations could not send" withTitle:@"Something went wrong"];
+                    } else {
+                        [TSMessage showNotificationInViewController:self title:@"Invitations has been sent" subtitle:nil type:TSMessageNotificationTypeSuccess duration:2 canBeDismissedByUser:YES];
+                    }
+                }];
+            }
+        }];
+    }
 }
 
 - (void)actionCancel:(id)sender

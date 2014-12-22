@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "THContactPickerView.h"
 #import <AddressBook/AddressBook.h>
+#import "THContactPickerView.h"
+#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface CONInviteFriendsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
