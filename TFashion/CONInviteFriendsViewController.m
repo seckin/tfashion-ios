@@ -1,8 +1,8 @@
 //
-//  TFInviteFriendsViewController.m
+//  CONInviteFriendsViewController.m
 //  TFashion
 //
-//  Created by Utku Sakil on 11/26/14.
+//  Created by Utku Sakil on 12/22/14.
 //
 //
 
@@ -10,55 +10,93 @@
 #import "CONContact.h"
 #import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
 
-NSString *const kDeniedTitle = @"Access to address book is denied";
-NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";
-NSString *const kRestrictedMessage = @"Access to address book is restricted";
-NSString *const kNotGrantedMessage = @"Access to address book is not granted";
-NSString *const kLastModificationDate = @"LastModificationDate";
+@interface CONInviteFriendsViewController () <THContactPickerDelegate>
 
-@interface CONInviteFriendsViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
-{
-    UISearchBar *searchBar;
-    UISearchDisplayController *searchDisplayController;
-}
+@property (nonatomic, strong) NSMutableArray *privateSelectedContacts;
+@property (nonatomic, strong) NSArray *filteredContacts;
 
 @property (nonatomic, strong) NSArray *tableData;
-@property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) NSMutableArray *contacts;
 
 @end
 
 @implementation CONInviteFriendsViewController
 
+static const CGFloat kPickerViewHeight = 100.0;
+NSString *const kDeniedTitle = @"Access to address book is denied";
+NSString *const kDeniedMessage = @"Please enable access in Privacy Settings";
+NSString *const kRestrictedMessage = @"Access to address book is restricted";
+NSString *const kNotGrantedMessage = @"Access to address book is not granted";
+NSString *const kLastModificationDate = @"LastModificationDate";
+
+NSString *THContactPickerContactCellReuseID = @"THContactPickerContactCell";
 ABAddressBookRef addressBook;
+
+@synthesize contactPickerView = _contactPickerView;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.title = @"Invite Friends";
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Invite Friends";
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(actionSend:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(actionCancel:)];
     
-    self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    self.tableView.editing = YES;
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeBottom|UIRectEdgeLeft|UIRectEdgeRight];
+    }
     
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-    searchDisplayController.delegate = self;
-    searchDisplayController.searchResultsDataSource = self;
-    searchDisplayController.searchResultsDelegate = self;
-    searchDisplayController.searchResultsTableView.allowsMultipleSelectionDuringEditing = YES;
-    searchDisplayController.searchResultsTableView.editing = YES;
+    // Initialize and add Contact Picker View
+    self.contactPickerView = [[THContactPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kPickerViewHeight)];
+    self.contactPickerView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
+    self.contactPickerView.delegate = self;
+    [self.contactPickerView setPlaceholderLabelText:@"Who would you like to invite?"];
+    [self.contactPickerView setPromptLabelText:@"To:"];
+    //[self.contactPickerView setLimitToOne:YES];
+    [self.view addSubview:self.contactPickerView];
     
-    self.tableView.tableHeaderView = searchBar;
+    CALayer *layer = [self.contactPickerView layer];
+    [layer setShadowColor:[[UIColor colorWithRed:225.0/255.0 green:226.0/255.0 blue:228.0/255.0 alpha:1] CGColor]];
+    [layer setShadowOffset:CGSizeMake(0, 2)];
+    [layer setShadowOpacity:1];
+    [layer setShadowRadius:1.0f];
+    
+    // Fill the rest of the view with the table view
+    CGRect tableFrame = CGRectMake(0, self.contactPickerView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.contactPickerView.frame.size.height);
+    self.tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view insertSubview:self.tableView belowSubview:self.contactPickerView];
     
     [self addressBookAuthorization];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewDidLayoutSubviews {
+    [self adjustTableFrame];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
     self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    /*Register for keyboard notifications*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,20 +116,71 @@ ABAddressBookRef addressBook;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Private
+#pragma mark - Public properties
 
-- (void)updateSelectionButtons:(UITableView *)tableView forSelectedRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == searchDisplayController.searchResultsTableView){
-        CONContact *person = [self.searchResults objectAtIndex:indexPath.row];
-        NSUInteger indexOfPerson = [self.tableData indexOfObject:person];
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:indexOfPerson inSection:indexPath.section] animated:NO scrollPosition:UITableViewScrollPositionNone];
+- (NSArray *)selectedContacts{
+    return [self.privateSelectedContacts copy];
+}
+
+- (NSArray *)filteredContacts {
+    if (!_filteredContacts) {
+        _filteredContacts = _tableData;
     }
+    return _filteredContacts;
+}
+
+- (void)adjustTableViewInsetTop:(CGFloat)topInset bottom:(CGFloat)bottomInset {
+    self.tableView.contentInset = UIEdgeInsetsMake(topInset,
+                                                   self.tableView.contentInset.left,
+                                                   bottomInset,
+                                                   self.tableView.contentInset.right);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+}
+
+- (NSInteger)selectedCount {
+    return self.privateSelectedContacts.count;
+}
+
+#pragma mark - Private properties
+
+- (NSMutableArray *)privateSelectedContacts {
+    if (!_privateSelectedContacts) {
+        _privateSelectedContacts = [NSMutableArray array];
+    }
+    return _privateSelectedContacts;
+}
+
+#pragma mark - Private methods
+
+- (void)adjustTableFrame {
+    CGFloat yOffset = self.contactPickerView.frame.origin.y + self.contactPickerView.frame.size.height;
     
-    NSArray *selectedRows = [tableView indexPathsForSelectedRows];
-    
-    if (selectedRows.count != 0) {
-        //TODO: Count
+    CGRect tableFrame = CGRectMake(0, yOffset, self.view.frame.size.width, self.view.frame.size.height - yOffset);
+    self.tableView.frame = tableFrame;
+}
+
+- (void)adjustTableViewInsetTop:(CGFloat)topInset {
+    [self adjustTableViewInsetTop:topInset bottom:self.tableView.contentInset.bottom];
+}
+
+- (void)adjustTableViewInsetBottom:(CGFloat)bottomInset {
+    [self adjustTableViewInsetTop:self.tableView.contentInset.top bottom:bottomInset];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.textLabel.text = [self titleForRowAtIndexPath:indexPath];
+}
+
+- (NSPredicate *)newFilteringPredicateWithText:(NSString *)text {
+    return [NSPredicate predicateWithFormat:@"fullName contains[cd] %@", text];
+}
+
+- (NSString *)titleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self.filteredContacts valueForKey:@"fullName"] objectAtIndex:indexPath.row];
+}
+
+- (void)didChangeSelectedItems {
+    if (self.selectedContacts.count != 0) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     } else {
         self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -103,81 +192,105 @@ ABAddressBookRef addressBook;
     [TSMessage showNotificationInViewController:self title:title subtitle:message type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableView Delegate and Datasource functions
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    if (tableView == searchDisplayController.searchResultsTableView) {
-        return [self.searchResults count];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.filteredContacts.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:THContactPickerContactCellReuseID];
+    if (cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:THContactPickerContactCellReuseID];
+    }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    if ([self.privateSelectedContacts containsObject:[self.filteredContacts objectAtIndex:indexPath.row]]){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
-        return [self.tableData count];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self updateSelectionButtons:tableView forSelectedRowAtIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self updateSelectionButtons:tableView forSelectedRowAtIndexPath:indexPath];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    // Configure the cell...
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    }
-    
-    CONContact *contact;
-    if (tableView == searchDisplayController.searchResultsTableView) {
-        contact = [self.searchResults objectAtIndex:indexPath.row];
-        
-        // secilen kisilerin search tablosunda da secili gelmesi icin
-        NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
-        NSMutableIndexSet *selectedIndexSet = [[NSMutableIndexSet alloc] init];
-        for (NSIndexPath *indexPath in selectedRows) {
-            [selectedIndexSet addIndex:[indexPath row]];
-        }
-        NSArray *selectedPeople = [_tableData objectsAtIndexes:selectedIndexSet];
-        
-        if ([selectedPeople containsObject:contact]) {
-            [searchDisplayController.searchResultsTableView selectRowAtIndexPath:indexPath
-                                                                             animated:NO
-                                                                       scrollPosition:UITableViewScrollPositionNone];
-        }
-    } else {
-        contact = [self.tableData objectAtIndex:indexPath.row];
-    }
-    
-    cell.textLabel.text = ((contact.fullName != nil) ? contact.fullName : nil);
     
     return cell;
 }
 
-#pragma mark - Search display delegate
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-{
-    [self filterContentForSearchText:searchString
-                               scope:[[searchDisplayController.searchBar scopeButtonTitles]
-                                      objectAtIndex:[searchDisplayController.searchBar
-                                                     selectedScopeButtonIndex]]];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    id contact = [self.filteredContacts objectAtIndex:indexPath.row];
+    NSString *contactTitle = [self titleForRowAtIndexPath:indexPath];
+    
+    if ([self.privateSelectedContacts containsObject:contact]){ // contact is already selected so remove it from ContactPickerView
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [self.privateSelectedContacts removeObject:contact];
+        [self.contactPickerView removeContact:contact];
+    } else {
+        // Contact has not been selected, add it to THContactPickerView
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [self.privateSelectedContacts addObject:contact];
+        [self.contactPickerView addContact:contact withName:contactTitle];
+    }
+    
+    self.filteredContacts = self.tableData;
+    [self didChangeSelectedItems];
+    [self.tableView reloadData];
+}
+
+#pragma mark - THContactPickerTextViewDelegate
+
+- (void)contactPickerTextViewDidChange:(NSString *)textViewText {
+    if ([textViewText isEqualToString:@""]){
+        self.filteredContacts = self.tableData;
+    } else {
+        NSPredicate *predicate = [self newFilteringPredicateWithText:textViewText];
+        self.filteredContacts = [self.tableData filteredArrayUsingPredicate:predicate];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)contactPickerDidResize:(THContactPickerView *)contactPickerView {
+    CGRect frame = self.tableView.frame;
+    frame.origin.y = contactPickerView.frame.size.height + contactPickerView.frame.origin.y;
+    self.tableView.frame = frame;
+}
+
+- (void)contactPickerDidRemoveContact:(id)contact {
+    [self.privateSelectedContacts removeObject:contact];
+    
+    NSInteger index = [self.tableData indexOfObject:contact];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    [self didChangeSelectedItems];
+}
+
+- (BOOL)contactPickerTextFieldShouldReturn:(UITextField *)textField {
+    if (textField.text.length > 0){
+        NSString *contact = [[NSString alloc] initWithString:textField.text];
+        [self.privateSelectedContacts addObject:contact];
+        [self.contactPickerView addContact:contact withName:textField.text];
+    }
     return YES;
 }
 
-#pragma mark - Table search
+#pragma  mark - NSNotificationCenter
 
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
-{
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"fullName contains[c] %@", searchText];
-    self.searchResults = [self.tableData filteredArrayUsingPredicate:resultPredicate];
+- (void)keyboardDidShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect kbRect = [self.view convertRect:[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:self.view.window];
+    [self adjustTableViewInsetBottom:self.tableView.frame.origin.y + self.tableView.frame.size.height - kbRect.origin.y];
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect kbRect = [self.view convertRect:[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:self.view.window];
+    [self adjustTableViewInsetBottom:self.tableView.frame.origin.y + self.tableView.frame.size.height - kbRect.origin.y];
 }
 
 #pragma mark - AddressBook
@@ -234,7 +347,7 @@ void addressBookChanged(ABAddressBookRef reference,
                         void *context)
 {
     
-    CONInviteFriendsViewController *viewController = (__bridge CONInviteFriendsViewController*)context;
+    CONInviteFriendsViewController *viewController = (__bridge CONInviteFriendsViewController *)context;
     [viewController addressBookChanged];
 }
 

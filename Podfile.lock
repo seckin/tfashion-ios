@@ -1,79 +1,79 @@
 PODS:
   - Amplitude-iOS (2.1.1)
-  - Analytics (1.8.8):
-    - Analytics/Amplitude (= 1.8.8)
-    - Analytics/AppsFlyer (= 1.8.8)
-    - Analytics/Bugsnag (= 1.8.8)
-    - Analytics/Core-iOS (= 1.8.8)
-    - Analytics/Countly (= 1.8.8)
-    - Analytics/Crittercism (= 1.8.8)
-    - Analytics/Flurry (= 1.8.8)
-    - Analytics/GoogleAnalytics (= 1.8.8)
-    - Analytics/Localytics (= 1.8.8)
-    - Analytics/Mixpanel (= 1.8.8)
-    - Analytics/Optimizely (= 1.8.8)
-    - Analytics/Quantcast (= 1.8.8)
-    - Analytics/Segmentio (= 1.8.8)
-    - Analytics/Taplytics (= 1.8.8)
-    - Analytics/Tapstream (= 1.8.8)
-    - Analytics/TestFlight (= 1.8.8)
-  - Analytics/Amplitude (1.8.8):
+  - Analytics (1.8.9):
+    - Analytics/Amplitude (= 1.8.9)
+    - Analytics/AppsFlyer (= 1.8.9)
+    - Analytics/Bugsnag (= 1.8.9)
+    - Analytics/Core-iOS (= 1.8.9)
+    - Analytics/Countly (= 1.8.9)
+    - Analytics/Crittercism (= 1.8.9)
+    - Analytics/Flurry (= 1.8.9)
+    - Analytics/GoogleAnalytics (= 1.8.9)
+    - Analytics/Localytics (= 1.8.9)
+    - Analytics/Mixpanel (= 1.8.9)
+    - Analytics/Optimizely (= 1.8.9)
+    - Analytics/Quantcast (= 1.8.9)
+    - Analytics/Segmentio (= 1.8.9)
+    - Analytics/Taplytics (= 1.8.9)
+    - Analytics/Tapstream (= 1.8.9)
+    - Analytics/TestFlight (= 1.8.9)
+  - Analytics/Amplitude (1.8.9):
     - Amplitude-iOS (= 2.1.1)
     - Analytics/Core-iOS
     - Analytics/Segmentio
-  - Analytics/AppsFlyer (1.8.8):
+  - Analytics/AppsFlyer (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - AppsFlyer-SDK (= 2.5.3.10)
-  - Analytics/Bugsnag (1.8.8):
+  - Analytics/Bugsnag (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Bugsnag (= 3.1.2)
-  - Analytics/Core-iOS (1.8.8):
+  - Analytics/Core-iOS (1.8.9):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
-  - Analytics/Countly (1.8.8):
+  - Analytics/Countly (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Countly (= 1.0.0)
-  - Analytics/Crittercism (1.8.8):
+  - Analytics/Crittercism (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - CrittercismSDK (= 5.0.5)
-  - Analytics/Flurry (1.8.8):
+  - Analytics/Flurry (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - FlurrySDK (= 4.4.0)
-  - Analytics/GoogleAnalytics (1.8.8):
+  - Analytics/GoogleAnalytics (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - GoogleAnalytics-iOS-SDK (= 3.10)
-  - Analytics/Localytics (1.8.8):
+  - Analytics/Localytics (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Localytics-AMP (= 2.71.0)
-  - Analytics/Mixpanel (1.8.8):
+  - Analytics/Mixpanel (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Mixpanel (= 2.6.0)
-  - Analytics/Optimizely (1.8.8):
+  - Analytics/Optimizely (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Optimizely-iOS-SDK (= 0.7.55)
-  - Analytics/Quantcast (1.8.8):
+  - Analytics/Quantcast (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Quantcast-Measure (= 1.4.6)
-  - Analytics/Segmentio (1.8.8):
+  - Analytics/Segmentio (1.8.9):
     - Analytics/Core-iOS
-  - Analytics/Taplytics (1.8.8):
+  - Analytics/Taplytics (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
-    - Taplytics (= 2.0.10)
-  - Analytics/Tapstream (1.8.8):
+    - Taplytics (= 2.1.14)
+  - Analytics/Tapstream (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - Tapstream (= 2.8.3)
-  - Analytics/TestFlight (1.8.8):
+  - Analytics/TestFlight (1.8.9):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - TestFlightSDK (= 3.0.2)
@@ -153,13 +153,13 @@ PODS:
     - SimpleAuth/Core
   - SocialAccounts (0.0.1)
   - SocketRocket (0.2.0)
-  - Taplytics (2.0.10)
+  - Taplytics (2.1.14)
   - Tapstream (2.8.3)
   - TestFlightSDK (3.0.2)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - TSMessages (0.9.11):
     - HexColors
-  - TTTAttributedLabel (1.12.0)
+  - TTTAttributedLabel (1.13.0)
 
 DEPENDENCIES:
   - Analytics
@@ -179,7 +179,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Amplitude-iOS: e72b65479dc035ef671a57e34e1a981767224318
-  Analytics: 936bd7ae0b8d058d6c541c0b848177bcd3d46951
+  Analytics: 3bb07833600a0b376b5c69ba83542353f0c0f81d
   AppsFlyer-SDK: f83ad2e0821c57852512ea0bb8d3b207c64ef698
   Bugsnag: 74d109dfa41b55d16890c987c7551ca071afd3d2
   CMDQueryStringSerialization: bc824b96c08a3277d00c71504e13c9fa18c6b451
@@ -206,11 +206,11 @@ SPEC CHECKSUMS:
   SimpleAuth: 0664e22bff27c7f5b169254b421b1c761d002f65
   SocialAccounts: 9dc37f41cbb57ee0598f8d6db0cc3d179dafe71e
   SocketRocket: 6c9cfd1592bea82262b4283dcda3a7de166af3b6
-  Taplytics: 6e029d9f99592bb81712e06e126b796eaf2db900
+  Taplytics: 3d2418f56e2ede27d412dcb4dfbe34b91c187e90
   Tapstream: b2d949e963c393938697db68256ba70aadddb820
   TestFlightSDK: 0c24c533748d0d84bfe7a3cb6036fa79124d84ee
   TRVSDictionaryWithCaseInsensitivity: a61daa8469fa079e05b694f6aad5441785c837d1
   TSMessages: e21ef5b1c7518cc590a4826c8b05b16b79b10c2c
-  TTTAttributedLabel: 9825f9b6c8f1c01939fa26827e59b7586483a45b
+  TTTAttributedLabel: a847b59a75c92d59f4eabc9cc1745704cff2dc36
 
 COCOAPODS: 0.35.0
