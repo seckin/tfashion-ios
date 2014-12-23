@@ -35,6 +35,7 @@
 @property (nonatomic, strong) PAPHomeViewController *homeViewController;
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController;
 @property (nonatomic, strong) CONFeedViewController *feedViewController;
+@property (nonatomic, strong) PAPAccountViewController *accountViewController;
 @property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -286,14 +287,14 @@
     self.feedViewController = [[CONFeedViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
     self.activityViewController = [[PAPActivityFeedViewController alloc] initWithStyle:UITableViewStylePlain];
-    PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-    accountViewController.user = [PFUser currentUser];
+    self.accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.accountViewController.user = [PFUser currentUser];
     
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
     UINavigationController *feedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.feedViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
     UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
-    UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:accountViewController];
+    UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:self.accountViewController];
     
     FAKIonIcons *homeIcon = [FAKIonIcons homeIconWithSize:27.0f];
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
@@ -365,6 +366,7 @@
     self.homeViewController = nil;
     self.activityViewController = nil;
     self.feedViewController = nil;
+    self.accountViewController = nil;
 }
 
 

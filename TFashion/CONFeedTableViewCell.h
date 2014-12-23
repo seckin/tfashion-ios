@@ -13,6 +13,7 @@ static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 @interface CONFeedTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 -(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
 

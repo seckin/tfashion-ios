@@ -62,6 +62,16 @@
     
     // Add Settings button
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
+    
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addButton setTitle:@"+ Add More" forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [addButton.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
+    [addButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [addButton setFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 30.0f)];
+    [addButton addTarget:self action:@selector(addButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.tableView.tableFooterView = addButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,11 +80,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Actions
+
+- (void)addButtonAction:(id)sender
+{
+    
+}
+
 #pragma mark - UITableViewDataSource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.colorArray.count;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,6 +104,8 @@
     {
         cell = [[CONFeedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    cell.titleLabel.text = @"Instagram #color";
     
     return cell;
 }
@@ -104,7 +123,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    return 96;
 }
 
 #pragma mark - UICollectionViewDataSource Methods
