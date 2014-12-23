@@ -75,6 +75,9 @@
 		BCC085491A238B170026C4B6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085481A238B170026C4B6 /* Parse.framework */; };
 		BCC0854B1A238B770026C4B6 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC0854A1A238B770026C4B6 /* ParseUI.framework */; };
 		BCC0854D1A238C750026C4B6 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC0854C1A238C750026C4B6 /* ParseFacebookUtils.framework */; };
+		BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD4884E1A49712F00751A6E /* CONFeedViewController.m */; };
+		BCD488531A49716300751A6E /* CONFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD488521A49716300751A6E /* CONFeedTableViewCell.m */; };
+		BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCD488541A498EBD00751A6E /* MainWindow.xib */; };
 		C4217BC01552230500CD3A47 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4217BBF1552230500CD3A47 /* AVFoundation.framework */; };
 		C4A8949C15587CA600DC57D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A8949B15587CA600DC57D3 /* CoreLocation.framework */; };
 		C4C9B94516B877AE00BB2862 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C402FEC51602AE3100273778 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -204,6 +207,11 @@
 		BCC085481A238B170026C4B6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		BCC0854A1A238B770026C4B6 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		BCC0854C1A238C750026C4B6 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		BCD4884D1A49712F00751A6E /* CONFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedViewController.h; sourceTree = "<group>"; };
+		BCD4884E1A49712F00751A6E /* CONFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedViewController.m; sourceTree = "<group>"; };
+		BCD488511A49716300751A6E /* CONFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedTableViewCell.h; sourceTree = "<group>"; };
+		BCD488521A49716300751A6E /* CONFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedTableViewCell.m; sourceTree = "<group>"; };
+		BCD488541A498EBD00751A6E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		C402FEC51602AE3100273778 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		C4217BBF1552230500CD3A47 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C4217BC11552234E00CD3A47 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -328,7 +336,6 @@
 				BC2138D31A24D49B003DD8C4 /* PAPUtility.h */,
 				BC2138D41A24D49B003DD8C4 /* PAPUtility.m */,
 				C4B60864155B085600EFA90C /* Resources */,
-				BC19D2A61A278686002B9944 /* Images.xcassets */,
 				09ABC07813A1D52D009C3FCF /* Supporting Files */,
 			);
 			path = TFashion;
@@ -462,13 +469,31 @@
 			name = THContactPicker;
 			sourceTree = "<group>";
 		};
-		BC9F04451A39D73400088C96 /* Signup */ = {
+		BC9F04451A39D73400088C96 /* Sign Up */ = {
 			isa = PBXGroup;
 			children = (
 				BC9F04491A39D88100088C96 /* CONSignUpViewController.h */,
 				BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */,
 			);
-			name = Signup;
+			name = "Sign Up";
+			sourceTree = "<group>";
+		};
+		BCD4884C1A49710300751A6E /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				BCD4884D1A49712F00751A6E /* CONFeedViewController.h */,
+				BCD4884E1A49712F00751A6E /* CONFeedViewController.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		BCD488501A49713E00751A6E /* FeedViews */ = {
+			isa = PBXGroup;
+			children = (
+				BCD488511A49716300751A6E /* CONFeedTableViewCell.h */,
+				BCD488521A49716300751A6E /* CONFeedTableViewCell.m */,
+			);
+			name = FeedViews;
 			sourceTree = "<group>";
 		};
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
@@ -524,8 +549,9 @@
 		C4A89496155879F600DC57D3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BC9F04451A39D73400088C96 /* Signup */,
+				BC9F04451A39D73400088C96 /* Sign Up */,
 				74A504E51565F17E00CFA4E3 /* Login */,
+				BCD4884C1A49710300751A6E /* Feed */,
 				C4A894921558795F00DC57D3 /* Home */,
 				C4A894941558796C00DC57D3 /* Take Photo */,
 				C4BB4B85156D5CB7008B4B56 /* Activity */,
@@ -540,6 +566,7 @@
 		C4A89497155879FC00DC57D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BCD488501A49713E00751A6E /* FeedViews */,
 				74A504E31565F0E400CFA4E3 /* TimelineViews */,
 				74B86B911562DB2600CAFFD2 /* PhotoDetailsViews */,
 				74A504E21565F0C200CFA4E3 /* UITableViewCells */,
@@ -556,6 +583,8 @@
 		C4B60864155B085600EFA90C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCD488541A498EBD00751A6E /* MainWindow.xib */,
+				BC19D2A61A278686002B9944 /* Images.xcassets */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -690,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */,
+				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
 				BC19D2A71A278686002B9944 /* Images.xcassets in Resources */,
 				BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */,
 				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
@@ -784,6 +814,8 @@
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
+				BCD488531A49716300751A6E /* CONFeedTableViewCell.m in Sources */,
+				BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
 				BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */,
 				BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */,

@@ -14,8 +14,7 @@
 
 // ActionSheet button indexes
 typedef enum {
-	kPAPSettingsProfile = 0,
-	kPAPSettingsFindFriends,
+	kPAPSettingsFindFriends = 0,
     kPAPSettingsShare,
 	kPAPSettingsLogout,
     kPAPSettingsNumberOfButtons
@@ -49,13 +48,6 @@ typedef enum {
     }
     
     switch ((kPAPSettingsActionSheetButtons)buttonIndex) {
-        case kPAPSettingsProfile:
-        {
-            PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-            [accountViewController setUser:[PFUser currentUser]];
-            [navController pushViewController:accountViewController animated:YES];
-            break;
-        }
         case kPAPSettingsFindFriends:
         {
             PAPFindFriendsViewController *findFriendsVC = [[PAPFindFriendsViewController alloc] init];

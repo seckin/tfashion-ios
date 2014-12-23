@@ -11,14 +11,18 @@
 #import "TTTTimeIntervalFormatter.h"
 #import "PAPLoadMoreCell.h"
 #import "UIImage+ImageEffects.h"
+#import "PAPSettingsButtonItem.h"
+#import "PAPSettingsActionSheetDelegate.h"
 
 @interface PAPAccountViewController()
+@property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) UIView *headerView;
 @end
 
 @implementation PAPAccountViewController
 @synthesize headerView;
 @synthesize user;
+@synthesize settingsActionSheetDelegate;
 
 #pragma mark - Initialization
 
@@ -32,6 +36,9 @@
     }
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+    
+    // Add Settings button
+    self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 222.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
@@ -225,6 +232,13 @@
 
 
 #pragma mark - ()
+
+- (void)settingsButtonAction:(id)sender {
+    self.settingsActionSheetDelegate = [[PAPSettingsActionSheetDelegate alloc] initWithNavigationController:self.navigationController];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self.settingsActionSheetDelegate cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Find Friends",@"Share Settings",@"Log Out", nil];
+    
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+}
 
 - (void)followButtonAction:(id)sender {
     UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
