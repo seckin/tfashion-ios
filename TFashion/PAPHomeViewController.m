@@ -11,6 +11,7 @@
 #import "PAPSettingsButtonItem.h"
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
+#import "CONIntroViewController.h"
 
 @interface PAPHomeViewController ()
 @property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
@@ -27,6 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserSeeIntro] boolValue];
+    if (!didUserSeeIntro) {
+        CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
+        [self.parentViewController presentViewController:introVC animated:NO completion:nil];
+    }
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 

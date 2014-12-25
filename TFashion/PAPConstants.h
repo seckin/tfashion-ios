@@ -144,3 +144,7 @@ extern NSString *const kPAPPushPayloadActivityFollowKey;
 extern NSString *const kPAPPushPayloadFromUserObjectIdKey;
 extern NSString *const kPAPPushPayloadToUserObjectIdKey;
 extern NSString *const kPAPPushPayloadPhotoObjectIdKey;
+
+#pragma mark - User defaults
+
+extern NSString *const kDidUserSeeIntro;

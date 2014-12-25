@@ -68,6 +68,7 @@
 		BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33F1A484C2C00452469 /* THContactTextField.m */; };
 		BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */; };
 		BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A34B1A48617E00452469 /* CONInviteRequest.m */; };
+		BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */; };
 		BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */; };
 		BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
@@ -198,6 +199,8 @@
 		BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInviteFriendsViewController.m; sourceTree = "<group>"; };
 		BC64A34A1A48617E00452469 /* CONInviteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONInviteRequest.h; sourceTree = "<group>"; };
 		BC64A34B1A48617E00452469 /* CONInviteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInviteRequest.m; sourceTree = "<group>"; };
+		BC6A21411A4C12F800ECFDB0 /* CONIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONIntroViewController.h; sourceTree = "<group>"; };
+		BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONIntroViewController.m; sourceTree = "<group>"; };
 		BC9F04491A39D88100088C96 /* CONSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignUpViewController.h; sourceTree = "<group>"; };
 		BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSignUpViewController.m; sourceTree = "<group>"; };
 		BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignupAttempt.h; sourceTree = "<group>"; };
@@ -469,6 +472,15 @@
 			name = THContactPicker;
 			sourceTree = "<group>";
 		};
+		BC6A21401A4C0A1000ECFDB0 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				BC6A21411A4C12F800ECFDB0 /* CONIntroViewController.h */,
+				BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
 		BC9F04451A39D73400088C96 /* Sign Up */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +561,7 @@
 		C4A89496155879F600DC57D3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC6A21401A4C0A1000ECFDB0 /* Intro */,
 				BC9F04451A39D73400088C96 /* Sign Up */,
 				74A504E51565F17E00CFA4E3 /* Login */,
 				BCD4884C1A49710300751A6E /* Feed */,
@@ -807,6 +820,7 @@
 				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
 				BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */,
 				BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */,
+				BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
@@ -925,6 +939,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
@@ -960,6 +975,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
@@ -1019,6 +1035,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
@@ -1078,6 +1095,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";

@@ -111,6 +111,7 @@ PODS:
   - GPUImage (0.1.6)
   - HexColors (2.2.1)
   - ISO8601 (0.1.1)
+  - JazzHands (0.1.1)
   - libPhoneNumber-iOS (0.7.5)
   - Localytics-AMP (2.71.0)
   - MBProgressHUD (0.9)
@@ -165,6 +166,7 @@ DEPENDENCIES:
   - Analytics
   - DBCamera
   - FontAwesomeKit
+  - JazzHands
   - libPhoneNumber-iOS
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
@@ -193,6 +195,7 @@ SPEC CHECKSUMS:
   GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   ISO8601: a6afce5fbe854024802367c814fac4aa8d3586f9
+  JazzHands: d39c6b19bfe34946d220fdede80930b7be37f199
   libPhoneNumber-iOS: 16b9556d7fdf4819eabeb7b7356fea3373fa47f9
   Localytics-AMP: 4d158e216541912109b1ae7ca20b153d053d68c5
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
