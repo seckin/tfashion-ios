@@ -7,7 +7,7 @@
 //
 
 #import "PAPActivityFeedViewController.h"
-#import "PAPSettingsActionSheetDelegate.h"
+#import "CONSettingsViewController.h"
 #import "PAPActivityCell.h"
 #import "PAPAccountViewController.h"
 #import "PAPPhotoDetailsViewController.h"
@@ -20,14 +20,12 @@
 
 @interface PAPActivityFeedViewController ()
 
-@property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) NSDate *lastRefresh;
 @property (nonatomic, strong) UIView *blankTimelineView;
 @end
 
 @implementation PAPActivityFeedViewController
 
-@synthesize settingsActionSheetDelegate;
 @synthesize lastRefresh;
 @synthesize blankTimelineView;
 
@@ -286,10 +284,8 @@
 #pragma mark - ()
 
 - (void)settingsButtonAction:(id)sender {
-    self.settingsActionSheetDelegate = [[PAPSettingsActionSheetDelegate alloc] initWithNavigationController:self.navigationController];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self.settingsActionSheetDelegate cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Find Friends",@"Share Settings",@"Log Out", nil];
-    
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {

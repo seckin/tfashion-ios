@@ -35,7 +35,6 @@
 		BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D41A24D49B003DD8C4 /* PAPUtility.m */; };
 		BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */; };
 		BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */; };
-		BC2138E11A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */; };
 		BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */; };
 		BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E61A24D577003DD8C4 /* PAPActivityFeedViewController.m */; };
 		BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E91A24D5A0003DD8C4 /* PAPEditPhotoViewController.m */; };
@@ -69,6 +68,8 @@
 		BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */; };
 		BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A34B1A48617E00452469 /* CONInviteRequest.m */; };
 		BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */; };
+		BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */; };
+		BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */; };
 		BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */; };
 		BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
@@ -134,8 +135,6 @@
 		BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPTabBarController.m; path = TFashion/PAPTabBarController.m; sourceTree = SOURCE_ROOT; };
 		BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPFindFriendsViewController.h; path = TFashion/PAPFindFriendsViewController.h; sourceTree = SOURCE_ROOT; };
 		BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPFindFriendsViewController.m; path = TFashion/PAPFindFriendsViewController.m; sourceTree = SOURCE_ROOT; };
-		BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPSettingsActionSheetDelegate.h; path = TFashion/PAPSettingsActionSheetDelegate.h; sourceTree = SOURCE_ROOT; };
-		BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPSettingsActionSheetDelegate.m; path = TFashion/PAPSettingsActionSheetDelegate.m; sourceTree = SOURCE_ROOT; };
 		BC2138E21A24D561003DD8C4 /* PAPPhotoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPPhotoDetailsViewController.h; path = TFashion/PAPPhotoDetailsViewController.h; sourceTree = SOURCE_ROOT; };
 		BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoDetailsViewController.m; path = TFashion/PAPPhotoDetailsViewController.m; sourceTree = SOURCE_ROOT; };
 		BC2138E51A24D577003DD8C4 /* PAPActivityFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PAPActivityFeedViewController.h; path = TFashion/PAPActivityFeedViewController.h; sourceTree = SOURCE_ROOT; };
@@ -201,6 +200,10 @@
 		BC64A34B1A48617E00452469 /* CONInviteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInviteRequest.m; sourceTree = "<group>"; };
 		BC6A21411A4C12F800ECFDB0 /* CONIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONIntroViewController.h; sourceTree = "<group>"; };
 		BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONIntroViewController.m; sourceTree = "<group>"; };
+		BC6A21461A4EF9E900ECFDB0 /* CONSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSettingsViewController.h; sourceTree = "<group>"; };
+		BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSettingsViewController.m; sourceTree = "<group>"; };
+		BC6A21491A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONPushNotificationSettingsViewController.h; sourceTree = "<group>"; };
+		BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONPushNotificationSettingsViewController.m; sourceTree = "<group>"; };
 		BC9F04491A39D88100088C96 /* CONSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignUpViewController.h; sourceTree = "<group>"; };
 		BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSignUpViewController.m; sourceTree = "<group>"; };
 		BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignupAttempt.h; sourceTree = "<group>"; };
@@ -539,12 +542,14 @@
 			children = (
 				BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */,
 				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
-				BC2138DF1A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.h */,
-				BC2138E01A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m */,
 				BC64A3471A485DC100452469 /* CONInviteFriendsViewController.h */,
 				BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */,
 				BC139CDA1A2DCC8700F1F3E5 /* CONShareSettingsViewController.h */,
 				BC139CDB1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m */,
+				BC6A21461A4EF9E900ECFDB0 /* CONSettingsViewController.h */,
+				BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */,
+				BC6A21491A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.h */,
+				BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -839,10 +844,10 @@
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
-				BC2138E11A24D536003DD8C4 /* PAPSettingsActionSheetDelegate.m in Sources */,
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
 				BC21392F1A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
+				BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */,
 				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
 				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
@@ -851,6 +856,7 @@
 				BC26B9BC1A43575F0094214F /* CONTag.m in Sources */,
 				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
+				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,

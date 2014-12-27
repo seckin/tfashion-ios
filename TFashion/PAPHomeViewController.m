@@ -7,24 +7,22 @@
 //
 
 #import "PAPHomeViewController.h"
-#import "PAPSettingsActionSheetDelegate.h"
+#import "CONSettingsViewController.h"
 #import "PAPSettingsButtonItem.h"
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
 #import "CONIntroViewController.h"
 
 @interface PAPHomeViewController ()
-@property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) UIView *blankTimelineView;
 @end
 
 @implementation PAPHomeViewController
 @synthesize firstLaunch;
-@synthesize settingsActionSheetDelegate;
 @synthesize blankTimelineView;
 
 
-#pragma mark - UIViewController
+#pragma mark - UIViewControllerb
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,10 +88,8 @@
 #pragma mark - ()
 
 - (void)settingsButtonAction:(id)sender {
-    self.settingsActionSheetDelegate = [[PAPSettingsActionSheetDelegate alloc] initWithNavigationController:self.navigationController];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self.settingsActionSheetDelegate cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Find Friends",@"Share Settings",@"Log Out", nil];
-    
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 

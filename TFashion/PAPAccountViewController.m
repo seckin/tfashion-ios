@@ -12,17 +12,15 @@
 #import "PAPLoadMoreCell.h"
 #import "UIImage+ImageEffects.h"
 #import "PAPSettingsButtonItem.h"
-#import "PAPSettingsActionSheetDelegate.h"
+#import "CONSettingsViewController.h"
 
 @interface PAPAccountViewController()
-@property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) UIView *headerView;
 @end
 
 @implementation PAPAccountViewController
 @synthesize headerView;
 @synthesize user;
-@synthesize settingsActionSheetDelegate;
 
 #pragma mark - Initialization
 
@@ -234,10 +232,8 @@
 #pragma mark - ()
 
 - (void)settingsButtonAction:(id)sender {
-    self.settingsActionSheetDelegate = [[PAPSettingsActionSheetDelegate alloc] initWithNavigationController:self.navigationController];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self.settingsActionSheetDelegate cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Find Friends",@"Share Settings",@"Log Out", nil];
-    
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 - (void)followButtonAction:(id)sender {

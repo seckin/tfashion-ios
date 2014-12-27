@@ -76,10 +76,12 @@ typedef enum {
     [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [clearButton setFrame:self.headerView.frame];
     [self.headerView addSubview:clearButton];
-    NSString *inviteString = NSLocalizedString(@"Invite friends", @"Invite friends");
+    NSString *inviteString = @"Choose contacts to invite";
+    NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    textStyle.alignment = NSTextAlignmentCenter;
     CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
                                                      options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f]}
+                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18.0f], NSParagraphStyleAttributeName: textStyle }
                                                      context:nil];
     CGSize inviteStringSize = boundingRect.size;
     
@@ -89,6 +91,15 @@ typedef enum {
     [inviteLabel setTextColor:[UIColor darkGrayColor]];
     [inviteLabel setBackgroundColor:[UIColor clearColor]];
     [self.headerView addSubview:inviteLabel];
+    
+    FAKIonIcons *chevronRightIcon = [FAKIonIcons chevronRightIconWithSize:17];
+    [chevronRightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
+    UILabel *chevronLabel = [[UILabel alloc] init];
+    chevronLabel.attributedText = [chevronRightIcon attributedString];
+    [chevronLabel sizeToFit];
+    chevronLabel.center = CGPointMake(CGRectGetMaxX(inviteLabel.frame)+10, inviteLabel.center.y+1);
+    [self.headerView addSubview:chevronLabel];
+    
     UIImageView *separatorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SeparatorTimeline.png"]];
     [separatorImage setFrame:CGRectMake(0, self.headerView.frame.size.height-2, 320, 2)];
     [self.headerView addSubview:separatorImage];

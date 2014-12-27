@@ -138,7 +138,8 @@ ABAddressBookRef addressBook;
                         NSLog(@"error %@", [error userInfo]);
                         [self displayMessage:@"Invitations could not send" withTitle:@"Something went wrong"];
                     } else {
-                        [TSMessage showNotificationInViewController:self title:@"Invitations has been sent" subtitle:nil type:TSMessageNotificationTypeSuccess duration:2 canBeDismissedByUser:YES];
+                        [TSMessage showNotificationWithTitle:@"Invitations has been sent" type:TSMessageNotificationTypeSuccess];
+                        [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 }];
             }

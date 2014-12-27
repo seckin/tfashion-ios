@@ -9,18 +9,15 @@
 #import "CONFeedViewController.h"
 #import "CONFeedTableViewCell.h"
 #import "PAPSettingsButtonItem.h"
-#import "PAPSettingsActionSheetDelegate.h"
+#import "CONSettingsViewController.h"
 
 @interface CONFeedViewController ()
-@property (nonatomic, strong) PAPSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, strong) NSMutableDictionary *contentOffsetDictionary;
 
 @end
 
 @implementation CONFeedViewController
-
-@synthesize settingsActionSheetDelegate;
 
 - (void)loadView
 {
@@ -160,10 +157,8 @@
 #pragma mark - ()
 
 - (void)settingsButtonAction:(id)sender {
-    self.settingsActionSheetDelegate = [[PAPSettingsActionSheetDelegate alloc] initWithNavigationController:self.navigationController];
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self.settingsActionSheetDelegate cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Find Friends",@"Share Settings",@"Log Out", nil];
-    
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 @end
