@@ -76,8 +76,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
     // Layout the activity image and show it if it is not nil (no image for the follow activity).
     // Note that the image view is still allocated and ready to be dispalyed since these cells
     // will be reused for all types of activity.
-    [self.activityImageView setFrame:CGRectMake( [UIScreen mainScreen].bounds.size.width - 46.0f, 8.0f, 33.0f, 33.0f)];
-    [self.activityImageButton setFrame:CGRectMake( [UIScreen mainScreen].bounds.size.width - 46.0f, 8.0f, 33.0f, 33.0f)];
+    [self.activityImageView setFrame:CGRectMake( [UIScreen mainScreen].bounds.size.width - 46.0f, 13.0f, 33.0f, 33.0f)];
+    [self.activityImageButton setFrame:CGRectMake( [UIScreen mainScreen].bounds.size.width - 46.0f, 13.0f, 33.0f, 33.0f)];
 
     // Add activity image if one was set
     if (self.hasActivityImage) {
@@ -93,14 +93,14 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                     options:NSStringDrawingUsesLineFragmentOrigin // wordwrap?
                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
                                                     context:nil].size;
-    [self.contentLabel setFrame:CGRectMake( 46.0f, 10.0f, contentSize.width, contentSize.height)];
-    
+    [self.contentLabel setFrame:CGRectMake( 46.0f, 15.0f, contentSize.width, contentSize.height)];
+
     // Layout the timestamp label given new vertical 
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 72.0f - 46.0f, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]}
                                                     context:nil].size;
-    [self.timeLabel setFrame:CGRectMake( 46.0f, self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + 2.0f, timeSize.width, timeSize.height)];
+    [self.timeLabel setFrame:CGRectMake( 46.0f, self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + 7.0f, timeSize.width, timeSize.height)];
 }
 
 
@@ -108,9 +108,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)setIsNew:(BOOL)isNew {
     if (isNew) {
-        [self.mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundNewActivity.png"]]];
+        [self.mainView setBackgroundColor:[UIColor colorWithRed:29.0f/255.0f green:29.0f/255.0f blue:29.0f/255.0f alpha:1.0f]];
     } else {
-        [self.mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
+        [self.mainView setBackgroundColor:[UIColor blackColor]];
     }
 }
 
@@ -128,8 +128,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
     self.user = [activity objectForKey:kPAPActivityFromUserKey];
     
     // Set name button properties and avatar image
-    [self.avatarImageView setFile:[self.user objectForKey:kPAPUserProfilePicSmallKey]];
-    
+    if ([PAPUtility userHasProfilePictures:self.user]) {
+        [self.avatarImageView setFile:[self.user objectForKey:kPAPUserProfilePicSmallKey]];
+    } else {
+        [self.avatarImageView setImage:[PAPUtility defaultProfilePicture]];
+    }
+
     NSString *nameString = NSLocalizedString(@"Someone", @"Text when the user's name is unknown");
     if (self.user && [self.user objectForKey:kPAPUserDisplayNameKey] && [[self.user objectForKey:kPAPUserDisplayNameKey] length] > 0) {
         nameString = [self.user objectForKey:kPAPUserDisplayNameKey];
@@ -208,7 +212,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     // Calculate the added height necessary for multiline text. Ensure value is not below 0.
     CGFloat multilineHeightAddition = contentSize.height - singleLineHeight;
 
-    return 48.0f + fmax(0.0f, multilineHeightAddition);
+    return 58.0f + fmax(0.0f, multilineHeightAddition);
 }
 
 - (void)setActivityImageFile:(PFFile *)imageFile {
