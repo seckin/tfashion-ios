@@ -24,13 +24,27 @@
 
 #pragma mark - Initialization
 
+- (id)initWithUser:(PFUser *)aUser {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        self.user = aUser;
+
+        if (!aUser) {
+            [NSException raise:NSInvalidArgumentException format:@"PAPAccountViewController init exception: user cannot be nil"];
+        }
+
+    }
+    return self;
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     if (!self.user) {
-        [NSException raise:NSInvalidArgumentException format:@"user cannot be nil"];
+        self.user = [PFUser currentUser];
+        [[PFUser currentUser] fetchIfNeeded];
     }
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
@@ -41,10 +55,14 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 222.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
 
+    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [texturedBackgroundView setBackgroundColor:[UIColor blackColor]];
+    self.tableView.backgroundView = texturedBackgroundView;
+
     UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
     profilePictureBackgroundView.alpha = 0.0f;
     CALayer *layer = [profilePictureBackgroundView layer];
-//    layer.cornerRadius = 10.0f;
+    layer.cornerRadius = 66.0f;
     layer.masksToBounds = YES;
     [self.headerView addSubview:profilePictureBackgroundView];
     
@@ -52,12 +70,12 @@
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
     layer = [profilePictureImageView layer];
-//    layer.cornerRadius = 10.0f;
+    layer.cornerRadius = 66.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 0.0f;
-    
-    PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
-    if (imageFile) {
+
+    if ([PAPUtility userHasProfilePictures:self.user]) {
+        PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
         [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
             if (!error) {
@@ -65,16 +83,31 @@
                     profilePictureBackgroundView.alpha = 1.0f;
                     profilePictureImageView.alpha = 1.0f;
                 }];
-                
-                UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[image applyLightEffect]];
+
+                UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[image applyDarkEffect]];
                 backgroundImageView.frame = self.tableView.backgroundView.bounds;
                 backgroundImageView.alpha = 0.0f;
                 [self.tableView.backgroundView addSubview:backgroundImageView];
-                
+
                 [UIView animateWithDuration:0.2f animations:^{
                     backgroundImageView.alpha = 1.0f;
                 }];
             }
+        }];
+    } else {
+        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
+        [UIView animateWithDuration:0.2f animations:^{
+            profilePictureBackgroundView.alpha = 1.0f;
+            profilePictureImageView.alpha = 1.0f;
+        }];
+
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[PAPUtility defaultProfilePicture] applyDarkEffect]];
+        backgroundImageView.frame = self.tableView.backgroundView.bounds;
+        backgroundImageView.alpha = 0.0f;
+        [self.tableView.backgroundView addSubview:backgroundImageView];
+
+        [UIView animateWithDuration:0.2f animations:^{
+            backgroundImageView.alpha = 1.0f;
         }];
     }
     
@@ -220,7 +253,7 @@
     PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
     if (!cell) {
         cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
-        cell.selectionStyle =UITableViewCellSelectionStyleGray;
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         cell.separatorImageTop.image = [UIImage imageNamed:@"SeparatorTimelineDark.png"];
         cell.hideSeparatorBottom = YES;
         cell.mainView.backgroundColor = [UIColor clearColor];
@@ -265,12 +298,12 @@
 }
 
 - (void)configureFollowButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStyleBordered target:self action:@selector(followButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStylePlain target:self action:@selector(followButtonAction:)];
     [[PAPCache sharedCache] setFollowStatus:NO user:self.user];
 }
 
 - (void)configureUnfollowButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStyleBordered target:self action:@selector(unfollowButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];
     [[PAPCache sharedCache] setFollowStatus:YES user:self.user];
 }
 

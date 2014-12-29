@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) PFUser *user;
 
+- (id)initWithUser:(PFUser *)aUser;
+
 @end
