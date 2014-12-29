@@ -16,7 +16,6 @@
 #import "PAPSettingsButtonItem.h"
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
-#import "AppDelegate.h"
 
 @interface PAPActivityFeedViewController ()
 
@@ -48,7 +47,10 @@
         self.pullToRefreshEnabled = YES;
 
         // The number of objects to show per page
-        self.objectsPerPage = 15;          
+        self.objectsPerPage = 15;
+
+        // The Loading text clashes with the dark Anypic design
+        self.loadingViewEnabled = NO;
     }
     return self;
 }
@@ -57,9 +59,13 @@
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 
     [super viewDidLoad];
+
+    UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [texturedBackgroundView setBackgroundColor:[UIColor blackColor]];
+    self.tableView.backgroundView = texturedBackgroundView;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
@@ -99,6 +105,10 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.separatorColor = [UIColor colorWithRed:30.0f/255.0f green:30.0f/255.0f blue:30.0f/255.0f alpha:1.0f];
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -128,6 +138,7 @@
             [self.navigationController pushViewController:detailViewController animated:YES];
         } else if ([activity objectForKey:kPAPActivityFromUserKey]) {
             PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+            NSLog(@"Presenting account view controller with user: %@", [activity objectForKey:kPAPActivityFromUserKey]);
             [detailViewController setUser:[activity objectForKey:kPAPActivityFromUserKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         }
@@ -161,7 +172,7 @@
     // and then subsequently do a query against the network.
     //
     // If there is no network connection, we will hit the cache first.
-    if (self.objects.count == 0 || !(AppDelegate *)[[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    if (self.objects.count == 0 || ![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
         [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     }
     
@@ -215,7 +226,7 @@
     if (cell == nil) {
         cell = [[PAPActivityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         [cell setDelegate:self];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
 
     [cell setActivity:object];
@@ -237,7 +248,7 @@
     PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
     if (!cell) {
         cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.hideSeparatorBottom = YES;
         cell.mainView.backgroundColor = [UIColor clearColor];
    }
@@ -259,6 +270,7 @@
 - (void)cell:(PAPBaseTextCell *)cellView didTapUserButton:(PFUser *)user {    
     // Push account view controller
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSLog(@"Presenting account view controller with user: %@", user);
     [accountViewController setUser:user];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
