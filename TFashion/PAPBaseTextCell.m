@@ -60,33 +60,40 @@ static TTTTimeIntervalFormatter *timeFormatter;
         self.backgroundColor = [UIColor clearColor];
         
         mainView = [[UIView alloc] initWithFrame:self.contentView.frame];
-        [mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
-        
+        [mainView setBackgroundColor:[UIColor whiteColor]];
+
         self.avatarImageView = [[PAPProfileImageView alloc] init];
         [self.avatarImageView setBackgroundColor:[UIColor clearColor]];
         [self.avatarImageView setOpaque:YES];
+        self.avatarImageView.layer.cornerRadius = 16.0f;
+        self.avatarImageView.layer.masksToBounds = YES;
         [mainView addSubview:self.avatarImageView];
                 
         self.nameButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.nameButton setBackgroundColor:[UIColor clearColor]];
-        [self.nameButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [self.nameButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+
+        if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
+            [self.nameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        } else {
+            [self.nameButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        }
         [self.nameButton.titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
         [self.nameButton.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
-        [self.nameButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.nameButton setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [self.nameButton.titleLabel setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
         [self.nameButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:self.nameButton];
         
         self.contentLabel = [[TTTAttributedLabel alloc] init];
         [self.contentLabel setFont:[UIFont systemFontOfSize:13.0f]];
-        [self.contentLabel setTextColor:[UIColor grayColor]];
+        if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
+            [self.contentLabel setTextColor:[UIColor whiteColor]];
+        } else {
+            [self.contentLabel setTextColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f]];
+        }
         [self.contentLabel setNumberOfLines:0];
         [self.contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.contentLabel setBackgroundColor:[UIColor clearColor]];
-        [self.contentLabel setShadowColor:[UIColor colorWithWhite:1.0f alpha:0.70f]];
-        [self.contentLabel setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
         UIColor *patternColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]];
         self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObject:(__bridge id)[patternColor CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
@@ -98,10 +105,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
         
         self.timeLabel = [[UILabel alloc] init];
         [self.timeLabel setFont:[UIFont systemFontOfSize:11]];
-        [self.timeLabel setTextColor:[UIColor grayColor]];
+        [self.timeLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
         [self.timeLabel setBackgroundColor:[UIColor clearColor]];
-        [self.timeLabel setShadowColor:[UIColor colorWithWhite:1.0f alpha:0.70f]];
-        [self.timeLabel setShadowOffset:CGSizeMake(0, 1)];
         [mainView addSubview:self.timeLabel];
         
         
@@ -111,8 +116,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
         [mainView addSubview:self.avatarImageButton];
         
-        self.separatorImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)]];
-        [mainView addSubview:separatorImage];
+//        self.separatorImage = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1, 0, 1)]];
+//        [mainView addSubview:separatorImage];
         
         [self.contentView addSubview:mainView];
     }
@@ -129,27 +134,27 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [mainView setFrame:CGRectMake(cellInsetWidth, self.contentView.frame.origin.y, self.contentView.frame.size.width-2*cellInsetWidth, self.contentView.frame.size.height)];
     
     // Layout avatar image
-    [self.avatarImageView setFrame:CGRectMake(avatarX, avatarY, avatarDim, avatarDim)];
-    [self.avatarImageButton setFrame:CGRectMake(avatarX, avatarY, avatarDim, avatarDim)];
-    
+    [self.avatarImageView setFrame:CGRectMake(avatarX, avatarY + 5.0f, avatarDim, avatarDim)];
+    [self.avatarImageButton setFrame:CGRectMake(avatarX, avatarY + 5.0f, avatarDim, avatarDim)];
+
     // Layout the name button
     CGSize nameSize = [self.nameButton.titleLabel.text boundingRectWithSize:CGSizeMake(nameMaxWidth, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin // word wrap?
                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
                                                     context:nil].size;
-    [self.nameButton setFrame:CGRectMake(nameX, nameY, nameSize.width, nameSize.height)];
-    
+    [self.nameButton setFrame:CGRectMake(nameX, nameY + 6.0f, nameSize.width, nameSize.height)];
+
     // Layout the content
     CGSize contentSize = [self.contentLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
                                                     options:NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
                                                     context:nil].size;
-    [self.contentLabel setFrame:CGRectMake(nameX, vertTextBorderSpacing, contentSize.width, contentSize.height)];
+    [self.contentLabel setFrame:CGRectMake(nameX, vertTextBorderSpacing + 5.0f, contentSize.width, contentSize.height)];
     self.contentLabel.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 //    NSLog(@"avatar: %f %f %f", self.avatarImageButton.frame.origin.x, avatarDim, avatarDim);
 //    NSLog(@"name: %f %f %f", self.nameButton.frame.origin.x, nameSize.width, nameSize.height);
 //    NSLog(@"content: %f %f %f", self.contentLabel.frame.origin.x, contentSize.width, contentSize.height);
-    
+
     // Layout the timestamp label
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
@@ -158,18 +163,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self.timeLabel setFrame:CGRectMake(timeX, contentLabel.frame.origin.y + contentLabel.frame.size.height + vertElemSpacing, timeSize.width, timeSize.height)];
     
     // Layour separator
-    [self.separatorImage setFrame:CGRectMake(0, self.frame.size.height-2, self.frame.size.width-cellInsetWidth*2, 2)];
+    [self.separatorImage setFrame:CGRectMake(0, self.frame.size.height-1, self.frame.size.width-cellInsetWidth*2, 1)];
     [self.separatorImage setHidden:hideSeparator];
 }
-
-- (void)drawRect:(CGRect)rect {
-    // Add a drop shadow in core graphics on the sides of the cell
-    [super drawRect:rect];
-    if (self.cellInsetWidth != 0) {
-        [PAPUtility drawSideDropShadowForRect:mainView.frame inContext:UIGraphicsGetCurrentContext()];
-    }
-}
-
 
 #pragma mark - Delegate methods
 
@@ -243,7 +239,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
     user = aUser;
     
     // Set name button properties and avatar image
-    [self.avatarImageView setFile:[self.user objectForKey:kPAPUserProfilePicSmallKey]];
+    if ([PAPUtility userHasProfilePictures:self.user]) {
+        [self.avatarImageView setFile:[self.user objectForKey:kPAPUserProfilePicSmallKey]];
+    } else {
+        [self.avatarImageView setImage:[PAPUtility defaultProfilePicture]];
+    }
+
     [self.nameButton setTitle:[self.user objectForKey:kPAPUserDisplayNameKey] forState:UIControlStateNormal];
     [self.nameButton setTitle:[self.user objectForKey:kPAPUserDisplayNameKey] forState:UIControlStateHighlighted];
     
