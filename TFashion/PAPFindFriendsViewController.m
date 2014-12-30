@@ -67,10 +67,12 @@ typedef enum {
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.tableView.backgroundColor = [UIColor blackColor];
+
     self.navigationItem.title = @"Find Friends";
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
+    [self.headerView setBackgroundColor:[UIColor blackColor]];
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clearButton setBackgroundColor:[UIColor clearColor]];
     [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -88,7 +90,7 @@ typedef enum {
     UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
     [inviteLabel setText:inviteString];
     [inviteLabel setFont:[UIFont boldSystemFontOfSize:18]];
-    [inviteLabel setTextColor:[UIColor darkGrayColor]];
+    [inviteLabel setTextColor:[UIColor whiteColor]];
     [inviteLabel setBackgroundColor:[UIColor clearColor]];
     [self.headerView addSubview:inviteLabel];
     
@@ -100,12 +102,13 @@ typedef enum {
     chevronLabel.center = CGPointMake(CGRectGetMaxX(inviteLabel.frame)+10, inviteLabel.center.y+1);
     [self.headerView addSubview:chevronLabel];
     
-    UIImageView *separatorImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SeparatorTimeline.png"]];
-    [separatorImage setFrame:CGRectMake(0, self.headerView.frame.size.height-2, 320, 2)];
-    [self.headerView addSubview:separatorImage];
     [self.tableView setTableHeaderView:self.headerView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.separatorColor = [UIColor colorWithRed:30.0f/255.0f green:30.0f/255.0f blue:30.0f/255.0f alpha:1.0f];
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -134,7 +137,6 @@ typedef enum {
     PFQuery *parseEmployeeQuery = [PFUser query];
     [parseEmployeeQuery whereKey:kPAPUserFacebookIDKey containedIn:parseEmployees];
         
-    // Combine the two queries with an OR
     PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:friendsQuery, parseEmployeeQuery, nil]];
     query.cachePolicy = kPFCachePolicyNetworkOnly;
     
@@ -267,13 +269,14 @@ typedef enum {
     PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:NextPageCellIdentifier];
     
     if (cell == nil) {
-        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];
+        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];        [cell.mainView setBackgroundColor:[UIColor blackColor]];
+        [cell.mainView setBackgroundColor:[UIColor blackColor]];
         cell.hideSeparatorBottom = YES;
         cell.hideSeparatorTop = YES;
     }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 
@@ -283,6 +286,7 @@ typedef enum {
 - (void)cell:(PAPFindFriendsCell *)cellView didTapUserButton:(PFUser *)aUser {
     // Push account view controller
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSLog(@"Presenting account view controller with user: %@", aUser);
     [accountViewController setUser:aUser];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
@@ -311,7 +315,7 @@ typedef enum {
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStyleBordered target:self action:@selector(unfollowAllFriendsButtonAction:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
 
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.objects.count];
         for (int r = 0; r < self.objects.count; r++) {
@@ -342,7 +346,7 @@ typedef enum {
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStyleBordered target:self action:@selector(followAllFriendsButtonAction:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
 
         NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.objects.count];
         for (int r = 0; r < self.objects.count; r++) {
@@ -384,11 +388,11 @@ typedef enum {
 }
 
 - (void)configureUnfollowAllButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStyleBordered target:self action:@selector(unfollowAllFriendsButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
 }
 
 - (void)configureFollowAllButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStyleBordered target:self action:@selector(followAllFriendsButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
 }
 
 - (void)followUsersTimerFired:(NSTimer *)timer {
