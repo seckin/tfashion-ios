@@ -13,5 +13,6 @@
 @property (nonatomic, strong) PFImageView *profileImageView;
 
 - (void)setFile:(PFFile *)file;
+- (void)setImage:(UIImage *)image;
 
 @end

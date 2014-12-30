@@ -76,6 +76,7 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     if (self.cellInsetWidth != 0.0f) {
+        // TODO: @seckin: when does this work and what does it do?
         [PAPUtility drawSideDropShadowForRect:mainView.frame inContext:UIGraphicsGetCurrentContext()];
     }
 }
