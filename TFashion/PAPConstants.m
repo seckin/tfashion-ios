@@ -75,10 +75,10 @@ NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey   = @"userAlreadyA
 NSString *const kPAPUserEmailKey                                = @"email";
 NSString *const kPAPUserPhoneNumberKey                          = @"phoneNumber";
 NSString *const kPAPUserObjectIdKey                             = @"objectId";
+NSString *const kPAPUserAutoFollowKey                           = @"autoFollow";
 NSString *const kPAPUserTwitterIDKey                            = @"twitterId";
 NSString *const kPAPUserInstagramIDKey                          = @"instagramId";
 NSString *const kPAPUserTumblrIDKey                             = @"tumblrId";
-
 
 #pragma mark - Photo Class
 // Class key

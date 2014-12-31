@@ -29,7 +29,6 @@
 #endif
 
 @interface AppDelegate () {
-    NSMutableData *_data;
     BOOL firstLaunch;
 }
 
@@ -54,6 +53,15 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //MARK: Initialize window
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    // ****************************************************************************
+    // Parse initialization
+    [ParseCrashReporting enable];
+    [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
+    [PFFacebookUtils initializeFacebook];
+    // ****************************************************************************
     
 #if ENABLE_PONYDEBUGGER
     
@@ -90,15 +98,6 @@
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
     
-    //MARK: Initialize window
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    // ****************************************************************************
-    // Parse initialization
-     [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
-    [PFFacebookUtils initializeFacebook];
-    // ****************************************************************************
-    
     // Track app open.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
@@ -132,13 +131,17 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([self handleActionURL:url]) {
-        return YES;
+    BOOL wasHandled = false;
+
+    if ([PFFacebookUtils session]) {
+        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+    } else {
+        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
     }
-    
-    return [FBAppCall handleOpenURL:url
-                  sourceApplication:sourceApplication
-                        withSession:[PFFacebookUtils session]];
+
+    wasHandled |= [self handleActionURL:url];
+
+    return wasHandled;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -224,65 +227,34 @@
     return ![viewController isEqual:aTabBarController.viewControllers[PAPEmptyTabBarItemIndex]];
 }
 
-
-#pragma mark - PFLoginViewController
-
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    // user has logged in - we need to fetch all of their Facebook data before we let them in
-    if (![self shouldProceedToMainInterface:user]) {
-        self.hud = [MBProgressHUD showHUDAddedTo:self.navController.presentedViewController.view animated:YES];
-        self.hud.labelText = NSLocalizedString(@"Loading", nil);
-        self.hud.dimBackground = YES;
-    }
-    
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            [self facebookRequestDidLoad:result];
-        } else {
-            [self facebookRequestDidFailWithError:error];
-        }
-    }];
-}
-
-
-#pragma mark - NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    _data = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_data appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [PAPUtility processFacebookProfilePictureData:_data];
-}
-
-
 #pragma mark - AppDelegate
 
 - (BOOL)isParseReachable {
     return self.networkStatus != NotReachable;
 }
 
-- (void)presentLoginViewControllerAnimated:(BOOL)animated {
-    PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
-    [loginViewController setDelegate:self];
-    loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
-    self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
-    loginViewController.facebookPermissions = self.facebookPermissions;
-    
-    
-    // Instantiate our custom sign up view controller
-    CONSignUpViewController *signUpViewController = [[CONSignUpViewController alloc] init];
-    signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
-    
-    [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
+- (void)presentLoginViewController:(BOOL)animated {
+    [self.welcomeViewController presentLoginViewController:animated];
 }
 
+// utku's version(before anypic ios8 integration):
+//- (void)presentLoginViewControllerAnimated:(BOOL)animated {
+//    PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
+//    [loginViewController setDelegate:self];
+//    loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
+//    self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
+//    loginViewController.facebookPermissions = self.facebookPermissions;
+//
+//
+//    // Instantiate our custom sign up view controller
+//    CONSignUpViewController *signUpViewController = [[CONSignUpViewController alloc] init];
+//    signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
+//
+//    [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
+// }
+
 - (void)presentLoginViewController {
-    [self presentLoginViewControllerAnimated :YES];
+    [self presentLoginViewController:YES];
 }
 
 - (void)presentTabBarController {    
@@ -322,21 +294,15 @@
     
     [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    else
-    {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
-    }
-    
-        
-    // Download user's profile picture
-    NSURL *profilePictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [[PFUser currentUser] objectForKey:kPAPUserFacebookIDKey]]];
-    NSURLRequest *profilePictureURLRequest = [NSURLRequest requestWithURL:profilePictureURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f]; // Facebook profile picture cache policy: Expires in 2 weeks
-    [NSURLConnection connectionWithRequest:profilePictureURLRequest delegate:self];
+    // seckin: by updating these lines below according to anypic-ios8, I think I broke the push notifications for ios7 devices.
+    // Register for Push Notitications
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+            UIUserNotificationTypeBadge |
+            UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)logOut {
@@ -361,7 +327,8 @@
     
     // Log out
     [PFUser logOut];
-    
+    [FBSession setActiveSession:nil];
+
     // clear out cached data, view controllers, etc
     [self.navController popToRootViewControllerAnimated:NO];
     
@@ -380,21 +347,22 @@
 - (void)setupAppearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    // TODO: choose one of these two tint colors:
+    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
+
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                 NSForegroundColorAttributeName: [UIColor whiteColor]
                                 }];
 
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BackgroundNavigationBar.png"]
-                                       forBarMetrics:UIBarMetricsDefault];
-    
     [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleColor:[UIColor colorWithRed:214.0f/255.0f green:210.0f/255.0f blue:197.0f/255.0f alpha:1.0f]
-     forState:UIControlStateNormal];
-    
-    [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:32.0f/255.0f green:19.0f/255.0f blue:16.0f/255.0f alpha:1.0f]];
-    
-    [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+        setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
+        forState:UIControlStateNormal];
+
+    [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    // TODO: @seckin: this might be unnecessary. is it?:
+     [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
 }
 
 - (void)monitorReachability {
@@ -446,6 +414,7 @@
                     self.tabBarController.selectedViewController = homeNavigationController;
                     
                     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
+                    NSLog(@"Presenting account view controller with user: %@", user);
                     accountViewController.user = (PFUser *)user;
                     [homeNavigationController pushViewController:accountViewController animated:YES];
                 }
@@ -461,15 +430,11 @@
 }
 
 - (BOOL)shouldProceedToMainInterface:(PFUser *)user {
-    if ([PAPUtility userHasValidFacebookData:[PFUser currentUser]]) {
-        [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
-        [self presentTabBarController];
+    [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
+    [self presentTabBarController];
 
-        [self.navController dismissViewControllerAnimated:YES completion:nil];
-        return YES;
-    }
-    
-    return NO;
+    [self.navController dismissViewControllerAnimated:YES completion:nil];
+    return YES;
 }
 
 - (BOOL)handleActionURL:(NSURL *)url {
@@ -481,6 +446,7 @@
         if ([[url fragment] rangeOfString:@"^pic/[A-Za-z0-9]{10}$" options:NSRegularExpressionSearch].location != NSNotFound) {
             NSString *photoObjectId = [[url fragment] substringWithRange:NSMakeRange(4, 10)];
             if (photoObjectId && photoObjectId.length > 0) {
+                NSLog(@"WOOP: %@", photoObjectId);
                 [self shouldNavigateToPhoto:[PFObject objectWithoutDataWithClassName:kPAPPhotoClassKey objectId:photoObjectId]];
                 return YES;
             }
@@ -510,170 +476,15 @@
     }];
 }
 
-- (void)facebookRequestDidLoad:(id)result {
-    // This method is called twice - once for the user's /me profile, and a second time when obtaining their friends. We will try and handle both scenarios in a single method.
-    PFUser *user = [PFUser currentUser];
-    
-    NSArray *data = [result objectForKey:@"data"];
-    
-    if (data) {
-        // we have friends data
-        NSMutableArray *facebookIds = [[NSMutableArray alloc] initWithCapacity:[data count]];
-        for (NSDictionary *friendData in data) {
-            if (friendData[@"id"]) {
-                [facebookIds addObject:friendData[@"id"]];
-            }
+- (void)autoFollowUsers {
+    firstLaunch = YES;
+    [PFCloud callFunctionInBackground:@"autoFollowUsers" withParameters:nil block:^(id object, NSError *error) {
+        if (error) {
+            NSLog(@"Error auto following users: %@", error);
         }
-        
-        // cache friend data
-        [[PAPCache sharedCache] setFacebookFriends:facebookIds];
-        
-        if (user) {
-            if ([user objectForKey:kPAPUserFacebookFriendsKey]) {
-                [user removeObjectForKey:kPAPUserFacebookFriendsKey];
-            }
-            
-            if (![user objectForKey:kPAPUserAlreadyAutoFollowedFacebookFriendsKey]) {
-                self.hud.labelText = NSLocalizedString(@"Following Friends", nil);
-                firstLaunch = YES;
-                
-                [user setObject:@YES forKey:kPAPUserAlreadyAutoFollowedFacebookFriendsKey];
-                NSError *error = nil;
-                
-                // find common Facebook friends already using Anypic
-                PFQuery *facebookFriendsQuery = [PFUser query];
-                [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
-                
-                // auto-follow Parse employees
-                PFQuery *parseEmployeesQuery = [PFUser query];
-                [parseEmployeesQuery whereKey:kPAPUserFacebookIDKey containedIn:kPAPParseEmployeeAccounts];
-                
-                // combined query
-                PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:parseEmployeesQuery,facebookFriendsQuery, nil]];
-                
-                NSArray *anypicFriends = [query findObjects:&error];
-                
-                if (!error) {
-                    [anypicFriends enumerateObjectsUsingBlock:^(PFUser *newFriend, NSUInteger idx, BOOL *stop) {
-                        PFObject *joinActivity = [PFObject objectWithClassName:kPAPActivityClassKey];
-                        [joinActivity setObject:user forKey:kPAPActivityFromUserKey];
-                        [joinActivity setObject:newFriend forKey:kPAPActivityToUserKey];
-                        [joinActivity setObject:kPAPActivityTypeJoined forKey:kPAPActivityTypeKey];
-                        
-                        PFACL *joinACL = [PFACL ACL];
-                        [joinACL setPublicReadAccess:YES];
-                        joinActivity.ACL = joinACL;
-                        
-                        // make sure our join activity is always earlier than a follow
-                        [joinActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            [PAPUtility followUserInBackground:newFriend block:^(BOOL succeeded, NSError *error) {
-                                // This block will be executed once for each friend that is followed.
-                                // We need to refresh the timeline when we are following at least a few friends
-                                // Use a timer to avoid refreshing innecessarily
-                                if (self.autoFollowTimer) {
-                                    [self.autoFollowTimer invalidate];
-                                }
-                                
-                                self.autoFollowTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(autoFollowTimerFired:) userInfo:nil repeats:NO];
-                            }];
-                        }];
-                    }];
-                }
-                
-                if (![self shouldProceedToMainInterface:user]) {
-                    [self logOut];
-                    return;
-                }
-                
-                if (!error) {
-                    [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:NO];
-                    if (anypicFriends.count > 0) {
-                        self.hud = [MBProgressHUD showHUDAddedTo:self.homeViewController.view animated:NO];
-                        self.hud.dimBackground = YES;
-                        self.hud.labelText = NSLocalizedString(@"Following Friends", nil);
-                    } else {
-                        [self.homeViewController loadObjects];
-                    }
-                }
-            }
-            
-            [user saveEventually];
-            
-            //MARK: Identify who current user is for Analytics
-            [[SEGAnalytics sharedAnalytics] identify:user.objectId
-                                              traits:@{ @"username": user.username,
-                                                        @"email": user.email }];
-            
-            //MARK: Track Login event for Analytics
-            [[SEGAnalytics sharedAnalytics] track:@"Logged In"
-                                       properties:nil];
-            
-        } else {
-            NSLog(@"No user session found. Forcing logOut.");
-            [self logOut];
-        }
-    } else {
-        self.hud.labelText = NSLocalizedString(@"Creating Profile", nil);
-
-        if (user) {
-            NSString *facebookName = result[@"name"];
-            if (facebookName && [facebookName length] != 0) {
-                [user setObject:facebookName forKey:kPAPUserDisplayNameKey];
-            } else {
-                [user setObject:@"Someone" forKey:kPAPUserDisplayNameKey];
-            }
-            
-            NSString *facebookId = result[@"id"];
-            if (facebookId && [facebookId length] != 0) {
-                [user setObject:facebookId forKey:kPAPUserFacebookIDKey];
-            }
-            
-            NSString *email = result[@"email"];
-            if (email && [email length] != 0) {
-                [user setObject:email forKey:kPAPUserEmailKey];
-            }
-            
-            [user saveEventually:^(BOOL succeeded, NSError *error) {
-                if ([PAPUtility userHasValidFacebookData:user] && user.isNew) {
-                    CONSocialAccount *socialAccount = [CONSocialAccount object];
-                    socialAccount.isActive = YES;
-                    socialAccount.type = kSocialAccountTypeFacebook;
-                    socialAccount.ownerUser = user;
-                    socialAccount.info = result;
-                    socialAccount.userId = facebookId;
-                    socialAccount.username = [user valueForKey:kPAPUserEmailKey];
-                    socialAccount.displayName = [user valueForKey:kPAPUserDisplayNameKey];
-                    socialAccount.scope = self.facebookPermissions;
-                    [socialAccount saveInBackground];
-                }
-            }];
-            
-            //MARK: Track Sign up event for Analytics
-            if (user.isNew) {
-                [[SEGAnalytics sharedAnalytics] track:@"Signed Up"
-                                           properties:nil];
-            }
-        }
-        
-        [FBRequestConnection startForMyFriendsWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            if (!error) {
-                [self facebookRequestDidLoad:result];
-            } else {
-                [self facebookRequestDidFailWithError:error];
-            }
-        }];
-    }
-}
-
-- (void)facebookRequestDidFailWithError:(NSError *)error {
-    NSLog(@"Facebook error: %@", error);
-    
-    if ([PFUser currentUser]) {
-        if ([[error userInfo][@"error"][@"type"] isEqualToString:@"OAuthException"]) {
-            NSLog(@"The Facebook token was invalidated. Logging out.");
-            [self logOut];
-        }
-    }
+        [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:NO];
+        [self.homeViewController loadObjects];
+    }];
 }
 
 @end

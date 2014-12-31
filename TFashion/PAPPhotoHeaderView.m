@@ -46,28 +46,24 @@
         [self setBackgroundColor:[UIColor clearColor]];
         
         // translucent portion
-        self.containerView = [[UIView alloc] initWithFrame:CGRectMake( 20.0f, 0.0f, self.bounds.size.width - 20.0f * 2.0f, self.bounds.size.height)];
+        self.containerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.height)];
         [self addSubview:self.containerView];
-        [self.containerView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
-        
-        
+        [self.containerView setBackgroundColor:[UIColor whiteColor]];
+
         self.avatarImageView = [[PAPProfileImageView alloc] init];
         self.avatarImageView.frame = CGRectMake( 4.0f, 4.0f, 35.0f, 35.0f);
         [self.avatarImageView.profileButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.containerView addSubview:self.avatarImageView];
-        
-        
+
         if (self.buttons & PAPPhotoHeaderButtonsComment) {
             // comments button
             commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [containerView addSubview:self.commentButton];
-            [self.commentButton setFrame:CGRectMake( 242.0f, 10.0f, 29.0f, 28.0f)];
+            [self.commentButton setFrame:CGRectMake( 282.0f, 10.0f, 29.0f, 29.0f)];
             [self.commentButton setBackgroundColor:[UIColor clearColor]];
             [self.commentButton setTitle:@"" forState:UIControlStateNormal];
-            [self.commentButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            [self.commentButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];
-            [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( -4.0f, 0.0f, 0.0f, 0.0f)];
-            [[self.commentButton titleLabel] setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
+            [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( -6.0f, 0.0f, 0.0f, 0.0f)];
             [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
             [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
             [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
@@ -81,15 +77,12 @@
             // like button
             likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [containerView addSubview:self.likeButton];
-            [self.likeButton setFrame:CGRectMake(206.0f, 8.0f, 29.0f, 29.0f)];
+            [self.likeButton setFrame:CGRectMake(246.0f, 9.0f, 29.0f, 29.0f)];
             [self.likeButton setBackgroundColor:[UIColor clearColor]];
             [self.likeButton setTitle:@"" forState:UIControlStateNormal];
             [self.likeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-            [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-            [self.likeButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];
-            [self.likeButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.750f] forState:UIControlStateSelected];
+            [self.likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
             [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-            [[self.likeButton titleLabel] setShadowOffset:CGSizeMake(0.0f, 1.0f)];
             [[self.likeButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
             [[self.likeButton titleLabel] setMinimumScaleFactor:0.8f];
             [[self.likeButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
@@ -110,11 +103,9 @@
             [containerView addSubview:self.userButton];
             [self.userButton setBackgroundColor:[UIColor clearColor]];
             [[self.userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
-            [self.userButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            [self.userButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [self.userButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [self.userButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
             [[self.userButton titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
-            [[self.userButton titleLabel] setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
-            [self.userButton setTitleShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f] forState:UIControlStateNormal];
         }
         
         self.timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
@@ -122,20 +113,9 @@
         // timestamp
         self.timestampLabel = [[UILabel alloc] initWithFrame:CGRectMake( 50.0f, 24.0f, containerView.bounds.size.width - 50.0f - 72.0f, 18.0f)];
         [containerView addSubview:self.timestampLabel];
-        [self.timestampLabel setTextColor:[UIColor colorWithRed:124.0f/255.0f green:124.0f/255.0f blue:124.0f/255.0f alpha:1.0f]];
-        [self.timestampLabel setShadowColor:[UIColor colorWithWhite:1.0f alpha:0.750f]];
-        [self.timestampLabel setShadowOffset:CGSizeMake( 0.0f, 1.0f)];
+        [self.timestampLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
         [self.timestampLabel setFont:[UIFont systemFontOfSize:11.0f]];
         [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
-        
-        CALayer *layer = [containerView layer];
-        layer.backgroundColor = [[UIColor whiteColor] CGColor];
-        layer.masksToBounds = NO;
-        layer.shadowRadius = 1.0f;
-        layer.shadowOffset = CGSizeMake( 0.0f, 2.0f);
-        layer.shadowOpacity = 0.5f;
-        layer.shouldRasterize = YES;
-        layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectMake( 0.0f, containerView.frame.size.height - 4.0f, containerView.frame.size.width, 4.0f)].CGPath;
     }
 
     return self;
@@ -149,8 +129,17 @@
 
     // user's avatar
     PFUser *user = [self.photo objectForKey:kPAPPhotoUserKey];
-    PFFile *profilePictureSmall = [user objectForKey:kPAPUserProfilePicSmallKey];
-    [self.avatarImageView setFile:profilePictureSmall];
+    if ([PAPUtility userHasProfilePictures:user]) {
+        PFFile *profilePictureSmall = [user objectForKey:kPAPUserProfilePicSmallKey];
+        [self.avatarImageView setFile:profilePictureSmall];
+    } else {
+        [self.avatarImageView setImage:[PAPUtility defaultProfilePicture]];
+    }
+
+    [self.avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
+    self.avatarImageView.layer.cornerRadius = 17.5;
+    self.avatarImageView.layer.masksToBounds = YES;
+
 
     NSString *authorName = [user objectForKey:kPAPUserDisplayNameKey];
     [self.userButton setTitle:authorName forState:UIControlStateNormal];
@@ -195,11 +184,9 @@
     [self.likeButton setSelected:liked];
     
     if (liked) {
-        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(-1.0f, 0.0f, 0.0f, 0.0f)];
-        [[self.likeButton titleLabel] setShadowOffset:CGSizeMake(0.0f, -1.0f)];
+        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(-3.0f, 0.0f, 0.0f, 0.0f)];
     } else {
-        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-        [[self.likeButton titleLabel] setShadowOffset:CGSizeMake(0.0f, 1.0f)];
+        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(-3.0f, 0.0f, 0.0f, 0.0f)];
     }
 }
 

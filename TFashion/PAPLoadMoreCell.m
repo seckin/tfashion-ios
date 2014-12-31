@@ -32,24 +32,22 @@
         hideSeparatorBottom = NO;
 
         self.opaque = YES;
-        self.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryNone;
         self.backgroundColor = [UIColor clearColor];
         
         mainView = [[UIView alloc] initWithFrame:self.contentView.frame];
-        [mainView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundComments.png"]]];
+        if ([reuseIdentifier isEqualToString:@"NextPageDetails"]) {
+            [mainView setBackgroundColor:[UIColor whiteColor]];
+        } else {
+            [mainView setBackgroundColor:[UIColor blackColor]];
+        }
         
         FAKIonIcons *loadMoreIcon = [FAKIonIcons iosMoreIconWithSize:31.0f];
         [loadMoreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
         self.loadMoreImageView = [[UIImageView alloc] initWithImage:[loadMoreIcon imageWithSize:CGSizeMake(31.0f, 31.0f)]];
         [mainView addSubview:self.loadMoreImageView];
         
-        self.separatorImageTop = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake( 0.0f, 1.0f, 0.0f, 1.0f)]];
-        [mainView addSubview:separatorImageTop];
-        
-        self.separatorImageBottom = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake( 0.0f, 1.0f, 0.0f, 1.0f)]];
-        [mainView addSubview:separatorImageBottom];
-
         [self.contentView addSubview:mainView];
     }
     
@@ -63,7 +61,9 @@
     [mainView setFrame:CGRectMake( self.cellInsetWidth, self.contentView.frame.origin.y, self.contentView.frame.size.width-2*self.cellInsetWidth, self.contentView.frame.size.height)];
     
     // Layout load more text
-    [self.loadMoreImageView setFrame:CGRectMake(144.5f, 10.0f, 31.0f, 31.0f)];
+    // TODO: this might be the correct one:
+    // [self.loadMoreImageView setFrame:CGRectMake(144.5f, 10.0f, 31.0f, 31.0f)];
+    [self.loadMoreImageView setFrame:CGRectMake( 105.0f, 15.0f, 111.0f, 18.0f)];
 
     // Layout separator
     [self.separatorImageBottom setFrame:CGRectMake( 0.0f, self.frame.size.height - 2.0f, self.frame.size.width-self.cellInsetWidth * 2.0f, 2.0f)];
@@ -76,6 +76,7 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     if (self.cellInsetWidth != 0.0f) {
+        // TODO: @seckin: when does this work and what does it do?
         [PAPUtility drawSideDropShadowForRect:mainView.frame inContext:UIGraphicsGetCurrentContext()];
     }
 }

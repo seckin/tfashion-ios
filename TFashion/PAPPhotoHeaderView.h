@@ -17,7 +17,7 @@ typedef enum {
 
 @protocol PAPPhotoHeaderViewDelegate;
 
-@interface PAPPhotoHeaderView : UIView
+@interface PAPPhotoHeaderView : UITableViewCell
 
 /*! @name Creating Photo Header View */
 /*!

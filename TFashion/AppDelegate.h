@@ -8,7 +8,7 @@
 
 #import "PAPTabBarController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate, PFLogInViewControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
@@ -20,12 +20,11 @@
 - (BOOL)isParseReachable;
 
 - (void)presentLoginViewController;
-- (void)presentLoginViewControllerAnimated:(BOOL)animated;
+- (void)presentLoginViewController:(BOOL)animated;
 - (void)presentTabBarController;
 
 - (void)logOut;
 
-- (void)facebookRequestDidLoad:(id)result;
-- (void)facebookRequestDidFailWithError:(NSError *)error;
+- (void)autoFollowUsers;
 
 @end

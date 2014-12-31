@@ -18,6 +18,7 @@
 + (BOOL)userHasValidInstagramData:(PFUser *)user;
 + (BOOL)userHasValidTumblrData:(PFUser *)user;
 + (BOOL)userHasProfilePictures:(PFUser *)user;
++ (UIImage *)defaultProfilePicture;
 
 + (NSString *)firstNameForDisplayName:(NSString *)displayName;
 
@@ -30,7 +31,6 @@
 + (void)drawSideDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 + (void)drawSideAndBottomDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 + (void)drawSideAndTopDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;  
-+ (void)addBottomDropShadowToNavigationBarForNavigationController:(UINavigationController *)navigationController;
 
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 @end
