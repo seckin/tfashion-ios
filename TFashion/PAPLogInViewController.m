@@ -68,10 +68,11 @@
 
 - (void)showSignUpController:(id)sender
 {
-    self.signUpController = [[CONSignUpViewController alloc] init];
-    self.signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-
-    [self presentViewController:self.signUpController animated:YES completion:nil];
+    NSLog(@"showSignUpController called");
+//    self.signUpController = [[CONSignUpViewController alloc] init];
+//    self.signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//
+//    [self presentViewController:self.signUpController animated:YES completion:nil];
 }
 
 #pragma mark - FBLoginViewDelegate
