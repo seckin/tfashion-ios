@@ -21,6 +21,7 @@
 #import "PAPPhotoDetailsViewController.h"
 #import "CONSignUpViewController.h"
 #import "CONFeedViewController.h"
+#import "CONSocialAccount.h"
 #import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -39,6 +40,8 @@
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
+
+@property (nonatomic, strong) NSArray *facebookPermissions;
 
 - (void)setupAppearance;
 - (BOOL)shouldProceedToMainInterface:(PFUser *)user;
@@ -234,6 +237,22 @@
     [self.welcomeViewController presentLoginViewController:animated];
 }
 
+// utku's version(before anypic ios8 integration):
+//- (void)presentLoginViewControllerAnimated:(BOOL)animated {
+//    PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
+//    [loginViewController setDelegate:self];
+//    loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
+//    self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
+//    loginViewController.facebookPermissions = self.facebookPermissions;
+//
+//
+//    // Instantiate our custom sign up view controller
+//    CONSignUpViewController *signUpViewController = [[CONSignUpViewController alloc] init];
+//    signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
+//
+//    [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
+// }
+
 - (void)presentLoginViewController {
     [self presentLoginViewController:YES];
 }
@@ -342,6 +361,8 @@
         forState:UIControlStateNormal];
 
     [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    // TODO: @seckin: this might be unnecessary. is it?:
+     [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
 }
 
 - (void)monitorReachability {

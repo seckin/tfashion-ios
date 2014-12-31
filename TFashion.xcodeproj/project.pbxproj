@@ -63,6 +63,7 @@
 		BC26B9BC1A43575F0094214F /* CONTag.m in Sources */ = {isa = PBXBuildFile; fileRef = BC26B9BB1A43575F0094214F /* CONTag.m */; };
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
 		BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BDA841A35A28300B6B875 /* MPGTextField.m */; };
+		BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62935B1A53C28B0080F506 /* CONSocialAccount.m */; };
 		BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3391A484C2C00452469 /* THContactViewStyle.m */; };
 		BC64A3411A484C2C00452469 /* THContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33B1A484C2C00452469 /* THContactView.m */; };
 		BC64A3421A484C2C00452469 /* THContactPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33D1A484C2C00452469 /* THContactPickerView.m */; };
@@ -294,6 +295,8 @@
 		BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PAPPhotoHeaderView.m; path = TFashion/PAPPhotoHeaderView.m; sourceTree = SOURCE_ROOT; };
 		BC5BDA831A35A28300B6B875 /* MPGTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGTextField.h; sourceTree = "<group>"; };
 		BC5BDA841A35A28300B6B875 /* MPGTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGTextField.m; sourceTree = "<group>"; };
+		BC62935A1A53C28B0080F506 /* CONSocialAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSocialAccount.h; sourceTree = "<group>"; };
+		BC62935B1A53C28B0080F506 /* CONSocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSocialAccount.m; sourceTree = "<group>"; };
 		BC64A3381A484C2C00452469 /* THContactViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THContactViewStyle.h; sourceTree = "<group>"; };
 		BC64A3391A484C2C00452469 /* THContactViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THContactViewStyle.m; sourceTree = "<group>"; };
 		BC64A33A1A484C2C00452469 /* THContactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THContactView.h; sourceTree = "<group>"; };
@@ -688,6 +691,8 @@
 				BC26B9BB1A43575F0094214F /* CONTag.m */,
 				BC64A34A1A48617E00452469 /* CONInviteRequest.h */,
 				BC64A34B1A48617E00452469 /* CONInviteRequest.m */,
+				BC62935A1A53C28B0080F506 /* CONSocialAccount.h */,
+				BC62935B1A53C28B0080F506 /* CONSocialAccount.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -699,6 +704,35 @@
 				BC5BDA841A35A28300B6B875 /* MPGTextField.m */,
 			);
 			name = MPGTextField;
+			sourceTree = "<group>";
+		};
+		BC62935D1A5408400080F506 /* Invite */ = {
+			isa = PBXGroup;
+			children = (
+				BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */,
+				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
+				BC64A3471A485DC100452469 /* CONInviteFriendsViewController.h */,
+				BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */,
+			);
+			name = Invite;
+			sourceTree = "<group>";
+		};
+		BC62935E1A5408520080F506 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				BC139CDA1A2DCC8700F1F3E5 /* CONShareSettingsViewController.h */,
+				BC139CDB1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
+		BC62935F1A5408680080F506 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				BC6A21491A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.h */,
+				BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */,
+			);
+			name = Notification;
 			sourceTree = "<group>";
 		};
 		BC64A3371A484C1500452469 /* THContactPicker */ = {
@@ -781,16 +815,11 @@
 		C4A894931558796400DC57D3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				BC2138DC1A24D51B003DD8C4 /* PAPFindFriendsViewController.h */,
-				BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */,
-				BC64A3471A485DC100452469 /* CONInviteFriendsViewController.h */,
-				BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */,
-				BC139CDA1A2DCC8700F1F3E5 /* CONShareSettingsViewController.h */,
-				BC139CDB1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m */,
+				BC62935D1A5408400080F506 /* Invite */,
+				BC62935F1A5408680080F506 /* Notification */,
+				BC62935E1A5408520080F506 /* Share */,
 				BC6A21461A4EF9E900ECFDB0 /* CONSettingsViewController.h */,
 				BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */,
-				BC6A21491A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.h */,
-				BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1088,6 +1117,7 @@
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
 				BC21392F1A24D788003DD8C4 /* PAPPhotoDetailsFooterView.m in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
+				BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */,
 				BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */,
 				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
 				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
