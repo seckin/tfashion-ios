@@ -50,6 +50,15 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //MARK: Initialize window
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    // ****************************************************************************
+    // Parse initialization
+    [ParseCrashReporting enable];
+    [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
+    [PFFacebookUtils initializeFacebook];
+    // ****************************************************************************
     
 #if ENABLE_PONYDEBUGGER
     
@@ -85,16 +94,6 @@
     
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
-    
-    //MARK: Initialize window
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    // ****************************************************************************
-    // Parse initialization
-    [ParseCrashReporting enable];
-    [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
-    [PFFacebookUtils initializeFacebook];
-    // ****************************************************************************
     
     // Track app open.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
