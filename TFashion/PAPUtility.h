@@ -14,6 +14,9 @@
 + (void)processFacebookProfilePictureData:(NSData *)data;
 
 + (BOOL)userHasValidFacebookData:(PFUser *)user;
++ (BOOL)userHasValidTwitterData:(PFUser *)user;
++ (BOOL)userHasValidInstagramData:(PFUser *)user;
++ (BOOL)userHasValidTumblrData:(PFUser *)user;
 + (BOOL)userHasProfilePictures:(PFUser *)user;
 
 + (NSString *)firstNameForDisplayName:(NSString *)displayName;

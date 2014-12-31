@@ -99,6 +99,9 @@ extern NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey;
 extern NSString *const kPAPUserEmailKey;
 extern NSString *const kPAPUserPhoneNumberKey;
 extern NSString *const kPAPUserObjectIdKey;
+extern NSString *const kPAPUserTwitterIDKey;
+extern NSString *const kPAPUserInstagramIDKey;
+extern NSString *const kPAPUserTumblrIDKey;
 
 
 #pragma mark - PFObject Photo Class
@@ -145,6 +148,13 @@ extern NSString *const kPAPPushPayloadFromUserObjectIdKey;
 extern NSString *const kPAPPushPayloadToUserObjectIdKey;
 extern NSString *const kPAPPushPayloadPhotoObjectIdKey;
 
-#pragma mark - User defaults
+#pragma mark - User Defaults
 
 extern NSString *const kDidUserSeeIntro;
+
+#pragma mark - Social Account Types
+
+extern NSString *const kSocialAccountTypeTwitter;
+extern NSString *const kSocialAccountTypeInstagram;
+extern NSString *const kSocialAccountTypeTumblr;
+extern NSString *const kSocialAccountTypeFacebook;

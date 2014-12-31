@@ -75,6 +75,10 @@ NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey   = @"userAlreadyA
 NSString *const kPAPUserEmailKey                                = @"email";
 NSString *const kPAPUserPhoneNumberKey                          = @"phoneNumber";
 NSString *const kPAPUserObjectIdKey                             = @"objectId";
+NSString *const kPAPUserTwitterIDKey                            = @"twitterId";
+NSString *const kPAPUserInstagramIDKey                          = @"instagramId";
+NSString *const kPAPUserTumblrIDKey                             = @"tumblrId";
+
 
 #pragma mark - Photo Class
 // Class key
@@ -121,6 +125,13 @@ NSString *const kPAPPushPayloadFromUserObjectIdKey = @"fu";
 NSString *const kPAPPushPayloadToUserObjectIdKey   = @"tu";
 NSString *const kPAPPushPayloadPhotoObjectIdKey    = @"pid";
 
-#pragma mark - User defaults
+#pragma mark - User Defaults
 
 NSString *const kDidUserSeeIntro = @"didUserSeeIntro";
+
+#pragma mark - Social Account Types
+
+NSString *const kSocialAccountTypeTwitter = @"twitter";
+NSString *const kSocialAccountTypeInstagram = @"instagram";
+NSString *const kSocialAccountTypeTumblr = @"tumblr";
+NSString *const kSocialAccountTypeFacebook = @"facebook";

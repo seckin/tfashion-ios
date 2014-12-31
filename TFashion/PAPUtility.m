@@ -192,6 +192,21 @@
     return (facebookId && facebookId.length > 0);
 }
 
++ (BOOL)userHasValidTwitterData:(PFUser *)user {
+    NSString *twitterId = [user objectForKey:kPAPUserTwitterIDKey];
+    return (twitterId && twitterId.length > 0);
+}
+
++ (BOOL)userHasValidInstagramData:(PFUser *)user {
+    NSString *instagramId = [user objectForKey:kPAPUserInstagramIDKey];
+    return (instagramId && instagramId.length > 0);
+}
+
++ (BOOL)userHasValidTumblrData:(PFUser *)user {
+    NSString *tumblrId = [user objectForKey:kPAPUserTumblrIDKey];
+    return (tumblrId && tumblrId.length > 0);
+}
+
 + (BOOL)userHasProfilePictures:(PFUser *)user {
     PFFile *profilePictureMedium = [user objectForKey:kPAPUserProfilePicMediumKey];
     PFFile *profilePictureSmall = [user objectForKey:kPAPUserProfilePicSmallKey];

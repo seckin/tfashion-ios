@@ -21,6 +21,7 @@
 #import "PAPPhotoDetailsViewController.h"
 #import "CONSignUpViewController.h"
 #import "CONFeedViewController.h"
+#import "CONSocialAccount.h"
 #import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -40,6 +41,8 @@
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
+
+@property (nonatomic, strong) NSArray *facebookPermissions;
 
 - (void)setupAppearance;
 - (BOOL)shouldProceedToMainInterface:(PFUser *)user;
@@ -267,7 +270,8 @@
     PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
     [loginViewController setDelegate:self];
     loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
-    loginViewController.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
+    self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
+    loginViewController.facebookPermissions = self.facebookPermissions;
     
     
     // Instantiate our custom sign up view controller
@@ -389,6 +393,8 @@
      forState:UIControlStateNormal];
     
     [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:32.0f/255.0f green:19.0f/255.0f blue:16.0f/255.0f alpha:1.0f]];
+    
+    [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
 }
 
 - (void)monitorReachability {
@@ -627,7 +633,20 @@
                 [user setObject:email forKey:kPAPUserEmailKey];
             }
             
-            [user saveEventually];
+            [user saveEventually:^(BOOL succeeded, NSError *error) {
+                if ([PAPUtility userHasValidFacebookData:user] && user.isNew) {
+                    CONSocialAccount *socialAccount = [CONSocialAccount object];
+                    socialAccount.isActive = YES;
+                    socialAccount.type = kSocialAccountTypeFacebook;
+                    socialAccount.ownerUser = user;
+                    socialAccount.info = result;
+                    socialAccount.userId = facebookId;
+                    socialAccount.username = [user valueForKey:kPAPUserEmailKey];
+                    socialAccount.displayName = [user valueForKey:kPAPUserDisplayNameKey];
+                    socialAccount.scope = self.facebookPermissions;
+                    [socialAccount saveInBackground];
+                }
+            }];
             
             //MARK: Track Sign up event for Analytics
             if (user.isNew) {
