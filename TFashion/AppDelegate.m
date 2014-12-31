@@ -41,8 +41,6 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
 
-@property (nonatomic, strong) NSArray *facebookPermissions;
-
 - (void)setupAppearance;
 - (BOOL)shouldProceedToMainInterface:(PFUser *)user;
 - (BOOL)handleActionURL:(NSURL *)url;
@@ -237,22 +235,6 @@
     [self.welcomeViewController presentLoginViewController:animated];
 }
 
-// utku's version(before anypic ios8 integration):
-//- (void)presentLoginViewControllerAnimated:(BOOL)animated {
-//    PAPLogInViewController *loginViewController = [[PAPLogInViewController alloc] init];
-//    [loginViewController setDelegate:self];
-//    loginViewController.fields = PFLogInFieldsFacebook | PFLogInFieldsSignUpButton;
-//    self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
-//    loginViewController.facebookPermissions = self.facebookPermissions;
-//
-//
-//    // Instantiate our custom sign up view controller
-//    CONSignUpViewController *signUpViewController = [[CONSignUpViewController alloc] init];
-//    signUpViewController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
-//
-//    [self.welcomeViewController presentViewController:loginViewController animated:NO completion:nil];
-// }
-
 - (void)presentLoginViewController {
     [self presentLoginViewController:YES];
 }
@@ -362,7 +344,9 @@
 
     [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
     // TODO: @seckin: this might be unnecessary. is it?:
-     [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
+    // @utkusakil: this sets global tint color. Global tint color is default button color for example. Also I can use it anywhere by calling self.view.tintColor. So, it is important for color consistency.
+    [self.window setTintColor:[[UINavigationBar appearance] tintColor]];
+//     [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
 }
 
 - (void)monitorReachability {

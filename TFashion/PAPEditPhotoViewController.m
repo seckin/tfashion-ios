@@ -233,14 +233,17 @@
     [self.scrollView setContentSize:scrollViewContentSize];
     
     CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
+    
+    CGFloat navBarBottom = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    
     // Align the bottom edge of the photo with the keyboard
-    scrollViewContentOffset.y = scrollViewContentOffset.y + keyboardFrameEnd.size.height*3.0f - [UIScreen mainScreen].bounds.size.height;
+    scrollViewContentOffset.y = scrollViewContentOffset.y + keyboardFrameEnd.size.height*3.0f - [UIScreen mainScreen].bounds.size.height + navBarBottom;
     
     [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
     
     // Set comment text field popover frame
     CGFloat footerTop = CGRectGetMinY(footerView.frame);
-    [commentTextField setPopoverSize:CGRectMake(20, scrollViewContentOffset.y, 280, footerTop-scrollViewContentOffset.y)];
+    [commentTextField setPopoverSize:CGRectMake(0, scrollViewContentOffset.y + navBarBottom, 320, footerTop-scrollViewContentOffset.y - navBarBottom)];
 }
 
 - (void)keyboardWillHide:(NSNotification *)note {

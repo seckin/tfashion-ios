@@ -176,7 +176,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [profilePic setFrame:CGRectMake(likeProfileXBase + i * (likeProfileXSpace + likeProfileDim), likeProfileY, likeProfileDim, likeProfileDim)];
         [profilePic.profileButton addTarget:self action:@selector(didTapLikerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         profilePic.profileButton.tag = i;
-
+        
         if ([PAPUtility userHasProfilePictures:[self.likeUsers objectAtIndex:i]]) {
             [profilePic setFile:[[self.likeUsers objectAtIndex:i] objectForKey:kPAPUserProfilePicSmallKey]];
         } else {
@@ -248,7 +248,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [avatarImageView setOpaque:NO];
         [avatarImageView.profileButton addTarget:self action:@selector(didTapUserNameButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
-        avatarImageView.layer.cornerRadius = 66.0f;
+        avatarImageView.layer.cornerRadius = 17.0f;
         avatarImageView.layer.masksToBounds = YES;
         //[avatarImageView load:^(UIImage *image, NSError *error) {}];
         [nameHeaderView addSubview:avatarImageView];

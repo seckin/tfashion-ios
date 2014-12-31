@@ -68,7 +68,7 @@
             [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
             [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
             FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:29.0f];
-            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
             [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(29.0f, 24.0f)] forState:UIControlStateNormal];
             [self.commentButton setSelected:NO];
         }
@@ -80,8 +80,8 @@
             [self.likeButton setFrame:CGRectMake(246.0f, 9.0f, 29.0f, 29.0f)];
             [self.likeButton setBackgroundColor:[UIColor clearColor]];
             [self.likeButton setTitle:@"" forState:UIControlStateNormal];
-            [self.likeButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             [self.likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
             [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
             [[self.likeButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
             [[self.likeButton titleLabel] setMinimumScaleFactor:0.8f];
@@ -89,10 +89,10 @@
             [self.likeButton setAdjustsImageWhenHighlighted:NO];
             [self.likeButton setAdjustsImageWhenDisabled:NO];
             FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:29.0f];
-            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
             [likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateNormal];
             FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:29.0f];
-            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor]];
+            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
             [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
             [self.likeButton setSelected:NO];
         }

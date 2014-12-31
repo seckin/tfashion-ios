@@ -38,7 +38,7 @@
         messageIcon.frame = CGRectMake( 20.0f, 15.0f, 22.0f, 22.0f);
         [mainView addSubview:messageIcon];
 
-        commentField = [[UITextField alloc] initWithFrame:CGRectMake( 66.0f, 8.0f, 217.0f, 34.0f)];
+        commentField = [[MPGTextField alloc] initWithFrame:CGRectMake( 66.0f, 8.0f, 217.0f, 34.0f)];
         commentField.font = [UIFont systemFontOfSize:14.0f];
         commentField.placeholder = @"Add a comment";
         commentField.returnKeyType = UIReturnKeySend;

@@ -94,7 +94,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.contentLabel setNumberOfLines:0];
         [self.contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.contentLabel setBackgroundColor:[UIColor clearColor]];
-        UIColor *patternColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]];
+        UIColor *patternColor = [UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
         self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObject:(__bridge id)[patternColor CGColor] forKey:(NSString *)kCTForegroundColorAttributeName];
         NSMutableDictionary *mutableActiveLinkAttributes = [NSMutableDictionary dictionary];
         [mutableActiveLinkAttributes setValue:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];

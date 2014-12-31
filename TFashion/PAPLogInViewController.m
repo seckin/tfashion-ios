@@ -14,6 +14,7 @@
 
 @interface PAPLogInViewController() {
     FBLoginView *_facebookLoginView;
+    PFLogInView *_logInView;
 }
 
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -45,15 +46,19 @@
     _facebookLoginView.delegate = self;
     _facebookLoginView.tooltipBehavior = FBLoginViewTooltipBehaviorDisable;
     [self.view addSubview:_facebookLoginView];
+    
+    // Sign up button
+    _logInView = [[PFLogInView alloc] initWithFields:PFLogInFieldsSignUpButton];
+    _logInView.backgroundColor = [UIColor clearColor];
+    _logInView.frame = CGRectMake(20.0f, CGRectGetMaxY(_facebookLoginView.frame) + 10, 276.0f, 58.0f);
+    [self.view addSubview:_logInView];
 
-    // TODO: need to integrate with our signup flow:
-//
-//    NSArray *signUpButtonActions = [self.logInView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
-//    for (int i = 0; i<signUpButtonActions.count; i++) {
-//        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
-//        [self.logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    [self.logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
+    NSArray *signUpButtonActions = [_logInView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
+    for (int i = 0; i<signUpButtonActions.count; i++) {
+        SEL oldAction = NSSelectorFromString(signUpButtonActions[i]);
+        [_logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
+    }
+    [_logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -69,10 +74,11 @@
 - (void)showSignUpController:(id)sender
 {
     NSLog(@"showSignUpController called");
-//    self.signUpController = [[CONSignUpViewController alloc] init];
-//    self.signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-//
-//    [self presentViewController:self.signUpController animated:YES completion:nil];
+    CONSignUpViewController *signUpController = [[CONSignUpViewController alloc] init];
+    signUpController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
+    signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+
+    [self presentViewController:signUpController animated:YES completion:nil];
 }
 
 #pragma mark - FBLoginViewDelegate
@@ -87,8 +93,8 @@
 
 - (void)handleFacebookSession {
     if ([PFUser currentUser]) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn)]) {
-            [self.delegate performSelector:@selector(logInViewController:DidLogUserIn:) withObject:[PFUser currentUser]];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(loginViewControllerDidLogUserIn:)]) {
+            [self.delegate performSelector:@selector(logInViewController:didLogInUser:) withObject:[PFUser currentUser]];
         }
         return;
     }

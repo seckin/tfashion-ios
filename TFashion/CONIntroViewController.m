@@ -82,13 +82,13 @@
     [self.scrollView addSubview:self.wordmark];
     
     self.firstLabel = [[UILabel alloc] init];
-    self.firstLabel.text = @"Introducing Jazz Hands";
+    self.firstLabel.text = @"Introducing TFashion";
     [self.firstLabel sizeToFit];
     self.firstLabel.center = self.view.center;
     [self.scrollView addSubview:self.firstLabel];
     
     UILabel *secondPageText = [[UILabel alloc] init];
-    secondPageText.text = @"Brought to you by IFTTT";
+    secondPageText.text = @"Brought to you by Conceive";
     [secondPageText sizeToFit];
     secondPageText.center = self.view.center;
     secondPageText.frame = CGRectOffset(secondPageText.frame, timeForPage(2), 180);

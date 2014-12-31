@@ -89,7 +89,7 @@ NSArray *data;
 
 #pragma mark UITableView DataSource & Delegate Methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSUInteger count = [[self applyFilterWithSearchQuery:self.text] count];
     if (count == 0) {
@@ -116,7 +116,18 @@ NSArray *data;
         cell.delegate = self;
     }
     
-    [cell setUser:[dataForRowAtIndexPath objectForKey:@"CustomObject"]];
+    PFUser *user = (PFUser *)[dataForRowAtIndexPath objectForKey:@"CustomObject"];
+    [cell setUser:user];
+    
+    UILabel *usernameLabel = [[UILabel alloc] init];
+    usernameLabel.font = cell.timeLabel.font;
+    usernameLabel.textColor = cell.timeLabel.textColor;
+    usernameLabel.text = [NSString stringWithFormat:@"@%@", user.username];
+    [usernameLabel sizeToFit];
+    CGRect frame = usernameLabel.frame;
+    frame.origin = CGPointMake(45, 35);
+    usernameLabel.frame = frame;
+    [cell addSubview:usernameLabel];
 
     return cell;
 }
@@ -146,6 +157,11 @@ NSArray *data;
     [components addObject:self.result];
     self.text = [components componentsJoinedByString:@" "];
     [self handleExit];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
 }
 
 #pragma mark Filter Method
@@ -229,26 +245,6 @@ NSArray *data;
 - (void)tapped:(UIGestureRecognizer *)gesture
 {
     
-}
-
-- (void)disableRecursivelyAllSubviews:(UIView *)theView
-{
-//    theView.userInteractionEnabled = NO;
-    if ([theView isKindOfClass:[UIButton class]]) {
-        theView.userInteractionEnabled = NO;
-    }
-    for(UIView* subview in [theView subviews])
-    {
-        [self disableRecursivelyAllSubviews:subview];
-    }
-}
-
-- (void)disableAllSubviewsOf:(UIView *)theView
-{
-    for(UIView* subview in [theView subviews])
-    {
-        [self disableRecursivelyAllSubviews:subview];
-    }
 }
 
 @end
