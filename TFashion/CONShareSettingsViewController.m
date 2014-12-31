@@ -85,7 +85,9 @@
 {
     CONProviderDetailViewController *detail = [[CONProviderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    detail.master = self;
     detail.socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    detail.providerIndexPath = indexPath;
     
     [self.navigationController pushViewController:detail animated:YES];
 }
@@ -131,6 +133,9 @@
                 [icon setAttributes:@{ NSForegroundColorAttributeName: self.view.tintColor }];
                 cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
                 cell.detailTextLabel.text = socialAccount.providerDisplayName;
+            } else {
+                [icon setAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
+                cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
             }
         }
     }];
@@ -242,7 +247,13 @@
 {
     PFUser *user = [PFUser currentUser];
     
-    CONSocialAccount *socialAccount = [CONSocialAccount object];
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    
+    if (!socialAccount) {
+        socialAccount = [CONSocialAccount object];
+    }
+    
     socialAccount.isActive = YES;
     socialAccount.ownerUser = user;
     socialAccount.info = response;
@@ -273,7 +284,13 @@
 {
     PFUser *user = [PFUser currentUser];
     
-    CONSocialAccount *socialAccount = [CONSocialAccount object];
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    
+    if (!socialAccount) {
+        socialAccount = [CONSocialAccount object];
+    }
+    
     socialAccount.isActive = YES;
     socialAccount.ownerUser = user;
     socialAccount.info = response;
@@ -302,7 +319,13 @@
 {
     PFUser *user = [PFUser currentUser];
     
-    CONSocialAccount *socialAccount = [CONSocialAccount object];
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    
+    if (!socialAccount) {
+        socialAccount = [CONSocialAccount object];
+    }
+    
     socialAccount.isActive = YES;
     socialAccount.ownerUser = user;
     socialAccount.info = response;
@@ -331,7 +354,13 @@
 {
     PFUser *user = [PFUser currentUser];
     
-    CONSocialAccount *socialAccount = [CONSocialAccount object];
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    
+    if (!socialAccount) {
+        socialAccount = [CONSocialAccount object];
+    }
+    
     socialAccount.isActive = YES;
     socialAccount.ownerUser = user;
     socialAccount.info = response;

@@ -81,6 +81,7 @@
         [self.socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [self.navigationController popViewControllerAnimated:YES];
+                [self.master.tableView reloadRowsAtIndexPaths:@[self.providerIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
         }];
     }
