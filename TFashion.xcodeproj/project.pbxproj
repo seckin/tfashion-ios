@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		054B82891A5420E7007E9770 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B82881A5420E7007E9770 /* ParseCrashReporting.framework */; };
+		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
+		054B828D1A54219F007E9770 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828C1A54219F007E9770 /* Bolts.framework */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
 		092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B213A1D7EB00DA740F /* CFNetwork.framework */; };
@@ -93,6 +96,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		054B82881A5420E7007E9770 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Vendor/ParseCrashReporting.framework; sourceTree = "<group>"; };
+		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Vendor/Bolts.framework; sourceTree = "<group>"; };
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
 		092354AF13A1D7E200DA740F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -239,6 +245,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054B828D1A54219F007E9770 /* Bolts.framework in Frameworks */,
+				054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */,
+				054B82891A5420E7007E9770 /* ParseCrashReporting.framework in Frameworks */,
 				BC18BDC91A246F970092A384 /* CoreData.framework in Frameworks */,
 				BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */,
 				E7BB90FA177BDBE6000A68F9 /* Accelerate.framework in Frameworks */,
@@ -296,6 +305,9 @@
 		09ABC07013A1D52D009C3FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				054B828C1A54219F007E9770 /* Bolts.framework */,
+				054B828A1A542117007E9770 /* libstdc++.6.dylib */,
+				054B82881A5420E7007E9770 /* ParseCrashReporting.framework */,
 				BC18BDC81A246F970092A384 /* CoreData.framework */,
 				BCC085461A2387580026C4B6 /* StoreKit.framework */,
 				E7BB90F9177BDBE6000A68F9 /* Accelerate.framework */,
