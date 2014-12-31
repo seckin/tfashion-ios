@@ -20,14 +20,14 @@
 // Accounts are stored with a particular account type.
 @property (strong, nonatomic) NSString *type;
 
-// The id for the account.
-@property (copy, nonatomic) NSString *userId;
+// The provider id for the account.
+@property (copy, nonatomic) NSString *providerId;
 
 // The username for the account.
-@property (copy, nonatomic) NSString *username;
+@property (copy, nonatomic) NSString *providerUsername;
 
 // The display name for the account.
-@property (copy, nonatomic) NSString *displayName;
+@property (copy, nonatomic) NSString *providerDisplayName;
 
 // This properties are only valid for OAuth1 credentials
 @property (copy, nonatomic) NSString *oauth1Token;

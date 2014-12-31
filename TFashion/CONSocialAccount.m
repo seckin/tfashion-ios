@@ -9,7 +9,7 @@
 #import "CONSocialAccount.h"
 
 @implementation CONSocialAccount
-@dynamic ownerUser, info, type, userId, username, displayName, oauth1Secret, oauth1Token, oauth2Token, refreshToken, tokenExpiryDate, scope, isActive;
+@dynamic ownerUser, info, type, providerId, providerUsername, providerDisplayName, oauth1Secret, oauth1Token, oauth2Token, refreshToken, tokenExpiryDate, scope, isActive;
 
 + (void)load {
     [self registerSubclass];

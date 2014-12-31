@@ -7,9 +7,9 @@
 //
 
 #import "CONShareSettingsViewController.h"
-#import <SocialAccounts/SocialAccounts.h>
 #import <SimpleAuth/SimpleAuth.h>
 #import "CONSocialAccount.h"
+#import "CONProviderDetailViewController.h"
 
 @interface CONShareSettingsViewController ()
 
@@ -81,6 +81,15 @@
                                             };
 }
 
+- (void)showProviderDetail:(NSIndexPath *)indexPath
+{
+    CONProviderDetailViewController *detail = [[CONProviderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    detail.socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -106,22 +115,22 @@
     
     PFUser *user = [PFUser currentUser];
     NSString *providerIdKey = [NSString stringWithFormat:@"%@Id", provider];
-    NSString *userProviderId = [user valueForKey:providerIdKey];
+    NSString *providerId = [user valueForKey:providerIdKey];
     
     PFQuery *query = [PFQuery queryWithClassName:@"SocialAccount"];
     [query whereKey:@"ownerUser" equalTo:user];
     [query whereKey:@"type" equalTo:provider];
-    [query whereKey:@"userId" equalTo:userProviderId];
+    [query whereKey:@"providerId" equalTo:providerId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         cell.userInteractionEnabled = YES;
         if (objects.count == 1) {
             CONSocialAccount *socialAccount = objects[0];
             NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
-            [self.socialAccounts setObject:socialAccount forKey:key];
+            [self.socialAccounts setObject:socialAccount forKey:[key stringValue]];
             if (socialAccount.isActive) {
                 [icon setAttributes:@{ NSForegroundColorAttributeName: self.view.tintColor }];
                 cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
-                cell.detailTextLabel.text = socialAccount.displayName;
+                cell.detailTextLabel.text = socialAccount.providerDisplayName;
             }
         }
     }];
@@ -160,9 +169,10 @@
 - (void)actionAuthorizeFacebookWithIndexPath:(NSIndexPath *)indexPath
 {
     PFUser *user = [PFUser currentUser];
-    if ([PAPUtility userHasValidFacebookData:user]) {
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-        //TODO: detail
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    if ([PAPUtility userHasValidFacebookData:user] && socialAccount.isActive) {
+        [self showProviderDetail:indexPath];
     } else {
         self.facebookPermissions = @[ @"user_about_me", @"email", @"public_profile", @"user_friends" ];
         NSDictionary *options = @{ @"permissions" : self.facebookPermissions };
@@ -178,9 +188,10 @@
 - (void)actionAuthorizeTwitterWithIndexPath:(NSIndexPath *)indexPath
 {
     PFUser *user = [PFUser currentUser];
-    if ([PAPUtility userHasValidTwitterData:user]) {
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-        //TODO: detail
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    if ([PAPUtility userHasValidTwitterData:user] && socialAccount.isActive) {
+        [self showProviderDetail:indexPath];
     } else {
         [SimpleAuth authorize:@"twitter-web" completion:^(id responseObject, NSError *error) {
             NSLog(@"\nError: %@", error);
@@ -194,9 +205,10 @@
 - (void)actionAuthorizeInstagramWithIndexPath:(NSIndexPath *)indexPath
 {
     PFUser *user = [PFUser currentUser];
-    if ([PAPUtility userHasValidInstagramData:user]) {
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-        //TODO: detail
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    if ([PAPUtility userHasValidInstagramData:user] && socialAccount.isActive) {
+        [self showProviderDetail:indexPath];
     } else {
         [SimpleAuth authorize:@"instagram" completion:^(id responseObject, NSError *error) {
             NSLog(@"\nError: %@", error);
@@ -210,9 +222,10 @@
 - (void)actionAuthorizeTumblrWithIndexPath:(NSIndexPath *)indexPath
 {
     PFUser *user = [PFUser currentUser];
-    if ([PAPUtility userHasValidTumblrData:user]) {
-        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-        //TODO: detail
+    NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+    CONSocialAccount *socialAccount = [self.socialAccounts valueForKey:[key stringValue]];
+    if ([PAPUtility userHasValidTumblrData:user] && socialAccount.isActive) {
+        [self showProviderDetail:indexPath];
     } else {
         [SimpleAuth authorize:@"tumblr" completion:^(id responseObject, NSError *error) {
             NSLog(@"\nError: %@", error);
@@ -234,10 +247,10 @@
     socialAccount.ownerUser = user;
     socialAccount.info = response;
     socialAccount.type = kSocialAccountTypeFacebook;
-    socialAccount.userId = [response valueForKey:@"uid"];
+    socialAccount.providerId = [response valueForKey:@"uid"];
     id info = [response valueForKey:@"info"];
-    socialAccount.username = [info valueForKey:@"email"];
-    socialAccount.displayName = [info valueForKey:@"name"];
+    socialAccount.providerUsername = [info valueForKey:@"email"];
+    socialAccount.providerDisplayName = [info valueForKey:@"name"];
     id credentials = [response valueForKey:@"credentials"];
     socialAccount.oauth2Token = [credentials valueForKey:@"token"];
     socialAccount.tokenExpiryDate = [credentials valueForKey:@"expires_at"];
@@ -245,8 +258,8 @@
     
     return [socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [user setValue:socialAccount.userId forKey:kPAPUserFacebookIDKey];
-            [user setValue:socialAccount.username forKey:kPAPUserEmailKey];
+            [user setValue:socialAccount.providerId forKey:kPAPUserFacebookIDKey];
+            [user setValue:socialAccount.providerUsername forKey:kPAPUserEmailKey];
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
@@ -265,17 +278,17 @@
     socialAccount.ownerUser = user;
     socialAccount.info = response;
     socialAccount.type = kSocialAccountTypeTwitter;
-    socialAccount.userId = [[response valueForKey:@"uid"] stringValue];
+    socialAccount.providerId = [[response valueForKey:@"uid"] stringValue];
     id info = [response valueForKey:@"info"];
-    socialAccount.username = [info valueForKey:@"nickname"];
-    socialAccount.displayName = [info valueForKey:@"name"];
+    socialAccount.providerUsername = [info valueForKey:@"nickname"];
+    socialAccount.providerDisplayName = [info valueForKey:@"name"];
     id credentials = [response valueForKey:@"credentials"];
     socialAccount.oauth1Token = [credentials valueForKey:@"token"];
     socialAccount.oauth1Secret = [credentials valueForKey:@"secret"];
     
     return [socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [user setValue:socialAccount.userId forKey:kPAPUserTwitterIDKey];
+            [user setValue:socialAccount.providerId forKey:kPAPUserTwitterIDKey];
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
@@ -294,16 +307,16 @@
     socialAccount.ownerUser = user;
     socialAccount.info = response;
     socialAccount.type = kSocialAccountTypeInstagram;
-    socialAccount.userId = [response valueForKey:@"uid"];
+    socialAccount.providerId = [response valueForKey:@"uid"];
     id userInfo = [response valueForKey:@"user_info"];
-    socialAccount.username = [userInfo valueForKey:@"username"];
-    socialAccount.displayName = [userInfo valueForKey:@"name"];
+    socialAccount.providerUsername = [userInfo valueForKey:@"username"];
+    socialAccount.providerDisplayName = [userInfo valueForKey:@"name"];
     id credentials = [response valueForKey:@"credentials"];
     socialAccount.oauth2Token = [credentials valueForKey:@"token"];
 
     return [socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [user setValue:socialAccount.userId forKey:kPAPUserInstagramIDKey];
+            [user setValue:socialAccount.providerId forKey:kPAPUserInstagramIDKey];
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];
@@ -323,17 +336,17 @@
     socialAccount.ownerUser = user;
     socialAccount.info = response;
     socialAccount.type = kSocialAccountTypeTumblr;
-    socialAccount.userId = [response valueForKey:@"uid"];
+    socialAccount.providerId = [response valueForKey:@"uid"];
     id info = [response valueForKey:@"info"];
-    socialAccount.username = [info valueForKey:@"nickname"];
-    socialAccount.displayName = [info valueForKey:@"name"];
+    socialAccount.providerUsername = [info valueForKey:@"nickname"];
+    socialAccount.providerDisplayName = [info valueForKey:@"name"];
     id credentials = [response valueForKey:@"credentials"];
     socialAccount.oauth1Token = [credentials valueForKey:@"token"];
     socialAccount.oauth1Secret = [credentials valueForKey:@"secret"];
     
     return [socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [user setValue:socialAccount.userId forKey:kPAPUserTumblrIDKey];
+            [user setValue:socialAccount.providerId forKey:kPAPUserTumblrIDKey];
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     [self.tableView reloadRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationNone];

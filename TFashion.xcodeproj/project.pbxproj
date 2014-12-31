@@ -64,6 +64,7 @@
 		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
 		BC5BDA851A35A28300B6B875 /* MPGTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BDA841A35A28300B6B875 /* MPGTextField.m */; };
 		BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62935B1A53C28B0080F506 /* CONSocialAccount.m */; };
+		BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6293611A5437A50080F506 /* CONProviderDetailViewController.m */; };
 		BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3391A484C2C00452469 /* THContactViewStyle.m */; };
 		BC64A3411A484C2C00452469 /* THContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33B1A484C2C00452469 /* THContactView.m */; };
 		BC64A3421A484C2C00452469 /* THContactPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33D1A484C2C00452469 /* THContactPickerView.m */; };
@@ -297,6 +298,8 @@
 		BC5BDA841A35A28300B6B875 /* MPGTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGTextField.m; sourceTree = "<group>"; };
 		BC62935A1A53C28B0080F506 /* CONSocialAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSocialAccount.h; sourceTree = "<group>"; };
 		BC62935B1A53C28B0080F506 /* CONSocialAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSocialAccount.m; sourceTree = "<group>"; };
+		BC6293601A5437A50080F506 /* CONProviderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONProviderDetailViewController.h; sourceTree = "<group>"; };
+		BC6293611A5437A50080F506 /* CONProviderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONProviderDetailViewController.m; sourceTree = "<group>"; };
 		BC64A3381A484C2C00452469 /* THContactViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THContactViewStyle.h; sourceTree = "<group>"; };
 		BC64A3391A484C2C00452469 /* THContactViewStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THContactViewStyle.m; sourceTree = "<group>"; };
 		BC64A33A1A484C2C00452469 /* THContactView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THContactView.h; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 			children = (
 				BC139CDA1A2DCC8700F1F3E5 /* CONShareSettingsViewController.h */,
 				BC139CDB1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m */,
+				BC6293601A5437A50080F506 /* CONProviderDetailViewController.h */,
+				BC6293611A5437A50080F506 /* CONProviderDetailViewController.m */,
 			);
 			name = Share;
 			sourceTree = "<group>";
@@ -1100,6 +1105,7 @@
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
 				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,
+				BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,

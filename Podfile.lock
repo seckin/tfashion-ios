@@ -152,7 +152,6 @@ PODS:
     - SimpleAuth/UI
   - SimpleAuth/UI (0.3.6):
     - SimpleAuth/Core
-  - SocialAccounts (0.0.1)
   - SocketRocket (0.2.0)
   - Taplytics (2.1.14)
   - Tapstream (2.8.3)
@@ -175,7 +174,6 @@ DEPENDENCIES:
   - SimpleAuth/Instagram
   - SimpleAuth/Tumblr
   - SimpleAuth/TwitterWeb
-  - SocialAccounts
   - TSMessages
   - TTTAttributedLabel
 
@@ -207,7 +205,6 @@ SPEC CHECKSUMS:
   Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
   ReactiveCocoa: 8418a82b67af2f1b7587baf29c329040a23c2063
   SimpleAuth: 0664e22bff27c7f5b169254b421b1c761d002f65
-  SocialAccounts: 9dc37f41cbb57ee0598f8d6db0cc3d179dafe71e
   SocketRocket: 6c9cfd1592bea82262b4283dcda3a7de166af3b6
   Taplytics: 3d2418f56e2ede27d412dcb4dfbe34b91c187e90
   Tapstream: b2d949e963c393938697db68256ba70aadddb820
