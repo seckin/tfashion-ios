@@ -108,11 +108,11 @@
         return;
     }
 
-    if (!session.accessTokenData.userID) {
-        NSLog(@"userID on FB Session does not exist, logout");
-        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
-        return;
-    }
+//    if (!session.accessTokenData.userID) {
+//        NSLog(@"userID on FB Session does not exist, logout");
+//        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
+//        return;
+//    }
 
     PFUser *currentParseUser = [PFUser currentUser];
     if (!currentParseUser) {

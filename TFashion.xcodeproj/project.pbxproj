@@ -99,7 +99,7 @@
 /* Begin PBXFileReference section */
 		054B82881A5420E7007E9770 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Vendor/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Vendor/Bolts.framework; sourceTree = "<group>"; };
+		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		054B82901A5426BF007E9770 /* ActivityFeedBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActivityFeedBlank.png; sourceTree = "<group>"; };
 		054B82911A5426BF007E9770 /* ActivityFeedBlank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ActivityFeedBlank@2x.png"; sourceTree = "<group>"; };
 		054B82921A5426BF007E9770 /* anypic-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anypic-512.png"; sourceTree = "<group>"; };
@@ -539,7 +539,6 @@
 		09ABC07013A1D52D009C3FCF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				054B828C1A54219F007E9770 /* Bolts.framework */,
 				054B828A1A542117007E9770 /* libstdc++.6.dylib */,
 				054B82881A5420E7007E9770 /* ParseCrashReporting.framework */,
 				BC18BDC81A246F970092A384 /* CoreData.framework */,
@@ -910,6 +909,7 @@
 				BCC0854C1A238C750026C4B6 /* ParseFacebookUtils.framework */,
 				BCC0854A1A238B770026C4B6 /* ParseUI.framework */,
 				BCC085481A238B170026C4B6 /* Parse.framework */,
+				054B828C1A54219F007E9770 /* Bolts.framework */,
 				BCC085431A2314620026C4B6 /* FacebookSDK.framework */,
 				BC5BDA821A35A26F00B6B875 /* MPGTextField */,
 				BC64A3371A484C1500452469 /* THContactPicker */,

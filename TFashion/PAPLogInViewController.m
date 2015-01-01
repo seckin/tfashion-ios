@@ -83,15 +83,16 @@
 
 #pragma mark - FBLoginViewDelegate
 
-- (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
-    [self handleFacebookSession];
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
+{
+    [self handleFacebookSessionWithUser:user];
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
     [self handleLogInError:error];
 }
 
-- (void)handleFacebookSession {
+- (void)handleFacebookSessionWithUser:(id<FBGraphUser>)user  {
     if ([PFUser currentUser]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(loginViewControllerDidLogUserIn:)]) {
             [self.delegate performSelector:@selector(logInViewController:didLogInUser:) withObject:[PFUser currentUser]];
@@ -101,7 +102,8 @@
 
     NSString *accessToken = [[[FBSession activeSession] accessTokenData] accessToken];
     NSDate *expirationDate = [[[FBSession activeSession] accessTokenData] expirationDate];
-    NSString *facebookUserId = [[[FBSession activeSession] accessTokenData] userID];
+//    NSString *facebookUserId = [[[FBSession activeSession] accessTokenData] userID];
+    NSString *facebookUserId = user.objectID;
 
     if (!accessToken || !facebookUserId) {
         NSLog(@"Login failure. FB Access Token or user ID does not exist");
