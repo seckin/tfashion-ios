@@ -114,6 +114,8 @@ PODS:
   - JazzHands (0.1.1)
   - libPhoneNumber-iOS (0.7.5)
   - Localytics-AMP (2.71.0)
+  - Lookback (0.8.1)
+  - LookbackSafe (0.8.1)
   - MBProgressHUD (0.9)
   - Mixpanel (2.6.0):
     - Mixpanel/MPCategoryHelpers (= 2.6.0)
@@ -167,6 +169,8 @@ DEPENDENCIES:
   - FontAwesomeKit
   - JazzHands
   - libPhoneNumber-iOS
+  - Lookback
+  - LookbackSafe
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
   - Reachability (~> 3.2)
@@ -196,6 +200,8 @@ SPEC CHECKSUMS:
   JazzHands: d39c6b19bfe34946d220fdede80930b7be37f199
   libPhoneNumber-iOS: 16b9556d7fdf4819eabeb7b7356fea3373fa47f9
   Localytics-AMP: 4d158e216541912109b1ae7ca20b153d053d68c5
+  Lookback: aaab5d8307994d9e77963799fbfcbbd4385e6079
+  LookbackSafe: 4e509d70bb4eb65a8859e877084ca672aad82e85
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Mixpanel: e919d14f07a34ee01f81f97e535b7a240af2f793
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548

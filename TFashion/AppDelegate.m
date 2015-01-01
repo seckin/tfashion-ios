@@ -22,6 +22,7 @@
 #import "CONSignUpViewController.h"
 #import "CONFeedViewController.h"
 #import "CONSocialAccount.h"
+#import <Lookback/Lookback.h>
 #import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -98,6 +99,12 @@
     
     // Track app open.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    //MARK: Lookback initialization
+    [Lookback_Weak setupWithAppToken:@"9k36krkbC9ACyqne4"];
+//    [Lookback_Weak lookback].enabled = YES;
+    [Lookback_Weak lookback].shakeToRecord = YES;
+    [Lookback_Weak lookback].userIdentifier = [[UIDevice currentDevice] name];
 
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;

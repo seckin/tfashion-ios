@@ -19,3 +19,5 @@ pod 'TTTAttributedLabel'
 pod 'DBCamera'
 pod 'libPhoneNumber-iOS'
 pod 'JazzHands'
+pod 'Lookback', :configurations => ['Debug']
+pod 'LookbackSafe', :configurations => ['Release']
