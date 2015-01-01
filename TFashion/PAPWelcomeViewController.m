@@ -8,6 +8,7 @@
 
 #import "PAPWelcomeViewController.h"
 #import "AppDelegate.h"
+#import "CONSocialAccount.h"
 
 @interface PAPWelcomeViewController () {
     BOOL _presentedLoginViewController;
@@ -81,12 +82,25 @@
     }
     _facebookResponseCount = 0;
     NSLog(@"done processing all Facebook requests");
+    
+    PFUser *currentParseUser = [PFUser currentUser];
 
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!succeeded) {
             NSLog(@"Failed save in background of user, %@", error);
         } else {
             NSLog(@"saved current parse user");
+            if ([PAPUtility userHasValidFacebookData:currentParseUser] && currentParseUser.isNew) {
+                CONSocialAccount *socialAccount = [CONSocialAccount object];
+                socialAccount.isActive = YES;
+                socialAccount.type = kSocialAccountTypeFacebook;
+                socialAccount.ownerUser = currentParseUser;
+                socialAccount.providerId = [currentParseUser valueForKey:kPAPUserFacebookIDKey];
+                socialAccount.providerUsername = [currentParseUser valueForKey:kPAPUserEmailKey];
+                socialAccount.providerDisplayName = [currentParseUser valueForKey:kPAPUserDisplayNameKey];
+                socialAccount.scope = [[PFFacebookUtils session] permissions];
+                [socialAccount saveInBackground];
+            }
         }
     }];
 }
@@ -165,6 +179,11 @@
                 NSString *facebookName = result[@"name"];
                 if (facebookName && [facebookName length] != 0) {
                     [currentParseUser setObject:facebookName forKey:kPAPUserDisplayNameKey];
+                }
+                
+                NSString *email = result[@"email"];
+                if (email && [email length] != 0) {
+                    [currentParseUser setObject:email forKey:kPAPUserEmailKey];
                 }
 
                 [self processedFacebookResponse];
