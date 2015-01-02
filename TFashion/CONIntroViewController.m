@@ -12,13 +12,14 @@
 
 #define timeForPage(page) (NSInteger)(self.view.frame.size.width * (page - 1))
 
-@interface CONIntroViewController ()
+@interface CONIntroViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) UIImageView *wordmark;
 @property (strong, nonatomic) UIImageView *unicorn;
 @property (strong, nonatomic) UILabel *lastLabel;
 @property (strong, nonatomic) UILabel *firstLabel;
 @property (strong, nonatomic) UIButton *getStartedButton;
+@property (strong, nonatomic) UITextField *usernameField;
 
 @end
 
@@ -28,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     
     self.scrollView.contentSize = CGSizeMake(NUMBER_OF_PAGES * CGRectGetWidth(self.view.frame),
                                              CGRectGetHeight(self.view.frame));
@@ -51,9 +52,28 @@
 
 - (void)actionGetStarted:(id)sender
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserSeeIntro];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    PFUser *currentParseUser = [PFUser currentUser];
+    [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
+    [currentParseUser setUsername:self.usernameField.text];
+    [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [TSMessage showNotificationInViewController:self title:@"Uh oh, something get wrong" subtitle:@"Please check your connection and try again!" type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
+        }
+    }];
+}
+
+- (void)textFieldDidChange:(id)sender
+{
+    UITextField *textField = (UITextField *)sender;
+    if (textField.text.length > 0) {
+        self.getStartedButton.enabled = YES;
+    } else {
+        self.getStartedButton.enabled = NO;
+    }
 }
 
 #pragma mark - Private
@@ -82,12 +102,14 @@
     [self.scrollView addSubview:self.wordmark];
     
     self.firstLabel = [[UILabel alloc] init];
+    self.firstLabel.textColor = [UIColor whiteColor];
     self.firstLabel.text = @"Introducing TFashion";
     [self.firstLabel sizeToFit];
     self.firstLabel.center = self.view.center;
     [self.scrollView addSubview:self.firstLabel];
     
     UILabel *secondPageText = [[UILabel alloc] init];
+    secondPageText.textColor = [UIColor whiteColor];
     secondPageText.text = @"Brought to you by Conceive";
     [secondPageText sizeToFit];
     secondPageText.center = self.view.center;
@@ -95,6 +117,7 @@
     [self.scrollView addSubview:secondPageText];
     
     UILabel *thirdPageText = [[UILabel alloc] init];
+    thirdPageText.textColor = [UIColor whiteColor];
     thirdPageText.text = @"Simple keyframe animations";
     [thirdPageText sizeToFit];
     thirdPageText.center = self.view.center;
@@ -102,25 +125,47 @@
     [self.scrollView addSubview:thirdPageText];
     
     UILabel *fourthPageText = [[UILabel alloc] init];
+    fourthPageText.textColor = [UIColor whiteColor];
     fourthPageText.text = @"Optimized for scrolling intros";
     [fourthPageText sizeToFit];
     fourthPageText.center = self.view.center;
-    fourthPageText.frame = CGRectOffset(fourthPageText.frame, timeForPage(4), 0);
+    fourthPageText.frame = CGRectOffset(fourthPageText.frame, timeForPage(4), -180);
     [self.scrollView addSubview:fourthPageText];
     
     self.lastLabel = fourthPageText;
     
     UIButton *fourthPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [fourthPageButton setTitle:@"Get Started" forState:UIControlStateNormal];
-    [fourthPageButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [fourthPageButton setTitleColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:0.7] forState:UIControlStateNormal];
+    [fourthPageButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [fourthPageButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
+    [fourthPageButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [fourthPageButton addTarget:self action:@selector(actionGetStarted:) forControlEvents:UIControlEventTouchUpInside];
     [fourthPageButton sizeToFit];
     fourthPageButton.center = self.view.center;
-    fourthPageButton.frame = CGRectOffset(fourthPageButton.frame, timeForPage(4), 180);
+    fourthPageButton.frame = CGRectOffset(fourthPageButton.frame, timeForPage(4), 0);
     [self.scrollView addSubview:fourthPageButton];
     
     self.getStartedButton = fourthPageButton;
+    
+    PFUser *currentParseUser = [PFUser currentUser];
+    if (![[currentParseUser valueForKey:kPAPUserDidUpdateUsernameKey] boolValue]) {
+        self.usernameField = [[UITextField alloc] init];
+        self.usernameField.delegate = self;
+        self.usernameField.returnKeyType = UIReturnKeyDone;
+        self.usernameField.enablesReturnKeyAutomatically = YES;
+        [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        self.usernameField.borderStyle = UITextBorderStyleRoundedRect;
+        self.usernameField.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0f];
+        self.usernameField.placeholder = @"Please enter a username";
+        self.usernameField.textAlignment = NSTextAlignmentCenter;
+        [self.usernameField sizeToFit];
+        self.usernameField.center = self.view.center;
+        self.usernameField.frame = CGRectOffset(self.usernameField.frame, timeForPage(4), -90);
+        [self.scrollView addSubview:self.usernameField];
+        
+        self.getStartedButton.enabled = NO;
+    }
+    
 }
 
 - (void)configureAnimation
@@ -199,6 +244,19 @@
 - (void)animatedScrollViewControllerDidEndDraggingAtEnd:(IFTTTAnimatedScrollViewController *)animatedScrollViewController
 {
     NSLog(@"Ended dragging at end of scrollview!");
+}
+
+#pragma mark - Text field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.usernameField) {
+        if (self.getStartedButton.enabled) {
+            [self actionGetStarted:self.getStartedButton];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

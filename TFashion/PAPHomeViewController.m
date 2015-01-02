@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserSeeIntro] boolValue];
+    BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserCompletedIntro] boolValue];
     if (!didUserSeeIntro) {
         CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
         [self.parentViewController presentViewController:introVC animated:NO completion:nil];

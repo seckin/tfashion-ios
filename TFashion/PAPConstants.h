@@ -100,6 +100,7 @@ extern NSString *const kPAPUserAutoFollowKey;
 extern NSString *const kPAPUserTwitterIDKey;
 extern NSString *const kPAPUserInstagramIDKey;
 extern NSString *const kPAPUserTumblrIDKey;
+extern NSString *const kPAPUserDidUpdateUsernameKey;
 
 
 #pragma mark - PFObject Photo Class
@@ -148,7 +149,7 @@ extern NSString *const kPAPPushPayloadPhotoObjectIdKey;
 
 #pragma mark - User Defaults
 
-extern NSString *const kDidUserSeeIntro;
+extern NSString *const kDidUserCompletedIntro;
 
 #pragma mark - Social Account Types
 

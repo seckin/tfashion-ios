@@ -160,7 +160,7 @@
     [self sendQuery:query];
 }
 
-- (void)checkIsUserExist
+- (void)checkIfUserExist
 {
     PFQuery *query = [PFUser query];
     [query whereKey:kPAPUserPhoneNumberKey equalTo:_phoneNumber];
@@ -208,7 +208,7 @@
                 NBPhoneNumber *phoneNumber = [phoneUtil parseWithPhoneCarrierRegion:signupAttempt.senderNumber error:nil];
                 _phoneNumber = [phoneUtil format:phoneNumber numberFormat:NBEPhoneNumberFormatE164 error:nil];
                 
-                [self checkIsUserExist];
+                [self checkIfUserExist];
             }
         } else {
             [self showWarning];
@@ -237,6 +237,7 @@
     [user setObject:_phoneNumber forKey:kPAPUserPhoneNumberKey];
     [user setObject:[self getProfilePictureIsSmall:NO] forKey:kPAPUserProfilePicMediumKey];
     [user setObject:[self getProfilePictureIsSmall:YES] forKey:kPAPUserProfilePicSmallKey];
+    [user setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
     [_signUpActivityIndicatorView startAnimating];
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {

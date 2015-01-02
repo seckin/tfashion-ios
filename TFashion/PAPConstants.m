@@ -79,6 +79,7 @@ NSString *const kPAPUserAutoFollowKey                           = @"autoFollow";
 NSString *const kPAPUserTwitterIDKey                            = @"twitterId";
 NSString *const kPAPUserInstagramIDKey                          = @"instagramId";
 NSString *const kPAPUserTumblrIDKey                             = @"tumblrId";
+NSString *const kPAPUserDidUpdateUsernameKey                    = @"didUpdateUsername";
 
 #pragma mark - Photo Class
 // Class key
@@ -127,7 +128,7 @@ NSString *const kPAPPushPayloadPhotoObjectIdKey    = @"pid";
 
 #pragma mark - User Defaults
 
-NSString *const kDidUserSeeIntro = @"didUserSeeIntro";
+NSString *const kDidUserCompletedIntro = @"didUserCompletedIntro";
 
 #pragma mark - Social Account Types
 
