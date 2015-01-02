@@ -52,18 +52,26 @@
 
 - (void)actionGetStarted:(id)sender
 {
-    PFUser *currentParseUser = [PFUser currentUser];
-    [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
-    [currentParseUser setUsername:self.usernameField.text];
-    [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [TSMessage showNotificationInViewController:self title:@"Uh oh, something get wrong" subtitle:@"Please check your connection and try again!" type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
-        }
-    }];
+    if (self.usernameField) {
+        PFUser *currentParseUser = [PFUser currentUser];
+        [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
+        [currentParseUser setUsername:self.usernameField.text];
+        [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [TSMessage showNotificationInViewController:self title:@"Uh oh, something get wrong" subtitle:@"Please check your connection and try again!" type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
+            }
+        }];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    
 }
 
 - (void)textFieldDidChange:(id)sender
