@@ -119,26 +119,28 @@
     NSString *providerIdKey = [NSString stringWithFormat:@"%@Id", provider];
     NSString *providerId = [user valueForKey:providerIdKey];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"SocialAccount"];
-    [query whereKey:@"ownerUser" equalTo:user];
-    [query whereKey:@"type" equalTo:provider];
-    [query whereKey:@"providerId" equalTo:providerId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        cell.userInteractionEnabled = YES;
-        if (objects.count == 1) {
-            CONSocialAccount *socialAccount = objects[0];
-            NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
-            [self.socialAccounts setObject:socialAccount forKey:[key stringValue]];
-            if (socialAccount.isActive) {
-                [icon setAttributes:@{ NSForegroundColorAttributeName: self.view.tintColor }];
-                cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
-                cell.detailTextLabel.text = socialAccount.providerDisplayName;
-            } else {
-                [icon setAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
-                cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
+    if (providerId.length > 0) {
+        PFQuery *query = [PFQuery queryWithClassName:@"SocialAccount"];
+        [query whereKey:@"ownerUser" equalTo:user];
+        [query whereKey:@"type" equalTo:provider];
+        [query whereKey:@"providerId" equalTo:providerId];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            cell.userInteractionEnabled = YES;
+            if (objects.count == 1) {
+                CONSocialAccount *socialAccount = objects[0];
+                NSNumber *key = [NSNumber numberWithInteger:[indexPath row]];
+                [self.socialAccounts setObject:socialAccount forKey:[key stringValue]];
+                if (socialAccount.isActive) {
+                    [icon setAttributes:@{ NSForegroundColorAttributeName: self.view.tintColor }];
+                    cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
+                    cell.detailTextLabel.text = socialAccount.providerDisplayName;
+                } else {
+                    [icon setAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
+                    cell.imageView.image = [icon imageWithSize:CGSizeMake(25.0f, 25.0f)];
+                }
             }
-        }
-    }];
+        }];
+    }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
