@@ -16,6 +16,7 @@
 #import "PAPSettingsButtonItem.h"
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @interface PAPActivityFeedViewController ()
 

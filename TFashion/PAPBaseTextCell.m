@@ -145,15 +145,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self.nameButton setFrame:CGRectMake(nameX, nameY + 6.0f, nameSize.width, nameSize.height)];
 
     // Layout the content
-    CGSize contentSize = [self.contentLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
-                                                    options:NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
-                                                    context:nil].size;
-    [self.contentLabel setFrame:CGRectMake(nameX, vertTextBorderSpacing + 5.0f, contentSize.width, contentSize.height)];
-    self.contentLabel.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//    NSLog(@"avatar: %f %f %f", self.avatarImageButton.frame.origin.x, avatarDim, avatarDim);
-//    NSLog(@"name: %f %f %f", self.nameButton.frame.origin.x, nameSize.width, nameSize.height);
-//    NSLog(@"content: %f %f %f", self.contentLabel.frame.origin.x, contentSize.width, contentSize.height);
+    CGSize maxSize = CGSizeMake(horizontalTextSpace, CGFLOAT_MAX);
+    CGSize requiredSize = [self.contentLabel sizeThatFits:maxSize];
+    self.contentLabel.frame = CGRectMake(nameX, vertTextBorderSpacing + 5.0f, requiredSize.width, requiredSize.height);
 
     // Layout the timestamp label
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
