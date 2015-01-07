@@ -113,38 +113,32 @@ ABAddressBookRef addressBook;
     self.hud.labelText = NSLocalizedString(@"Sending", nil);
     self.hud.dimBackground = YES;
     
-    NSMutableArray *inviteRequests = [[NSMutableArray alloc] init];
     for (CONContact *contact in self.selectedContacts) {
-        //TODO: change when request object limitless (parse 100 object limit)
+        CONInviteRequest *inviteRequest = [CONInviteRequest object];
+        inviteRequest.fromUser = [PFUser currentUser];
+        inviteRequest.invitationSent = NO;
+        
         PFQuery *query = [PFQuery queryWithClassName:@"Contact"];
         [query whereKey:@"fromUser" equalTo:contact.fromUser];
-        [query whereKey:@"addressBookRecordId" equalTo:contact.addressBookRecordId];
-        
+        if (contact.phoneNumbers.count > 0) {
+            [query whereKey:@"phoneNumbers" containedIn:contact.phoneNumbers];
+        } else {
+            [query whereKey:@"emails" containedIn:contact.emails];
+        }
         [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            CONInviteRequest *inviteRequest = [CONInviteRequest object];
-            inviteRequest.fromUser = [PFUser currentUser];
-            inviteRequest.invitationSent = NO;
             if (object) {
                 inviteRequest.contact = object;
             } else {
                 inviteRequest.contact = contact;
             }
-            [inviteRequests addObject:inviteRequest];
             
-            if (inviteRequests.count == self.selectedContacts.count) {
-                [CONInviteRequest saveAllInBackground:inviteRequests block:^(BOOL succeeded, NSError *error) {
-                    [self.hud hide:YES];
-                    if(error) {
-                        NSLog(@"error %@", [error userInfo]);
-                        [self displayMessage:@"Invitations could not send" withTitle:@"Something went wrong"];
-                    } else {
-                        [TSMessage showNotificationWithTitle:@"Invitations has been sent" type:TSMessageNotificationTypeSuccess];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }
-                }];
-            }
+            [inviteRequest saveEventually];
         }];
     }
+    
+    [self.hud hide:YES];
+    [TSMessage showNotificationWithTitle:@"Invitations has been sent" type:TSMessageNotificationTypeSuccess];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)actionCancel:(id)sender
@@ -484,12 +478,12 @@ void addressBookChanged(ABAddressBookRef reference,
     }
     CFRelease(addressBook);
     
-    [CONContact saveAllInBackground:newContacts block:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            //
-            [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];
-        }
-    }];
+    for (CONContact *newContact in newContacts) {
+        [newContact saveEventually];
+    }
+    // Set last modification date after saving all new contacts
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.tableData = self.contacts;
     [self.tableView reloadData];
