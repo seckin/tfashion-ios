@@ -161,12 +161,20 @@
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
     if ([textField isEqual:commentTextField]) {
-        CONTag *tag = [CONTag object];
-        tag.text = [result valueForKey:@"DisplayText"];
-        PFUser *user = [result valueForKey:@"CustomObject"];
-        tag.taggedObject = user;
-        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
-        [self.mentionLinkArray addObject:tag];
+//        CONTag *tag = [CONTag object];
+//        tag.text = [result valueForKey:@"DisplayText"];
+//        PFUser *user = [result valueForKey:@"CustomObject"];
+//        tag.taggedObject = user;
+//        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+//        [self.mentionLinkArray addObject:tag];
+        NSString *text = [result valueForKey:@"DisplayText"];
+        PFUser *mentionedUser = [result valueForKey:@"CustomObject"];
+        PFObject *mention = [PFObject objectWithClassName:kPAPActivityClassKey];
+        [mention setObject:text forKey:kPAPActivityContentKey]; // Set mention text
+        [mention setObject:mentionedUser forKey:kPAPActivityToUserKey]; // Set toUser
+        [mention setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
+        [mention setObject:kPAPActivityTypeMention forKey:kPAPActivityTypeKey];
+        [self.mentionLinkArray addObject:mention];
     }
 }
 
@@ -313,9 +321,13 @@
                     comment.ACL = ACL;
                     
                     [comment saveEventually];
-                    for (CONTag *tag in self.mentionLinkArray) {
-                        tag.activity = comment;
-                        [tag saveEventually];
+//                    for (CONTag *tag in self.mentionLinkArray) {
+//                        tag.activity = comment;
+//                        [tag saveEventually];
+//                    }
+                    for (PFObject *mention in self.mentionLinkArray) {
+                        [mention setObject:comment forKey:kPAPActivityCommentKey];
+                        [mention saveEventually];
                     }
                     
                     [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];

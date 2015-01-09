@@ -70,6 +70,8 @@ extern NSString *const kPAPActivityFromUserKey;
 extern NSString *const kPAPActivityToUserKey;
 extern NSString *const kPAPActivityContentKey;
 extern NSString *const kPAPActivityPhotoKey;
+extern NSString *const kPAPActivityCommentKey;
+
 extern NSString *const kPAPTagTextKey;
 extern NSString *const kPAPTagTaggedObjectKey;
 extern NSString *const kPAPTagTypeKey;
@@ -80,8 +82,7 @@ extern NSString *const kPAPActivityTypeLike;
 extern NSString *const kPAPActivityTypeFollow;
 extern NSString *const kPAPActivityTypeComment;
 extern NSString *const kPAPActivityTypeJoined;
-extern NSString *const kPAPTagTypeMention;
-extern NSString *const kPAPTagTypeHashtag;
+extern NSString *const kPAPActivityTypeMention;
 
 
 #pragma mark - PFObject User Class

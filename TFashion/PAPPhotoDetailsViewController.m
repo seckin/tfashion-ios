@@ -167,12 +167,20 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 - (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
 {
     if ([textField isEqual:commentTextField]) {
-        CONTag *tag = [CONTag object];
-        tag.text = [result valueForKey:@"DisplayText"];
-        PFUser *user = [result valueForKey:@"CustomObject"];
-        tag.taggedObject = user;
-        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
-        [self.mentionLinkArray addObject:tag];
+//        CONTag *tag = [CONTag object];
+//        tag.text = [result valueForKey:@"DisplayText"];
+//        PFUser *user = [result valueForKey:@"CustomObject"];
+//        tag.taggedObject = user;
+//        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+//        [self.mentionLinkArray addObject:tag];
+        NSString *text = [result valueForKey:@"DisplayText"];
+        PFUser *mentionedUser = [result valueForKey:@"CustomObject"];
+        PFObject *mention = [PFObject objectWithClassName:kPAPActivityClassKey];
+        [mention setObject:text forKey:kPAPActivityContentKey]; // Set mention text
+        [mention setObject:mentionedUser forKey:kPAPActivityToUserKey]; // Set toUser
+        [mention setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
+        [mention setObject:kPAPActivityTypeMention forKey:kPAPActivityTypeKey];
+        [self.mentionLinkArray addObject:mention];
     }
 }
 
@@ -314,19 +322,20 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
-            for (CONTag *tag in self.mentionLinkArray) {
-                tag.activity = comment;
-            }
-            
-            [CONTag saveAllInBackground:self.mentionLinkArray block:^(BOOL succeeded, NSError *error) {
-                if (!error) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
-                    [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
-                    [self loadObjects];
-                    [self.mentionLinkArray removeAllObjects];
-                }
-            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+            [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
+            [self loadObjects];
         }];
+        
+//        for (CONTag *tag in self.mentionLinkArray) {
+//            tag.activity = comment;
+//            [tag saveEventually];
+//        }
+        for (PFObject *mention in self.mentionLinkArray) {
+            [mention setObject:comment forKey:kPAPActivityCommentKey];
+            [mention saveEventually];
+        }
+        [self.mentionLinkArray removeAllObjects];
     }
     
     [textField setText:@""];

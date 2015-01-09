@@ -14,7 +14,6 @@
 
 @property (retain) NSString *text;
 @property (retain) PFObject *taggedObject;
-@property (retain) NSString *type;
 @property (retain) PFObject *activity;
 
 @end

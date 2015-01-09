@@ -49,6 +49,8 @@ NSString *const kPAPActivityFromUserKey    = @"fromUser";
 NSString *const kPAPActivityToUserKey      = @"toUser";
 NSString *const kPAPActivityContentKey     = @"content";
 NSString *const kPAPActivityPhotoKey       = @"photo";
+NSString *const kPAPActivityCommentKey     = @"comment";
+
 NSString *const kPAPTagTextKey             = @"text";
 NSString *const kPAPTagTaggedObjectKey     = @"taggedObject";
 NSString *const kPAPTagTypeKey             = @"type";
@@ -60,8 +62,7 @@ NSString *const kPAPActivityTypeLike       = @"like";
 NSString *const kPAPActivityTypeFollow     = @"follow";
 NSString *const kPAPActivityTypeComment    = @"comment";
 NSString *const kPAPActivityTypeJoined     = @"joined";
-NSString *const kPAPTagTypeMention         = @"mention";
-NSString *const kPAPTagTypeHashtag         = @"hashtag";
+NSString *const kPAPActivityTypeMention    = @"mention";
 
 #pragma mark - User Class
 // Field keys

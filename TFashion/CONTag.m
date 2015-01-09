@@ -12,7 +12,6 @@
 
 @dynamic text;
 @dynamic taggedObject;
-@dynamic type;
 @dynamic activity;
 
 + (void)load {

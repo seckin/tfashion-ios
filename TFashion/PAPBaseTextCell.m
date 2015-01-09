@@ -262,21 +262,40 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.contentLabel setText:contentString];
     }
     
-    // Set links
+    // Set tags
+//    if (self.contentObject) {
+//        PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
+//        [query whereKey:kPAPTagActivityKey equalTo:self.contentObject];
+//        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//            if (!error) {
+//                for (CONTag *tag in objects) {
+//                    NSString *linkDisplay = tag.text;
+//                    NSString *linkUrl = tag.taggedObject.objectId;
+//                    NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
+//                    [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
+//                }
+//            }
+//        }];
+//    }
+    
+    // Set mentions
     if (self.contentObject) {
-        PFQuery *query = [PFQuery queryWithClassName:@"Tag"];
-        [query whereKey:kPAPTagActivityKey equalTo:self.contentObject];
+        PFQuery *query = [PFQuery queryWithClassName:kPAPActivityClassKey];
+        [query whereKey:kPAPActivityCommentKey equalTo:self.contentObject];
+//        [query includeKey:kPAPActivityToUserKey];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                for (CONTag *tag in objects) {
-                    NSString *linkDisplay = tag.text;
-                    NSString *linkUrl = tag.taggedObject.objectId;
+                for (PFObject *mention in objects) {
+                    NSString *linkDisplay = [mention objectForKey:kPAPActivityContentKey];
+                    PFUser *mentionedUser = [mention objectForKey:kPAPActivityToUserKey];
+                    NSString *linkUrl = [mentionedUser objectId];
                     NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
                     [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
                 }
             }
         }];
     }
+    
     [self setNeedsDisplay];
 }
 
