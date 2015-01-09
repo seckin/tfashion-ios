@@ -120,6 +120,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     _activity = activity;
     if ([[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeFollow] || [[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeJoined]) {
         [self setActivityImageFile:nil];
+    } if ([[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeMention]) {
+        PFObject *comment = [activity objectForKey:kPAPActivityCommentKey];
+        [self setActivityImageFile:(PFFile*)[[comment objectForKey:kPAPActivityPhotoKey] objectForKey:kPAPPhotoThumbnailKey]];
     } else {
         [self setActivityImageFile:(PFFile*)[[activity objectForKey:kPAPActivityPhotoKey] objectForKey:kPAPPhotoThumbnailKey]];
     }

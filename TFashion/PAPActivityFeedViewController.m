@@ -287,7 +287,9 @@
     } else if ([activityType isEqualToString:kPAPActivityTypeComment]) {
         return NSLocalizedString(@"commented on your photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeJoined]) {
-        return NSLocalizedString(@"joined Anypic", nil);
+        return NSLocalizedString(@"joined TFashion", nil);
+    } else if ([activityType isEqualToString:kPAPActivityTypeMention]) {
+        return NSLocalizedString(@"mentioned you in a comment", nil);
     } else {
         return nil;
     }

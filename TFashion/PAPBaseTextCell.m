@@ -285,18 +285,38 @@ static TTTTimeIntervalFormatter *timeFormatter;
 //        [query includeKey:kPAPActivityToUserKey];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
+                NSString *content = self.contentLabel.text;
+                NSMutableArray *linkDisplayArray = [[NSMutableArray alloc] init];
                 for (PFObject *mention in objects) {
                     NSString *linkDisplay = [mention objectForKey:kPAPActivityContentKey];
+                    if ([linkDisplayArray containsObject:linkDisplay]) {
+                        continue;
+                    }
+                    [linkDisplayArray addObject:linkDisplay];
                     PFUser *mentionedUser = [mention objectForKey:kPAPActivityToUserKey];
                     NSString *linkUrl = [mentionedUser objectId];
-                    NSRange range = [self.contentLabel.text rangeOfString:linkDisplay];
-                    [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
+                    NSArray *rangeValues = [self rangesOfString:linkDisplay inString:content];
+                    for (NSValue *rangeValue in rangeValues) {
+                        NSRange range = [rangeValue rangeValue];
+                        [self.contentLabel addLinkToURL:[NSURL URLWithString:linkUrl] withRange:range];
+                    }
                 }
             }
         }];
     }
     
     [self setNeedsDisplay];
+}
+
+- (NSArray *)rangesOfString:(NSString *)searchString inString:(NSString *)str {
+    NSMutableArray *results = [NSMutableArray array];
+    NSRange searchRange = NSMakeRange(0, [str length]);
+    NSRange range;
+    while ((range = [str rangeOfString:searchString options:0 range:searchRange]).location != NSNotFound) {
+        [results addObject:[NSValue valueWithRange:range]];
+        searchRange = NSMakeRange(NSMaxRange(range), [str length] - NSMaxRange(range));
+    }
+    return results;
 }
 
 - (void)setDate:(NSDate *)date {

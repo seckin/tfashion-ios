@@ -138,7 +138,7 @@ NSArray *data;
     NSMutableArray *components = [NSMutableArray arrayWithArray:[self.text componentsSeparatedByCharactersInSet:charSet]];
     [components removeObject:components.lastObject];
     
-    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserDisplayNameKey]];
+    self.result = [NSString stringWithFormat:@"@%@",[aUser username]];
     self.resultObject = aUser;
     [components addObject:self.result];
     self.text = [components componentsJoinedByString:@" "];
@@ -152,7 +152,7 @@ NSArray *data;
     [components removeObject:components.lastObject];
     
     PFUser *aUser = [[[self applyFilterWithSearchQuery:self.text] objectAtIndex:indexPath.row] objectForKey:@"CustomObject"];
-    self.result = [NSString stringWithFormat:@"@%@",[aUser objectForKey:kPAPUserDisplayNameKey]];
+    self.result = [NSString stringWithFormat:@"@%@",[aUser username]];
     self.resultObject = aUser;
     [components addObject:self.result];
     self.text = [components componentsJoinedByString:@" "];

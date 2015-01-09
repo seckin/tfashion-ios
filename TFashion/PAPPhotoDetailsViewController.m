@@ -16,6 +16,7 @@
 #import "PAPUtility.h"
 #import "MBProgressHUD.h"
 #import "CONTag.h"
+#import "AppDelegate.h"
 
 enum ActionSheetTags {
     MainActionSheetTag = 0,
@@ -190,8 +191,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
    didSelectLinkWithURL:(NSURL *)url {
     NSString *userObjectId = [url absoluteString];
     PFQuery *query = [PFUser query];
-    [query whereKey:kPAPUserObjectIdKey equalTo:userObjectId];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    [query getObjectInBackgroundWithId:userObjectId block:^(PFObject *object, NSError *error) {
         PFUser *user = (PFUser *)object;
         [self shouldPresentAccountViewForUser:user];
     }];
@@ -325,17 +325,18 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
             [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
             [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
             [self loadObjects];
+            
+            for (PFObject *mention in self.mentionLinkArray) {
+                [mention setObject:comment forKey:kPAPActivityCommentKey];
+                [mention saveEventually];
+            }
+            [self.mentionLinkArray removeAllObjects];
+            
+            //        for (CONTag *tag in self.mentionLinkArray) {
+            //            tag.activity = comment;
+            //            [tag saveEventually];
+            //        }
         }];
-        
-//        for (CONTag *tag in self.mentionLinkArray) {
-//            tag.activity = comment;
-//            [tag saveEventually];
-//        }
-        for (PFObject *mention in self.mentionLinkArray) {
-            [mention setObject:comment forKey:kPAPActivityCommentKey];
-            [mention saveEventually];
-        }
-        [self.mentionLinkArray removeAllObjects];
     }
     
     [textField setText:@""];
