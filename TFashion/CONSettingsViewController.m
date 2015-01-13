@@ -10,6 +10,7 @@
 #import "PAPFindFriendsViewController.h"
 #import "CONShareSettingsViewController.h"
 #import "CONPushNotificationSettingsViewController.h"
+#import "CONNotificationSetting.h"
 #import "AppDelegate.h"
 
 @interface CONSettingsViewController ()

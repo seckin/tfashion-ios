@@ -75,6 +75,7 @@
 		BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */; };
 		BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */; };
 		BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */; };
+		BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB748E31A643D8F00044872 /* CONNotificationSetting.m */; };
 		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
 		BCC085471A2387580026C4B6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085461A2387580026C4B6 /* StoreKit.framework */; };
 		BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD4884E1A49712F00751A6E /* CONFeedViewController.m */; };
@@ -321,6 +322,8 @@
 		BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSignUpViewController.m; sourceTree = "<group>"; };
 		BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignupAttempt.h; sourceTree = "<group>"; };
 		BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSignupAttempt.m; sourceTree = "<group>"; };
+		BCB748E21A643D8F00044872 /* CONNotificationSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONNotificationSetting.h; sourceTree = "<group>"; };
+		BCB748E31A643D8F00044872 /* CONNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONNotificationSetting.m; sourceTree = "<group>"; };
 		BCC085431A2314620026C4B6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BCC085461A2387580026C4B6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BCD4884D1A49712F00751A6E /* CONFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedViewController.h; sourceTree = "<group>"; };
@@ -686,14 +689,16 @@
 			children = (
 				BC09CAD11A3090AA001F8DC8 /* CONContact.h */,
 				BC09CAD21A3090AA001F8DC8 /* CONContact.m */,
-				BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */,
-				BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */,
-				BC26B9BA1A43575F0094214F /* CONTag.h */,
-				BC26B9BB1A43575F0094214F /* CONTag.m */,
 				BC64A34A1A48617E00452469 /* CONInviteRequest.h */,
 				BC64A34B1A48617E00452469 /* CONInviteRequest.m */,
+				BCB748E21A643D8F00044872 /* CONNotificationSetting.h */,
+				BCB748E31A643D8F00044872 /* CONNotificationSetting.m */,
+				BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */,
+				BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */,
 				BC62935A1A53C28B0080F506 /* CONSocialAccount.h */,
 				BC62935B1A53C28B0080F506 /* CONSocialAccount.m */,
+				BC26B9BA1A43575F0094214F /* CONTag.h */,
+				BC26B9BB1A43575F0094214F /* CONTag.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1102,6 +1107,7 @@
 				BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */,
 				BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
+				BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
 				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,

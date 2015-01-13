@@ -64,6 +64,10 @@ NSString *const kPAPActivityTypeComment    = @"comment";
 NSString *const kPAPActivityTypeJoined     = @"joined";
 NSString *const kPAPActivityTypeMention    = @"mention";
 
+NSString *const kPAPNotificationSettingTypeOff                  = @"off";
+NSString *const kPAPNotificationSettingTypeFromPeopleIFollow    = @"fromPeopleIFollow";
+NSString *const kPAPNotificationSettingTypeFromEveryone         = @"fromEveryone";
+
 #pragma mark - User Class
 // Field keys
 NSString *const kPAPUserDisplayNameKey                          = @"displayName";
