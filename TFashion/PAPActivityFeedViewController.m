@@ -165,8 +165,9 @@
     [query whereKeyExists:kPAPActivityFromUserKey];
     [query includeKey:kPAPActivityFromUserKey];
     [query includeKey:kPAPActivityPhotoKey];
+    [query includeKey:kPAPActivityCommentKey];
+    [query includeKey:@"comment.photo"];
     [query orderByDescending:@"createdAt"];
-
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
 
     // If no objects are loaded in memory, we look to the cache first to fill the table
@@ -261,6 +262,9 @@
 
 - (void)cell:(PAPActivityCell *)cellView didTapActivityButton:(PFObject *)activity {    
     // Get image associated with the activity
+    if ([[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeMention]) {
+        activity = [activity objectForKey:kPAPActivityCommentKey];
+    }
     PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
     
     // Push single photo view controller
