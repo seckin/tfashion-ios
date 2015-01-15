@@ -180,12 +180,16 @@
                         [navController dismissViewControllerAnimated:YES completion:nil];
                     } else {
                         NSLog(@"login not successful %@", [error userInfo]);
-                        [self showWarning];
+                        NSString *title = @"Uh oh, something get wrong";
+                        NSString *subtitle = @"Please check your connection and try again!";
+                        [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
                     }
                 }];
             }
         } else {
-            [self showWarning];
+            NSString *title = @"Uh oh, something get wrong";
+            NSString *subtitle = @"Please check your connection and try again!";
+            [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
         }
     }];
     
@@ -211,7 +215,9 @@
                 [self checkIfUserExist];
             }
         } else {
-            [self showWarning];
+            NSString *title = @"Uh oh, something get wrong";
+            NSString *subtitle = @"Please check your connection and try again!";
+            [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
@@ -223,8 +229,9 @@
     NSString *username = self.signUpView.usernameField.text ?: @"";
     
     if (username.length == 0) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sign Up Error" message:@"Please enter a username." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
+        NSString *title = @"Sign Up Error";
+        NSString *subtitle = @"Please enter a username.";
+        [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
         
         return;
     }
@@ -256,7 +263,18 @@
         } else {
             NSLog(@"sign up not successful %@", [error userInfo]);
             [_signUpActivityIndicatorView stopAnimating];
-            [self showWarning];
+            NSInteger errorCode = [error code];
+            NSString *title = nil;
+            NSString *subtitle = nil;
+            if (errorCode == kPFErrorUsernameTaken) {
+                NSString *format = @"The username '%@' is taken. Please try choosing another username.";
+                title = @"Error";
+                subtitle = [NSString stringWithFormat:format, username];
+            } else {
+                title = @"Uh oh, something get wrong";
+                subtitle = @"Please check your connection and try again!";
+            }
+            [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
         }
     }];
 }
@@ -308,14 +326,6 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Alert
-
-- (void)showWarning
-{
-    UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Something went wrong. Please try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [warningAlert show];
 }
 
 @end

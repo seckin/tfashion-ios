@@ -62,7 +62,18 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
-                [TSMessage showNotificationInViewController:self title:@"Uh oh, something get wrong" subtitle:@"Please check your connection and try again!" type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
+                NSInteger errorCode = [error code];
+                NSString *title = nil;
+                NSString *subtitle = nil;
+                if (errorCode == kPFErrorUsernameTaken) {
+                    NSString *format = @"The username '%@' is taken. Please try choosing another username.";
+                    title = @"Error";
+                    subtitle = [NSString stringWithFormat:format, self.usernameField.text];
+                } else {
+                    title = @"Uh oh, something get wrong";
+                    subtitle = @"Please check your connection and try again!";
+                }
+                [TSMessage showNotificationInViewController:self title:title subtitle:subtitle type:TSMessageNotificationTypeError duration:2 canBeDismissedByUser:YES];
             }
         }];
     } else {
