@@ -84,6 +84,10 @@ extern NSString *const kPAPActivityTypeComment;
 extern NSString *const kPAPActivityTypeJoined;
 extern NSString *const kPAPActivityTypeMention;
 
+extern NSString *const kPAPNotificationSettingTypeOff;
+extern NSString *const kPAPNotificationSettingTypeFromPeopleIFollow;
+extern NSString *const kPAPNotificationSettingTypeFromEveryone;
+
 
 #pragma mark - PFObject User Class
 // Field keys

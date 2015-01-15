@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CONNotificationSetting.h"
 
 @interface CONPushNotificationSettingsViewController : UITableViewController
+
+@property (nonatomic, strong) CONNotificationSetting *notificationSetting;
 
 @end
