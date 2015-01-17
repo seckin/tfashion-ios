@@ -21,3 +21,4 @@ pod 'libPhoneNumber-iOS'
 pod 'JazzHands'
 pod 'Lookback', :configurations => ['Debug']
 pod 'LookbackSafe', :configurations => ['Release']
+pod 'SDWebImage'

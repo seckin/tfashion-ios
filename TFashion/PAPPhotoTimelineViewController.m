@@ -12,6 +12,8 @@
 #import "PAPPhotoDetailsViewController.h"
 #import "PAPUtility.h"
 #import "PAPLoadMoreCell.h"
+#import "AppDelegate.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
@@ -93,6 +95,14 @@
     return UIStatusBarStyleLightContent;
 }
 
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -240,15 +250,11 @@
         }
 
         cell.photoButton.tag = index;
-        cell.imageView.image = [UIImage imageNamed:@"PlaceholderPhoto.png"];
 
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
 
-            // PFQTVC will take care of asynchronously downloading files, but will only load them when the tableview is not moving. If the data is there, let's load it right away.
-            if ([cell.imageView.file isDataAvailable]) {
-                [cell.imageView loadInBackground];
-            }
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
         return cell;
