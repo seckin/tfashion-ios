@@ -370,12 +370,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [commentTextField resignFirstResponder];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.tableView setUserInteractionEnabled:YES];
-    self.tableView.tableFooterView.userInteractionEnabled = YES;
-}
-
 #pragma mark - PAPBaseTextCellDelegate
 
 - (void)cell:(PAPBaseTextCell *)cellView didTapUserButton:(PFUser *)aUser {
