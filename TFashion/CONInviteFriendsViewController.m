@@ -418,7 +418,6 @@ void addressBookChanged(ABAddressBookRef reference,
             
             CONContact *contact = [[CONContact alloc] init];
             contact.addressBookRecordId = [NSNumber numberWithInt:ABRecordGetRecordID(contactPerson)];
-            contact.fromUser = [PFUser currentUser];
             
             NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
             NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
@@ -478,15 +477,61 @@ void addressBookChanged(ABAddressBookRef reference,
     }
     CFRelease(addressBook);
     
-    for (CONContact *newContact in newContacts) {
-        [newContact saveEventually];
+    if (newContacts.count > 0) {
+        NSMutableArray *dictArray = [[NSMutableArray alloc] init];
+        for (CONContact *newContact in newContacts) {
+            NSDictionary *contactDict = [newContact dictionaryWithValuesForKeys:newContact.allKeys];
+            [dictArray addObject:contactDict];
+        }
+        
+        [self sendContactsInBackground:dictArray chunkSize:50 block:^(BOOL succeeded, NSError *error) {
+            NSLog(@"entered");
+            BOOL isUpdateError = NO;
+            if (error) {
+                NSInteger errorCode = [error code];
+                isUpdateError = ((errorCode == kPFScriptError) ? YES : NO);
+            }
+            
+            if (isUpdateError || !error) {
+                // Set last modification date after saving all new contacts
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+            }
+        } trigger:^(){}];
     }
-    // Set last modification date after saving all new contacts
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:kLastModificationDate];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.tableData = self.contacts;
     [self.tableView reloadData];
+}
+
+- (void)sendContactsInBackground:(NSArray *)array chunkSize:(int)chunkSize block:(PFBooleanResultBlock)block trigger:(void(^)())trigger
+{
+    
+    NSRange range = NSMakeRange(0, array.count <= chunkSize ? array.count:chunkSize);
+    NSArray *sendArray = [array subarrayWithRange:range];
+    NSArray *nextArray = nil;
+    if (range.length<array.count) nextArray = [array subarrayWithRange:NSMakeRange(range.length, array.count-range.length)];
+    
+    NSDictionary *params = @{@"contacts": sendArray};
+    [PFCloud callFunctionInBackground:@"sendContacts" withParameters:params block:^(id object, NSError *error) {
+        NSLog(@"in method");
+        BOOL isNotUpdateError = NO;
+        if (error) {
+            NSInteger errorCode = [error code];
+            isNotUpdateError = ((errorCode == kPFScriptError) ? NO : YES);
+        }
+        
+        if(!isNotUpdateError && nextArray){
+            trigger(true);
+            [self sendContactsInBackground:nextArray chunkSize:chunkSize block:block trigger:trigger];
+        }
+        else
+        {
+            trigger(true);
+            block(object,error);
+        }
+    }];
 }
 
 - (NSArray *)getSortedContactsOrderByModificationDate:(ABAddressBookRef)addressBook
