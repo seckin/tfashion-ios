@@ -21,12 +21,20 @@ typedef enum {
 } PAPFindFriendsFollowStatus;
 
 @interface PAPFindFriendsViewController ()
+{
+    NSArray *searchResults;
+    UISearchBar *searchBar;
+    UISearchDisplayController *searchDisplayController;
+}
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, assign) PAPFindFriendsFollowStatus followStatus;
 @property (nonatomic, strong) NSString *selectedEmailAddress;
 @property (nonatomic, strong) NSMutableDictionary *outstandingFollowQueries;
 @property (nonatomic, strong) NSMutableDictionary *outstandingCountQueries;
+
 @end
+
+static const NSUInteger kSearchResultLimit = 20;
 
 @implementation PAPFindFriendsViewController
 @synthesize headerView;
@@ -60,7 +68,6 @@ typedef enum {
     return self;
 }
 
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -70,6 +77,8 @@ typedef enum {
     self.tableView.backgroundColor = [UIColor blackColor];
 
     self.navigationItem.title = @"Find Friends";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
     [self.headerView setBackgroundColor:[UIColor blackColor]];
@@ -110,6 +119,17 @@ typedef enum {
     self.tableView.separatorColor = [UIColor colorWithRed:30.0f/255.0f green:30.0f/255.0f blue:30.0f/255.0f alpha:1.0f];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (tableView == searchDisplayController.searchResultsTableView) {
+        return [searchResults count];
+    } else {
+        return [super tableView:tableView numberOfRowsInSection:section];
+    }
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,6 +140,22 @@ typedef enum {
     }
 }
 
+#pragma mark - UISearchDisplayDelegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString
+                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                      objectAtIndex:[self.searchDisplayController.searchBar
+                                                     selectedScopeButtonIndex]]];
+    
+    return NO;
+}
+
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    self.tableView.tableHeaderView = self.headerView;
+}
 
 #pragma mark - PFQueryTableViewController
 
@@ -147,6 +183,26 @@ typedef enum {
     [query orderByAscending:kPAPUserDisplayNameKey];
     
     return query;
+}
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    if (searchText.length == 0) {
+        searchResults = nil;
+        return;
+    }
+    
+    PFQuery *query = [PFUser query];
+    query.limit = kSearchResultLimit;
+    [query whereKey:@"username" containsString:searchText];
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            searchResults = objects;
+            [searchDisplayController.searchResultsTableView reloadData];
+        }
+    }];
 }
 
 - (void)objectsDidLoad:(NSError *)error {
@@ -188,6 +244,19 @@ typedef enum {
     }
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        PFTableViewCell *cell;
+        if ([searchResults objectAtIndex:indexPath.row]) {
+            cell = [self tableView:tableView cellForRowAtIndexPath:indexPath object:[searchResults objectAtIndex:indexPath.row]];
+        }
+        return cell;
+    } else {
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *FriendCellIdentifier = @"FriendCell";
     
@@ -225,6 +294,11 @@ typedef enum {
                 }];
             };
         }
+    }
+    
+    if (tableView == searchDisplayController.searchResultsTableView) {
+        [cell.followButton removeFromSuperview];
+        return cell;
     }
 
     cell.followButton.selected = NO;
@@ -305,6 +379,25 @@ typedef enum {
     CONInviteFriendsViewController *inviteVC = [[CONInviteFriendsViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:inviteVC];
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)search:(id)sender
+{
+    searchResults = [[NSMutableArray alloc] initWithCapacity:kSearchResultLimit];
+    
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    searchBar.barTintColor = [UIColor blackColor];
+    [searchBar setShowsCancelButton:YES animated:YES];
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+    searchDisplayController.delegate = self;
+    searchDisplayController.searchResultsDataSource = self;
+    searchDisplayController.searchResultsDelegate = self;
+    searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    searchDisplayController.searchResultsTableView.backgroundColor = [UIColor blackColor];
+    
+    self.tableView.tableHeaderView = searchBar;
+    
+    [searchBar becomeFirstResponder];
 }
 
 - (void)followAllFriendsButtonAction:(id)sender {
@@ -388,7 +481,7 @@ typedef enum {
 }
 
 - (void)configureUnfollowAllButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
 }
 
 - (void)configureFollowAllButton {

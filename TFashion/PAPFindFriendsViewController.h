@@ -8,6 +8,6 @@
 
 #import "PAPFindFriendsCell.h"
 
-@interface PAPFindFriendsViewController : PFQueryTableViewController <PAPFindFriendsCellDelegate>
+@interface PAPFindFriendsViewController : PFQueryTableViewController <PAPFindFriendsCellDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
 
 @end

@@ -485,7 +485,6 @@ void addressBookChanged(ABAddressBookRef reference,
         }
         
         [self sendContactsInBackground:dictArray chunkSize:50 block:^(BOOL succeeded, NSError *error) {
-            NSLog(@"entered");
             BOOL isUpdateError = NO;
             if (error) {
                 NSInteger errorCode = [error code];
@@ -515,7 +514,6 @@ void addressBookChanged(ABAddressBookRef reference,
     
     NSDictionary *params = @{@"contacts": sendArray};
     [PFCloud callFunctionInBackground:@"sendContacts" withParameters:params block:^(id object, NSError *error) {
-        NSLog(@"in method");
         BOOL isNotUpdateError = NO;
         if (error) {
             NSInteger errorCode = [error code];

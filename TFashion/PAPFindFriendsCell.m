@@ -37,7 +37,7 @@
 
         self.avatarImageView = [[PAPProfileImageView alloc] init];
         self.avatarImageView.frame = CGRectMake( 10.0f, 14.0f, 40.0f, 40.0f);
-        self.avatarImageView.layer.cornerRadius = 23.0f;
+        self.avatarImageView.layer.cornerRadius = 20.0f;
         self.avatarImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:self.avatarImageView];
         
