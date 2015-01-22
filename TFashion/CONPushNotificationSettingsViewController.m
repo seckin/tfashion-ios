@@ -13,11 +13,11 @@
 
 @property (nonatomic, strong) NSArray *sectionHeaderTitles;
 
-@property (nonatomic, strong) NSDictionary *likesCommentsDictionary;
-@property (nonatomic, strong) NSDictionary *theNewFollowersDictionary;
+@property (nonatomic, strong) NSDictionary *likesCommentsNotificationSettingOptions;
+@property (nonatomic, strong) NSDictionary *theNewFollowerNotificationSettingOptions;
 
-@property (nonatomic, strong) NSArray *likesCommentsArray;
-@property (nonatomic, strong) NSArray *theNewFollowersArray;
+@property (nonatomic, strong) NSArray *likesCommentsNotificationSettingTypes;
+@property (nonatomic, strong) NSArray *theNewFollowersNotificationSettingTypes;
 
 @end
 
@@ -40,14 +40,6 @@ NSString *const kFromEveryoneTitle = @"From Everyone";
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
     
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    //
-    // If there is no network connection, we will hit the cache first.
-    if (![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"There is no network connection" message:@"Please check your connection and try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
-    }
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [self setArraysAndDictionaries];
@@ -80,13 +72,13 @@ NSString *const kFromEveryoneTitle = @"From Everyone";
 {
     self.sectionHeaderTitles = [NSArray arrayWithObjects:kLikesTitle, kCommentsTitle, kNewFollowersTitle, nil];
     
-    self.likesCommentsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:kOffTitle, kPAPNotificationSettingTypeOff, kFromPeopleIFollowTitle, kPAPNotificationSettingTypeFromPeopleIFollow, kFromEveryoneTitle, kPAPNotificationSettingTypeFromEveryone, nil];
+    self.likesCommentsNotificationSettingOptions = [NSDictionary dictionaryWithObjectsAndKeys:kOffTitle, kPAPNotificationSettingTypeOff, kFromPeopleIFollowTitle, kPAPNotificationSettingTypeFromPeopleIFollow, kFromEveryoneTitle, kPAPNotificationSettingTypeFromEveryone, nil];
     
-    self.theNewFollowersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:kOffTitle, kPAPNotificationSettingTypeOff, kFromEveryoneTitle, kPAPNotificationSettingTypeFromEveryone, nil];
+    self.theNewFollowerNotificationSettingOptions = [NSDictionary dictionaryWithObjectsAndKeys:kOffTitle, kPAPNotificationSettingTypeOff, kFromEveryoneTitle, kPAPNotificationSettingTypeFromEveryone, nil];
     
-    self.likesCommentsArray = [NSArray arrayWithObjects:kPAPNotificationSettingTypeOff, kPAPNotificationSettingTypeFromPeopleIFollow, kPAPNotificationSettingTypeFromEveryone, nil];
+    self.likesCommentsNotificationSettingTypes = [NSArray arrayWithObjects:kPAPNotificationSettingTypeOff, kPAPNotificationSettingTypeFromPeopleIFollow, kPAPNotificationSettingTypeFromEveryone, nil];
     
-    self.theNewFollowersArray = [NSArray arrayWithObjects:kPAPNotificationSettingTypeOff, kPAPNotificationSettingTypeFromEveryone, nil];
+    self.theNewFollowersNotificationSettingTypes = [NSArray arrayWithObjects:kPAPNotificationSettingTypeOff, kPAPNotificationSettingTypeFromEveryone, nil];
 }
 
 #pragma mark - Table view data source
@@ -97,9 +89,9 @@ NSString *const kFromEveryoneTitle = @"From Everyone";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0 || section == 1) {
-        return self.likesCommentsDictionary.count;
+        return self.likesCommentsNotificationSettingOptions.count;
     } else if (section == 2) {
-        return self.theNewFollowersDictionary.count;
+        return self.theNewFollowerNotificationSettingOptions.count;
     } else {
         return 0;
     }
@@ -116,28 +108,28 @@ NSString *const kFromEveryoneTitle = @"From Everyone";
     
     long row = [indexPath row];
     NSString *key;
-    NSString *object;
+    NSString *settingReadableName;
     
     if (indexPath.section == 0) {
-        key = [self.likesCommentsArray objectAtIndex:row];
-        object = [self.likesCommentsDictionary objectForKey:key];
+        key = [self.likesCommentsNotificationSettingTypes objectAtIndex:row];
+        settingReadableName = [self.likesCommentsNotificationSettingOptions objectForKey:key];
         if ([self.notificationSetting.likes isEqualToString:key]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     } else if (indexPath.section == 1) {
-        key = [self.likesCommentsArray objectAtIndex:row];
-        object = [self.likesCommentsDictionary objectForKey:key];
+        key = [self.likesCommentsNotificationSettingTypes objectAtIndex:row];
+        settingReadableName = [self.likesCommentsNotificationSettingOptions objectForKey:key];
         if ([self.notificationSetting.comments isEqualToString:key]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     } else if (indexPath.section == 2) {
-        key = [self.theNewFollowersArray objectAtIndex:row];
-        object = [self.theNewFollowersDictionary objectForKey:key];
+        key = [self.theNewFollowersNotificationSettingTypes objectAtIndex:row];
+        settingReadableName = [self.theNewFollowerNotificationSettingOptions objectForKey:key];
         if ([self.notificationSetting.theNewFollowers isEqualToString:key]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
-    cell.textLabel.text = object;
+    cell.textLabel.text = settingReadableName;
     
     return cell;
 }
@@ -153,16 +145,12 @@ NSString *const kFromEveryoneTitle = @"From Everyone";
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     long row = [indexPath row];
-    NSString *key;
     if (indexPath.section == 0) {
-        key = [self.likesCommentsArray objectAtIndex:row];
-        self.notificationSetting.likes = key;
+        self.notificationSetting.likes = [self.likesCommentsNotificationSettingTypes objectAtIndex:row];
     } else if (indexPath.section == 1) {
-        key = [self.likesCommentsArray objectAtIndex:row];
-        self.notificationSetting.comments = key;
+        self.notificationSetting.comments = [self.likesCommentsNotificationSettingTypes objectAtIndex:row];
     } else if (indexPath.section == 2) {
-        key = [self.theNewFollowersArray objectAtIndex:row];
-        self.notificationSetting.theNewFollowers = key;
+        self.notificationSetting.theNewFollowers = [self.theNewFollowersNotificationSettingTypes objectAtIndex:row];
     }
     
     [tableView reloadData];
