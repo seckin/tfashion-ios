@@ -21,6 +21,12 @@
 
 @end
 
+@interface FBSession (Private)
+
+- (void)clearAffinitizedThread;
+
+@end
+
 @implementation PAPLogInViewController
 
 #pragma mark - UIViewController
