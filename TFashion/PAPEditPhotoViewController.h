@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
-#import "MPGTextField.h"
+#import "CONCommentTextView.h"
 
-@interface PAPEditPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, MPGTextFieldDelegate>
+@interface PAPEditPhotoViewController : UIViewController <UIScrollViewDelegate, CONCommentTextViewDelegate>
 
 - (id)initWithImage:(UIImage *)aImage;
 

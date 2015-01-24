@@ -9,7 +9,6 @@
 #import "PAPPhotoDetailsViewController.h"
 #import "PAPBaseTextCell.h"
 #import "PAPActivityCell.h"
-#import "PAPPhotoDetailsFooterView.h"
 #import "PAPConstants.h"
 #import "PAPAccountViewController.h"
 #import "PAPLoadMoreCell.h"
@@ -24,24 +23,28 @@ enum ActionSheetTags {
 };
 
 @interface PAPPhotoDetailsViewController ()
-@property (nonatomic, strong) MPGTextField *commentTextField;
 @property (nonatomic, strong) PAPPhotoDetailsHeaderView *headerView;
 @property (nonatomic, assign) BOOL likersQueryInProgress;
 @property (nonatomic, strong) NSMutableArray *mentionResults;
 @property (nonatomic, strong) NSMutableArray *mentionLinkArray;
+
+@property (nonatomic, strong) CONCommentTextView *commentTextView;
+@property (nonatomic, strong) UIView *inputBar;
+@property (nonatomic, strong) UIButton *sendButton;
+
+
 @end
 
 static const CGFloat kPAPCellInsetWidth = 0.0f;
 
 @implementation PAPPhotoDetailsViewController
-
-@synthesize commentTextField;
 @synthesize photo, headerView;
 
 #pragma mark - Initialization
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
 }
 
@@ -88,19 +91,42 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     
     self.tableView.tableHeaderView = self.headerView;
     
-    // Set table footer
-    PAPPhotoDetailsFooterView *footerView = [[PAPPhotoDetailsFooterView alloc] initWithFrame:[PAPPhotoDetailsFooterView rectForView]];
-    commentTextField = footerView.commentField;
-    commentTextField.delegate = self;
-    commentTextField.backgroundColor = [UIColor whiteColor];
-//    commentTextField.keyboardType = UIKeyboardTypeTwitter;
-    commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.tableView.tableFooterView = footerView;
-
+    // Set input bar
+    _inputBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, CGRectGetHeight(self.navigationController.view.frame) - CGRectGetHeight(self.tabBarController.tabBar.frame) - 40, 320.0f, 40.0f)];
+    _inputBar.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1.0];
+    _inputBar.layer.borderWidth = 0.5;
+    _inputBar.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
+    
+    // Bring input bar to view from bottom with animation
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.1;
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromTop;
+    [_inputBar.layer addAnimation:transition forKey:nil];
+    [self.navigationController.view addSubview:_inputBar];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.bottomLayoutGuide.length + CGRectGetHeight(_inputBar.frame), 0);
+    
+    // Set comment text view
+    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
+    _commentTextView.delegate = self;
+    _commentTextView.presentingView = self.view;
+    [_inputBar addSubview:_commentTextView];
+    
+    // Set send button
+    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
+    _sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    _sendButton.enabled = NO;
+    [_inputBar addSubview:_sendButton];
+    
+    // Set action button as a navigation bar button item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(activityButtonAction:)];
 
     // Register to be notified when the keyboard will be shown to scroll the view
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
     
     // Generate mention data
@@ -130,6 +156,18 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![self.navigationController.view.subviews containsObject:_inputBar]) {
+        [self.navigationController.view addSubview:_inputBar];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_inputBar removeFromSuperview];
+}
+
 #pragma mark - Private
 
 - (void)generateMentionData:(NSArray *)contents
@@ -149,31 +187,105 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     });
 }
 
-#pragma mark MPGTextField Delegate Methods
-
-- (NSArray *)dataForPopoverInTextField:(MPGTextField *)textField
+- (void)sendButtonAction:(id)sender
 {
-    if ([textField isEqual:commentTextField]) {
+    NSString *trimmedComment = [_commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (trimmedComment.length != 0 && [self.photo objectForKey:kPAPPhotoUserKey]) {
+        PFObject *comment = [PFObject objectWithClassName:kPAPActivityClassKey];
+        [comment setObject:trimmedComment forKey:kPAPActivityContentKey]; // Set comment text
+        [comment setObject:[self.photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey]; // Set toUser
+        [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
+        [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
+        [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
+        
+        PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [ACL setPublicReadAccess:YES];
+        [ACL setWriteAccess:YES forUser:[self.photo objectForKey:kPAPPhotoUserKey]];
+        comment.ACL = ACL;
+        
+        [[PAPCache sharedCache] incrementCommentCountForPhoto:self.photo];
+        
+        // Show HUD view
+        [MBProgressHUD showHUDAddedTo:self.view.superview animated:YES];
+        
+        // If more than 5 seconds pass since we post a comment, stop waiting for the server to respond
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(handleCommentTimeout:) userInfo:@{@"comment": comment} repeats:NO];
+        
+        [comment saveEventually:^(BOOL succeeded, NSError *error) {
+            [timer invalidate];
+            
+            if (error && error.code == kPFErrorObjectNotFound) {
+                [[PAPCache sharedCache] decrementCommentCountForPhoto:self.photo];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not post comment", nil) message:NSLocalizedString(@"This photo is no longer available", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+            [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
+            [self loadObjects];
+            
+            for (PFObject *mention in self.mentionLinkArray) {
+                [mention setObject:comment forKey:kPAPActivityCommentKey];
+                [mention saveEventually];
+            }
+            [self.mentionLinkArray removeAllObjects];
+            
+            //        for (CONTag *tag in self.mentionLinkArray) {
+            //            tag.activity = comment;
+            //            [tag saveEventually];
+            //        }
+        }];
+    }
+    
+    [_commentTextView setText:@""];
+    [_commentTextView resignFirstResponder];
+}
+
+#pragma mark - <CONCommentTextViewDelegate>
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
+{
+    float diff = (growingTextView.frame.size.height - height);
+    
+    CGRect inputBarFrame = _inputBar.frame;
+    inputBarFrame.size.height -= diff;
+    inputBarFrame.origin.y += diff;
+    _inputBar.frame = inputBarFrame;
+}
+
+- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView
+{
+    if (growingTextView.text.length > 0) {
+        _sendButton.enabled = YES;
+    } else {
+        _sendButton.enabled = NO;
+    }
+}
+
+- (NSArray *)dataForPopoverInTextView:(CONCommentTextView *)textView
+{
+    if ([textView isEqual:_commentTextView]) {
         return self.mentionResults;
     } else {
         return nil;
     }
 }
 
-- (BOOL)textFieldShouldSelect:(MPGTextField *)textField
+- (BOOL)textViewShouldSelect:(CONCommentTextView *)textView
 {
     return YES;
 }
 
-- (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
+- (void)textView:(CONCommentTextView *)textView didEndEditingWithSelection:(NSDictionary *)result
 {
-    if ([textField isEqual:commentTextField]) {
-//        CONTag *tag = [CONTag object];
-//        tag.text = [result valueForKey:@"DisplayText"];
-//        PFUser *user = [result valueForKey:@"CustomObject"];
-//        tag.taggedObject = user;
-//        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
-//        [self.mentionLinkArray addObject:tag];
+    if ([textView isEqual:_commentTextView]) {
+        //        CONTag *tag = [CONTag object];
+        //        tag.text = [result valueForKey:@"DisplayText"];
+        //        PFUser *user = [result valueForKey:@"CustomObject"];
+        //        tag.taggedObject = user;
+        //        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+        //        [self.mentionLinkArray addObject:tag];
         NSString *text = [result valueForKey:@"DisplayText"];
         PFUser *mentionedUser = [result valueForKey:@"CustomObject"];
         PFObject *mention = [PFObject objectWithClassName:kPAPActivityClassKey];
@@ -286,63 +398,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     return cell;
 }
 
-
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSString *trimmedComment = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (trimmedComment.length != 0 && [self.photo objectForKey:kPAPPhotoUserKey]) {
-        PFObject *comment = [PFObject objectWithClassName:kPAPActivityClassKey];
-        [comment setObject:trimmedComment forKey:kPAPActivityContentKey]; // Set comment text
-        [comment setObject:[self.photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey]; // Set toUser
-        [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
-        [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
-        [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
-        
-        PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [ACL setPublicReadAccess:YES];
-        [ACL setWriteAccess:YES forUser:[self.photo objectForKey:kPAPPhotoUserKey]];
-        comment.ACL = ACL;
-
-        [[PAPCache sharedCache] incrementCommentCountForPhoto:self.photo];
-        
-        // Show HUD view
-        [MBProgressHUD showHUDAddedTo:self.view.superview animated:YES];
-        
-        // If more than 5 seconds pass since we post a comment, stop waiting for the server to respond
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(handleCommentTimeout:) userInfo:@{@"comment": comment} repeats:NO];
-
-        [comment saveEventually:^(BOOL succeeded, NSError *error) {
-            [timer invalidate];
-            
-            if (error && error.code == kPFErrorObjectNotFound) {
-                [[PAPCache sharedCache] decrementCommentCountForPhoto:self.photo];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not post comment", nil) message:NSLocalizedString(@"This photo is no longer available", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                [alert show];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
-            [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
-            [self loadObjects];
-            
-            for (PFObject *mention in self.mentionLinkArray) {
-                [mention setObject:comment forKey:kPAPActivityCommentKey];
-                [mention saveEventually];
-            }
-            [self.mentionLinkArray removeAllObjects];
-            
-            //        for (CONTag *tag in self.mentionLinkArray) {
-            //            tag.activity = comment;
-            //            [tag saveEventually];
-            //        }
-        }];
-    }
-    
-    [textField setText:@""];
-    return [textField resignFirstResponder];
-}
-
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -367,7 +422,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [commentTextField resignFirstResponder];
+    [_commentTextView resignFirstResponder];
 }
 
 #pragma mark - PAPBaseTextCellDelegate
@@ -457,16 +512,58 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 }
 
 - (void)keyboardWillShow:(NSNotification*)note {
-    // Scroll the view to the comment text box
-    NSDictionary* info = [note userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [self.tableView setContentOffset:CGPointMake(0.0f, self.tableView.contentSize.height-kbSize.height) animated:YES];
     
-    // Set comment text field popover frame
-    CGFloat navBarBottom = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    CGFloat footerTop = CGRectGetMinY(self.tableView.tableFooterView.frame);
-    CGFloat width = self.tableView.frame.size.width-2*kPAPCellInsetWidth;
-    [commentTextField setPopoverSize:CGRectMake(kPAPCellInsetWidth, self.tableView.contentSize.height-kbSize.height-51, width, self.tableView.contentSize.height+navBarBottom+64-footerTop)];
+    CGRect keyboardBeginFrame, keyboardEndFrame;
+    
+    // position of keyboard before animation
+    [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboardBeginFrame];
+    // and after..
+    [[[note userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    CGFloat keyboardHeight = CGRectGetHeight(keyboardBeginFrame);
+    
+//    [self.tableView setContentOffset:CGPointMake(0.0f, self.tableView.contentSize.height-keyboardHeight-CGRectGetHeight(_inputBar.frame)) animated:YES];
+    
+    CGPoint tableViewContentOffset = self.tableView.contentOffset;
+    
+    // Align the bottom edge of the photo with the keyboard
+    tableViewContentOffset.y = self.tableView.contentSize.height-keyboardHeight-CGRectGetHeight(_inputBar.frame);
+    
+    // Set comment text view popover frame
+    CGRect navBarFrame = self.navigationController.navigationBar.frame;
+    CGFloat navBarBottom = CGRectGetMaxY(navBarFrame);
+    CGFloat tableCellWidth = self.tableView.frame.size.width-2*kPAPCellInsetWidth;
+    [_commentTextView setPopoverSize:CGRectMake(kPAPCellInsetWidth, tableViewContentOffset.y+navBarBottom, tableCellWidth, self.tableView.contentSize.height+navBarBottom+CGRectGetHeight(navBarFrame))];
+    
+    
+    double animationDuration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    int animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    // slide view up..
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    CGRect inputBarFrame = _inputBar.frame;
+    inputBarFrame.origin.y -= (keyboardHeight - CGRectGetHeight(self.tabBarController.tabBar.frame));
+    _inputBar.frame = inputBarFrame;
+    [self.tableView setContentOffset:CGPointMake(0.0f, tableViewContentOffset.y)];
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    CGFloat keyboardHeight = [[[note userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    
+    double animationDuration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    int animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    // slide view down
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    CGRect inputBarFrame = _inputBar.frame;
+    inputBarFrame.origin.y += (keyboardHeight - CGRectGetHeight(self.tabBarController.tabBar.frame));
+    _inputBar.frame = inputBarFrame;
+    [UIView commitAnimations];
 }
 
 - (void)loadLikers {

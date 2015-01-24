@@ -7,31 +7,29 @@
 //
 
 #import "PAPEditPhotoViewController.h"
-#import "PAPPhotoDetailsFooterView.h"
 #import "UIImage+ResizeAdditions.h"
 #import "AppDelegate.h"
 #import "CONTag.h"
 
 @interface PAPEditPhotoViewController ()
-{
-    PAPPhotoDetailsFooterView *footerView;
-}
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) MPGTextField *commentTextField;
+@property (nonatomic, strong) CONCommentTextView *commentTextView;
+@property (nonatomic, strong) UIView *inputBar;
+@property (nonatomic, strong) UIButton *sendButton;
 @property (nonatomic, strong) PFFile *photoFile;
 @property (nonatomic, strong) PFFile *thumbnailFile;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
 @property (nonatomic, strong) NSMutableArray *mentionResults;
 @property (nonatomic, strong) NSMutableArray *mentionLinkArray;
+@property (nonatomic, assign) CGFloat inputBarPositionDiffWhenKeyboardOn;
 
 @end
 
 @implementation PAPEditPhotoViewController
 @synthesize scrollView;
 @synthesize image;
-@synthesize commentTextField;
 @synthesize photoFile;
 @synthesize thumbnailFile;
 @synthesize fileUploadBackgroundTaskId;
@@ -80,18 +78,29 @@
 
     [self.scrollView addSubview:photoImageView];
     
-    CGRect footerRect = [PAPPhotoDetailsFooterView rectForView];
-    footerRect.origin.y = photoImageView.frame.origin.y + photoImageView.frame.size.height;
+    // Set input bar
+    _inputBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, CGRectGetHeight(self.scrollView.frame) - CGRectGetHeight(self.navigationController.navigationBar.frame) - 40, 320.0f, 40.0f)];
+    _inputBar.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1.0];
+    _inputBar.layer.borderWidth = 0.5;
+    _inputBar.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
+    [self.scrollView addSubview:_inputBar];
+    
+    // Set comment text view
+    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
+    _commentTextView.delegate = self;
+    _commentTextView.presentingView = self.view;
+    [_inputBar addSubview:_commentTextView];
+    
+    // Set send button
+    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
+    _sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    _sendButton.enabled = NO;
+    [_inputBar addSubview:_sendButton];
 
-    footerView = [[PAPPhotoDetailsFooterView alloc] initWithFrame:footerRect];
-    self.commentTextField = footerView.commentField;
-    self.commentTextField.delegate = self;
-    self.commentTextField.backgroundColor = [UIColor whiteColor];
-    //    self.commentTextField.keyboardType = UIKeyboardTypeTwitter;
-    self.commentTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    [self.scrollView addSubview:footerView];
-
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + footerView.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + _inputBar.frame.size.height)];
 }
 
 - (void)viewDidLoad {
@@ -101,7 +110,7 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(sendButtonAction:)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -142,31 +151,50 @@
     });
 }
 
-#pragma mark MPGTextField Delegate Methods
+#pragma mark <CONCommentTextViewDelegate>
 
-- (NSArray *)dataForPopoverInTextField:(MPGTextField *)textField
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
 {
-    if ([textField isEqual:commentTextField]) {
+    float diff = (growingTextView.frame.size.height - height);
+    
+    CGRect inputBarFrame = _inputBar.frame;
+    inputBarFrame.size.height -= diff;
+    inputBarFrame.origin.y += diff;
+    _inputBar.frame = inputBarFrame;
+}
+
+- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView
+{
+    if (growingTextView.text.length > 0) {
+        _sendButton.enabled = YES;
+    } else {
+        _sendButton.enabled = NO;
+    }
+}
+
+- (NSArray *)dataForPopoverInTextView:(CONCommentTextView *)textView
+{
+    if ([textView isEqual:_commentTextView]) {
         return self.mentionResults;
     } else {
         return nil;
     }
 }
 
-- (BOOL)textFieldShouldSelect:(MPGTextField *)textField
+- (BOOL)textViewShouldSelect:(CONCommentTextView *)textView
 {
     return YES;
 }
 
-- (void)textField:(MPGTextField *)textField didEndEditingWithSelection:(NSDictionary *)result
+- (void)textView:(CONCommentTextView *)textView didEndEditingWithSelection:(NSDictionary *)result
 {
-    if ([textField isEqual:commentTextField]) {
-//        CONTag *tag = [CONTag object];
-//        tag.text = [result valueForKey:@"DisplayText"];
-//        PFUser *user = [result valueForKey:@"CustomObject"];
-//        tag.taggedObject = user;
-//        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
-//        [self.mentionLinkArray addObject:tag];
+    if ([textView isEqual:_commentTextView]) {
+        //        CONTag *tag = [CONTag object];
+        //        tag.text = [result valueForKey:@"DisplayText"];
+        //        PFUser *user = [result valueForKey:@"CustomObject"];
+        //        tag.taggedObject = user;
+        //        tag.type = kPAPTagTypeMention; //TODO: Change when hashtag is active
+        //        [self.mentionLinkArray addObject:tag];
         NSString *text = [result valueForKey:@"DisplayText"];
         PFUser *mentionedUser = [result valueForKey:@"CustomObject"];
         PFObject *mention = [PFObject objectWithClassName:kPAPActivityClassKey];
@@ -178,25 +206,15 @@
     }
 }
 
-#pragma mark - UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self doneButtonAction:textField];
-    [textField resignFirstResponder];
-    return YES;
-}
-
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.commentTextField resignFirstResponder];  
+    [self.commentTextView resignFirstResponder];
 }
 
 #pragma mark - ()
 
-- (BOOL)shouldUploadImage:(UIImage *)anImage {    
-//    UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
-//    UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
+- (BOOL)shouldUploadImage:(UIImage *)anImage {
     UIImage *resizedImage = [anImage resizeImageScaledToSize:CGSizeMake(560.0f, 560.0f)];
     UIImage *thumbnailImage = [anImage resizeImageScaledToSize:CGSizeMake(86.0f, 86.0f)];
     
@@ -247,25 +265,46 @@
     // Align the bottom edge of the photo with the keyboard
     scrollViewContentOffset.y = scrollViewContentOffset.y + keyboardFrameEnd.size.height*3.0f - [UIScreen mainScreen].bounds.size.height + navBarBottom;
     
-    [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
-    
     // Set comment text field popover frame
-    CGFloat footerTop = CGRectGetMinY(footerView.frame);
-    [commentTextField setPopoverSize:CGRectMake(0, scrollViewContentOffset.y + navBarBottom, 320, footerTop-scrollViewContentOffset.y - navBarBottom)];
+    [_commentTextView setPopoverSize:CGRectMake(0, scrollViewContentOffset.y + navBarBottom, 320,([UIScreen mainScreen].bounds.size.height-keyboardFrameEnd.size.height-navBarBottom-CGRectGetHeight(_inputBar.frame)))];
+    
+    double animationDuration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    int animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    // slide view up..
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    CGRect inputBarFrame = _inputBar.frame;
+    _inputBarPositionDiffWhenKeyboardOn = CGRectGetMinY(keyboardFrameEnd)+CGRectGetHeight(_inputBar.frame)-inputBarFrame.origin.y;
+    inputBarFrame.origin.y += _inputBarPositionDiffWhenKeyboardOn;
+    _inputBar.frame = inputBarFrame;
+    [self.scrollView setContentOffset:scrollViewContentOffset];
+    [UIView commitAnimations];
 }
 
 - (void)keyboardWillHide:(NSNotification *)note {
     CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGSize scrollViewContentSize = self.scrollView.bounds.size;
     scrollViewContentSize.height -= keyboardFrameEnd.size.height;
-    [UIView animateWithDuration:0.200f animations:^{
-        [self.scrollView setContentSize:scrollViewContentSize];
-    }];
+    
+    double animationDuration = [[[note userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    int animationCurve = [[[note userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+    
+    // slide view down
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    CGRect inputBarFrame = _inputBar.frame;
+    inputBarFrame.origin.y -= _inputBarPositionDiffWhenKeyboardOn;
+    _inputBar.frame = inputBarFrame;
+    [self.scrollView setContentSize:scrollViewContentSize];
+    [UIView commitAnimations];
 }
 
-- (void)doneButtonAction:(id)sender {
+- (void)sendButtonAction:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionary];
-    NSString *trimmedComment = [self.commentTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *trimmedComment = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (trimmedComment.length != 0) {
         userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                   trimmedComment,kPAPEditPhotoViewControllerUserInfoCommentKey,
@@ -329,10 +368,9 @@
                         [mention setObject:comment forKey:kPAPActivityCommentKey];
                         [mention saveEventually];
                     }
-                    
-                    [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
                 }
+                [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
             }
         } else {
             NSLog(@"Photo failed to save: %@", error);
@@ -343,6 +381,8 @@
     }];
     
     [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    
+    [_commentTextView resignFirstResponder];
 }
 
 - (void)cancelButtonAction:(id)sender {
