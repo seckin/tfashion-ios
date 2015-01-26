@@ -65,6 +65,17 @@
         [_logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
     }
     [_logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Test login button
+    UIButton *testLoginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [testLoginButton setTitle:@"Test Login" forState:UIControlStateNormal];
+    [testLoginButton setFrame:CGRectMake(36.0f, CGRectGetMinY(_facebookLoginView.frame) - 53, 244.0f, 42.0f)];
+    testLoginButton.clipsToBounds = YES;
+    testLoginButton.layer.cornerRadius = 3;
+    [testLoginButton setBackgroundColor:[UIColor orangeColor]];
+    [testLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [testLoginButton addTarget:self action:@selector(testLoginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:testLoginButton];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -77,6 +88,13 @@
 
 #pragma mark - Action
 
+- (void)testLoginButtonAction:(id)sender
+{
+    PFLogInViewController *logInController = [[PFLogInViewController alloc] init];
+    logInController.delegate = self;
+    [self presentViewController:logInController animated:YES completion:nil];
+}
+
 - (void)showSignUpController:(id)sender
 {
     NSLog(@"showSignUpController called");
@@ -85,6 +103,18 @@
     signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 
     [self presentViewController:signUpController animated:YES completion:nil];
+}
+
+#pragma mark - PFLoginViewControllerDelegate - TEST LOGIN
+
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
+{
+//    [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
+//    UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
+//    [navController dismissViewControllerAnimated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
+        [self.delegate performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:user];
+    }
 }
 
 #pragma mark - FBLoginViewDelegate

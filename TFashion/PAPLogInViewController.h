@@ -8,7 +8,7 @@
 
 @protocol PAPLogInViewControllerDelegate;
 
-@interface PAPLogInViewController : UIViewController <FBLoginViewDelegate>
+@interface PAPLogInViewController : UIViewController <FBLoginViewDelegate, PFLogInViewControllerDelegate>
 
 @property (nonatomic, assign) id<PAPLogInViewControllerDelegate> delegate;
 
