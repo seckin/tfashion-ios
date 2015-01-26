@@ -491,6 +491,13 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 }
 
 - (void)handleCommentTimeout:(NSTimer *)aTimer {
+    PFObject *comment = [[aTimer userInfo] valueForKey:@"comment"];
+    for (PFObject *mention in self.mentionLinkArray) {
+        [mention setObject:comment forKey:kPAPActivityCommentKey];
+        [mention saveEventually];
+    }
+    [self.mentionLinkArray removeAllObjects];
+    
     [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"New Comment", nil) message:NSLocalizedString(@"Your comment will be posted next time there is an Internet connection.", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Dismiss", nil), nil];
     [alert show];
