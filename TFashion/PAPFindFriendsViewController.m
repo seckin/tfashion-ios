@@ -160,20 +160,27 @@ static const NSUInteger kSearchResultLimit = 20;
 #pragma mark - PFQueryTableViewController
 
 - (PFQuery *)queryForTable {
+    NSMutableArray *subQueryArray = [[NSMutableArray alloc] init];
+    
     // Use cached facebook friend ids
     NSArray *facebookFriends = [[PAPCache sharedCache] facebookFriends];
     
-    // Query for all friends you have on facebook and who are using the app
-    PFQuery *friendsQuery = [PFUser query];
-    [friendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookFriends];
+    if (facebookFriends) {
+        // Query for all friends you have on facebook and who are using the app
+        PFQuery *friendsQuery = [PFUser query];
+        [friendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookFriends];
+        [subQueryArray addObject:friendsQuery];
+    }
     
     // Query for all Parse employees
     NSMutableArray *parseEmployees = [[NSMutableArray alloc] initWithArray:kPAPParseEmployeeAccounts];
     [parseEmployees removeObject:[[PFUser currentUser] objectForKey:kPAPUserFacebookIDKey]];
     PFQuery *parseEmployeeQuery = [PFUser query];
     [parseEmployeeQuery whereKey:kPAPUserFacebookIDKey containedIn:parseEmployees];
+    
+    [subQueryArray addObject:parseEmployeeQuery];
         
-    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:friendsQuery, parseEmployeeQuery, nil]];
+    PFQuery *query = [PFQuery orQueryWithSubqueries:subQueryArray];
     query.cachePolicy = kPFCachePolicyNetworkOnly;
     
     if (self.objects.count == 0) {
@@ -234,15 +241,8 @@ static const NSUInteger kSearchResultLimit = 20;
                 [self configureFollowAllButton];
             }
         }
-        
-        if (self.objects.count == 0) {
-            self.navigationItem.rightBarButtonItem = nil;
-        }
     }];
     
-    if (self.objects.count == 0) {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -489,7 +489,7 @@ static const NSUInteger kSearchResultLimit = 20;
 }
 
 - (void)configureFollowAllButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
 }
 
 - (void)followUsersTimerFired:(NSTimer *)timer {

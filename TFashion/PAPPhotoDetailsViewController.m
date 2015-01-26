@@ -129,12 +129,17 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
     
+    NSMutableArray *subQueries = [[NSMutableArray alloc] init];
+    
     // Generate mention data
     NSArray *facebookIds = [[PAPCache sharedCache] facebookFriends];
-    // find common Facebook friends already using app
-    PFQuery *facebookFriendsQuery = [PFUser query];
-    [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
-    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:facebookFriendsQuery, nil]];
+    if (facebookIds) {
+        // find common Facebook friends already using app
+        PFQuery *facebookFriendsQuery = [PFUser query];
+        [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
+        [subQueries addObject:facebookFriendsQuery];
+    }
+    PFQuery *query = [PFQuery orQueryWithSubqueries:subQueries];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
             [self generateMentionData:objects];
