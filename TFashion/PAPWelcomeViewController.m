@@ -116,11 +116,11 @@
     }
 
     FBSession *session = [PFFacebookUtils session];
-    if (!session.isOpen) {
-        NSLog(@"FB Session does not exist, logout");
-        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
-        return;
-    }
+//    if (!session.isOpen) {
+//        NSLog(@"FB Session does not exist, logout");
+//        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
+//        return;
+//    }
 
 //    if (!session.accessTokenData.userID) {
 //        NSLog(@"userID on FB Session does not exist, logout");
