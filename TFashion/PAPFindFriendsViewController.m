@@ -194,7 +194,8 @@ static const NSUInteger kSearchResultLimit = 20;
     
     PFQuery *query = [PFUser query];
     query.limit = kSearchResultLimit;
-    [query whereKey:@"username" containsString:searchText];
+    // Modifier "i" is for making search case-insensitive
+    [query whereKey:@"username" matchesRegex:searchText modifiers:@"i"];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -248,8 +249,10 @@ static const NSUInteger kSearchResultLimit = 20;
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         PFTableViewCell *cell;
-        if ([searchResults objectAtIndex:indexPath.row]) {
-            cell = [self tableView:tableView cellForRowAtIndexPath:indexPath object:[searchResults objectAtIndex:indexPath.row]];
+        if (searchResults.count > 0) {
+            if ([searchResults objectAtIndex:indexPath.row]) {
+                cell = [self tableView:tableView cellForRowAtIndexPath:indexPath object:[searchResults objectAtIndex:indexPath.row]];
+            }
         }
         return cell;
     } else {
@@ -267,6 +270,12 @@ static const NSUInteger kSearchResultLimit = 20;
     }
     
     [cell setUser:(PFUser*)object];
+    
+    if (tableView == searchDisplayController.searchResultsTableView) {
+        [cell.followButton removeFromSuperview];
+        cell.photoLabel.text = cell.user.username;
+        return cell;
+    }
 
     [cell.photoLabel setText:@"0 photos"];
     
@@ -294,11 +303,6 @@ static const NSUInteger kSearchResultLimit = 20;
                 }];
             };
         }
-    }
-    
-    if (tableView == searchDisplayController.searchResultsTableView) {
-        [cell.followButton removeFromSuperview];
-        return cell;
     }
 
     cell.followButton.selected = NO;
