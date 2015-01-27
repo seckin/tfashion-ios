@@ -394,6 +394,20 @@
             return;
         }
         
+        
+        // If the push notification payload references a photo, we will attempt to push this view controller into view
+        NSString *commentObjectId = [remoteNotificationPayload objectForKey:kPAPPushPayloadCommentObjectIdKey];
+        if (commentObjectId && commentObjectId.length > 0) {
+            PFQuery *query = [PFQuery queryWithClassName:kPAPActivityClassKey];
+            query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+            return [query getObjectInBackgroundWithId:commentObjectId block:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    PFObject *photo = [object valueForKey:kPAPActivityPhotoKey];
+                    [self shouldNavigateToPhoto:[PFObject objectWithoutDataWithClassName:kPAPPhotoClassKey objectId:photo.objectId]];
+                }
+            }];
+        }
+        
         // If the push notification payload references a user, we will attempt to push their profile into view
         NSString *fromObjectId = [remoteNotificationPayload objectForKey:kPAPPushPayloadFromUserObjectIdKey];
         if (fromObjectId && fromObjectId.length > 0) {

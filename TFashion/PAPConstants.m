@@ -130,6 +130,7 @@ NSString *const kPAPPushPayloadActivityFollowKey   = @"f";
 NSString *const kPAPPushPayloadFromUserObjectIdKey = @"fu";
 NSString *const kPAPPushPayloadToUserObjectIdKey   = @"tu";
 NSString *const kPAPPushPayloadPhotoObjectIdKey    = @"pid";
+NSString *const kPAPPushPayloadCommentObjectIdKey  = @"cid";
 
 #pragma mark - User Defaults
 
