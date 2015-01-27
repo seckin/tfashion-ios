@@ -118,14 +118,19 @@
     [self shouldUploadImage:self.image];
     
     // Generate mention data
-    NSArray *facebookIds = [[PAPCache sharedCache] facebookFriends];
-    // find common Facebook friends already using app
-    PFQuery *facebookFriendsQuery = [PFUser query];
-    [facebookFriendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookIds];
-    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:facebookFriendsQuery, nil]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    // Find users who are followed by current user
+    PFQuery *followingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
+    [followingQuery whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
+    [followingQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
+    [followingQuery includeKey:kPAPActivityToUserKey];
+    [followingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
-            [self generateMentionData:objects];
+            NSMutableArray *followees = [[NSMutableArray alloc] init];
+            for (PFObject *followActivity in objects) {
+                PFUser *followee = [followActivity objectForKey:kPAPActivityToUserKey];
+                [followees addObject:followee];
+            }
+            [self generateMentionData:followees];
         }
     }];
     
