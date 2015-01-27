@@ -109,12 +109,33 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
 {
-//    [(AppDelegate*)[[UIApplication sharedApplication] delegate] presentTabBarController];
-//    UINavigationController *navController = [(AppDelegate*)[[UIApplication sharedApplication] delegate] navController];
-//    [navController dismissViewControllerAnimated:YES completion:nil];
-    if ([self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
-        [self.delegate performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:user];
+    [user setObject:user.username forKey:kPAPUserDisplayNameKey];
+    [user setObject:[self getProfilePictureIsSmall:NO] forKey:kPAPUserProfilePicMediumKey];
+    [user setObject:[self getProfilePictureIsSmall:YES] forKey:kPAPUserProfilePicSmallKey];
+    [user setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            if ([self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
+                [self.delegate performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:user];
+            }
+        }
+    }];
+}
+
+- (PFFile *)getProfilePictureIsSmall:(BOOL)isSmall
+{
+    PFFile *file = nil;
+    if (isSmall) {
+        UIImage *image = [UIImage imageNamed:@"profilePictureSmall"];
+        NSData *data = UIImagePNGRepresentation(image);
+        file = [PFFile fileWithData:data];
+    } else {
+        UIImage *image = [UIImage imageNamed:@"profilePictureMedium"];
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        file = [PFFile fileWithData:data];
     }
+    
+    return file;
 }
 
 #pragma mark - FBLoginViewDelegate
