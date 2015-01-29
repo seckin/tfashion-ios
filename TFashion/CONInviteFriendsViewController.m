@@ -199,6 +199,8 @@ ABAddressBookRef addressBook;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.text = [self titleForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.text = [self detailForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.textColor = [UIColor grayColor];
 }
 
 - (NSPredicate *)newFilteringPredicateWithText:(NSString *)text {
@@ -207,6 +209,17 @@ ABAddressBookRef addressBook;
 
 - (NSString *)titleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [[self.filteredContacts valueForKey:@"fullName"] objectAtIndex:indexPath.row];
+}
+
+- (NSString *)detailForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *emails = [[self.filteredContacts valueForKey:@"emails"] objectAtIndex:indexPath.row];
+    if (emails.count > 0) {
+        return [emails componentsJoinedByString:@", "];
+    } else {
+        NSArray *phoneNumbers = [[self.filteredContacts valueForKey:@"phoneNumbers"] objectAtIndex:indexPath.row];
+        return [phoneNumbers componentsJoinedByString:@", "];
+    }
+    
 }
 
 - (void)didChangeSelectedItems {
@@ -235,7 +248,7 @@ ABAddressBookRef addressBook;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:THContactPickerContactCellReuseID];
     if (cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:THContactPickerContactCellReuseID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:THContactPickerContactCellReuseID];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
