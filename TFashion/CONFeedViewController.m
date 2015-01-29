@@ -120,7 +120,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 96;
+    CGFloat screenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    CGFloat photoCellWidth = (screenWidth - 2*10)/3;
+    return 52+photoCellWidth;
 }
 
 #pragma mark - UICollectionViewDataSource Methods

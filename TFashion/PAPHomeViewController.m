@@ -12,8 +12,9 @@
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
 #import "CONIntroViewController.h"
+#import "CONFollowPopularFeedsViewController.h"
 
-@interface PAPHomeViewController ()
+@interface PAPHomeViewController () <CONIntroViewControllerDelegate>
 @property (nonatomic, strong) UIView *blankTimelineView;
 @end
 
@@ -28,10 +29,11 @@
     [super viewDidLoad];
     
     BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserCompletedIntro] boolValue];
-    if (!didUserSeeIntro) {
+//    if (!didUserSeeIntro) {
         CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
+        introVC.introViewControllerDelegate = self;
         [self.parentViewController presentViewController:introVC animated:NO completion:nil];
-    }
+//    }
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
@@ -84,6 +86,13 @@
     }    
 }
 
+#pragma mark - <CONIntroViewControllerDelegate>
+
+- (void)intoViewControllerDidDismiss:(CONIntroViewController *)introViewController
+{
+    CONFollowPopularFeedsViewController *followPFVC = [[CONFollowPopularFeedsViewController alloc] init];
+    [self.parentViewController presentViewController:followPFVC animated:YES completion:nil];
+}
 
 #pragma mark - ()
 

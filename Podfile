@@ -21,3 +21,5 @@ pod 'JazzHands'
 pod 'Lookback', :configurations => ['Debug']
 pod 'LookbackSafe', :configurations => ['Release']
 pod 'SDWebImage'
+pod 'YLProgressBar'
+pod 'iOS-blur'

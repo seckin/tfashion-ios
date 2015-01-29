@@ -113,12 +113,13 @@ PODS:
     - GoogleAnalytics-iOS-SDK/Core
   - GPUImage (0.1.6)
   - HexColors (2.2.1)
+  - iOS-blur (0.0.5)
   - ISO8601 (0.1.1)
   - JazzHands (0.1.1)
   - libPhoneNumber-iOS (0.7.6)
   - Localytics (3.0.0)
-  - Lookback (0.9.0)
-  - LookbackSafe (0.9.0)
+  - Lookback (0.9.1)
+  - LookbackSafe (0.9.1)
   - MBProgressHUD (0.9)
   - Mixpanel (2.6.0):
     - Mixpanel/MPCategoryHelpers (= 2.6.0)
@@ -168,11 +169,13 @@ PODS:
   - TSMessages (0.9.12):
     - HexColors
   - TTTAttributedLabel (1.13.1)
+  - YLProgressBar (3.5.1)
 
 DEPENDENCIES:
   - Analytics
   - DBCamera
   - FontAwesomeKit
+  - iOS-blur
   - JazzHands
   - libPhoneNumber-iOS
   - Lookback
@@ -187,6 +190,7 @@ DEPENDENCIES:
   - SimpleAuth/TwitterWeb
   - TSMessages
   - TTTAttributedLabel
+  - YLProgressBar
 
 SPEC CHECKSUMS:
   Amplitude-iOS: bef6d4d6a5bb7e37581f6aa9d72c275023fce9e3
@@ -203,12 +207,13 @@ SPEC CHECKSUMS:
   GoogleAnalytics-iOS-SDK: f422062075d9ccb1ea8d783fc5ba3829461e9502
   GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
+  iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
   ISO8601: a6afce5fbe854024802367c814fac4aa8d3586f9
   JazzHands: d39c6b19bfe34946d220fdede80930b7be37f199
   libPhoneNumber-iOS: d4316d494d4997c40a6059faf35a970d7f4eb1c0
   Localytics: c42d816fd7bf4a770812a5af0d2e4a92bc6dcfdd
-  Lookback: 172684e39761983df644201cc71eb70c65b2097f
-  LookbackSafe: 075fb60c1f6d81c872996d46df3db92c8e739a88
+  Lookback: 7dee055a4696765e6c4615da079a884cedb4b4a6
+  LookbackSafe: 3f6ba3cf935c0d9fd9431fbb8d86842d147df8d8
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Mixpanel: e919d14f07a34ee01f81f97e535b7a240af2f793
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
@@ -226,5 +231,6 @@ SPEC CHECKSUMS:
   TRVSDictionaryWithCaseInsensitivity: a61daa8469fa079e05b694f6aad5441785c837d1
   TSMessages: b2b5dc71f65146387e51f2600bb0eb8f3a6c4ab8
   TTTAttributedLabel: 71843ac4178e1ebd6b0950b54325146726a124ae
+  YLProgressBar: 1b22a7c4418537f3e32463ba0a0d8fc87c2754cd
 
 COCOAPODS: 0.35.0

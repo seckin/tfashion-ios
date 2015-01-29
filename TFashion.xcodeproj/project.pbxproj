@@ -71,6 +71,9 @@
 		BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */; };
 		BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */; };
 		BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */; };
+		BC82D0D51A7918BA00139B57 /* CONFollowPopularFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82D0D41A7918BA00139B57 /* CONFollowPopularFeedsViewController.m */; };
+		BC82D0DB1A792F0900139B57 /* CONFollowFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82D0DA1A792F0900139B57 /* CONFollowFeedTableViewCell.m */; };
+		BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82D0DD1A793DAD00139B57 /* UIColor+InitAdditions.m */; };
 		BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */; };
 		BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */; };
 		BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB748E31A643D8F00044872 /* CONNotificationSetting.m */; };
@@ -315,6 +318,12 @@
 		BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSettingsViewController.m; sourceTree = "<group>"; };
 		BC6A21491A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONPushNotificationSettingsViewController.h; sourceTree = "<group>"; };
 		BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONPushNotificationSettingsViewController.m; sourceTree = "<group>"; };
+		BC82D0D31A7918BA00139B57 /* CONFollowPopularFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFollowPopularFeedsViewController.h; sourceTree = "<group>"; };
+		BC82D0D41A7918BA00139B57 /* CONFollowPopularFeedsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowPopularFeedsViewController.m; sourceTree = "<group>"; };
+		BC82D0D91A792F0900139B57 /* CONFollowFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFollowFeedTableViewCell.h; sourceTree = "<group>"; };
+		BC82D0DA1A792F0900139B57 /* CONFollowFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowFeedTableViewCell.m; sourceTree = "<group>"; };
+		BC82D0DC1A793DAD00139B57 /* UIColor+InitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+InitAdditions.h"; sourceTree = "<group>"; };
+		BC82D0DD1A793DAD00139B57 /* UIColor+InitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+InitAdditions.m"; sourceTree = "<group>"; };
 		BC9F04491A39D88100088C96 /* CONSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignUpViewController.h; sourceTree = "<group>"; };
 		BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONSignUpViewController.m; sourceTree = "<group>"; };
 		BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSignupAttempt.h; sourceTree = "<group>"; };
@@ -757,6 +766,8 @@
 			children = (
 				BC6A21411A4C12F800ECFDB0 /* CONIntroViewController.h */,
 				BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */,
+				BC82D0D31A7918BA00139B57 /* CONFollowPopularFeedsViewController.h */,
+				BC82D0D41A7918BA00139B57 /* CONFollowPopularFeedsViewController.m */,
 			);
 			name = Intro;
 			sourceTree = "<group>";
@@ -795,6 +806,8 @@
 			children = (
 				BCD488511A49716300751A6E /* CONFeedTableViewCell.h */,
 				BCD488521A49716300751A6E /* CONFeedTableViewCell.m */,
+				BC82D0D91A792F0900139B57 /* CONFollowFeedTableViewCell.h */,
+				BC82D0DA1A792F0900139B57 /* CONFollowFeedTableViewCell.m */,
 			);
 			name = FeedViews;
 			sourceTree = "<group>";
@@ -956,6 +969,8 @@
 				BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */,
 				BC2139261A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.h */,
 				BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */,
+				BC82D0DC1A793DAD00139B57 /* UIColor+InitAdditions.h */,
+				BC82D0DD1A793DAD00139B57 /* UIColor+InitAdditions.m */,
 			);
 			name = Categories;
 			path = ../Vendor;
@@ -1085,6 +1100,7 @@
 				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
 				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
 				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
+				BC82D0D51A7918BA00139B57 /* CONFollowPopularFeedsViewController.m in Sources */,
 				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
 				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
 				BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */,
@@ -1094,6 +1110,7 @@
 				BCD46B441A7147170065E1D4 /* CONCommentTextView.m in Sources */,
 				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
 				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
+				BC82D0DB1A792F0900139B57 /* CONFollowFeedTableViewCell.m in Sources */,
 				BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */,
 				BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */,
 				BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */,
@@ -1116,6 +1133,7 @@
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
+				BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,

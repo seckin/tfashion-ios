@@ -61,6 +61,9 @@
                 [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 [self dismissViewControllerAnimated:YES completion:nil];
+                if ([self.introViewControllerDelegate respondsToSelector:@selector(intoViewControllerDidDismiss:)]) {
+                    [self.introViewControllerDelegate intoViewControllerDidDismiss:self];
+                }
             } else {
                 NSInteger errorCode = [error code];
                 NSString *title = nil;
@@ -80,6 +83,9 @@
         [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:kDidUserCompletedIntro];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self dismissViewControllerAnimated:YES completion:nil];
+        if ([self.introViewControllerDelegate respondsToSelector:@selector(intoViewControllerDidDismiss:)]) {
+            [self.introViewControllerDelegate intoViewControllerDidDismiss:self];
+        }
     }
     
     
