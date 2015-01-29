@@ -96,7 +96,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [self.socialAccountProviders count];
+//    return [self.socialAccountProviders count];
+    // Now we only support fb account import
+    return 1;
 }
 
 

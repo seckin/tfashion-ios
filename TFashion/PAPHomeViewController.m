@@ -29,11 +29,11 @@
     [super viewDidLoad];
     
     BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserCompletedIntro] boolValue];
-//    if (!didUserSeeIntro) {
+    if (!didUserSeeIntro) {
         CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
         introVC.introViewControllerDelegate = self;
         [self.parentViewController presentViewController:introVC animated:NO completion:nil];
-//    }
+    }
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 

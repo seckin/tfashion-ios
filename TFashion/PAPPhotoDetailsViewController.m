@@ -487,7 +487,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
             }
             
             [activityItems addObject:[UIImage imageWithData:data]];
-            [activityItems addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://anypic.org/#pic/%@", self.photo.objectId]]];
+            [activityItems addObject:[NSURL URLWithString:[NSString stringWithFormat:@"https://tfashion.parseapp.com/#pic/%@", self.photo.objectId]]];
             
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
             [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
