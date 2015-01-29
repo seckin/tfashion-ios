@@ -13,14 +13,22 @@
 #import "UIImage+ImageEffects.h"
 #import "PAPSettingsButtonItem.h"
 #import "CONSettingsViewController.h"
+#import "CONFollowersViewController.h"
+#import "CONFollowingViewController.h"
 
 @interface PAPAccountViewController()
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIButton *followerCountButton;
+@property (nonatomic, strong) UIButton *followingCountButton;
+@property (nonatomic, strong) UILabel *photoCountLabel;
 @end
 
 @implementation PAPAccountViewController
 @synthesize headerView;
 @synthesize user;
+@synthesize followerCountButton;
+@synthesize followingCountButton;
+@synthesize photoCountLabel;
 
 #pragma mark - Initialization
 
@@ -119,7 +127,7 @@
     [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
     [self.headerView addSubview:photoCountIconImageView];
     
-    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
+    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor whiteColor]];
@@ -135,23 +143,23 @@
     [followersIconImageView setFrame:CGRectMake( 247.0f, 50.0f, 52.0f, 37.0f)];
     [self.headerView addSubview:followersIconImageView];
     
-    UILabel *followerCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
-    [followerCountLabel setTextAlignment:NSTextAlignmentCenter];
-    [followerCountLabel setBackgroundColor:[UIColor clearColor]];
-    [followerCountLabel setTextColor:[UIColor whiteColor]];
-    [followerCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [followerCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-    [followerCountLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
-    [self.headerView addSubview:followerCountLabel];
+    followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
+    [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [followerCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [followerCountButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f] forState:UIControlStateNormal];
+    [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView addSubview:followerCountButton];
     
-    UILabel *followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
-    [followingCountLabel setTextAlignment:NSTextAlignmentCenter];
-    [followingCountLabel setBackgroundColor:[UIColor clearColor]];
-    [followingCountLabel setTextColor:[UIColor whiteColor]];
-    [followingCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [followingCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-    [followingCountLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
-    [self.headerView addSubview:followingCountLabel];
+    followingCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [followingCountButton setFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
+    [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [followingCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [followingCountButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f] forState:UIControlStateNormal];
+    [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView addSubview:followingCountButton];
     
     UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -165,17 +173,9 @@
     
     [photoCountLabel setText:@"0 photos"];
     
-    PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
-    [queryPhotoCount whereKey:kPAPPhotoUserKey equalTo:self.user];
-    [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
-    [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        if (!error) {
-            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
-            [[PAPCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
-        }
-    }];
+//    [self queryForPhotoCount];
     
-    [followerCountLabel setText:@"0 followers"];
+    [followerCountButton setTitle:@"0 followers" forState:UIControlStateNormal];
     
     PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
     [queryFollowerCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
@@ -183,25 +183,11 @@
     [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [followerCountLabel setText:[NSString stringWithFormat:@"%d follower%@", number, number==1?@"":@"s"]];
+            [followerCountButton setTitle:[NSString stringWithFormat:@"%d follower%@", number, number==1?@"":@"s"] forState:UIControlStateNormal];
         }
     }];
-
-    NSDictionary *followingDictionary = [[PFUser currentUser] objectForKey:@"following"];
-    [followingCountLabel setText:@"0 following"];
-    if (followingDictionary) {
-        [followingCountLabel setText:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]]];
-    }
     
-    PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryFollowingCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
-    [queryFollowingCount whereKey:kPAPActivityFromUserKey equalTo:self.user];
-    [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
-    [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        if (!error) {
-            [followingCountLabel setText:[NSString stringWithFormat:@"%d following", number]];
-        }
-    }];
+//    [self queryForFollowingCount];
     
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -270,8 +256,51 @@
     return cell;
 }
 
+- (void)loadObjects
+{
+    [super loadObjects];
+    
+    [self queryForFollowingCount];
+    [self queryForPhotoCount];
+}
 
 #pragma mark - ()
+
+- (void)userFollowingChanged:(NSNotification *)note
+{
+    [self queryForFollowingCount];
+}
+
+- (void)queryForPhotoCount
+{
+    PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
+    [queryPhotoCount whereKey:kPAPPhotoUserKey equalTo:self.user];
+    [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
+            [[PAPCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
+        }
+    }];
+}
+
+- (void)queryForFollowingCount
+{
+    NSDictionary *followingDictionary = [[PFUser currentUser] objectForKey:@"following"];
+    if (followingDictionary) {
+        [followingCountButton setTitle:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]] forState:UIControlStateNormal];
+    }
+    
+    PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
+    [queryFollowingCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
+    [queryFollowingCount whereKey:kPAPActivityFromUserKey equalTo:self.user];
+    [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            [followingCountButton setTitle:[NSString stringWithFormat:@"%d following", number] forState:UIControlStateNormal];
+        }
+    }];
+}
 
 - (void)settingsButtonAction:(id)sender {
     CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -314,6 +343,18 @@
 - (void)configureUnfollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];
     [[PAPCache sharedCache] setFollowStatus:YES user:self.user];
+}
+
+- (void)followerCountButtonAction:(id)sender
+{
+    CONFollowersViewController *followersVC = [[CONFollowersViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:followersVC animated:YES];
+}
+
+- (void)followingCountButtonAction:(id)sender
+{
+    CONFollowingViewController *followingVC = [[CONFollowingViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:followingVC animated:YES];
 }
 
 @end

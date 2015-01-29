@@ -85,6 +85,8 @@
 		BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD4884E1A49712F00751A6E /* CONFeedViewController.m */; };
 		BCD488531A49716300751A6E /* CONFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD488521A49716300751A6E /* CONFeedTableViewCell.m */; };
 		BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCD488541A498EBD00751A6E /* MainWindow.xib */; };
+		BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */; };
+		BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */; };
 		BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858A1A58301300BF8029 /* Parse.framework */; };
 		BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */; };
 		BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */; };
@@ -343,6 +345,10 @@
 		BCD488511A49716300751A6E /* CONFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedTableViewCell.h; sourceTree = "<group>"; };
 		BCD488521A49716300751A6E /* CONFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedTableViewCell.m; sourceTree = "<group>"; };
 		BCD488541A498EBD00751A6E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		BCD9F7E71A7AA39C00F9811B /* CONFollowersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFollowersViewController.h; sourceTree = "<group>"; };
+		BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowersViewController.m; sourceTree = "<group>"; };
+		BCD9F7EA1A7AB8E200F9811B /* CONFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFollowingViewController.h; sourceTree = "<group>"; };
+		BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowingViewController.m; sourceTree = "<group>"; };
 		BCE4858A1A58301300BF8029 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -812,6 +818,19 @@
 			name = FeedViews;
 			sourceTree = "<group>";
 		};
+		BCD9F7E61A7AA34600F9811B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BC2138EB1A24D64A003DD8C4 /* PAPAccountViewController.h */,
+				BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */,
+				BCD9F7E71A7AA39C00F9811B /* CONFollowersViewController.h */,
+				BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */,
+				BCD9F7EA1A7AB8E200F9811B /* CONFollowingViewController.h */,
+				BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,8 +847,6 @@
 		C4A894921558795F00DC57D3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				BC2138EB1A24D64A003DD8C4 /* PAPAccountViewController.h */,
-				BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */,
 				BC2138ED1A24D64A003DD8C4 /* PAPHomeViewController.h */,
 				BC2138EE1A24D64A003DD8C4 /* PAPHomeViewController.m */,
 				BC2138EF1A24D64A003DD8C4 /* PAPPhotoTimelineViewController.h */,
@@ -862,15 +879,16 @@
 		C4A89496155879F600DC57D3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BC6A21401A4C0A1000ECFDB0 /* Intro */,
-				BC9F04451A39D73400088C96 /* Sign Up */,
-				74A504E51565F17E00CFA4E3 /* Login */,
-				BCD4884C1A49710300751A6E /* Feed */,
-				C4A894921558795F00DC57D3 /* Home */,
-				C4A894941558796C00DC57D3 /* Take Photo */,
 				C4BB4B85156D5CB7008B4B56 /* Activity */,
 				74A504E41565F13C00CFA4E3 /* Detail */,
+				BCD4884C1A49710300751A6E /* Feed */,
+				C4A894921558795F00DC57D3 /* Home */,
+				BC6A21401A4C0A1000ECFDB0 /* Intro */,
+				74A504E51565F17E00CFA4E3 /* Login */,
+				BCD9F7E61A7AA34600F9811B /* Profile */,
 				C4A894931558796400DC57D3 /* Settings */,
+				BC9F04451A39D73400088C96 /* Sign Up */,
+				C4A894941558796C00DC57D3 /* Take Photo */,
 				BC2138D91A24D4EE003DD8C4 /* PAPTabBarController.h */,
 				BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */,
 			);
@@ -1115,6 +1133,7 @@
 				BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */,
 				BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */,
 				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
+				BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */,
 				BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
@@ -1148,6 +1167,7 @@
 				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
+				BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,

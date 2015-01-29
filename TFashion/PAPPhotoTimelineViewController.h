@@ -12,4 +12,6 @@
 
 - (PAPPhotoHeaderView *)dequeueReusableSectionHeaderView;
 
+- (void)userFollowingChanged:(NSNotification *)note;
+
 @end
