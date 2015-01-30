@@ -88,9 +88,9 @@
     BOOL IsSelected = cell.followButton.selected;
     [cell.followButton setSelected:!IsSelected];
     if (!IsSelected) {
-        [self.selectedFeeds addObject:cell.titleLabel];
+        [self.selectedFeeds addObject:[self.tableView indexPathForCell:cell]];
     } else {
-        [self.selectedFeeds removeObject:cell.titleLabel];
+        [self.selectedFeeds removeObject:[self.tableView indexPathForCell:cell]];
     }
     
     [self editFooterViewAnimated:YES];
@@ -156,6 +156,8 @@
     {
         cell = [[CONFollowFeedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    [cell.followButton setSelected:[self.selectedFeeds containsObject:indexPath]];
     
     cell.delegate = self;
     cell.backgroundColor = [self.colors objectAtIndex:indexPath.row%self.colors.count];
