@@ -1,4 +1,25 @@
 PODS:
+  - AFNetworking (2.5.0):
+    - AFNetworking/NSURLConnection (= 2.5.0)
+    - AFNetworking/NSURLSession (= 2.5.0)
+    - AFNetworking/Reachability (= 2.5.0)
+    - AFNetworking/Security (= 2.5.0)
+    - AFNetworking/Serialization (= 2.5.0)
+    - AFNetworking/UIKit (= 2.5.0)
+  - AFNetworking/NSURLConnection (2.5.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.0)
+  - AFNetworking/Security (2.5.0)
+  - AFNetworking/Serialization (2.5.0)
+  - AFNetworking/UIKit (2.5.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - Amplitude-iOS (2.2.4)
   - Analytics (1.8.15):
     - Analytics/Amplitude (= 1.8.15)
@@ -120,6 +141,9 @@ PODS:
   - Localytics (3.0.0)
   - Lookback (0.9.1)
   - LookbackSafe (0.9.1)
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
   - MBProgressHUD (0.9)
   - Mixpanel (2.6.0):
     - Mixpanel/MPCategoryHelpers (= 2.6.0)
@@ -172,6 +196,7 @@ PODS:
   - YLProgressBar (3.5.1)
 
 DEPENDENCIES:
+  - AFNetworking
   - Analytics
   - DBCamera
   - FontAwesomeKit
@@ -180,6 +205,7 @@ DEPENDENCIES:
   - libPhoneNumber-iOS
   - Lookback
   - LookbackSafe
+  - Mantle
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
   - Reachability (~> 3.2)
@@ -193,6 +219,7 @@ DEPENDENCIES:
   - YLProgressBar
 
 SPEC CHECKSUMS:
+  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   Amplitude-iOS: bef6d4d6a5bb7e37581f6aa9d72c275023fce9e3
   Analytics: 83d44e4f60e805457567a59187a5d2d7871ebfae
   AppsFlyer-SDK: f83ad2e0821c57852512ea0bb8d3b207c64ef698
@@ -214,6 +241,7 @@ SPEC CHECKSUMS:
   Localytics: c42d816fd7bf4a770812a5af0d2e4a92bc6dcfdd
   Lookback: 7dee055a4696765e6c4615da079a884cedb4b4a6
   LookbackSafe: 3f6ba3cf935c0d9fd9431fbb8d86842d147df8d8
+  Mantle: d5fbaf30fbc58031223af13812c060e15934a1fe
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Mixpanel: e919d14f07a34ee01f81f97e535b7a240af2f793
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548

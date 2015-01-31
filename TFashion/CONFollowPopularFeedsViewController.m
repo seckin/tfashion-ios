@@ -8,6 +8,7 @@
 
 #import "CONFollowPopularFeedsViewController.h"
 #import "CONFollowFeedTableViewCell.h"
+#import "CONFeedCollectionViewCell.h"
 #import "UIColor+InitAdditions.h"
 #import <iOS-blur/JCRBlurView.h>
 #import <YLProgressBar/YLProgressBar.h>
@@ -121,13 +122,13 @@
 {
     CGFloat selectedFeedCount = self.selectedFeeds.count;
     
-    if ((4 - selectedFeedCount) <= 0) {
+    if (MAX(0, 4-selectedFeedCount) == 0) {
         self.footerLabel.hidden = YES;
         self.continueButton.hidden = NO;
     } else {
         self.continueButton.hidden = YES;
         self.footerLabel.hidden = NO;
-        self.footerLabel.text = [NSString stringWithFormat:@"Tap at least %d more to continue", (int)(4 - selectedFeedCount)];
+        self.footerLabel.text = [NSString stringWithFormat:@"Tap at least %d more to continue", (int)MAX(0, 4-selectedFeedCount)];
     }
     
     CGFloat progress;
@@ -214,9 +215,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat screenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
-    CGFloat photoCellWidth = (screenWidth - 2*10)/3;
-    return 52+photoCellWidth;
+    return [CONFollowFeedTableViewCell heightForCell];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -246,7 +245,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
+    CONFeedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
     
     cell.backgroundColor = [UIColor whiteColor];
     

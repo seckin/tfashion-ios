@@ -7,6 +7,7 @@
 //
 
 #import "CONFeedTableViewCell.h"
+#import "CONFeedCollectionViewCell.h"
 
 @implementation CONFeedTableViewCell
 
@@ -21,12 +22,10 @@
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.sectionInset = UIEdgeInsetsMake(10, 0, 9, 10);
-    CGFloat screenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
-    CGFloat sizeWidth = (screenWidth - 2*10)/3;
-    layout.itemSize = CGSizeMake(sizeWidth, sizeWidth);
+    layout.itemSize = [CONFeedCollectionViewCell sizeForCell];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
+    [self.collectionView registerClass:[CONFeedCollectionViewCell class] forCellWithReuseIdentifier:CollectionViewCellIdentifier];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     [self.contentView addSubview:self.collectionView];
@@ -49,6 +48,8 @@
     self.collectionView.backgroundColor = backgroundColor;
 }
 
+#pragma mark - Public
+
 - (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index
 {
     self.collectionView.dataSource = dataSourceDelegate;
@@ -56,6 +57,11 @@
     self.collectionView.tag = index;
     
     [self.collectionView reloadData];
+}
+
++ (CGFloat)heightForCell
+{
+    return 52 + [CONFeedCollectionViewCell sizeForCell].height;
 }
 
 @end

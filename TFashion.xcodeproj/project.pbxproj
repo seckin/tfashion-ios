@@ -82,11 +82,13 @@
 		BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B3D1A7138BE0065E1D4 /* HPGrowingTextView.m */; };
 		BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B3F1A7138BE0065E1D4 /* HPTextViewInternal.m */; };
 		BCD46B441A7147170065E1D4 /* CONCommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B431A7147170065E1D4 /* CONCommentTextView.m */; };
-		BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD4884E1A49712F00751A6E /* CONFeedViewController.m */; };
+		BCD4884F1A49712F00751A6E /* CONFeedTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD4884E1A49712F00751A6E /* CONFeedTimelineViewController.m */; };
 		BCD488531A49716300751A6E /* CONFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD488521A49716300751A6E /* CONFeedTableViewCell.m */; };
 		BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCD488541A498EBD00751A6E /* MainWindow.xib */; };
 		BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */; };
 		BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */; };
+		BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */; };
+		BCD9F8051A7BDF9D00F9811B /* CONFeedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F8041A7BDF9D00F9811B /* CONFeedCollectionViewCell.m */; };
 		BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858A1A58301300BF8029 /* Parse.framework */; };
 		BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */; };
 		BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */; };
@@ -340,8 +342,8 @@
 		BCD46B3F1A7138BE0065E1D4 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
 		BCD46B421A7147170065E1D4 /* CONCommentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONCommentTextView.h; sourceTree = "<group>"; };
 		BCD46B431A7147170065E1D4 /* CONCommentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONCommentTextView.m; sourceTree = "<group>"; };
-		BCD4884D1A49712F00751A6E /* CONFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedViewController.h; sourceTree = "<group>"; };
-		BCD4884E1A49712F00751A6E /* CONFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedViewController.m; sourceTree = "<group>"; };
+		BCD4884D1A49712F00751A6E /* CONFeedTimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedTimelineViewController.h; sourceTree = "<group>"; };
+		BCD4884E1A49712F00751A6E /* CONFeedTimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedTimelineViewController.m; sourceTree = "<group>"; };
 		BCD488511A49716300751A6E /* CONFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedTableViewCell.h; sourceTree = "<group>"; };
 		BCD488521A49716300751A6E /* CONFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedTableViewCell.m; sourceTree = "<group>"; };
 		BCD488541A498EBD00751A6E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -349,6 +351,10 @@
 		BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowersViewController.m; sourceTree = "<group>"; };
 		BCD9F7EA1A7AB8E200F9811B /* CONFollowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFollowingViewController.h; sourceTree = "<group>"; };
 		BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowingViewController.m; sourceTree = "<group>"; };
+		BCD9F8001A7BD5EF00F9811B /* CONInstagramMedium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONInstagramMedium.h; sourceTree = "<group>"; };
+		BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInstagramMedium.m; sourceTree = "<group>"; };
+		BCD9F8031A7BDF9D00F9811B /* CONFeedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONFeedCollectionViewCell.h; sourceTree = "<group>"; };
+		BCD9F8041A7BDF9D00F9811B /* CONFeedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFeedCollectionViewCell.m; sourceTree = "<group>"; };
 		BCE4858A1A58301300BF8029 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -705,18 +711,8 @@
 		BC19D29D1A25FF62002B9944 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BC09CAD11A3090AA001F8DC8 /* CONContact.h */,
-				BC09CAD21A3090AA001F8DC8 /* CONContact.m */,
-				BC64A34A1A48617E00452469 /* CONInviteRequest.h */,
-				BC64A34B1A48617E00452469 /* CONInviteRequest.m */,
-				BCB748E21A643D8F00044872 /* CONNotificationSetting.h */,
-				BCB748E31A643D8F00044872 /* CONNotificationSetting.m */,
-				BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */,
-				BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */,
-				BC62935A1A53C28B0080F506 /* CONSocialAccount.h */,
-				BC62935B1A53C28B0080F506 /* CONSocialAccount.m */,
-				BC26B9BA1A43575F0094214F /* CONTag.h */,
-				BC26B9BB1A43575F0094214F /* CONTag.m */,
+				BCD9F7FF1A7BD5CC00F9811B /* API */,
+				BCD9F7FE1A7BD5B000F9811B /* Parse */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -801,8 +797,8 @@
 		BCD4884C1A49710300751A6E /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				BCD4884D1A49712F00751A6E /* CONFeedViewController.h */,
-				BCD4884E1A49712F00751A6E /* CONFeedViewController.m */,
+				BCD4884D1A49712F00751A6E /* CONFeedTimelineViewController.h */,
+				BCD4884E1A49712F00751A6E /* CONFeedTimelineViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -814,6 +810,8 @@
 				BCD488521A49716300751A6E /* CONFeedTableViewCell.m */,
 				BC82D0D91A792F0900139B57 /* CONFollowFeedTableViewCell.h */,
 				BC82D0DA1A792F0900139B57 /* CONFollowFeedTableViewCell.m */,
+				BCD9F8031A7BDF9D00F9811B /* CONFeedCollectionViewCell.h */,
+				BCD9F8041A7BDF9D00F9811B /* CONFeedCollectionViewCell.m */,
 			);
 			name = FeedViews;
 			sourceTree = "<group>";
@@ -829,6 +827,34 @@
 				BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		BCD9F7FE1A7BD5B000F9811B /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				BC09CAD11A3090AA001F8DC8 /* CONContact.h */,
+				BC09CAD21A3090AA001F8DC8 /* CONContact.m */,
+				BC64A34A1A48617E00452469 /* CONInviteRequest.h */,
+				BC64A34B1A48617E00452469 /* CONInviteRequest.m */,
+				BCB748E21A643D8F00044872 /* CONNotificationSetting.h */,
+				BCB748E31A643D8F00044872 /* CONNotificationSetting.m */,
+				BC9F044C1A39E3D600088C96 /* CONSignupAttempt.h */,
+				BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */,
+				BC62935A1A53C28B0080F506 /* CONSocialAccount.h */,
+				BC62935B1A53C28B0080F506 /* CONSocialAccount.m */,
+				BC26B9BA1A43575F0094214F /* CONTag.h */,
+				BC26B9BB1A43575F0094214F /* CONTag.m */,
+			);
+			name = Parse;
+			sourceTree = "<group>";
+		};
+		BCD9F7FF1A7BD5CC00F9811B /* API */ = {
+			isa = PBXGroup;
+			children = (
+				BCD9F8001A7BD5EF00F9811B /* CONInstagramMedium.h */,
+				BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		C46AEBF8157FE078009CBA03 /* PAPBaseTextCell */ = {
@@ -1066,14 +1092,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		054987591A257A31009EF4FD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run db1cd5c518c501e7dcaccc07c3560dd4797ec9d3 5ddabe4998059075aed3766d24077b25b20e85bdbef127fb6e18044f605c1492";
 		};
@@ -1143,9 +1169,10 @@
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
 				BCD488531A49716300751A6E /* CONFeedTableViewCell.m in Sources */,
-				BCD4884F1A49712F00751A6E /* CONFeedViewController.m in Sources */,
+				BCD4884F1A49712F00751A6E /* CONFeedTimelineViewController.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
 				BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */,
+				BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */,
 				BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */,
@@ -1166,6 +1193,7 @@
 				BC26B9BC1A43575F0094214F /* CONTag.m in Sources */,
 				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
+				BCD9F8051A7BDF9D00F9811B /* CONFeedCollectionViewCell.m in Sources */,
 				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
 				BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,

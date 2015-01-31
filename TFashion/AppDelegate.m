@@ -20,7 +20,7 @@
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
 #import "CONSignUpViewController.h"
-#import "CONFeedViewController.h"
+#import "CONFeedTimelineViewController.h"
 #import "CONSocialAccount.h"
 #import <Lookback/Lookback.h>
 #import <Analytics.h>
@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) PAPHomeViewController *homeViewController;
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController;
-@property (nonatomic, strong) CONFeedViewController *feedViewController;
+@property (nonatomic, strong) CONFeedTimelineViewController *feedViewController;
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
 @property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 
@@ -249,7 +249,7 @@
 - (void)presentTabBarController {    
     self.tabBarController = [[PAPTabBarController alloc] init];
     self.homeViewController = [[PAPHomeViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.feedViewController = [[CONFeedViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.feedViewController = [[CONFeedTimelineViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
     self.activityViewController = [[PAPActivityFeedViewController alloc] initWithStyle:UITableViewStylePlain];
     self.accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CONFeedViewController : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface CONFeedTimelineViewController : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end

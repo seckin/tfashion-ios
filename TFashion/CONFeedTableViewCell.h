@@ -15,6 +15,8 @@ static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
--(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
+- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
+
++ (CGFloat)heightForCell;
 
 @end
