@@ -12,13 +12,16 @@
 #import <RNFrostedSidebar/RNFrostedSidebar.h>
 #import <FontAwesomeKit/FAKIonIcons.h>
 #import <Social/Social.h>
+#import <MessageUI/MessageUI.h>
 
 typedef NS_ENUM(NSInteger, SideBarIndex) {
     SideBarIndexFacebook    = 0,
     SideBarIndexTwitter     = 1,
+    SideBarIndexSms         = 2,
+    SideBarIndexMail        = 3,
 };
 
-@interface SVWebViewController () <UIWebViewDelegate, RNFrostedSidebarDelegate>
+@interface SVWebViewController () <UIWebViewDelegate, RNFrostedSidebarDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *forwardBarButtonItem;
@@ -292,10 +295,10 @@ typedef NS_ENUM(NSInteger, SideBarIndex) {
     self.url = self.webView.request.URL ? self.webView.request.URL : self.request.URL;
     if (self.url != nil) {
         
-        [self openPresentationPopoverWithUrl:self.url sender:sender];
+//        [self openPresentationPopoverWithUrl:self.url sender:sender];
         
-        // Uncomment bottom line and comment above line to use side bar for sharing
-//        [self openSideBar:sender];
+        // Comment bottom line and uncomment above line to use ios8 share extension
+        [self openSideBar:sender];
     }
 }
 
@@ -331,15 +334,27 @@ typedef NS_ENUM(NSInteger, SideBarIndex) {
 - (void)openSideBar:(id)sender {
     FAKIonIcons *facebookIcon = [FAKIonIcons socialFacebookIconWithSize:32.0f];
     FAKIonIcons *twitterIcon = [FAKIonIcons socialTwitterIconWithSize:32.0f];
+    FAKIonIcons *smsIcon = [FAKIonIcons chatbubblesIconWithSize:32.0f];
+    FAKIonIcons *mailIcon = [FAKIonIcons emailIconWithSize:32.0f];
     
     CGSize iconImageSize = CGSizeMake(32.0f, 32.0f);
     
     NSArray *images = @[
                         [facebookIcon imageWithSize:iconImageSize],
-                        [twitterIcon imageWithSize:iconImageSize]
+                        [twitterIcon imageWithSize:iconImageSize],
+                        [smsIcon imageWithSize:iconImageSize],
+                        [mailIcon imageWithSize:iconImageSize]
                         ];
     
-    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    NSArray *colors = @[
+                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
+                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
+                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
+                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1]
+                        ];
+    
+//    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:nil borderColors:colors];
     callout.delegate = self;
     callout.showFromRight = YES;
     [callout show];
@@ -378,6 +393,46 @@ typedef NS_ENUM(NSInteger, SideBarIndex) {
     }
 }
 
+- (void)shareWithSms
+{
+    if(![MFMessageComposeViewController canSendText]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    NSString *message = [self.url absoluteString];
+    
+    MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
+    messageComposeViewController.messageComposeDelegate = self;
+    [messageComposeViewController setBody:message];
+    
+    // Present message view controller on screen
+    [self.parentViewController presentViewController:messageComposeViewController animated:YES completion:nil];
+    
+}
+
+- (void)shareWithEmail
+{
+    // IOS 8 simulator has an issue on showing mail composer. It will work fine on device.
+    
+    if(![MFMailComposeViewController canSendMail]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Your device doesn't support Mail!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    NSString *messageBody = [self.url absoluteString];
+    
+    MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+    mailComposeViewController.mailComposeDelegate = self;
+    [mailComposeViewController setMessageBody:messageBody isHTML:YES];
+    
+    // Present mail view controller on screen
+    [self.parentViewController presentViewController:mailComposeViewController animated:YES completion:nil];
+    
+}
+
 #pragma mark - RNFrostedSidebarDelegate
 
 - (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
@@ -390,10 +445,68 @@ typedef NS_ENUM(NSInteger, SideBarIndex) {
         case SideBarIndexTwitter:
             [self shareOnTwitter];
             break;
+        case SideBarIndexSms:
+            [self shareWithSms];
+            break;
+        case SideBarIndexMail:
+            [self shareWithEmail];
+            break;
             
         default:
             break;
     }
+}
+
+#pragma mark - Mail compose view controller delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+            break;
+        case MFMailComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send Mail!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        }
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Message compose view controller delegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
