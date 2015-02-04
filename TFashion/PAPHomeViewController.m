@@ -13,6 +13,8 @@
 #import "MBProgressHUD.h"
 #import "CONIntroViewController.h"
 #import "CONFollowPopularFeedsViewController.h"
+#import "SVWebViewController.h"
+#import <FontAwesomeKit/FAKFontAwesome.h>
 
 @interface PAPHomeViewController () <CONIntroViewControllerDelegate>
 @property (nonatomic, strong) UIView *blankTimelineView;
@@ -38,6 +40,9 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
+    
+    FAKFontAwesome *browserIcon = [FAKFontAwesome globeIconWithSize:28.0f];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[browserIcon imageWithSize:CGSizeMake(28.0f, 28.0f)] style:UIBarButtonItemStylePlain target:self action:@selector(browserButtonAction:)];
     
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     
@@ -101,6 +106,11 @@
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
+- (void)browserButtonAction:(id)sender {
+    NSURL *URL = [NSURL URLWithString:@"http://apple.com"];
+    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:URL];
+    [self.navigationController pushViewController:webViewController animated:YES];
+}
 
 - (void)inviteFriendsButtonAction:(id)sender {
     PAPFindFriendsViewController *detailViewController = [[PAPFindFriendsViewController alloc] init];
