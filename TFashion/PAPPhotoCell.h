@@ -9,8 +9,11 @@
 #import <ParseUI/ParseUI.h>
 
 @class PFImageView;
+@class CONImageOverlay;
+
 @interface PAPPhotoCell : PFTableViewCell
 
 @property (nonatomic, strong) UIButton *photoButton;
+@property (nonatomic, strong) CONImageOverlay *imageOverlay;
 
 @end

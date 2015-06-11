@@ -112,6 +112,7 @@
 		C4C9B94816B877AE00BB2862 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94616B877AE00BB2862 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4C9B94916B877AE00BB2862 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94716B877AE00BB2862 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4CD219915ED790500BC387F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD219815ED790500BC387F /* libsqlite3.dylib */; };
+		C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */; };
 		E53E07243D0490596262872E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64CAF6CE3BD4380359BBD /* libPods.a */; };
 		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
 		E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */; };
@@ -397,6 +398,8 @@
 		C4C9B94616B877AE00BB2862 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C4C9B94716B877AE00BB2862 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		C4CD219815ED790500BC387F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		C9FB3603C366E3750566773D /* CONImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONImageOverlay.h; sourceTree = "<group>"; };
+		C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONImageOverlay.m; sourceTree = "<group>"; };
 		E6F64CAF6CE3BD4380359BBD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ADD4BC17BEA09500E975E2 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -634,7 +637,6 @@
 				C4A89497155879FC00DC57D3 /* Views */,
 				C4A89496155879F600DC57D3 /* Controllers */,
 				BC19D29D1A25FF62002B9944 /* Models */,
-				BC09CAF21A30C496001F8DC8 /* Library */,
 				BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */,
 				BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */,
 				BC2138CF1A24D49B003DD8C4 /* PAPCache.h */,
@@ -712,31 +714,10 @@
 				BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */,
 				BC2139191A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.h */,
 				BC21391A1A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m */,
+				C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */,
+				C9FB3603C366E3750566773D /* CONImageOverlay.h */,
 			);
 			name = PhotoDetailsViews;
-			sourceTree = "<group>";
-		};
-		BC09CAF21A30C496001F8DC8 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				BC09CAF31A30C4AD001F8DC8 /* Auth */,
-			);
-			name = Library;
-			sourceTree = "<group>";
-		};
-		BC09CAF31A30C4AD001F8DC8 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				BC09CAF41A30C4C3001F8DC8 /* Pinterest */,
-			);
-			name = Auth;
-			sourceTree = "<group>";
-		};
-		BC09CAF41A30C4C3001F8DC8 /* Pinterest */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Pinterest;
 			sourceTree = "<group>";
 		};
 		BC19D29D1A25FF62002B9944 /* Models */ = {
@@ -1294,6 +1275,7 @@
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
+				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1404,6 +1386,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TFashion;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1434,6 +1417,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TFashion;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1494,6 +1478,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TFashion;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1554,6 +1539,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = TFashion;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
