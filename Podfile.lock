@@ -153,6 +153,7 @@ PODS:
   - Optimizely-iOS-SDK (1.0.75)
   - PonyDebugger (0.4.0):
     - SocketRocket
+  - pop (1.0.7)
   - Quantcast-Measure (1.4.6):
     - Quantcast-Measure/Core (= 1.4.6)
   - Quantcast-Measure/Core (1.4.6)
@@ -209,6 +210,7 @@ DEPENDENCIES:
   - Mantle
   - MBProgressHUD (~> 0.9)
   - PonyDebugger (~> 0.4.0)
+  - pop (~> 1.0)
   - Reachability (~> 3.2)
   - RNFrostedSidebar
   - SDWebImage
@@ -221,47 +223,48 @@ DEPENDENCIES:
   - YLProgressBar
 
 SPEC CHECKSUMS:
-  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  Amplitude-iOS: bef6d4d6a5bb7e37581f6aa9d72c275023fce9e3
-  Analytics: 50dadbfbe243643b892c717c748b93204f16e536
+  AFNetworking: 96ac9bf3eda33582701cb1fcc5b896aa1e20311e
+  Amplitude-iOS: bd609dc4b2b20602866f6739a10494764e4cf666
+  Analytics: 2fe318d64bda93871a44f8a4d721dfb119da706a
   AppsFlyer-SDK: f83ad2e0821c57852512ea0bb8d3b207c64ef698
-  Bugsnag: 74d109dfa41b55d16890c987c7551ca071afd3d2
-  CMDQueryStringSerialization: bc824b96c08a3277d00c71504e13c9fa18c6b451
-  cocoa-oauth: 418c70e6ce4130fa7ebdf05232018c8f391030d8
-  Countly: f26a3483a660b5790b2c76e1f91dea4f276b3c33
-  CrittercismSDK: 0f3bfca5d5e7b11ba8042a119c7aeb32c034c3aa
-  DBCamera: 831e958699d8f728a23d6620415e2b6dcbc090d5
-  FlurrySDK: abaedafc350afa41b004236b67ae14f7d3748b68
-  FontAwesomeKit: 61f0b4f12f1b11b7489bc7d1507a8692547f3857
-  GoogleAnalytics-iOS-SDK: f422062075d9ccb1ea8d783fc5ba3829461e9502
-  GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
-  HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
-  iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
-  ISO8601: a6afce5fbe854024802367c814fac4aa8d3586f9
-  JazzHands: d39c6b19bfe34946d220fdede80930b7be37f199
-  KahunaSDK: 202ccb410aa6c35bae90dc466008b165d99f0153
-  libPhoneNumber-iOS: d4316d494d4997c40a6059faf35a970d7f4eb1c0
-  Localytics: c42d816fd7bf4a770812a5af0d2e4a92bc6dcfdd
-  Lookback: 1c2f89df8d08440460c93ad180f47c8608ad4cea
-  LookbackSafe: 83ad24981222b662b6e6bbd670b6e46076e106ca
-  Mantle: d5fbaf30fbc58031223af13812c060e15934a1fe
-  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  Mixpanel: e919d14f07a34ee01f81f97e535b7a240af2f793
-  NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
-  Optimizely-iOS-SDK: d602dca6021c35333242191914fc8c03b01833cb
-  PonyDebugger: 4f43d7c2f67aa5e26ca00ce6983421608a6eca6d
-  Quantcast-Measure: 82b2e0b81df7f59ee3f643551d4d79fa433f22ba
-  Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
-  ReactiveCocoa: 31119068e3dde866bd257cf74e1f06b4023bf387
-  RNFrostedSidebar: f1d95d9b2627f13cc10e75d36e751a623eec079c
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SimpleAuth: 0664e22bff27c7f5b169254b421b1c761d002f65
-  SocketRocket: 6c9cfd1592bea82262b4283dcda3a7de166af3b6
-  Taplytics: b985c4321a4066b109db516c197d8f855af7f2f5
-  Tapstream: b2d949e963c393938697db68256ba70aadddb820
-  TRVSDictionaryWithCaseInsensitivity: a61daa8469fa079e05b694f6aad5441785c837d1
-  TSMessages: b2b5dc71f65146387e51f2600bb0eb8f3a6c4ab8
-  TTTAttributedLabel: 71843ac4178e1ebd6b0950b54325146726a124ae
-  YLProgressBar: 1b22a7c4418537f3e32463ba0a0d8fc87c2754cd
+  Bugsnag: fa1255f70b6f7feea22f8ee538833382ae846c27
+  CMDQueryStringSerialization: 03c5d9847a4eaa2b3e4e439ce1ae24f914cc7fe1
+  cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8
+  Countly: 61e8a4518699221846db98f09a5d6f2b38267a25
+  CrittercismSDK: 807a7ae007fc0f5e14973926ac846351650e3bce
+  DBCamera: 9f40f76f6397153b214d938feb3f3ffd4a195eed
+  FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
+  FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
+  GoogleAnalytics-iOS-SDK: 4f98a376c1d61e6ac4ca47951655820314856eef
+  GPUImage: 4675ce4a5370ca92fcea8623b2a08b8f0c51b940
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  iOS-blur: 8e4a4a2202b881e940869eca0c957808cbdf0a19
+  ISO8601: 65c04bc4ccf075235e93aa44caed3fbad7e55b1b
+  JazzHands: f5c0beff01ca6f9a22d6e27c400b34d224dbdc6e
+  KahunaSDK: c99d1a178bfbd38ba20696895f1373dab9d790be
+  libPhoneNumber-iOS: fb90c5e0d100923b61f0db81de56daefbb67b103
+  Localytics: 8797439d1e6da9d148d4b34486c64829ac5d6487
+  Lookback: 00e39f8f1e89ca1bc3fe66afbe033386558381a3
+  LookbackSafe: 5d7962e94ad8c9a4a39c181592cb4aa2a080c3e8
+  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
+  Mixpanel: 488567f7138408f360377dd46e1d189655f8b435
+  NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  Optimizely-iOS-SDK: 857b640aebe3bbe1770ba7b1715666e224a066bd
+  PonyDebugger: 699b7af1dbbd96c67b47416cf542d37fcde4cefa
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  Quantcast-Measure: 415d204ee4010b27493369e131cec09de1b5acf5
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  ReactiveCocoa: cbe3b5eae464aa72a348a7323996b171728a9e71
+  RNFrostedSidebar: 9491d8627e5e99b92334d36def432c0faf7ebae4
+  SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
+  SimpleAuth: 3f9cc008a7d2b82163c117a328d80380072afa4e
+  SocketRocket: 54a4ac2f354c4e8c51ef5dcd4a13bc556d4f2b7c
+  Taplytics: 8d17241cbd0e9eadb399840e86c47105376db874
+  Tapstream: 37f7339a7d8aa8cc92b045edbacc91ef7f4090c5
+  TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
+  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  TTTAttributedLabel: 0a9e524c8d78301506c26affffc827429b833b25
+  YLProgressBar: add024bd1f6d95d77df54040f793e32344e9ce15
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.2

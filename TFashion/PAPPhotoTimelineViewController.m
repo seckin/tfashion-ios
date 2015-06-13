@@ -496,8 +496,8 @@
 - (void)didTapOnPhotoAction:(UIButton *)sender {
     PFObject *photo = [self.objects objectAtIndex:sender.tag];
     if (photo) {
-        PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
-        [self.navigationController pushViewController:photoDetailsVC animated:YES];
+//        PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
+//        [self.navigationController pushViewController:photoDetailsVC animated:YES];
     }
 }
 
