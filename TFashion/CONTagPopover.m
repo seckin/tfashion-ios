@@ -108,13 +108,12 @@
                                                   @"Appears as placeholder text before a user enters text for a photo tag.");
     UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
     CGSize tagSize = [placeholderText sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:12]}];
-    // allocate space for the comment button:
-    tagSize.width += 10.0f;
+
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, tagSize.width, tagSize.height)];
     [textField setFont:textFieldFont];
     [textField setBackgroundColor:[UIColor clearColor]];
     [textField setTextColor:[UIColor whiteColor]];
-    [textField setPlaceholder:placeholderText];
+//    [textField setPlaceholder:placeholderText];
     [textField setAutocorrectionType:UITextAutocorrectionTypeNo];
     [textField setKeyboardAppearance:UIKeyboardAppearanceAlert];
     [textField setTextAlignment:NSTextAlignmentCenter];
@@ -122,22 +121,6 @@
     [textField setEnablesReturnKeyAutomatically:YES];
     [textField setDelegate:self];
     [textField setUserInteractionEnabled:NO];
-
-    self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSLog(@"tagSize.width = %f", tagSize.width);
-    [self.commentButton setFrame:CGRectMake( tagSize.width - 5.0f, 0.0f, 12.0f, 12.0f)];
-    [self.commentButton setBackgroundColor:[UIColor clearColor]];
-    [self.commentButton setTitle:@"" forState:UIControlStateNormal];
-    [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 0.0f, 0.0f, 0.0f)];
-    [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
-    [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
-    [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
-    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:12.0f];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(12.0f, 12.0f)] forState:UIControlStateNormal];
-    [self.commentButton setSelected:NO];
-    [textField addSubview:self.commentButton];
 
     [self setTagTextField:textField];
     return textField;
@@ -183,6 +166,7 @@
 
 - (void)setText:(NSString *)text
 {
+    NSLog(@"setText called with text = %@", text);
     [self.tagTextField setText:text];
     [self resizeTextField];
 }
@@ -458,37 +442,59 @@ replacementString:(NSString *)string {
     } else if (self.tagTextField.placeholder && ![self.tagTextField.placeholder isEqualToString:@""]){
         newTagSize = [self.tagTextField.text sizeWithAttributes:@{NSFontAttributeName: self.tagTextField.font}];
     }
-    
+
+    // allocate space for the comment button:
+    newTagSize.width += 24.0f;
+
     if(self.tagTextField.isFirstResponder){
         //This gives some extra room for the cursor.
         newTagSize.width += 3;
     }
-    
+
     CGRect newTextFieldFrame = self.tagTextField.frame;
     CGSize minimumSize = self.tagTextField.isFirstResponder ? self.minimumTextFieldSizeWhileEditing :
     self.minimumTextFieldSize;
-    
+
     newTextFieldFrame.size.width = MAX(newTagSize.width, minimumSize.width);
     newTextFieldFrame.size.height = MAX(newTagSize.height, minimumSize.height);
     [self.tagTextField setFrame:newTextFieldFrame];
-    
-    
+
+
     CGSize tagInsets = CGSizeMake(-7, -6);
     CGRect tagBounds = CGRectInset(self.tagTextField.bounds, tagInsets.width, tagInsets.height);
     tagBounds.size.height += 10.0f;
     tagBounds.origin.x = 0;
     tagBounds.origin.y = 0;
-    
-    
+
+
     CGPoint originalCenter = self.center;
 
     NSLog(@"burda: newTextFieldFrame.size.width = %f", newTextFieldFrame.size.width);
 //    [self.commentButton setFrame:CGRectMake(newTextFieldFrame.size.width, 0.0f, 12.0f, 12.0f)];
     [self setFrame:tagBounds];
-    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 5.0f, 0.0f, 12.0f, 12.0f)];
+//    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 5.0f, 0.0f, 12.0f, 12.0f)];
+    self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    NSLog(@"tagSize.width = %f", tagSize.width);
+    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 12.0f, 0.0f, 16.0f, 16.0f)];
+    [self.commentButton setBackgroundColor:[UIColor clearColor]];
+    [self.commentButton setTitle:@"1" forState:UIControlStateNormal];
+    [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 0.0f, 0.0f, 0.0f)];
+    [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:10.0f]];
+    [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
+    [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:NO];
+    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:16.0f];
+    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateNormal];
+    [self.commentButton setSelected:NO];
+    [self.tagTextField addSubview:self.commentButton];
+
+
+
+
     [self setCenter:originalCenter];
 
-    
+
     [self setNeedsDisplay];
 }
 

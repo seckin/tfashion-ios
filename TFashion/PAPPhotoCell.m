@@ -48,7 +48,7 @@
         [self.contentView addSubview:self.photoButton];
 
         CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.6874, 0.53)],
-                @"tagText" : @"Karla"}];
+                @"tagText" : @"Jacket"}];
 
         [self setTag:tag];
 
@@ -93,6 +93,7 @@
     POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
     animation.fromValue = @(0.0);
     animation.toValue = @(0.5);
+    
     [self.imageOverlay pop_addAnimation:animation forKey:@"fadespring"];
 
     [NSTimer scheduledTimerWithTimeInterval:1.0
