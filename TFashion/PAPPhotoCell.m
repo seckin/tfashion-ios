@@ -35,9 +35,9 @@
         
         self.backgroundColor = [UIColor clearColor];
 
-//        self.imageView.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
-//        self.imageView.backgroundColor = [UIColor blackColor];
-//        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.imageView.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
+        self.imageView.backgroundColor = [UIColor blackColor];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.photoButton.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
@@ -57,6 +57,7 @@
         [self.contentView addSubview:self.tagpopover];
 
 //        [self.contentView bringSubviewToFront:self.imageView];
+        [self.contentView bringSubviewToFront:self.tagpopover];
     }
 
     return self;

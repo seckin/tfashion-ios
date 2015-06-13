@@ -108,6 +108,8 @@
                                                   @"Appears as placeholder text before a user enters text for a photo tag.");
     UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
     CGSize tagSize = [placeholderText sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:12]}];
+    // allocate space for the comment button:
+    tagSize.width += 10.0f;
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, tagSize.width, tagSize.height)];
     [textField setFont:textFieldFont];
     [textField setBackgroundColor:[UIColor clearColor]];
@@ -122,9 +124,8 @@
     [textField setUserInteractionEnabled:NO];
 
     self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [textField addSubview:self.commentButton];
     NSLog(@"tagSize.width = %f", tagSize.width);
-    [self.commentButton setFrame:CGRectMake( tagSize.width, 0.0f, 12.0f, 12.0f)];
+    [self.commentButton setFrame:CGRectMake( tagSize.width - 5.0f, 0.0f, 12.0f, 12.0f)];
     [self.commentButton setBackgroundColor:[UIColor clearColor]];
     [self.commentButton setTitle:@"" forState:UIControlStateNormal];
     [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
@@ -136,7 +137,8 @@
     [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
     [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(12.0f, 12.0f)] forState:UIControlStateNormal];
     [self.commentButton setSelected:NO];
-    
+    [textField addSubview:self.commentButton];
+
     [self setTagTextField:textField];
     return textField;
 }
@@ -337,6 +339,7 @@
 
 - (void)repositionInRect:(CGRect)rect
 {
+    NSLog(@"repositionInRect called");
     [self.layer setAnchorPoint:CGPointMake(0.5,0)];
     CGPoint popoverPoint = CGPointMake(rect.origin.x, rect.origin.y);
     popoverPoint.x += rect.size.width * (self.normalizedArrowPoint.x + self.normalizedArrowOffset.x);
