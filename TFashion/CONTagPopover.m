@@ -481,9 +481,11 @@ replacementString:(NSString *)string {
     
     
     CGPoint originalCenter = self.center;
+
     NSLog(@"burda: newTextFieldFrame.size.width = %f", newTextFieldFrame.size.width);
 //    [self.commentButton setFrame:CGRectMake(newTextFieldFrame.size.width, 0.0f, 12.0f, 12.0f)];
     [self setFrame:tagBounds];
+    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 5.0f, 0.0f, 12.0f, 12.0f)];
     [self setCenter:originalCenter];
 
     
