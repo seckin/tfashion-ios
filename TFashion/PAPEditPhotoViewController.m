@@ -350,7 +350,6 @@
             // userInfo might contain any caption which might have been posted by the uploader
             if (userInfo) {
                 NSString *commentText = [userInfo objectForKey:kPAPEditPhotoViewControllerUserInfoCommentKey];
-                
                 if (commentText && commentText.length != 0) {
                     // create and save photo caption
                     PFObject *comment = [PFObject objectWithClassName:kPAPActivityClassKey];
@@ -373,8 +372,9 @@
                         [mention setObject:comment forKey:kPAPActivityCommentKey];
                         [mention saveEventually];
                     }
+                    [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
+                    
                 }
-                [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
                 [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
             }
         } else {
