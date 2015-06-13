@@ -16,7 +16,7 @@
 /*CONTagPopover is a UIView subclass that displays the text for a tag
  within a callout bubble coming from a specific point in a photo*/
 
-@interface CONTagPopover : UIView <UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface CONTagDetailPopover : UIView <UITextFieldDelegate>
 
 @property (strong) id <CONPhotoTagProtocol> dataSource;
 @property (assign) CGPoint normalizedArrowPoint;

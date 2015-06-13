@@ -15,6 +15,7 @@
 #import "POPSpringAnimation.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
+#import "CONTagDetailPopover.h"
 
 @implementation PAPPhotoCell
 @synthesize photoButton;
@@ -58,10 +59,31 @@
 
 //        [self.contentView bringSubviewToFront:self.imageView];
         [self.contentView bringSubviewToFront:self.tagpopover];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTagPopoverTapGesture:) ];
+        tapGesture.numberOfTapsRequired = 2;
+        [self.tagpopover addGestureRecognizer:tapGesture];
     }
 
     return self;
 }
+
+- (void)handleTagPopoverTapGesture:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+
+        [self.tagpopover removeFromSuperview];
+        
+        CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.574, 0.53)], @"tagText" : @"!"}];
+        
+        self.tagdetailpopover = [[CONTagDetailPopover alloc] init];
+        [self.tagdetailpopover initWithTag:tag];
+        [self.contentView addSubview:self.tagdetailpopover];
+        
+        
+        NSLog(@"karla tap handler");
+    }
+}
+
 
 - (void) removeImageOverlay:(NSTimer*)theTimer {
     [self.imageOverlay removeFromSuperview];

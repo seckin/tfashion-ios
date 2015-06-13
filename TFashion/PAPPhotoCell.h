@@ -12,6 +12,7 @@
 @class CONImageOverlay;
 @class CONDEMOTag;
 @class CONTagPopover;
+@class CONTagDetailPopover;
 
 @interface PAPPhotoCell : PFTableViewCell
 
@@ -19,5 +20,6 @@
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;
 @property (strong) CONDEMOTag *tag;
 @property (strong) CONTagPopover *tagpopover;
+@property (strong) CONTagDetailPopover *tagdetailpopover;
 
 @end
