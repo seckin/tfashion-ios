@@ -10,10 +10,14 @@
 
 @class PFImageView;
 @class CONImageOverlay;
+@class CONDEMOTag;
+@class CONTagPopover;
 
 @interface PAPPhotoCell : PFTableViewCell
 
 @property (nonatomic, strong) UIButton *photoButton;
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;
+@property (strong) CONDEMOTag *tag;
+@property (strong) CONTagPopover *tagpopover;
 
 @end

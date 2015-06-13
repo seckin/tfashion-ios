@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 050423A61B2C096F006A1B02 /* CONTagPopover.m */; };
 		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
@@ -112,6 +113,7 @@
 		C4C9B94816B877AE00BB2862 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94616B877AE00BB2862 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4C9B94916B877AE00BB2862 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C9B94716B877AE00BB2862 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4CD219915ED790500BC387F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CD219815ED790500BC387F /* libsqlite3.dylib */; };
+		C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */; };
 		C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */; };
 		E53E07243D0490596262872E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6F64CAF6CE3BD4380359BBD /* libPods.a */; };
 		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
@@ -120,6 +122,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CONPhotoTagProtocol.h; sourceTree = "<group>"; };
+		050423A51B2C096F006A1B02 /* CONTagPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONTagPopover.h; sourceTree = "<group>"; };
+		050423A61B2C096F006A1B02 /* CONTagPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagPopover.m; sourceTree = "<group>"; };
 		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		054B82901A5426BF007E9770 /* ActivityFeedBlank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActivityFeedBlank.png; sourceTree = "<group>"; };
@@ -398,7 +403,9 @@
 		C4C9B94616B877AE00BB2862 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C4C9B94716B877AE00BB2862 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		C4CD219815ED790500BC387F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		C9FB344B276308A0E366A45F /* CONDemoTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONDemoTag.h; sourceTree = "<group>"; };
 		C9FB3603C366E3750566773D /* CONImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONImageOverlay.h; sourceTree = "<group>"; };
+		C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONDemoTag.m; sourceTree = "<group>"; };
 		C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONImageOverlay.m; sourceTree = "<group>"; };
 		E6F64CAF6CE3BD4380359BBD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7ADD4BC17BEA09500E975E2 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
@@ -672,6 +679,11 @@
 				BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */,
 				BC2139051A24D775003DD8C4 /* PAPPhotoCell.h */,
 				BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */,
+				050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */,
+				050423A51B2C096F006A1B02 /* CONTagPopover.h */,
+				050423A61B2C096F006A1B02 /* CONTagPopover.m */,
+				C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */,
+				C9FB344B276308A0E366A45F /* CONDemoTag.h */,
 			);
 			name = UITableViewCells;
 			sourceTree = "<group>";
@@ -1213,6 +1225,7 @@
 				BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */,
 				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
 				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
+				050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */,
 				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
 				BC82D0D51A7918BA00139B57 /* CONFollowPopularFeedsViewController.m in Sources */,
 				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
@@ -1276,6 +1289,7 @@
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
+				C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

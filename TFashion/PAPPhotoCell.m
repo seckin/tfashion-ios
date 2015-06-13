@@ -13,6 +13,8 @@
 #import "PAPUtility.h"
 #import "CONImageOverlay.h"
 #import "POPSpringAnimation.h"
+#import "CONDemoTag.h"
+#import "CONTagPopover.h"
 
 @implementation PAPPhotoCell
 @synthesize photoButton;
@@ -33,9 +35,9 @@
         
         self.backgroundColor = [UIColor clearColor];
 
-        self.imageView.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
-        self.imageView.backgroundColor = [UIColor blackColor];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        self.imageView.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
+//        self.imageView.backgroundColor = [UIColor blackColor];
+//        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.photoButton.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
@@ -45,7 +47,16 @@
         NSLog(@"photoButton added as subview");
         [self.contentView addSubview:self.photoButton];
 
-        [self.contentView bringSubviewToFront:self.imageView];
+        CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.6874, 0.53)],
+                @"tagText" : @"Karla"}];
+
+        [self setTag:tag];
+
+        self.tagpopover = [[CONTagPopover  alloc] init];//[CONTagPopover initWithTag:self.tag];
+        [self.tagpopover initWithTag:self.tag];
+        [self.contentView addSubview:self.tagpopover];
+
+//        [self.contentView bringSubviewToFront:self.imageView];
     }
 
     return self;
