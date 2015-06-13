@@ -20,6 +20,7 @@
 @property (weak) UIView *contentView;
 @property (weak) UITextField *tagTextField;
 @property (assign) UIButton *commentButton;
+@property (assign) UIButton *likeButton;
 @property (assign, getter = isCanceled) BOOL canceled;
 @end
 
@@ -444,7 +445,7 @@ replacementString:(NSString *)string {
     }
 
     // allocate space for the comment button:
-    newTagSize.width += 24.0f;
+    newTagSize.width += 80.0f;
 
     if(self.tagTextField.isFirstResponder){
         //This gives some extra room for the cursor.
@@ -475,7 +476,7 @@ replacementString:(NSString *)string {
 //    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 5.0f, 0.0f, 12.0f, 12.0f)];
     self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    NSLog(@"tagSize.width = %f", tagSize.width);
-    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 12.0f, 0.0f, 16.0f, 16.0f)];
+    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 34.0f, 0.0f, 16.0f, 16.0f)];
     [self.commentButton setBackgroundColor:[UIColor clearColor]];
     [self.commentButton setTitle:@"1" forState:UIControlStateNormal];
     [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
@@ -489,6 +490,27 @@ replacementString:(NSString *)string {
     [self.commentButton setSelected:NO];
     [self.tagTextField addSubview:self.commentButton];
 
+
+    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.likeButton setFrame:CGRectMake(newTextFieldFrame.size.width - 18.0f, 0.0f, 16.0f, 16.0f)];
+    [self.likeButton setBackgroundColor:[UIColor clearColor]];
+    [self.likeButton setTitle:@"2" forState:UIControlStateNormal];
+    [self.likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [[self.likeButton titleLabel] setFont:[UIFont systemFontOfSize:10.0f]];
+    [[self.likeButton titleLabel] setMinimumScaleFactor:0.8f];
+    [[self.likeButton titleLabel] setAdjustsFontSizeToFitWidth:NO];
+    [self.likeButton setAdjustsImageWhenHighlighted:NO];
+    [self.likeButton setAdjustsImageWhenDisabled:NO];
+    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:16.0f];
+    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateNormal];
+    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:16.0f];
+    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateSelected];
+    [self.likeButton setSelected:NO];
+    [self.tagTextField addSubview:self.likeButton];
 
 
 
