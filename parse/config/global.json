@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "TFashion": {
+      "applicationId": "P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO",
+      "masterKey": "omEVJohGXsgfW6n5OrsWEmYlseQnW9inYPz1Pkux"
+    },
+    "_default": {
+      "link": "TFashion"
+    }
+  }
+}
