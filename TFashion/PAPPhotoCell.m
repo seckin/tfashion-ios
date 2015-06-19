@@ -49,7 +49,7 @@
         [self.contentView addSubview:self.photoButton];
 
         CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.6874, 0.53)],
-                @"tagText" : @"Jacket"}];
+                @"tagText" : @""}];
 
         [self setTag:tag];
 
@@ -101,16 +101,7 @@
 
 - (void)photoButtonDoubleTap:(id)sender
 {
-    NSLog(@"burda92");
     self.imageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
-
-
-//        POPBasicAnimation *animation = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
-//        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        animation.fromValue = @(0.0);
-//        animation.toValue = @(1.0);
-//        animation.duration = 2.0f;
-//        [self.imageOverlay pop_addAnimation:animation forKey:@"fade"];
 
     POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
     animation.fromValue = @(0.0);
