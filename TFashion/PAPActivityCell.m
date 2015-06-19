@@ -108,9 +108,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)setIsNew:(BOOL)isNew {
     if (isNew) {
-        [self.mainView setBackgroundColor:[UIColor colorWithRed:29.0f/255.0f green:29.0f/255.0f blue:29.0f/255.0f alpha:1.0f]];
+        [self.mainView setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
     } else {
-        [self.mainView setBackgroundColor:[UIColor blackColor]];
+        [self.mainView setBackgroundColor:[UIColor whiteColor]];
     }
 }
 
@@ -144,6 +144,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     
     [self.nameButton setTitle:nameString forState:UIControlStateNormal];
     [self.nameButton setTitle:nameString forState:UIControlStateHighlighted];
+
     
     // If user is set after the contentText, we reset the content to include padding
     if (self.contentLabel.text) {
@@ -155,10 +156,18 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                         options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
                                                         context:nil].size;
+        [self.nameButton setBackgroundColor:[UIColor clearColor]];
+        
+        [self.nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [self.nameButton setOpaque:YES];
+        
         NSString *paddedString = [PAPBaseTextCell padString:activityString withFont:[UIFont systemFontOfSize:13.0f] toWidth:nameSize.width];
         [self.contentLabel setText:paddedString];
+        [self.contentLabel setTextColor:[UIColor blackColor]];
     } else { // Otherwise we ignore the padding and we'll add it after we set the user
         [self.contentLabel setText:activityString];
+        [self.contentLabel setTextColor:[UIColor blackColor]];
     }
 
     [self.timeLabel setText:[timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[activity createdAt]]];
