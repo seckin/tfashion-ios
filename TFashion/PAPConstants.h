@@ -64,6 +64,13 @@ extern NSString *const kPAPInstallationUserKey;
 // Class key
 extern NSString *const kPAPActivityClassKey;
 
+#pragma mark - PFObject Cloth Class
+// Class key
+extern NSString *const kPAPClothClassKey;
+
+// Field key
+extern NSString *const kPAPClothPhotoKey;
+
 // Field keys
 extern NSString *const kPAPActivityTypeKey;
 extern NSString *const kPAPActivityFromUserKey;

@@ -253,7 +253,7 @@
 
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
-
+            
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
@@ -392,6 +392,19 @@
     } else {
         headerView.likeButton.alpha = 0.0f;
         headerView.commentButton.alpha = 0.0f;
+        
+        @synchronized(self) {
+            PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                @synchronized(self) {
+                    if (error) {
+                        return;
+                    }
+                    //NSMutableArray *clothes = [NSMutableArray array];
+                    NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[objects count]);
+                }
+            }];
+        }
 
         @synchronized(self) {
             // check if we can update the cache

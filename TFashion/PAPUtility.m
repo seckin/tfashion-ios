@@ -323,6 +323,16 @@
     return query;
 }
 
+#pragma mark Clothes
+
++ (PFQuery *)queryForClothesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy {
+    PFQuery *queryClothes = [PFQuery queryWithClassName:kPAPClothClassKey];
+    [queryClothes whereKey:kPAPClothPhotoKey equalTo:photo];
+    [queryClothes setCachePolicy:cachePolicy];
+
+    return queryClothes;
+}
+
 
 #pragma mark Shadow Rendering
 
