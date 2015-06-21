@@ -54,48 +54,6 @@
         self.avatarImageView.frame = CGRectMake( 4.0f, 4.0f, 35.0f, 35.0f);
         [self.avatarImageView.profileButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.containerView addSubview:self.avatarImageView];
-
-        if (self.buttons & PAPPhotoHeaderButtonsComment) {
-            // comments button
-            commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [containerView addSubview:self.commentButton];
-            [self.commentButton setFrame:CGRectMake( 282.0f, 10.0f, 29.0f, 29.0f)];
-            [self.commentButton setBackgroundColor:[UIColor clearColor]];
-            [self.commentButton setTitle:@"" forState:UIControlStateNormal];
-            [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-            [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( -6.0f, 0.0f, 0.0f, 0.0f)];
-            [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
-            [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
-            [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
-            FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:29.0f];
-            [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-            [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(29.0f, 24.0f)] forState:UIControlStateNormal];
-            [self.commentButton setSelected:NO];
-        }
-        
-        if (self.buttons & PAPPhotoHeaderButtonsLike) {
-            // like button
-            likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [containerView addSubview:self.likeButton];
-            [self.likeButton setFrame:CGRectMake(246.0f, 9.0f, 29.0f, 29.0f)];
-            [self.likeButton setBackgroundColor:[UIColor clearColor]];
-            [self.likeButton setTitle:@"" forState:UIControlStateNormal];
-            [self.likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-            [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-            [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-            [[self.likeButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
-            [[self.likeButton titleLabel] setMinimumScaleFactor:0.8f];
-            [[self.likeButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
-            [self.likeButton setAdjustsImageWhenHighlighted:NO];
-            [self.likeButton setAdjustsImageWhenDisabled:NO];
-            FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:29.0f];
-            [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-            [likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateNormal];
-            FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:29.0f];
-            [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-            [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
-            [self.likeButton setSelected:NO];
-        }
         
         if (self.buttons & PAPPhotoHeaderButtonsUser) {
             // This is the user's display name, on a button so that we can tap on it
@@ -148,16 +106,6 @@
 
     if (self.buttons & PAPPhotoHeaderButtonsUser) {
         [self.userButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    if (self.buttons & PAPPhotoHeaderButtonsComment) {
-        constrainWidth = self.commentButton.frame.origin.x;
-        [self.commentButton addTarget:self action:@selector(didTapCommentOnPhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    if (self.buttons & PAPPhotoHeaderButtonsLike) {
-        constrainWidth = self.likeButton.frame.origin.x;
-        [self.likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     // we resize the button to fit the user's name to avoid having a huge touch area
