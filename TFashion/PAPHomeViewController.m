@@ -12,7 +12,6 @@
 #import "PAPFindFriendsViewController.h"
 #import "MBProgressHUD.h"
 #import "CONIntroViewController.h"
-#import "CONFollowPopularFeedsViewController.h"
 #import "SVWebViewController.h"
 #import <FontAwesomeKit/FAKFontAwesome.h>
 
@@ -92,8 +91,8 @@
 
 - (void)intoViewControllerDidDismiss:(CONIntroViewController *)introViewController
 {
-    CONFollowPopularFeedsViewController *followPFVC = [[CONFollowPopularFeedsViewController alloc] init];
-    [self.parentViewController presentViewController:followPFVC animated:YES completion:nil];
+    PAPHomeViewController *homeviewcontroller = [[PAPHomeViewController alloc] init];
+    [self.parentViewController presentViewController:homeviewcontroller animated:YES completion:nil];
 }
 
 #pragma mark - ()

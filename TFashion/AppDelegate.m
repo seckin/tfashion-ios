@@ -20,7 +20,6 @@
 #import "PAPActivityFeedViewController.h"
 #import "PAPPhotoDetailsViewController.h"
 #import "CONSignUpViewController.h"
-#import "CONFeedTimelineViewController.h"
 #import "CONSocialAccount.h"
 #import <Lookback/Lookback.h>
 #import <Analytics.h>
@@ -35,7 +34,7 @@
 
 @property (nonatomic, strong) PAPHomeViewController *homeViewController;
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController;
-@property (nonatomic, strong) CONFeedTimelineViewController *feedViewController;
+@property (nonatomic, strong) PAPActivityFeedViewController *activityViewController2;
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
 @property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 
@@ -249,16 +248,17 @@
 - (void)presentTabBarController {    
     self.tabBarController = [[PAPTabBarController alloc] init];
     self.homeViewController = [[PAPHomeViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.feedViewController = [[CONFeedTimelineViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.homeViewController setFirstLaunch:firstLaunch];
+    self.activityViewController2 = [[PAPActivityFeedViewController alloc] initWithStyle:UITableViewStylePlain];
     self.activityViewController = [[PAPActivityFeedViewController alloc] initWithStyle:UITableViewStylePlain];
     self.accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
     self.accountViewController.user = [PFUser currentUser];
     
     UINavigationController *homeNavigationController = [[UINavigationController alloc] initWithRootViewController:self.homeViewController];
-    UINavigationController *feedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.feedViewController];
     UINavigationController *emptyNavigationController = [[UINavigationController alloc] init];
     UINavigationController *activityFeedNavigationController = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
+
+    UINavigationController *activityFeedNavigationController2 = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
     UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:self.accountViewController];
     
     FAKIonIcons *homeIcon = [FAKIonIcons homeIconWithSize:27.0f];
@@ -266,20 +266,20 @@
     
     FAKIonIcons *activityIcon = [FAKIonIcons iosBellIconWithSize:27.0f];
     UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+    UITabBarItem *activityFeedTabBarItem2 = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
     
     FAKZocial *feedIcon = [FAKZocial rssIconWithSize:22.0f];
-    UITabBarItem *feedTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:[feedIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
     
     FAKFontAwesome *accountIcon = [FAKFontAwesome userIconWithSize:22.0f];
     UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[accountIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
     
     [homeNavigationController setTabBarItem:homeTabBarItem];
-    [feedNavigationController setTabBarItem:feedTabBarItem];
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
+    [activityFeedNavigationController2 setTabBarItem:activityFeedTabBarItem2];
     [accountNavigationController setTabBarItem:accountTabBarItem];
     
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[ homeNavigationController, feedNavigationController, emptyNavigationController, activityFeedNavigationController, accountNavigationController];
+    self.tabBarController.viewControllers = @[ homeNavigationController, activityFeedNavigationController2, emptyNavigationController, activityFeedNavigationController, accountNavigationController];
     
     [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
@@ -325,7 +325,6 @@
     
     self.homeViewController = nil;
     self.activityViewController = nil;
-    self.feedViewController = nil;
     self.accountViewController = nil;
 }
 
