@@ -41,9 +41,6 @@
 
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
-    FAKFontAwesome *browserIcon = [FAKFontAwesome globeIconWithSize:28.0f];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[browserIcon imageWithSize:CGSizeMake(28.0f, 28.0f)] style:UIBarButtonItemStylePlain target:self action:@selector(browserButtonAction:)];
-    
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
