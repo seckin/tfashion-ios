@@ -57,7 +57,7 @@
     
     CGSize tagInsets = CGSizeMake(-7, -6);
     CGRect tagBounds = CGRectInset(self.contentView.bounds, tagInsets.width, tagInsets.height);
-    tagBounds.size.height += 10.0f;
+    tagBounds.size.height += 0.0f;
     tagBounds.origin.x = 0;
     tagBounds.origin.y = 0;
     
@@ -72,7 +72,7 @@
     [self setOpaque:NO];
     [self.contentView setFrame:CGRectOffset(self.contentView.frame,
                                             -(tagInsets.width),
-                                            -(tagInsets.height)+10)];
+                                            -(tagInsets.height)+0)];
     
     [self beginObservations];
 }
@@ -234,20 +234,6 @@
                                     point.y - yOffset);
     
     [self setCenter:newCenter];
-    
-    
-    /*
-     CGRect newFrame = self.frame;
-     newFrame.origin.x = point.x;
-     newFrame.origin.y = point.y;
-     //[self setFrame:newFrame];
-     
-     [self setTransform:CGAffineTransformMakeScale(0.3, 0.3)];
-     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-     [self setTransform:CGAffineTransformMakeScale(1,1)];
-     }completion:nil];
-     */
-    
 }
 
 
@@ -256,9 +242,9 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     
-    float radius = 4.0f;
-    float arrowHeight =  10.0f; //this is how far the arrow extends from the rect
-    float arrowWidth = 20.0;
+    float radius = 8.0f;
+    float arrowHeight =  5.0f; //this is how far the arrow extends from the rect
+    float arrowWidth = 10.0;
     
     fullRect = CGRectInset(fullRect, 1, 1);
     
@@ -437,85 +423,80 @@ replacementString:(NSString *)string {
 
 - (void)resizeTextField
 {
-    CGSize newTagSize = CGSizeZero;
-    if(self.tagTextField.text && ![self.tagTextField.text isEqualToString:@""]){
-        newTagSize = [self.tagTextField.text sizeWithAttributes:@{NSFontAttributeName: self.tagTextField.font}];
-    } else if (self.tagTextField.placeholder && ![self.tagTextField.placeholder isEqualToString:@""]){
-        newTagSize = [self.tagTextField.text sizeWithAttributes:@{NSFontAttributeName: self.tagTextField.font}];
-    }
-
-    // allocate space for the comment button:
-    newTagSize.width += 80.0f;
-
-    if(self.tagTextField.isFirstResponder){
-        //This gives some extra room for the cursor.
-        newTagSize.width += 3;
-    }
+    int iconFontSize = 16.0f;
+    int countFontSize = 10.0f;
+    int likeCount = 2;
+    int commentCount = 1;
+    NSString *countTexts = [NSString stringWithFormat:@"%d%d",likeCount, commentCount];
+    CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:countFontSize]}];
+    
+    CGSize newTagSize = countTextsSize;
+    // allocate space for icons:
+    newTagSize.width += iconFontSize * 2 + 20;
+    newTagSize.height += 6;
 
     CGRect newTextFieldFrame = self.tagTextField.frame;
-    CGSize minimumSize = self.tagTextField.isFirstResponder ? self.minimumTextFieldSizeWhileEditing :
-    self.minimumTextFieldSize;
-
-    newTextFieldFrame.size.width = MAX(newTagSize.width, minimumSize.width);
-    newTextFieldFrame.size.height = MAX(newTagSize.height, minimumSize.height);
+    newTextFieldFrame.size.width = newTagSize.width;
+    newTextFieldFrame.size.height = newTagSize.height;
     [self.tagTextField setFrame:newTextFieldFrame];
-
 
     CGSize tagInsets = CGSizeMake(-7, -6);
     CGRect tagBounds = CGRectInset(self.tagTextField.bounds, tagInsets.width, tagInsets.height);
-    tagBounds.size.height += 10.0f;
+    tagBounds.size.height += 0.0f;
     tagBounds.origin.x = 0;
     tagBounds.origin.y = 0;
 
-
     CGPoint originalCenter = self.center;
 
-    NSLog(@"burda: newTextFieldFrame.size.width = %f", newTextFieldFrame.size.width);
-//    [self.commentButton setFrame:CGRectMake(newTextFieldFrame.size.width, 0.0f, 12.0f, 12.0f)];
     [self setFrame:tagBounds];
-//    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 5.0f, 0.0f, 12.0f, 12.0f)];
+    
+    // add heart icon
+    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.likeButton setFrame:CGRectMake(0.0f, 3.0f, iconFontSize, iconFontSize)];
+    [self.likeButton setBackgroundColor:[UIColor clearColor]];
+    [self.likeButton setAdjustsImageWhenHighlighted:NO];
+    [self.likeButton setAdjustsImageWhenDisabled:NO];
+    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:iconFontSize];
+    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
+    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:iconFontSize];
+    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateSelected];
+    [self.likeButton setSelected:NO];
+    [self.tagTextField addSubview:self.likeButton];
+    
+    // add like count
+    UILabel *likeCountLabel = [[UILabel alloc] init];
+    NSString *likeCountText = [NSString stringWithFormat:@"%d", likeCount];
+    likeCountLabel.text = likeCountText;
+    [likeCountLabel sizeToFit];
+    [likeCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [likeCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [likeCountLabel setFrame:CGRectMake( 18.0, 3.0f, 16.0f, 16.0f)];
+    [self.tagTextField addSubview:likeCountLabel];
+    
+    // add comment icon
     self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    NSLog(@"tagSize.width = %f", tagSize.width);
-    [self.commentButton setFrame:CGRectMake( newTextFieldFrame.size.width - 34.0f, 0.0f, 16.0f, 16.0f)];
+    [self.commentButton setFrame:CGRectMake( 32.0, 3.0f, iconFontSize, iconFontSize)];
     [self.commentButton setBackgroundColor:[UIColor clearColor]];
-    [self.commentButton setTitle:@"1" forState:UIControlStateNormal];
-    [self.commentButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 0.0f, 0.0f, 0.0f)];
-    [[self.commentButton titleLabel] setFont:[UIFont systemFontOfSize:10.0f]];
-    [[self.commentButton titleLabel] setMinimumScaleFactor:0.8f];
-    [[self.commentButton titleLabel] setAdjustsFontSizeToFitWidth:NO];
-    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:16.0f];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateNormal];
+    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:iconFontSize];
+    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
     [self.commentButton setSelected:NO];
     [self.tagTextField addSubview:self.commentButton];
 
-
-    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.likeButton setFrame:CGRectMake(newTextFieldFrame.size.width - 18.0f, 0.0f, 16.0f, 16.0f)];
-    [self.likeButton setBackgroundColor:[UIColor clearColor]];
-    [self.likeButton setTitle:@"2" forState:UIControlStateNormal];
-    [self.likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [self.likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-    [[self.likeButton titleLabel] setFont:[UIFont systemFontOfSize:10.0f]];
-    [[self.likeButton titleLabel] setMinimumScaleFactor:0.8f];
-    [[self.likeButton titleLabel] setAdjustsFontSizeToFitWidth:NO];
-    [self.likeButton setAdjustsImageWhenHighlighted:NO];
-    [self.likeButton setAdjustsImageWhenDisabled:NO];
-    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:16.0f];
-    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateNormal];
-    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:16.0f];
-    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(16.0f, 16.0f)] forState:UIControlStateSelected];
-    [self.likeButton setSelected:NO];
-    [self.tagTextField addSubview:self.likeButton];
-
+    // add comment count
+    UILabel *commentCountLabel = [[UILabel alloc] init];
+    NSString *commentCountText = [NSString stringWithFormat:@"%d", commentCount];
+    commentCountLabel.text = commentCountText;
+    [commentCountLabel sizeToFit];
+    [commentCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [commentCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [commentCountLabel setFrame:CGRectMake( 48.0, 3.0f, 16.0f, 16.0f)];
+    [self.tagTextField addSubview:commentCountLabel];
 
 
     [self setCenter:originalCenter];
-
 
     [self setNeedsDisplay];
 }
