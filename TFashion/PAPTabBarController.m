@@ -41,7 +41,7 @@
     
     FAKIonIcons *cameraIcon = [FAKIonIcons iosCameraIconWithSize:30.0f];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
-                                                                 whiteColor]];
+            blackColor]];
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.frame = CGRectMake( 134.0f, 7.0f, 51.0f, 35.0f);
     [cameraButton setImage:[cameraIcon imageWithSize:CGSizeMake(30.0f, 30.0f)] forState:UIControlStateNormal];

@@ -73,7 +73,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.nameButton setBackgroundColor:[UIColor clearColor]];
 
         if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
-            [self.nameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
         } else {
             [self.nameButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
@@ -87,7 +87,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         self.contentLabel = [[TTTAttributedLabel alloc] init];
         [self.contentLabel setFont:[UIFont systemFontOfSize:13.0f]];
         if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
-            [self.contentLabel setTextColor:[UIColor whiteColor]];
+            [self.contentLabel setTextColor:[UIColor blackColor]];
         } else {
             [self.contentLabel setTextColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f]];
         }

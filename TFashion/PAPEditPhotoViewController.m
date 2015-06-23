@@ -68,11 +68,11 @@
 - (void)loadView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.scrollView.delegate = self;
-    self.scrollView.backgroundColor = [UIColor blackColor];
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     self.view = self.scrollView;
 
     UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 42.0f, 320.0f, 320.0f)];
-    [photoImageView setBackgroundColor:[UIColor blackColor]];
+    [photoImageView setBackgroundColor:[UIColor whiteColor]];
     [photoImageView setImage:self.image];
     [photoImageView setContentMode:UIViewContentModeScaleAspectFit];
 

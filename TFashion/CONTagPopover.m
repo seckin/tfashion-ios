@@ -113,7 +113,7 @@
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, tagSize.width, tagSize.height)];
     [textField setFont:textFieldFont];
     [textField setBackgroundColor:[UIColor clearColor]];
-    [textField setTextColor:[UIColor whiteColor]];
+    [textField setTextColor:[UIColor blackColor]];
 //    [textField setPlaceholder:placeholderText];
     [textField setAutocorrectionType:UITextAutocorrectionTypeNo];
     [textField setKeyboardAppearance:UIKeyboardAppearanceAlert];

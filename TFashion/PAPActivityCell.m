@@ -55,7 +55,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         self.hasActivityImage = NO; //No until one is set
         
         self.activityImageView = [[PAPProfileImageView alloc] init];
-        [self.activityImageView setBackgroundColor:[UIColor clearColor]];
+        [self.activityImageView setBackgroundColor:[UIColor whiteColor]];
         [self.activityImageView setOpaque:YES];
         [self.mainView addSubview:self.activityImageView];
         
@@ -156,7 +156,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                         options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
                                                         context:nil].size;
-        [self.nameButton setBackgroundColor:[UIColor clearColor]];
+        [self.nameButton setBackgroundColor:[UIColor whiteColor]];
         
         [self.nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];

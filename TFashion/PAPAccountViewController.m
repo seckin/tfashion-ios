@@ -68,7 +68,7 @@
     self.tableView.backgroundView = texturedBackgroundView;
 
     UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
-    [profilePictureBackgroundView setBackgroundColor:[UIColor darkGrayColor]];
+    [profilePictureBackgroundView setBackgroundColor:[UIColor clearColor]];
     profilePictureBackgroundView.alpha = 0.0f;
     CALayer *layer = [profilePictureBackgroundView layer];
     layer.cornerRadius = 66.0f;
@@ -88,36 +88,20 @@
         [profilePictureImageView setFile:imageFile];
         [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
             if (!error) {
-                [UIView animateWithDuration:0.2f animations:^{
-                    profilePictureBackgroundView.alpha = 1.0f;
-                    profilePictureImageView.alpha = 1.0f;
-                }];
-
+                NSLog(@"burda92");
                 UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[image applyDarkEffect]];
                 backgroundImageView.frame = self.tableView.backgroundView.bounds;
                 backgroundImageView.alpha = 0.0f;
                 [self.tableView.backgroundView addSubview:backgroundImageView];
-
-                [UIView animateWithDuration:0.2f animations:^{
-                    backgroundImageView.alpha = 1.0f;
-                }];
             }
         }];
     } else {
         profilePictureImageView.image = [PAPUtility defaultProfilePicture];
-        [UIView animateWithDuration:0.2f animations:^{
-            profilePictureBackgroundView.alpha = 1.0f;
-            profilePictureImageView.alpha = 1.0f;
-        }];
 
         UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[PAPUtility defaultProfilePicture] applyDarkEffect]];
         backgroundImageView.frame = self.tableView.backgroundView.bounds;
         backgroundImageView.alpha = 0.0f;
         [self.tableView.backgroundView addSubview:backgroundImageView];
-
-        [UIView animateWithDuration:0.2f animations:^{
-            backgroundImageView.alpha = 1.0f;
-        }];
     }
     
     UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
@@ -131,14 +115,12 @@
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor whiteColor]];
-    [photoCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [photoCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
     [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
     [self.headerView addSubview:photoCountLabel];
     
     UIImageView *followersIconImageView = [[UIImageView alloc] initWithImage:nil];
     FAKIonIcons *followersIcon = [FAKIonIcons iosPeopleIconWithSize:52.0f];
-    [followersIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [followersIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
     [followersIconImageView setImage:[followersIcon imageWithSize:CGSizeMake(52.0f, 37.0f)]];
     [followersIconImageView setFrame:CGRectMake( 247.0f, 50.0f, 52.0f, 37.0f)];
     [self.headerView addSubview:followersIconImageView];
@@ -147,7 +129,6 @@
     [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [followerCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [followerCountButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f] forState:UIControlStateNormal];
     [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followerCountButton];
@@ -156,7 +137,6 @@
     [followingCountButton setFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [followingCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [followingCountButton setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f] forState:UIControlStateNormal];
     [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
@@ -165,8 +145,6 @@
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
     [userDisplayNameLabel setTextColor:[UIColor whiteColor]];
-    [userDisplayNameLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [userDisplayNameLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
     [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [self.headerView addSubview:userDisplayNameLabel];

@@ -214,7 +214,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
      */
     self.photoImageView = [[PFImageView alloc] initWithFrame:CGRectMake(mainImageX, mainImageY, mainImageWidth, mainImageHeight)];
     self.photoImageView.image = [UIImage imageNamed:@"PlaceholderPhoto.png"];
-    self.photoImageView.backgroundColor = [UIColor blackColor];
+    self.photoImageView.backgroundColor = [UIColor whiteColor];
     self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     PFFile *imageFile = [self.photo objectForKey:kPAPPhotoPictureKey];
@@ -307,7 +307,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [likeButton setFrame:CGRectMake(likeButtonX, likeButtonY, likeButtonDim, likeButtonDim)];
     [likeButton setBackgroundColor:[UIColor clearColor]];
     [likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-    [likeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [likeButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
     [likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     [[likeButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
     [[likeButton titleLabel] setMinimumScaleFactor:0.8f];

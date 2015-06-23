@@ -269,7 +269,7 @@
         cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         cell.hideSeparatorBottom = YES;
-        cell.mainView.backgroundColor = [UIColor clearColor];
+        cell.mainView.backgroundColor = [UIColor whiteColor];
     }
     return cell;
 }

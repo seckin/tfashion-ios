@@ -32,7 +32,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 
         self.avatarImageView = [[PAPProfileImageView alloc] init];
@@ -52,7 +52,7 @@
         self.nameButton.backgroundColor = [UIColor clearColor];
         self.nameButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
         self.nameButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [self.nameButton setTitleColor:[UIColor whiteColor]
+        [self.nameButton setTitleColor:[UIColor blackColor]
                 forState:UIControlStateNormal];
         [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]
                 forState:UIControlStateHighlighted];
@@ -77,7 +77,7 @@
         [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
         [self.followButton setImage:[plusIcon imageWithSize:CGSizeMake(15.0f, 15.0f)] forState:UIControlStateNormal];
         FAKFoundationIcons *checkIcon = [FAKFoundationIcons checkIconWithSize:15.0f];
-        [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+        [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
         [self.followButton setImage:[checkIcon imageWithSize:CGSizeMake(15.0f, 15.0f)]
                            forState:UIControlStateSelected];
         [self.followButton setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering")
@@ -89,7 +89,7 @@
 //                                forState:UIControlStateNormal];
         [self.followButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
                                 forState:UIControlStateNormal];
-        [self.followButton setTitleColor:[UIColor whiteColor]
+        [self.followButton setTitleColor:[UIColor blackColor]
                                 forState:UIControlStateSelected];
         [self.followButton addTarget:self action:@selector(didTapFollowButtonAction:)
                     forControlEvents:UIControlEventTouchUpInside];

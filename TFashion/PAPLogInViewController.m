@@ -73,7 +73,7 @@
     testLoginButton.clipsToBounds = YES;
     testLoginButton.layer.cornerRadius = 3;
     [testLoginButton setBackgroundColor:[UIColor orangeColor]];
-    [testLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [testLoginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [testLoginButton addTarget:self action:@selector(testLoginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:testLoginButton];
 }

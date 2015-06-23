@@ -40,12 +40,13 @@
         if ([reuseIdentifier isEqualToString:@"NextPageDetails"]) {
             [mainView setBackgroundColor:[UIColor whiteColor]];
         } else {
-            [mainView setBackgroundColor:[UIColor blackColor]];
+            [mainView setBackgroundColor:[UIColor whiteColor]];
         }
         
         FAKIonIcons *loadMoreIcon = [FAKIonIcons iosMoreIconWithSize:31.0f];
         [loadMoreIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
         self.loadMoreImageView = [[UIImageView alloc] initWithImage:[loadMoreIcon imageWithSize:CGSizeMake(31.0f, 31.0f)]];
+        [self.loadMoreImageView setFrame:CGRectMake(10.0f, 10.0f, 31.0f, 31.0f)];
         [mainView addSubview:self.loadMoreImageView];
         
         [self.contentView addSubview:mainView];
@@ -75,10 +76,6 @@
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    if (self.cellInsetWidth != 0.0f) {
-        // TODO: @seckin: when does this work and what does it do?
-        [PAPUtility drawSideDropShadowForRect:mainView.frame inContext:UIGraphicsGetCurrentContext()];
-    }
 }
 
 

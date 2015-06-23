@@ -74,14 +74,14 @@ static const NSUInteger kSearchResultLimit = 20;
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.title = @"Find Friends";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
-    [self.headerView setBackgroundColor:[UIColor blackColor]];
+    [self.headerView setBackgroundColor:[UIColor whiteColor]];
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clearButton setBackgroundColor:[UIColor clearColor]];
     [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -99,7 +99,7 @@ static const NSUInteger kSearchResultLimit = 20;
     UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
     [inviteLabel setText:inviteString];
     [inviteLabel setFont:[UIFont boldSystemFontOfSize:13]];
-    [inviteLabel setTextColor:[UIColor whiteColor]];
+    [inviteLabel setTextColor:[UIColor blackColor]];
     [inviteLabel setBackgroundColor:[UIColor clearColor]];
     [self.headerView addSubview:inviteLabel];
     
@@ -347,8 +347,8 @@ static const NSUInteger kSearchResultLimit = 20;
     PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:NextPageCellIdentifier];
     
     if (cell == nil) {
-        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];        [cell.mainView setBackgroundColor:[UIColor blackColor]];
-        [cell.mainView setBackgroundColor:[UIColor blackColor]];
+        cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];
+        [cell.mainView setBackgroundColor:[UIColor whiteColor]];
         cell.hideSeparatorBottom = YES;
         cell.hideSeparatorTop = YES;
     }
@@ -390,14 +390,14 @@ static const NSUInteger kSearchResultLimit = 20;
     searchResults = [[NSMutableArray alloc] initWithCapacity:kSearchResultLimit];
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame))];
-    searchBar.barTintColor = [UIColor blackColor];
+    searchBar.barTintColor = [UIColor darkGrayColor];
     [searchBar setShowsCancelButton:YES animated:YES];
     searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
     searchDisplayController.delegate = self;
     searchDisplayController.searchResultsDataSource = self;
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    searchDisplayController.searchResultsTableView.backgroundColor = [UIColor blackColor];
+    searchDisplayController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
     
     self.tableView.tableHeaderView = searchBar;
     

@@ -19,7 +19,7 @@
     if (self) {
         FAKIonIcons *settingsIcon = [FAKIonIcons iosGearIconWithSize:28];
         [settingsIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
-                                                                     whiteColor]];
+                blackColor]];
         
         [settingsButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 28.0f, 28.0f)];

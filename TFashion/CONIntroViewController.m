@@ -127,14 +127,14 @@
     [self.scrollView addSubview:self.wordmark];
     
     self.firstLabel = [[UILabel alloc] init];
-    self.firstLabel.textColor = [UIColor whiteColor];
+    self.firstLabel.textColor = [UIColor blackColor];
     self.firstLabel.text = @"Introducing TFashion";
     [self.firstLabel sizeToFit];
     self.firstLabel.center = self.view.center;
     [self.scrollView addSubview:self.firstLabel];
     
     UILabel *secondPageText = [[UILabel alloc] init];
-    secondPageText.textColor = [UIColor whiteColor];
+    secondPageText.textColor = [UIColor blackColor];
     secondPageText.text = @"Brought to you by Conceive";
     [secondPageText sizeToFit];
     secondPageText.center = self.view.center;
@@ -142,7 +142,7 @@
     [self.scrollView addSubview:secondPageText];
     
     UILabel *thirdPageText = [[UILabel alloc] init];
-    thirdPageText.textColor = [UIColor whiteColor];
+    thirdPageText.textColor = [UIColor blackColor];
     thirdPageText.text = @"Simple keyframe animations";
     [thirdPageText sizeToFit];
     thirdPageText.center = self.view.center;
@@ -150,7 +150,7 @@
     [self.scrollView addSubview:thirdPageText];
     
     UILabel *fourthPageText = [[UILabel alloc] init];
-    fourthPageText.textColor = [UIColor whiteColor];
+    fourthPageText.textColor = [UIColor blackColor];
     fourthPageText.text = @"Optimized for scrolling intros";
     [fourthPageText sizeToFit];
     fourthPageText.center = self.view.center;

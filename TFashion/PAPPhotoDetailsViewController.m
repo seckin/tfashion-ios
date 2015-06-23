@@ -81,7 +81,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 
     // Set table view properties
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    texturedBackgroundView.backgroundColor = [UIColor blackColor];
+    texturedBackgroundView.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundView = texturedBackgroundView;
 
     // Set table header

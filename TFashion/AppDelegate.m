@@ -336,19 +336,19 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     // TODO: choose one of these two tint colors:
-    //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                NSForegroundColorAttributeName: [UIColor whiteColor]
+                                NSForegroundColorAttributeName: [UIColor blackColor]
                                 }];
 
     [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil]
-        setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
+        setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]
         forState:UIControlStateNormal];
 
-    [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
+    [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
     // TODO: @seckin: this might be unnecessary. is it?:
     // @utkusakil: this sets global tint color. Global tint color is default button color for example. Also I can use it anywhere by calling self.view.tintColor. So, it is important for color consistency.
     [self.window setTintColor:[[UINavigationBar appearance] tintColor]];
