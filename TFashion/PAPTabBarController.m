@@ -21,10 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tabBar.tintColor = [UIColor whiteColor];
+    self.tabBar.tintColor = [UIColor darkGrayColor];
 //    self.tabBar.tintColor = [UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     
-    self.tabBar.barTintColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+    self.tabBar.barTintColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
 
     self.navController = [[UINavigationController alloc] init];
 }
@@ -41,14 +41,11 @@
     
     FAKIonIcons *cameraIcon = [FAKIonIcons iosCameraIconWithSize:30.0f];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
-            blackColor]];
+            grayColor]];
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cameraButton.frame = CGRectMake( 134.0f, 7.0f, 51.0f, 35.0f);
+    cameraButton.frame = CGRectMake( 180.0f, 2.0f, 51.0f, 35.0f);
     [cameraButton setImage:[cameraIcon imageWithSize:CGSizeMake(30.0f, 30.0f)] forState:UIControlStateNormal];
 //    [cameraButton setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    cameraButton.layer.borderColor = [UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f].CGColor;
-    cameraButton.layer.borderWidth = 2.0f;
-    cameraButton.layer.cornerRadius = 5.0f;
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.tabBar addSubview:cameraButton];
 }

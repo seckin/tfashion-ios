@@ -260,18 +260,16 @@
 
     UINavigationController *activityFeedNavigationController2 = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
     UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:self.accountViewController];
-    
+
     FAKIonIcons *homeIcon = [FAKIonIcons homeIconWithSize:27.0f];
-    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"Home") image:[homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
-    
+    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+
     FAKIonIcons *activityIcon = [FAKIonIcons iosBellIconWithSize:27.0f];
-    UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
-    UITabBarItem *activityFeedTabBarItem2 = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Activity", @"Activity") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
-    
-    FAKZocial *feedIcon = [FAKZocial rssIconWithSize:22.0f];
-    
+    UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+    UITabBarItem *activityFeedTabBarItem2 = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+
     FAKFontAwesome *accountIcon = [FAKFontAwesome userIconWithSize:22.0f];
-    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[accountIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
+    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:[accountIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
     
     [homeNavigationController setTabBarItem:homeTabBarItem];
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
@@ -279,7 +277,7 @@
     [accountNavigationController setTabBarItem:accountTabBarItem];
     
     self.tabBarController.delegate = self;
-    self.tabBarController.viewControllers = @[ homeNavigationController, activityFeedNavigationController2, emptyNavigationController, activityFeedNavigationController, accountNavigationController];
+    self.tabBarController.viewControllers = @[ homeNavigationController, activityFeedNavigationController2, emptyNavigationController, accountNavigationController];
     
     [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
@@ -331,14 +329,12 @@
 
 #pragma mark - ()
 
-// Set up appearance parameters to achieve Anypic's custom look and feel
+// Set up appearance parameters to achieve Pera's custom look and feel
 - (void)setupAppearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-    // TODO: choose one of these two tint colors:
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-//    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                 NSForegroundColorAttributeName: [UIColor blackColor]
@@ -348,11 +344,8 @@
         setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]
         forState:UIControlStateNormal];
 
-    [[UISearchBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
-    // TODO: @seckin: this might be unnecessary. is it?:
-    // @utkusakil: this sets global tint color. Global tint color is default button color for example. Also I can use it anywhere by calling self.view.tintColor. So, it is important for color consistency.
+    [[UISearchBar appearance] setTintColor:[UIColor darkGrayColor]];
     [self.window setTintColor:[[UINavigationBar appearance] tintColor]];
-//     [self.window setTintColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
 }
 
 - (void)monitorReachability {
