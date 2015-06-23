@@ -35,8 +35,9 @@
         introVC.introViewControllerDelegate = self;
         [self.parentViewController presentViewController:introVC animated:NO completion:nil];
     }
-    
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+
+    self.navigationItem.title = @"Pera";
+//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
@@ -47,7 +48,7 @@
     NSDictionary *darkAttributes = @{ NSForegroundColorAttributeName: [UIColor darkGrayColor] };
     NSDictionary *underlineAttributes = @{ NSUnderlineStyleAttributeName: @1 };
     
-    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"You don't have any\n friends on TFashion yet.\n\nInvite Friends"];
+    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"You don't have any\n friends on Pera yet.\n\nSearch for people."];
     [buttonTitle setAttributes:underlineAttributes range:NSMakeRange(44, 16)];
     NSMutableAttributedString *buttonTitleHighlighted = [[NSMutableAttributedString alloc] initWithAttributedString:buttonTitle];
     [buttonTitle addAttributes:darkAttributes range:NSMakeRange(0, 60)];
@@ -100,12 +101,6 @@
 - (void)settingsButtonAction:(id)sender {
     CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:settingsVC animated:YES];
-}
-
-- (void)browserButtonAction:(id)sender {
-    NSURL *URL = [NSURL URLWithString:@"http://apple.com"];
-    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:URL];
-    [self.navigationController pushViewController:webViewController animated:YES];
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {
