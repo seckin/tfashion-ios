@@ -6,4 +6,5 @@
 
 
 @interface CONImageOverlay : UIView
+@property (nonatomic, strong) NSDictionary *clothDataArr;
 @end

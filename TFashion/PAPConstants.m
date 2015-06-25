@@ -43,12 +43,18 @@ NSString *const kPAPInstallationUserKey = @"user";
 // Class key
 NSString *const kPAPActivityClassKey = @"Activity";
 
-#pragma mark - Activity Class
+#pragma mark - Cloth Class
 // Class key
 NSString *const kPAPClothClassKey = @"Cloth";
 
 // Field keys
 NSString *const kPAPClothPhotoKey       = @"photo";
+
+#pragma mark - ClothPiece Class
+// Class key
+NSString *const kPAPClothPieceClassKey = @"ClothPiece";
+
+NSString *const kPAPClothPieceClothKey     = @"cloth";
 
 // Field keys
 NSString *const kPAPActivityTypeKey        = @"type";

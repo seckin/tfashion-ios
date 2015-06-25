@@ -13,6 +13,7 @@
 #import "PAPUtility.h"
 #import "PAPLoadMoreCell.h"
 #import "AppDelegate.h"
+#import "CONImageOverlay.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
@@ -253,6 +254,60 @@
 
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
+
+            // TODO: set the cloths/cloth_pieces of the photo here just like we do below for likers/commenters [ie fetch and cache them]
+            // OK 1- fetch all cloth objects of a photo with a single query
+            // OK 2- fetch all cloth_pieces of each cloth
+            // 3- cache this data in the photoobject just like we do for likes/commenters
+            // 4- create conimageoverlays for each cloth_piece of each cloth in each photo [trigger this once all the cloth/cloth_piece data is ready for the photo]
+            // 5- create one comment/like count popover for each cloth in each photo
+
+            cell.clothOverlays = [[NSMutableArray alloc] init];
+
+            @synchronized(self) {
+                PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *cloths, NSError *error) {
+                    @synchronized(self) {
+                        if (error) {
+                            return;
+                        }
+                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[cloths count]);
+
+                        NSMutableArray *clothes_data_arr = [NSMutableArray array];
+                        // clothes_data_arr eventually has [0: {"cloth": CLOTH_OBJ, "cloth_pieces": CLOTH_PIECES_ARR}, 1: {cloth, cloth_pieces}, ...] type of data in it.
+
+                        for(int j = 0; j < [cloths count]; j++) {
+                            PFObject *cloth = [cloths objectAtIndex:j];
+                            PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
+                            [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
+                                @synchronized (self) {
+                                    if (error) {
+                                        return;
+                                    }
+                                    //NSMutableArray *cloth_pieces = [NSMutableArray array];
+                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
+
+                                    // create one popover for each cloth, and populate the like/comment counts
+                                    for (int i = 0; i < [cloth_pieces count]; i++) {
+                                        PFObject *cloth_piece = [cloth_pieces objectAtIndex:i];
+                                        NSLog(@"photo id : %@, cloth id : %@,  clothPiece id: %@", object.objectId, cloth.objectId, cloth_piece.objectId);
+                                    }
+                                    NSDictionary *cloth_data = [NSDictionary dictionaryWithObjects:@[cloth, cloth_pieces] forKeys:@[@"cloth", @"cloth_pieces"]];
+                                    [clothes_data_arr addObject:cloth_data];
+
+                                    NSLog(@"cell.bounds.size.width = %@", cell.bounds.size.width);
+                                    CONImageOverlay *clothOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width)];
+                                    clothOverlay.clothDataArr = cloth_data;
+                                    [cell.clothOverlays addObject:clothOverlay];
+
+                                    // Post a notification
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"clothOverlayAdded" object:cell];
+                                }
+                            }];
+                        }
+                    }
+                }];
+            }
             
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
@@ -392,19 +447,6 @@
     } else {
         headerView.likeButton.alpha = 0.0f;
         headerView.commentButton.alpha = 0.0f;
-        
-        @synchronized(self) {
-            PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                @synchronized(self) {
-                    if (error) {
-                        return;
-                    }
-                    //NSMutableArray *clothes = [NSMutableArray array];
-                    NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[objects count]);
-                }
-            }];
-        }
 
         @synchronized(self) {
             // check if we can update the cache

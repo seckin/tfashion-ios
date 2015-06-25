@@ -6,6 +6,7 @@
 
 
 @implementation CONImageOverlay: UIView
+@synthesize clothDataArr;
 
 - (id)initWithFrame:(CGRect)frame
 {

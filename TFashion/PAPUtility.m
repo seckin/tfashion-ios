@@ -333,4 +333,15 @@
     return queryClothes;
 }
 
+#pragma mark ClothPieces
+
++ (PFQuery *)queryForClothPiecesOfCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
+    PFQuery *queryClothPieces = [PFQuery queryWithClassName:kPAPClothPieceClassKey];
+    NSLog(@"creating cloth pieces query for %@", cloth.objectId);
+    [queryClothPieces whereKey:kPAPClothPieceClothKey equalTo:cloth];
+    [queryClothPieces setCachePolicy:cachePolicy];
+
+    return queryClothPieces;
+}
+
 @end

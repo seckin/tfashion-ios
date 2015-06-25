@@ -20,6 +20,7 @@
 @implementation PAPPhotoCell
 @synthesize photoButton;
 @synthesize imageOverlay;
+@synthesize clothOverlays;
 
 
 #pragma mark - NSObject
@@ -45,8 +46,11 @@
         self.photoButton.backgroundColor = [UIColor clearColor];
 //        [self.photoButton addTarget:self action:@selector(photoButtonDoubleTap:) forControlEvents:UIControlEventTouchUpInside];
         [self.photoButton addTarget:self action:@selector(photoButtonDoubleTap:) forControlEvents:UIControlEventTouchDownRepeat];
-        NSLog(@"photoButton added as subview");
         [self.contentView addSubview:self.photoButton];
+
+        // Adding an observer
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clothOverlayAdded:) name:@"clothOverlayAdded" object:nil];
+
 
         CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.6874, 0.53)],
                 @"tagText" : @""}];
@@ -66,6 +70,12 @@
     }
 
     return self;
+}
+
+- (void)clothOverlayAdded:(NSNotification *)note {
+    NSLog(@"clothoverlayadded notification triggered/received");
+//     = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
+//    self.clothOverlays
 }
 
 - (void)handleTagPopoverTapGesture:(UITapGestureRecognizer *)sender {
