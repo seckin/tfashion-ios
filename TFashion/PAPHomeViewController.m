@@ -39,8 +39,6 @@
     self.navigationItem.title = @"Pera";
 //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
-    self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
-    
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -97,11 +95,6 @@
 }
 
 #pragma mark - ()
-
-- (void)settingsButtonAction:(id)sender {
-    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:settingsVC animated:YES];
-}
 
 - (void)inviteFriendsButtonAction:(id)sender {
     PAPFindFriendsViewController *detailViewController = [[PAPFindFriendsViewController alloc] init];
