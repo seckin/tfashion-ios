@@ -21,6 +21,7 @@
 @synthesize photoButton;
 @synthesize imageOverlay;
 @synthesize clothOverlays;
+@synthesize clothesDataArr;
 
 
 #pragma mark - NSObject
@@ -73,7 +74,7 @@
 }
 
 - (void)clothOverlayAdded:(NSNotification *)note {
-    NSLog(@"clothoverlayadded notification triggered/received");
+    //NSLog(@"clothoverlayadded notification triggered/received");
 //     = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
 //    self.clothOverlays
 }
@@ -111,20 +112,33 @@
 
 - (void)photoButtonDoubleTap:(id)sender
 {
-    self.imageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
+    // TODO: move the popover creation code to the notification handler (and change the name of the notification handler to something like cloth data updated)
+    // TODO: fix the bug that results in showing too many cloths and cloths that are overlapping (might be on the ruby side)
+    // TODO: show the real clothes of the image, not the clothes of a fixed image
+    // TODO: fix the cloth size problem
+    // TODO: only flash the correct cloth
+    for(int i = 0; i < [self.clothesDataArr count]; i++) {
+        NSDictionary *cloth_data = [self.clothesDataArr objectAtIndex:i];
 
-    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
-    animation.fromValue = @(0.0);
-    animation.toValue = @(0.5);
-    
-    [self.imageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+        CONImageOverlay *imageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
+        imageOverlay.clothDataArr = cloth_data;
 
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(removeImageOverlay:)
-                                   userInfo:nil
-                                    repeats:NO];
-    [self addSubview:self.imageOverlay];
+        POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+        animation.fromValue = @(0.0);
+        animation.toValue = @(0.5);
+
+        [imageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+
+        [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(removeImageOverlay:)
+                                       userInfo:nil
+                                        repeats:NO];
+
+        [self.clothOverlays addObject:imageOverlay];
+        [self addSubview:imageOverlay];
+    }
+
     [self setNeedsDisplay];
 }
 

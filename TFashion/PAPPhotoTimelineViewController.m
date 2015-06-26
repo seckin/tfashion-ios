@@ -263,6 +263,7 @@
             // 5- create one comment/like count popover for each cloth in each photo
 
             cell.clothOverlays = [[NSMutableArray alloc] init];
+            cell.clothesDataArr = [[NSMutableArray alloc] init];
 
             @synchronized(self) {
                 PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
@@ -271,7 +272,7 @@
                         if (error) {
                             return;
                         }
-                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[cloths count]);
+//                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[cloths count]);
 
                         NSMutableArray *clothes_data_arr = [NSMutableArray array];
                         // clothes_data_arr eventually has [0: {"cloth": CLOTH_OBJ, "cloth_pieces": CLOTH_PIECES_ARR}, 1: {cloth, cloth_pieces}, ...] type of data in it.
@@ -285,20 +286,17 @@
                                         return;
                                     }
                                     //NSMutableArray *cloth_pieces = [NSMutableArray array];
-                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
+//                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
 
                                     // create one popover for each cloth, and populate the like/comment counts
                                     for (int i = 0; i < [cloth_pieces count]; i++) {
                                         PFObject *cloth_piece = [cloth_pieces objectAtIndex:i];
-                                        NSLog(@"photo id : %@, cloth id : %@,  clothPiece id: %@", object.objectId, cloth.objectId, cloth_piece.objectId);
+//                                        NSLog(@"photo id : %@, cloth id : %@,  clothPiece id: %@", object.objectId, cloth.objectId, cloth_piece.objectId);
                                     }
                                     NSDictionary *cloth_data = [NSDictionary dictionaryWithObjects:@[cloth, cloth_pieces] forKeys:@[@"cloth", @"cloth_pieces"]];
                                     [clothes_data_arr addObject:cloth_data];
 
-                                    NSLog(@"cell.bounds.size.width = %@", cell.bounds.size.width);
-                                    CONImageOverlay *clothOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width)];
-                                    clothOverlay.clothDataArr = cloth_data;
-                                    [cell.clothOverlays addObject:clothOverlay];
+                                    [cell.clothesDataArr addObject:cloth_data];
 
                                     // Post a notification
                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"clothOverlayAdded" object:cell];
