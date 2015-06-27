@@ -50,33 +50,40 @@
         [self.contentView addSubview:self.photoButton];
 
         // Adding an observer
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clothOverlayAdded:) name:@"clothOverlayAdded" object:nil];
-
-
-        CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.6874, 0.53)],
-                @"tagText" : @""}];
-
-        [self setTag:tag];
-
-        self.tagpopover = [[CONTagPopover  alloc] init];//[CONTagPopover initWithTag:self.tag];
-        [self.tagpopover initWithTag:self.tag];
-        [self.contentView addSubview:self.tagpopover];
-
-//        [self.contentView bringSubviewToFront:self.imageView];
-        [self.contentView bringSubviewToFront:self.tagpopover];
-        
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTagPopoverTapGesture:) ];
-        tapGesture.numberOfTapsRequired = 2;
-        [self.tagpopover addGestureRecognizer:tapGesture];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clothesDataArrUpdated:) name:@"clothesDataArrUpdated" object:nil];
     }
 
     return self;
 }
 
-- (void)clothOverlayAdded:(NSNotification *)note {
-    //NSLog(@"clothoverlayadded notification triggered/received");
-//     = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
-//    self.clothOverlays
+- (void)clothesDataArrUpdated:(NSNotification *)note {
+    NSDictionary *cloth_data = [self.clothesDataArr objectAtIndex:([self.clothesDataArr count] - 1)];
+    NSArray *cloth_pieces = [cloth_data objectForKey:@"cloth_pieces"];
+
+    PFObject *cloth_piece = [cloth_pieces objectAtIndex:0];
+    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
+
+    CGFloat x,y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+    for(int j = 0; j < [boundary_points count]; j++) {
+        cum_x += (CGFloat)[boundary_points[j][0] floatValue];
+        cum_y += (CGFloat)[boundary_points[j][1] floatValue];
+    }
+    avg_x = cum_x / [boundary_points count];
+    avg_y = cum_y / [boundary_points count];
+
+    NSLog(@"clothesDataArrUpdated notification triggered/received");
+    CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
+            @"tagText" : @""}];
+
+    [self setTag:tag];
+
+    self.tagpopover = [[CONTagPopover alloc] init];//[CONTagPopover initWithTag:self.tag];
+    [self.tagpopover initWithTag:self.tag];
+    [self.tagpopover presentPopoverFromPoint:CGPointMake(avg_x, avg_y) inRect:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width) inView:self.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
+
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTagPopoverTapGesture:) ];
+//    tapGesture.numberOfTapsRequired = 2;
+//    [self.tagpopover addGestureRecognizer:tapGesture];
 }
 
 - (void)handleTagPopoverTapGesture:(UITapGestureRecognizer *)sender {
@@ -112,7 +119,7 @@
 
 - (void)photoButtonDoubleTap:(id)sender
 {
-    // TODO: move the popover creation code to the notification handler (and change the name of the notification handler to something like cloth data updated)
+    // OK TODO: move the popover creation code to the notification handler (and change the name of the notification handler to something like cloth data updated)
     // TODO: fix the bug that results in showing too many cloths and cloths that are overlapping (might be on the ruby side)
     // TODO: show the real clothes of the image, not the clothes of a fixed image
     // TODO: fix the cloth size problem

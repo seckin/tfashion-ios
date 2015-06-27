@@ -299,7 +299,7 @@
                                     [cell.clothesDataArr addObject:cloth_data];
 
                                     // Post a notification
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"clothOverlayAdded" object:cell];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"clothesDataArrUpdated" object:cell];
                                 }
                             }];
                         }
