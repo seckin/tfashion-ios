@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 050423A61B2C096F006A1B02 /* CONTagPopover.m */; };
 		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
+		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
+		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
 		0585CE341B2D790A00E5DAEE /* CONTagDetailPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 0585CE331B2D790A00E5DAEE /* CONTagDetailPopover.m */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
@@ -123,6 +125,9 @@
 		050423A61B2C096F006A1B02 /* CONTagPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagPopover.m; sourceTree = "<group>"; };
 		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
+		055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONV2IntroViewController.m; sourceTree = "<group>"; };
+		055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONV2IntroViewController.xib; sourceTree = "<group>"; };
 		0585CE331B2D790A00E5DAEE /* CONTagDetailPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagDetailPopover.m; sourceTree = "<group>"; };
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
@@ -549,6 +554,9 @@
 			children = (
 				BC6A21411A4C12F800ECFDB0 /* CONIntroViewController.h */,
 				BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */,
+				055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */,
+				055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */,
+				055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */,
 			);
 			name = Intro;
 			sourceTree = "<group>";
@@ -895,6 +903,7 @@
 				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,
 				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
+				055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */,
 				BC9F3FA31A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
 				BC9F3F931A821C6F00629745 /* SVWebViewController.bundle in Resources */,
 				BC9F3FA11A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
@@ -971,6 +980,7 @@
 				BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */,
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
+				055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */,
 				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,
 				BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
