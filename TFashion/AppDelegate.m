@@ -21,6 +21,7 @@
 #import "PAPPhotoDetailsViewController.h"
 #import "CONSignUpViewController.h"
 #import "CONSocialAccount.h"
+#import "CONV2IntroViewController.h"
 #import <Lookback/Lookback.h>
 #import <Analytics.h>
 
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController2;
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
 @property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
+@property (nonatomic, strong) CONV2IntroViewController *v2IntroViewController;
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
@@ -122,8 +124,9 @@
     [self monitorReachability];
 
     self.welcomeViewController = [[PAPWelcomeViewController alloc] init];
-
-    self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];
+    self.v2IntroViewController = [[CONV2IntroViewController alloc] init];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.v2IntroViewController];
     self.navController.navigationBarHidden = YES;
 
     self.window.rootViewController = self.navController;
