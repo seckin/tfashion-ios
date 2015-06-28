@@ -14,6 +14,22 @@ Parse.Cloud.beforeSave('Photo', function(request, response) {
 
 
 Parse.Cloud.afterSave("Photo", function(request) {
+	if (request.object.existed()) { 
+		// it existed before 
+		console.log('it existed before');
+	} else {
+	// it is new 
+		console.log('it is new');
+	}
+	var obj = request.object.toJSON();
+	console.log("obj.image");
+	console.log(obj.image);
+	console.log("obj.image.url:");
+	console.log(obj.image.url);
+	console.log("obj.objectId");
+	console.log(obj.objectId);
+
+
 	Parse.Cloud.httpRequest({
 	  method: 'POST',
 	  url: 'http://conceive.io/create_media_from_parse',
@@ -22,8 +38,8 @@ Parse.Cloud.afterSave("Photo", function(request) {
 	    'Content-Type': 'application/json;charset=utf-8'
 	  },
 	  body: {
-	  	parse_link: "http://cdn.playbuzz.com/cdn/164dc032-b7eb-4e6d-8487-b1d9b2883273/97438fda-c723-449b-8f50-ff1962895ad4.jpg",
-	  	parse_object_id: request.object.id
+	  	parse_link: obj.image.url,
+	  	parse_object_id: obj.objectId
 	  }
 	}).then(function(httpResponse) {
 	  console.log(httpResponse.text);
