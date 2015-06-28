@@ -79,7 +79,9 @@
 
     self.tagpopover = [[CONTagPopover alloc] init];//[CONTagPopover initWithTag:self.tag];
     [self.tagpopover initWithTag:self.tag];
-    [self.tagpopover presentPopoverFromPoint:CGPointMake(avg_x, avg_y) inRect:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width) inView:self.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
+
+    float scale = 320.0 / 560.0;
+    [self.tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width) inView:self.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
 
 //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTagPopoverTapGesture:) ];
 //    tapGesture.numberOfTapsRequired = 2;
@@ -104,7 +106,10 @@
 
 
 - (void) removeImageOverlay:(NSTimer*)theTimer {
-    [self.imageOverlay removeFromSuperview];
+//    [self.imageOverlay removeFromSuperview];
+    for(int i = 0 ; i < [self.clothOverlays count]; i++) {
+        [[self.clothOverlays objectAtIndex:i] removeFromSuperview];
+    }
 }
 
 #pragma mark - UIView
@@ -120,9 +125,9 @@
 - (void)photoButtonDoubleTap:(id)sender
 {
     // OK TODO: move the popover creation code to the notification handler (and change the name of the notification handler to something like cloth data updated)
-    // TODO: fix the bug that results in showing too many cloths and cloths that are overlapping (might be on the ruby side)
-    // TODO: show the real clothes of the image, not the clothes of a fixed image
-    // TODO: fix the cloth size problem
+    // OK TODO: fix the bug that results in showing too many cloths and cloths that are overlapping (might be on the ruby side)
+    // OK TODO: show the real clothes of the image, not the clothes of a fixed image
+    // OK TODO: fix the cloth size problem
     // TODO: only flash the correct cloth
     for(int i = 0; i < [self.clothesDataArr count]; i++) {
         NSDictionary *cloth_data = [self.clothesDataArr objectAtIndex:i];
@@ -132,18 +137,18 @@
 
         POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
         animation.fromValue = @(0.0);
-        animation.toValue = @(0.5);
+        animation.toValue = @(0.15);
 
         [imageOverlay pop_addAnimation:animation forKey:@"fadespring"];
 
-        [NSTimer scheduledTimerWithTimeInterval:1.0
+        [NSTimer scheduledTimerWithTimeInterval:0.2
                                          target:self
                                        selector:@selector(removeImageOverlay:)
                                        userInfo:nil
                                         repeats:NO];
 
         [self.clothOverlays addObject:imageOverlay];
-        [self addSubview:imageOverlay];
+        [self addSubview:[self.clothOverlays objectAtIndex:([self.clothOverlays count] - 1)]];
     }
 
     [self setNeedsDisplay];
