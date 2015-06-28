@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
-               BuildableName = "TFashion.app"
-               BlueprintName = "TFashion"
-               ReferencedContainer = "container:TFashion.xcodeproj">
+               BuildableName = "Pera.app"
+               BlueprintName = "Pera"
+               ReferencedContainer = "container:Pera.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
-            BuildableName = "TFashion.app"
-            BlueprintName = "TFashion"
-            ReferencedContainer = "container:TFashion.xcodeproj">
+            BuildableName = "Pera.app"
+            BlueprintName = "Pera"
+            ReferencedContainer = "container:Pera.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
