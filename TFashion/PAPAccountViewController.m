@@ -65,44 +65,21 @@
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
 
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [texturedBackgroundView setBackgroundColor:[UIColor blackColor]];
+    [texturedBackgroundView setBackgroundColor:[UIColor lightGrayColor]];
     self.tableView.backgroundView = texturedBackgroundView;
 
-    UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
-    [profilePictureBackgroundView setBackgroundColor:[UIColor clearColor]];
-    profilePictureBackgroundView.alpha = 0.0f;
-    CALayer *layer = [profilePictureBackgroundView layer];
-    layer.cornerRadius = 66.0f;
-    layer.masksToBounds = YES;
-    [self.headerView addSubview:profilePictureBackgroundView];
-    
     PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
-    layer = [profilePictureImageView layer];
-    layer.cornerRadius = 66.0f;
-    layer.masksToBounds = YES;
-    profilePictureImageView.alpha = 0.0f;
+    profilePictureImageView.alpha = 1.0f;
 
     if ([PAPUtility userHasProfilePictures:self.user]) {
         PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
         [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
-            if (!error) {
-                NSLog(@"burda92");
-                UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[image applyDarkEffect]];
-                backgroundImageView.frame = self.tableView.backgroundView.bounds;
-                backgroundImageView.alpha = 0.0f;
-                [self.tableView.backgroundView addSubview:backgroundImageView];
-            }
         }];
     } else {
         profilePictureImageView.image = [PAPUtility defaultProfilePicture];
-
-        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[PAPUtility defaultProfilePicture] applyDarkEffect]];
-        backgroundImageView.frame = self.tableView.backgroundView.bounds;
-        backgroundImageView.alpha = 0.0f;
-        [self.tableView.backgroundView addSubview:backgroundImageView];
     }
     
     UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
