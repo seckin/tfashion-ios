@@ -67,27 +67,31 @@
         [self.contentView addSubview:self.photoLabel];
         
         self.followButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.followButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
-        self.followButton.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 0.0f);
-        [self.followButton setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"]
-                                     forState:UIControlStateNormal];
-        [self.followButton setBackgroundImage:[UIImage imageNamed:@"BackgroundTabBar"]
-                                     forState:UIControlStateSelected];
-        FAKFoundationIcons *plusIcon = [FAKFoundationIcons plusIconWithSize:15.0f];
-        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]];
-        [self.followButton setImage:[plusIcon imageWithSize:CGSizeMake(15.0f, 15.0f)] forState:UIControlStateNormal];
-        FAKFoundationIcons *checkIcon = [FAKFoundationIcons checkIconWithSize:15.0f];
+        self.followButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.followButton.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 10.0f);
+//        [self.followButton setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"]
+//                                     forState:UIControlStateNormal];
+
+        CGSize size = CGSizeMake(200, 200);
+        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+        [[UIColor greenColor] setFill];
+        UIRectFill(CGRectMake(0, 0, size.width, size.height));
+        UIImage *followButtonActiveStateBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [self.followButton setBackgroundImage:followButtonActiveStateBackgroundImage forState:UIControlStateSelected];
+
+        FAKFoundationIcons *plusIcon = [FAKFoundationIcons plusIconWithSize:12.0f];
+        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        [self.followButton setImage:[plusIcon imageWithSize:CGSizeMake(12.0f, 12.0f)] forState:UIControlStateNormal];
+        FAKFoundationIcons *checkIcon = [FAKFoundationIcons checkIconWithSize:12.0f];
         [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
-        [self.followButton setImage:[checkIcon imageWithSize:CGSizeMake(15.0f, 15.0f)]
+        [self.followButton setImage:[checkIcon imageWithSize:CGSizeMake(12.0f, 12.0f)]
                            forState:UIControlStateSelected];
-        [self.followButton setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering")
+        [self.followButton setTitle:@"Follow"
                            forState:UIControlStateNormal];
         [self.followButton setTitle:@"Following"
                            forState:UIControlStateSelected];
-        // TODO: might want to revert this back to blue:
-//        [self.followButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]]
-//                                forState:UIControlStateNormal];
-        [self.followButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
+        [self.followButton setTitleColor:[UIColor blackColor]
                                 forState:UIControlStateNormal];
         [self.followButton setTitleColor:[UIColor blackColor]
                                 forState:UIControlStateSelected];
@@ -96,8 +100,8 @@
         
         self.followButton.clipsToBounds = YES;
         self.followButton.layer.cornerRadius = 5.0f;
-        self.followButton.layer.borderWidth = 1.0f;
-        self.followButton.layer.borderColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundTabBar"]].CGColor;
+        self.followButton.layer.borderWidth = (1.0f / [UIScreen mainScreen].scale);
+        self.followButton.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:self.followButton];
     }
     return self;
