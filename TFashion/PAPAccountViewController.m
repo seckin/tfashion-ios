@@ -295,13 +295,13 @@
 
 - (void)followerCountButtonAction:(id)sender
 {
-    CONFollowersViewController *followersVC = [[CONFollowersViewController alloc] initWithStyle:UITableViewStylePlain];
+    CONFollowersViewController *followersVC = [[CONFollowersViewController alloc] initWithUser:self.user];
     [self.navigationController pushViewController:followersVC animated:YES];
 }
 
 - (void)followingCountButtonAction:(id)sender
 {
-    CONFollowingViewController *followingVC = [[CONFollowingViewController alloc] initWithStyle:UITableViewStylePlain];
+    CONFollowingViewController *followingVC = [[CONFollowingViewController alloc] initWithUser:self.user];
     [self.navigationController pushViewController:followingVC animated:YES];
 }
 

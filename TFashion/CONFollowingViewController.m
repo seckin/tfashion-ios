@@ -21,12 +21,18 @@
 @implementation CONFollowingViewController
 @synthesize outstandingFollowQueries;
 @synthesize outstandingCountQueries;
+@synthesize user;
 
 #pragma mark - Initialization
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (id)initWithUser:(PFUser *)aUser {
+    self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
+        self.user = aUser;
+
+        if (!aUser) {
+            [NSException raise:NSInvalidArgumentException format:@"CONFollowingViewController init exception: user cannot be nil"];
+        }
         
         self.outstandingFollowQueries = [NSMutableDictionary dictionary];
         self.outstandingCountQueries = [NSMutableDictionary dictionary];
@@ -82,7 +88,7 @@
 
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [query whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
+    [query whereKey:kPAPActivityFromUserKey equalTo:self.user];
     [query whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
     [query includeKey:kPAPActivityToUserKey];
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
@@ -135,8 +141,34 @@
         }
     }
     
-    cell.followButton.selected = YES;
+    cell.followButton.selected = NO;
     cell.tag = indexPath.row;
+
+    if (attributes) {
+        [cell.followButton setSelected:[[PAPCache sharedCache] followStatusForUser:user]];
+    } else {
+        @synchronized(self) {
+            NSNumber *outstandingQuery = [self.outstandingFollowQueries objectForKey:indexPath];
+            if (!outstandingQuery) {
+                [self.outstandingFollowQueries setObject:[NSNumber numberWithBool:YES] forKey:indexPath];
+                PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
+                [isFollowingQuery whereKey:kPAPActivityFromUserKey equalTo:self.user];
+                [isFollowingQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
+                [isFollowingQuery whereKey:kPAPActivityToUserKey equalTo:user];
+                [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+
+                [isFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                    @synchronized(self) {
+                        [self.outstandingFollowQueries removeObjectForKey:indexPath];
+                        [[PAPCache sharedCache] setFollowStatus:(!error && number > 0) user:user];
+                    }
+                    if (cell.tag == indexPath.row) {
+                        [cell.followButton setSelected:(!error && number > 0)];
+                    }
+                }];
+            }
+        }
+    }
     
     return cell;
 }

@@ -21,30 +21,37 @@
 @implementation CONFollowersViewController
 @synthesize outstandingFollowQueries;
 @synthesize outstandingCountQueries;
+@synthesize user;
 
 #pragma mark - Initialization
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
+- (id)initWithUser:(PFUser *)aUser {
+    self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        
+        self.user = aUser;
+
+        if (!aUser) {
+            [NSException raise:NSInvalidArgumentException format:@"CONFollowersViewController init exception: user cannot be nil"];
+        }
+
         self.outstandingFollowQueries = [NSMutableDictionary dictionary];
         self.outstandingCountQueries = [NSMutableDictionary dictionary];
-        
+
         // The className to query on
         self.parseClassName = kPAPActivityClassKey;
-        
+
         // Whether the built-in pagination is enabled
         self.paginationEnabled = NO;
-        
+
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
-        
+
         // The number of objects to show per page
-//        self.objectsPerPage = 15;
-        
+        //        self.objectsPerPage = 15;
+
         // The Loading text clashes with the dark Anypic design
         self.loadingViewEnabled = NO;
+
     }
     return self;
 }
@@ -82,7 +89,8 @@
 
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [query whereKey:kPAPActivityToUserKey equalTo:[PFUser currentUser]];
+
+    [query whereKey:kPAPActivityToUserKey equalTo:self.user];
     [query whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
     [query includeKey:kPAPActivityFromUserKey];
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
@@ -146,7 +154,7 @@
             if (!outstandingQuery) {
                 [self.outstandingFollowQueries setObject:[NSNumber numberWithBool:YES] forKey:indexPath];
                 PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
-                [isFollowingQuery whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
+                [isFollowingQuery whereKey:kPAPActivityFromUserKey equalTo:self.user];
                 [isFollowingQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
                 [isFollowingQuery whereKey:kPAPActivityToUserKey equalTo:user];
                 [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];

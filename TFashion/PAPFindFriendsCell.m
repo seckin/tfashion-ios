@@ -69,8 +69,6 @@
         self.followButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.followButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
         self.followButton.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 10.0f);
-//        [self.followButton setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"]
-//                                     forState:UIControlStateNormal];
 
         CGSize size = CGSizeMake(200, 200);
         UIGraphicsBeginImageContextWithOptions(size, YES, 0);
