@@ -65,7 +65,7 @@
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
 
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [texturedBackgroundView setBackgroundColor:[UIColor lightGrayColor]];
+    [texturedBackgroundView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = texturedBackgroundView;
 
     PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
@@ -81,10 +81,20 @@
     } else {
         profilePictureImageView.image = [PAPUtility defaultProfilePicture];
     }
+
+    // Add a bottomBorder.
+    CALayer *bottomBorder = [CALayer layer];
+
+    bottomBorder.frame = CGRectMake(0.0f, 220.0f, headerView.frame.size.width, (1.0f / [UIScreen mainScreen].scale));
+
+    bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f
+                                                     alpha:1.0f].CGColor;
+
+    [headerView.layer addSublayer:bottomBorder];
     
     UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
     FAKIonIcons *iconImages = [FAKIonIcons imagesIconWithSize:45.0f];
-    [iconImages addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [iconImages addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
     [photoCountIconImageView setImage:[iconImages imageWithSize:CGSizeMake(45.0f, 37.0f)]];
     [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
     [self.headerView addSubview:photoCountIconImageView];
@@ -92,7 +102,7 @@
     photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
-    [photoCountLabel setTextColor:[UIColor whiteColor]];
+    [photoCountLabel setTextColor:[UIColor blackColor]];
     [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
     [self.headerView addSubview:photoCountLabel];
     
@@ -106,7 +116,7 @@
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [followerCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [followerCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followerCountButton];
@@ -114,7 +124,7 @@
     followingCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [followingCountButton setFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
     [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [followingCountButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [followingCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
@@ -122,7 +132,7 @@
     UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
-    [userDisplayNameLabel setTextColor:[UIColor whiteColor]];
+    [userDisplayNameLabel setTextColor:[UIColor blackColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
     [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
