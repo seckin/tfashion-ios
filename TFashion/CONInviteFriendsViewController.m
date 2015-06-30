@@ -113,9 +113,9 @@ ABAddressBookRef addressBook;
         CONInviteRequest *inviteRequest = [CONInviteRequest object];
         inviteRequest.fromUser = [PFUser currentUser];
         inviteRequest.invitationSent = NO;
-        
+
         PFQuery *query = [PFQuery queryWithClassName:@"Contact"];
-        [query whereKey:@"fromUser" equalTo:contact.fromUser];
+        [query whereKey:@"fromUser" equalTo:[PFUser currentUser]];
         if (contact.phoneNumbers.count > 0) {
             [query whereKey:@"phoneNumbers" containedIn:contact.phoneNumbers];
         } else {
@@ -131,7 +131,7 @@ ABAddressBookRef addressBook;
             [inviteRequest saveEventually];
         }];
     }
-    
+
     [self.hud hide:YES];
     [TSMessage showNotificationWithTitle:@"Invitations has been sent" type:TSMessageNotificationTypeSuccess];
     [self dismissViewControllerAnimated:YES completion:nil];
