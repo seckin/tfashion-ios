@@ -92,26 +92,12 @@
 
     [headerView.layer addSublayer:bottomBorder];
     
-    UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
-    FAKIonIcons *iconImages = [FAKIonIcons imagesIconWithSize:45.0f];
-    [iconImages addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
-    [photoCountIconImageView setImage:[iconImages imageWithSize:CGSizeMake(45.0f, 37.0f)]];
-    [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
-    [self.headerView addSubview:photoCountIconImageView];
-    
     photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
     [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
     [self.headerView addSubview:photoCountLabel];
-    
-    UIImageView *followersIconImageView = [[UIImageView alloc] initWithImage:nil];
-    FAKIonIcons *followersIcon = [FAKIonIcons iosPeopleIconWithSize:52.0f];
-    [followersIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
-    [followersIconImageView setImage:[followersIcon imageWithSize:CGSizeMake(52.0f, 37.0f)]];
-    [followersIconImageView setFrame:CGRectMake( 247.0f, 50.0f, 52.0f, 37.0f)];
-    [self.headerView addSubview:followersIconImageView];
     
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
@@ -139,8 +125,6 @@
     
     [photoCountLabel setText:@"0 photos"];
     
-//    [self queryForPhotoCount];
-    
     [followerCountButton setTitle:@"0 followers" forState:UIControlStateNormal];
     
     PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
@@ -152,8 +136,6 @@
             [followerCountButton setTitle:[NSString stringWithFormat:@"%d follower%@", number, number==1?@"":@"s"] forState:UIControlStateNormal];
         }
     }];
-    
-//    [self queryForFollowingCount];
     
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
