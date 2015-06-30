@@ -60,7 +60,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>TFashion</string>
+				<string>Pera</string>
 			</array>
 		</dict>
 		<dict>
@@ -97,7 +97,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2014 TFashion, Inc.</string>
+	<string>© 2014 Monet Labs, Inc.</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<false/>
 	<key>UIBackgroundModes</key>
