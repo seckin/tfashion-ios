@@ -14,6 +14,8 @@
 #import "PAPLoadMoreCell.h"
 #import "AppDelegate.h"
 #import "CONImageOverlay.h"
+#import "CONDemoTag.h"
+#import "CONTagPopover.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
@@ -239,36 +241,23 @@
     NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
 
     if (indexPath.row % 2 == 0) {
-        // Header
         return [self detailPhotoCellForRowAtIndexPath:indexPath];
     } else {
-        // Photo
         PAPPhotoCell *cell = (PAPPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
         if (cell == nil) {
             cell = [[PAPPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell.photoButton addTarget:self action:@selector(didTapOnPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
         }
 
         cell.photoButton.tag = index;
 
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
-
-            // TODO: set the cloths/cloth_pieces of the photo here just like we do below for likers/commenters [ie fetch and cache them]
-            // OK 1- fetch all cloth objects of a photo with a single query
-            // OK 2- fetch all cloth_pieces of each cloth
-            // 3- cache this data in the photoobject just like we do for likes/commenters
-            // 4- create conimageoverlays for each cloth_piece of each cloth in each photo [trigger this once all the cloth/cloth_piece data is ready for the photo]
-            // 5- create one comment/like count popover for each cloth in each photo
-
             cell.clothOverlays = [[NSMutableArray alloc] init];
             cell.clothesDataArr = [[NSMutableArray alloc] init];
 
-            @synchronized(self) {
                 PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *cloths, NSError *error) {
-                    @synchronized(self) {
                         if (error) {
                             return;
                         }
@@ -281,12 +270,11 @@
                             PFObject *cloth = [cloths objectAtIndex:j];
                             PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
                             [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
-                                @synchronized (self) {
                                     if (error) {
                                         return;
                                     }
                                     //NSMutableArray *cloth_pieces = [NSMutableArray array];
-//                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
+                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
 
                                     // create one popover for each cloth, and populate the like/comment counts
                                     for (int i = 0; i < [cloth_pieces count]; i++) {
@@ -296,17 +284,44 @@
                                     NSDictionary *cloth_data = [NSDictionary dictionaryWithObjects:@[cloth, cloth_pieces] forKeys:@[@"cloth", @"cloth_pieces"]];
                                     [clothes_data_arr addObject:cloth_data];
 
+
+                                    NSLog(@"adding to clothesDataArr");
                                     [cell.clothesDataArr addObject:cloth_data];
 
-                                    // Post a notification
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"clothesDataArrUpdated" object:cell];
-                                }
+//                                    NSArray *cloth_pieces = [cloth_data objectForKey:@"cloth_pieces"];
+
+                                    PFObject *cloth_piece = [cloth_pieces objectAtIndex:0];
+                                    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
+
+                                    CGFloat x,y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+                                    for(int j = 0; j < [boundary_points count]; j++) {
+                                        cum_x += (CGFloat)[boundary_points[j][0] floatValue];
+                                        cum_y += (CGFloat)[boundary_points[j][1] floatValue];
+                                    }
+                                    avg_x = cum_x / [boundary_points count];
+                                    avg_y = cum_y / [boundary_points count];
+
+                                    CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
+                                            @"tagText" : @""}];
+
+                                    [cell setTag:tag];
+
+                                    cell.tagpopover = [[CONTagPopover alloc] init];//[CONTagPopover initWithTag:self.tag];
+                                    [cell.tagpopover initWithTag:cell.tag];
+
+                                    float scale = 320.0 / 560.0;
+                                    [cell.tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake( 0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
+
+                                    UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
+                                    tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, cell.tagpopover.bounds.size.width, cell.tagpopover.bounds.size.width);
+                                    tagpopoverLayover.backgroundColor = [UIColor clearColor];
+                                    tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
+                                    [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
+                                    [cell.tagpopover addSubview:tagpopoverLayover];
                             }];
                         }
-                    }
                 }];
-            }
-            
+
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
@@ -346,7 +361,6 @@
 
 - (void)photoHeaderView:(PAPPhotoHeaderView *)photoHeaderView didTapUserButton:(UIButton *)button user:(PFUser *)user {
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithUser:user];
-    NSLog(@"Presenting account view controller with user: %@", user);
     [accountViewController setUser:user];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
@@ -545,12 +559,11 @@
     self.shouldReloadOnAppear = YES;
 }
 
-
-- (void)didTapOnPhotoAction:(UIButton *)sender {
+- (void)didTapOnPopoverAction:(UIButton *)sender {
     PFObject *photo = [self.objects objectAtIndex:sender.tag];
     if (photo) {
-//        PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
-//        [self.navigationController pushViewController:photoDetailsVC animated:YES];
+        PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
+        [self.navigationController pushViewController:photoDetailsVC animated:YES];
     }
 }
 
