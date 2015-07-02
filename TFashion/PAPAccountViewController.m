@@ -71,6 +71,9 @@
     PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
+    CALayer *layer = [profilePictureImageView layer];
+    layer.cornerRadius = 66.0f;
+    layer.masksToBounds = YES;
     profilePictureImageView.alpha = 1.0f;
 
     if ([PAPUtility userHasProfilePictures:self.user]) {
