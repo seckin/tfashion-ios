@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIButton *followerCountButton;
 @property (nonatomic, strong) UIButton *followingCountButton;
 @property (nonatomic, strong) UILabel *photoCountLabel;
+@property (nonatomic, strong) UILabel *photoCountTextLabel;
 @end
 
 @implementation PAPAccountViewController
@@ -29,6 +30,7 @@
 @synthesize followerCountButton;
 @synthesize followingCountButton;
 @synthesize photoCountLabel;
+@synthesize photoCountTextLabel;
 
 #pragma mark - Initialization
 
@@ -94,13 +96,22 @@
                                                      alpha:1.0f].CGColor;
 
     [headerView.layer addSublayer:bottomBorder];
+
+    photoCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 110.0f, 92.0f, 22.0f)];
+    [photoCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
+    [photoCountTextLabel  setBackgroundColor:[UIColor clearColor]];
+    [photoCountTextLabel  setTextColor:[UIColor blackColor]];
+    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [self.headerView addSubview:photoCountTextLabel ];
+    [photoCountTextLabel setText:@"Photos"];
     
-    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
-    [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
+    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 94.0f, 92.0f, 22.0f)];
+    [photoCountLabel setTextAlignment:NSTextAlignmentLeft];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
     [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
     [self.headerView addSubview:photoCountLabel];
+    [photoCountLabel setText:@"0"];
     
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
@@ -125,8 +136,6 @@
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
     [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
-    
-    [photoCountLabel setText:@"0 photos"];
     
     [followerCountButton setTitle:@"0 followers" forState:UIControlStateNormal];
     
@@ -229,7 +238,7 @@
     [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
+            [photoCountLabel setText:[NSString stringWithFormat:@"%d", number, number==1?@"":@"s"]];
             [[PAPCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
         }
     }];
