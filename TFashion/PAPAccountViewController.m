@@ -68,7 +68,7 @@
     [texturedBackgroundView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = texturedBackgroundView;
 
-    PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 94.0f, 38.0f, 132.0f, 132.0f)];
+    PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 12.0f, 12.0f, 62.0f, 62.0f)];
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
     profilePictureImageView.alpha = 1.0f;
