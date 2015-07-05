@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,6 +14,19 @@
             <subviews>
                 <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" image="PhotoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Zml-ox-fuw">
                     <rect key="frame" x="-1" y="0.0" width="320" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Zml-ox-fuw" secondAttribute="height" multiplier="8:5" id="MLw-vO-kSG"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="MLw-vO-kSG"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="MLw-vO-kSG"/>
+                        </mask>
+                    </variation>
                     <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
                         <rect key="frame" x="39" y="0.0" width="320" height="200"/>
                     </variation>
@@ -126,6 +140,7 @@
                 <constraint firstItem="8zo-ae-EXw" firstAttribute="top" secondItem="8p4-RE-kuH" secondAttribute="bottom" constant="20" id="fjp-hr-hcY"/>
                 <constraint firstItem="V3y-dI-YcG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="hC9-FT-c50"/>
                 <constraint firstItem="527-RE-FST" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="kcy-Br-U66"/>
+                <constraint firstItem="Zml-ox-fuw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pWr-zg-XVR"/>
                 <constraint firstItem="UPg-AI-tvM" firstAttribute="top" secondItem="yey-zy-eVI" secondAttribute="bottom" constant="20" id="pZx-po-EDb"/>
                 <constraint firstItem="8p4-RE-kuH" firstAttribute="top" secondItem="a5j-Fq-ggd" secondAttribute="bottom" constant="60" id="qac-od-xIH"/>
                 <constraint firstItem="5ct-MI-q4i" firstAttribute="top" secondItem="Zml-ox-fuw" secondAttribute="bottom" constant="20" id="u1L-fp-ZkB"/>
@@ -150,6 +165,7 @@
                 </mask>
                 <mask key="constraints">
                     <exclude reference="HpF-9l-Q1j"/>
+                    <exclude reference="pWr-zg-XVR"/>
                     <exclude reference="NjC-A0-mrc"/>
                     <exclude reference="vMG-HO-t2s"/>
                     <exclude reference="1Rd-Np-o0u"/>
@@ -196,6 +212,7 @@
                 </mask>
                 <mask key="constraints">
                     <include reference="HpF-9l-Q1j"/>
+                    <include reference="pWr-zg-XVR"/>
                     <include reference="NjC-A0-mrc"/>
                     <include reference="vMG-HO-t2s"/>
                     <include reference="1Rd-Np-o0u"/>
