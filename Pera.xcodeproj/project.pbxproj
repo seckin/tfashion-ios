@@ -27,6 +27,7 @@
 		74B108A7156D7509005B421C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A6156D7509005B421C /* AddressBookUI.framework */; };
 		74B108A9156D7510005B421C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108A8156D7510005B421C /* MessageUI.framework */; };
 		74B108AB156D7CC2005B421C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74B108AA156D7CC2005B421C /* AddressBook.framework */; };
+		B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B802D1681B49B0A600E83656 /* CONSignUpViewController.xib */; };
 		BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* CONContact.m */; };
 		BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */; };
 		BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE91A309456001F8DC8 /* Info.plist */; };
@@ -149,6 +150,7 @@
 		74B108A8156D7510005B421C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		74B108AA156D7CC2005B421C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
+		B802D1681B49B0A600E83656 /* CONSignUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONSignUpViewController.xib; sourceTree = "<group>"; };
 		BC09CAD11A3090AA001F8DC8 /* CONContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONContact.h; sourceTree = "<group>"; };
 		BC09CAD21A3090AA001F8DC8 /* CONContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONContact.m; sourceTree = "<group>"; };
 		BC09CAE21A3091E5001F8DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 			children = (
 				BC9F04491A39D88100088C96 /* CONSignUpViewController.h */,
 				BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */,
+				B802D1681B49B0A600E83656 /* CONSignUpViewController.xib */,
 			);
 			name = "Sign Up";
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
 				055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */,
 				BC9F3FA31A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
+				B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */,
 				BC9F3F931A821C6F00629745 /* SVWebViewController.bundle in Resources */,
 				BC9F3FA11A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
 				BC9F3FAD1A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png in Resources */,

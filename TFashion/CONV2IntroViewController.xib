@@ -18,14 +18,13 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BackGround" translatesAutoresizingMaskIntoConstraints="NO" id="jgd-Jq-rQg">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="IntoLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rRB-VH-VJe">
-                    <rect key="frame" x="74" y="45" width="172" height="67"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="IntoLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rRB-VH-VJe">
+                    <rect key="frame" x="73" y="45" width="172" height="67"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsA-Cz-6lV">
-                    <rect key="frame" x="-160" y="518" width="640" height="50"/>
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <color key="backgroundColor" red="0.90588235289999997" green="0.098039215690000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="640" id="eNy-n8-8Yx"/>
                         <constraint firstAttribute="height" constant="50" id="qHj-y6-kMQ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -34,14 +33,14 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd0-mG-7jG">
-                    <rect key="frame" x="125" y="374" width="69.5" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Browse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd0-mG-7jG">
+                    <rect key="frame" x="124" y="374" width="69.5" height="24"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Explore recent fashion trends, get the best ideas." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oej-H5-u6T">
-                    <rect key="frame" x="40" y="398" width="240" height="60"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Explore recent fashion trends, get the best ideas." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oej-H5-u6T">
+                    <rect key="frame" x="39" y="398" width="240" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="RNL-Cn-1oN"/>
                         <constraint firstAttribute="width" constant="240" id="yri-kK-cUk"/>
@@ -51,7 +50,7 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="57r-Ug-1hZ">
-                    <rect key="frame" x="132.5" y="463" width="55" height="37"/>
+                    <rect key="frame" x="132" y="463" width="55" height="37"/>
                     <color key="currentPageIndicatorTintColor" red="0.9960784912109375" green="0.9960784912109375" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
                 </pageControl>
             </subviews>
@@ -66,6 +65,7 @@
                 <constraint firstItem="sd0-mG-7jG" firstAttribute="centerX" secondItem="LsA-Cz-6lV" secondAttribute="centerX" id="QaV-QR-Yxk"/>
                 <constraint firstAttribute="centerX" secondItem="rRB-VH-VJe" secondAttribute="centerX" id="SsS-ic-bH9"/>
                 <constraint firstAttribute="bottom" secondItem="LsA-Cz-6lV" secondAttribute="bottom" id="TyH-x7-wn4"/>
+                <constraint firstItem="LsA-Cz-6lV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UP0-yy-1s9"/>
                 <constraint firstAttribute="bottom" secondItem="jgd-Jq-rQg" secondAttribute="bottom" id="Xq4-fg-62x"/>
                 <constraint firstItem="jgd-Jq-rQg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cey-mZ-SF6"/>
                 <constraint firstAttribute="centerX" secondItem="57r-Ug-1hZ" secondAttribute="centerX" id="jGa-Hu-CCh"/>
