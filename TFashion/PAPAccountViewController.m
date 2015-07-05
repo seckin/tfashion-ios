@@ -109,7 +109,7 @@
     [photoCountLabel setTextAlignment:NSTextAlignmentLeft];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
-    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [self.headerView addSubview:photoCountLabel];
     [photoCountLabel setText:@"0"];
     

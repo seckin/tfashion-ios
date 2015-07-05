@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "PeraLaunch.png"
+      "filename" : "IntoLogo@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "PeraLaunch@2x.png"
+      "filename" : "IntoLogo@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "PeraLaunch@3x.png"
+      "filename" : "IntoLogo@3x.png"
     }
   ],
   "info" : {
