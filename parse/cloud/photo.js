@@ -12,7 +12,7 @@ Parse.Cloud.beforeSave('Photo', function(request, response) {
   }
 });
 
-
+ 
 Parse.Cloud.afterSave("Photo", function(request) {
 	if (request.object.existed()) { 
 		// it existed before 
@@ -43,6 +43,18 @@ Parse.Cloud.afterSave("Photo", function(request) {
 	  }
 	}).then(function(httpResponse) {
 	  console.log(httpResponse.text);
+
+	  query = new Parse.Query("_User");
+	  query.get(request.object.get("user").id, {
+	    success: function(user) {
+	      user.increment("numPhotos");
+	      user.save();
+	    },
+	    error: function(error) {
+	      console.error("Got an error " + error.code + " : " + error.message);
+	    }
+	  });
+
 	}, function(httpResponse) {
 	  console.error('Request failed with response code ' + httpResponse.status);
 	});
