@@ -98,6 +98,7 @@ NSString *const kPAPUserTwitterIDKey                            = @"twitterId";
 NSString *const kPAPUserInstagramIDKey                          = @"instagramId";
 NSString *const kPAPUserTumblrIDKey                             = @"tumblrId";
 NSString *const kPAPUserDidUpdateUsernameKey                    = @"didUpdateUsername";
+NSString *const kPAPUserNumPhotosKey                            = @"numPhotos";
 
 #pragma mark - Photo Class
 // Class key
