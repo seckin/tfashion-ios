@@ -103,8 +103,6 @@
 
 - (UIView *)newContentView
 {
-
-
     NSString *placeholderText = NSLocalizedString(@"New Tag",
                                                   @"Appears as placeholder text before a user enters text for a photo tag.");
     UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];

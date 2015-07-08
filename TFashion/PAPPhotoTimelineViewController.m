@@ -16,18 +16,23 @@
 #import "CONImageOverlay.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
+#import "POPSpringAnimation.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
+@property (nonatomic, strong) NSMutableDictionary *outstandingPhotoClothesQueries;
+@property (nonatomic, strong) NSMutableDictionary *outstandingClothClothPiecesQueries;
 @end
 
 @implementation PAPPhotoTimelineViewController
 @synthesize reusableSectionHeaderViews;
 @synthesize shouldReloadOnAppear;
 @synthesize outstandingSectionHeaderQueries;
+@synthesize outstandingPhotoClothesQueries;
+@synthesize outstandingClothClothPiecesQueries;
 
 #pragma mark - Initialization
 
@@ -45,6 +50,8 @@
     if (self) {
 
         self.outstandingSectionHeaderQueries = [NSMutableDictionary dictionary];
+        self.outstandingPhotoClothesQueries = [NSMutableDictionary dictionary];
+        self.outstandingClothClothPiecesQueries = [NSMutableDictionary dictionary];
 
         // The className to query on
         self.parseClassName = kPAPPhotoClassKey;
@@ -235,98 +242,186 @@
     return nil;
 }
 
+- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
+    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+
+    UIView *view = recognizer.view;
+    while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
+        view = [view superview];
+    }
+
+    PFObject *object = self.objects[view.tag];
+    NSArray *clothes = [[PAPCache sharedCache] clothesForPhoto:object];
+
+    for(int i = 0; i < [clothes count]; i++) {
+        PFObject *cloth = [clothes objectAtIndex:i];
+        NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
+
+        if([PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
+            CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, view.bounds.size.width, view.bounds.size.width)];
+
+            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+            animation.fromValue = @(0.0);
+            animation.toValue = @(0.40);
+
+            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+
+            [NSTimer scheduledTimerWithTimeInterval:0.2
+                                             target:self
+                                           selector:@selector(removeImageOverlay:)
+                                           userInfo:nil
+                                            repeats:NO];
+
+            PAPPhotoCell *cell = (PAPPhotoCell *)[recognizer.view superview];
+            [cell.clothOverlays addObject:tmpImageOverlay];
+            [cell addSubview:[cell.clothOverlays objectAtIndex:([cell.clothOverlays count] - 1)]];
+        }
+    }
+
+    [[recognizer.view superview] setNeedsDisplay];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"Cell";
-
+    
     NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
 
     if (indexPath.row % 2 == 0) {
         return [self detailPhotoCellForRowAtIndexPath:indexPath];
     } else {
-        PAPPhotoCell *cell = (PAPPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-        if (cell == nil) {
-            cell = [[PAPPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        [tableView registerClass:[PAPPhotoCell class] forCellReuseIdentifier:CellIdentifier];
+        PAPPhotoCell *cell = (PAPPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        for (UIView *subV in [cell.contentView subviews]) {
+            if([subV isKindOfClass:[CONTagPopover class]]) {
+                [subV removeFromSuperview];
+            }
         }
 
+        cell.tag = index;
         cell.photoButton.tag = index;
+
+        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+        [doubleTapGesture setNumberOfTapsRequired:2];
+        [cell.imageView addGestureRecognizer:doubleTapGesture];
+//        [cell.imageView addTarget:self
+//                            action:@selector(getPhoto)
+//                  forControlEvents:UIControlEventTouchUpInside];
+//        for(int i = 0; i < 3; i++) {
+//            CONTagPopover *conTagPopover = (CONTagPopover *)[cell.contentView viewWithTag:i];
+//            if([conTagPopover superview]) {
+//                [conTagPopover removeFromSuperview];
+//            }
+//        }
 
         if (object) {
             cell.imageView.file = [object objectForKey:kPAPPhotoPictureKey];
             cell.clothOverlays = [[NSMutableArray alloc] init];
-            cell.clothesDataArr = [[NSMutableArray alloc] init];
 
-                PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *cloths, NSError *error) {
-                        if (error) {
-                            return;
+            @synchronized(self) {
+                // check if we can update the cache
+                NSNumber *outstandingPhotoClothesQueryStatus = [self.outstandingPhotoClothesQueries objectForKey:@(index)];
+//                outstandingPhotoClothesQueryStatus = self.outstandingPhotoClothesQueries[@(index)];
+                if (!outstandingPhotoClothesQueryStatus) {
+                    [self.outstandingPhotoClothesQueries setObject:@"YES" forKey:@(index)];
+                    PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray *clothes, NSError *error) {
+                        @synchronized (self) {
+//                            [self.outstandingPhotoClothesQueries removeObjectForKey:@(index)];
+
+                            if (error) {
+                                return;
+                            }
+                            //                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[clothes count]);
+                            [[PAPCache sharedCache] setClothesForPhoto:object clothes:clothes];
+
+                            for (int j = 0; j < [clothes count]; j++) {
+                                PFObject *cloth = [clothes objectAtIndex:j];
+
+                                @synchronized (self) {
+                                    // check if we can update the cache
+                                    NSNumber *outstandingClothClothPiecesQueryStatus = [self.outstandingClothClothPiecesQueries objectForKey:cloth];
+                                    if (!outstandingClothClothPiecesQueryStatus) {
+                                        [self.outstandingClothClothPiecesQueries setObject:@"YES" forKey:cloth.objectId];
+                                        PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
+                                        [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
+                                            @synchronized (self) {
+//                                                    [self.outstandingClothClothPiecesQueries removeObjectForKey:cloth];
+                                                if (error) {
+                                                    return;
+                                                }
+                                                [[PAPCache sharedCache] setClothPiecesForCloth:cloth clothPieces:cloth_pieces];
+                                                [self.tableView reloadData];
+                                            }
+                                        }];
+                                    }
+                                }
+
+
+
+                            }
                         }
-//                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[cloths count]);
+                    }];
+                }
+            }
 
-                        NSMutableArray *clothes_data_arr = [NSMutableArray array];
-                        // clothes_data_arr eventually has [0: {"cloth": CLOTH_OBJ, "cloth_pieces": CLOTH_PIECES_ARR}, 1: {cloth, cloth_pieces}, ...] type of data in it.
-
-                        for(int j = 0; j < [cloths count]; j++) {
-                            PFObject *cloth = [cloths objectAtIndex:j];
-                            PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
-                            [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
-                                    if (error) {
-                                        return;
-                                    }
-                                    //NSMutableArray *cloth_pieces = [NSMutableArray array];
-                                    NSLog(@"photo id : %@, cloth id : %@,  clothPieces count: %lu", object.objectId, cloth.objectId, (unsigned long) [cloth_pieces count]);
-
-                                    // create one popover for each cloth, and populate the like/comment counts
-                                    for (int i = 0; i < [cloth_pieces count]; i++) {
-                                        PFObject *cloth_piece = [cloth_pieces objectAtIndex:i];
-//                                        NSLog(@"photo id : %@, cloth id : %@,  clothPiece id: %@", object.objectId, cloth.objectId, cloth_piece.objectId);
-                                    }
-                                    NSDictionary *cloth_data = [NSDictionary dictionaryWithObjects:@[cloth, cloth_pieces] forKeys:@[@"cloth", @"cloth_pieces"]];
-                                    [clothes_data_arr addObject:cloth_data];
+            NSArray *clothes = [[PAPCache sharedCache] clothesForPhoto:object];
+            for (int i = 0; i < [clothes count]; i++) {
+                PFObject *cloth = [clothes objectAtIndex:i];
+                NSArray *cached_cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
+                if ([cached_cloth_pieces count] > 0) {
+                    CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
+                            @"tagText" : @""}];
+                    CONTagPopover *tagpopover = [[CONTagPopover alloc] init];
+                    [tagpopover initWithTag:tag];
+                    NSLog(@"burda14");
 
 
-                                    NSLog(@"adding to clothesDataArr");
-                                    [cell.clothesDataArr addObject:cloth_data];
+//                                    NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
+                    PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
+                    NSLog(@"burda13");
 
-//                                    NSArray *cloth_pieces = [cloth_data objectForKey:@"cloth_pieces"];
+                    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
 
-                                    PFObject *cloth_piece = [cloth_pieces objectAtIndex:0];
-                                    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
+                    CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+                    for (int k = 0; k < [boundary_points count]; k++) {
+                        cum_x += (CGFloat) [boundary_points[k][0] floatValue];
+                        cum_y += (CGFloat) [boundary_points[k][1] floatValue];
+                    }
+                    avg_x = cum_x / [boundary_points count];
+                    avg_y = cum_y / [boundary_points count];
 
-                                    CGFloat x,y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
-                                    for(int j = 0; j < [boundary_points count]; j++) {
-                                        cum_x += (CGFloat)[boundary_points[j][0] floatValue];
-                                        cum_y += (CGFloat)[boundary_points[j][1] floatValue];
-                                    }
-                                    avg_x = cum_x / [boundary_points count];
-                                    avg_y = cum_y / [boundary_points count];
+                    NSLog(@"burda1");
+                    float scale = 320.0 / 560.0;
+                    NSLog(@"photo objectid: %@", object.objectId);
+                    if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
+                        NSLog(@"adding popover");
+                        tagpopover.tag = i;
 
-                                    CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
-                                            @"tagText" : @""}];
+                        [tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
 
-                                    [cell setTag:tag];
-
-                                    cell.tagpopover = [[CONTagPopover alloc] init];//[CONTagPopover initWithTag:self.tag];
-                                    [cell.tagpopover initWithTag:cell.tag];
-
-                                    float scale = 320.0 / 560.0;
-                                    [cell.tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake( 0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
-
-                                    UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
-                                    tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, cell.tagpopover.bounds.size.width, cell.tagpopover.bounds.size.width);
-                                    tagpopoverLayover.backgroundColor = [UIColor clearColor];
-                                    tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
-                                    [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
-                                    [cell.tagpopover addSubview:tagpopoverLayover];
-                            }];
-                        }
-                }];
+                        UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
+                        tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, tagpopover.bounds.size.width, tagpopover.bounds.size.width);
+                        tagpopoverLayover.backgroundColor = [UIColor clearColor];
+                        tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
+                        [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
+                        [tagpopover addSubview:tagpopoverLayover];
+                    } else {
+                        NSLog(@"not adding popover");
+                        NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
+                    }
+                }
+            }
 
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
@@ -560,7 +655,11 @@
 }
 
 - (void)didTapOnPopoverAction:(UIButton *)sender {
-    PFObject *photo = [self.objects objectAtIndex:sender.tag];
+    UIView *view = sender;
+    while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
+        view = [view superview];
+    }
+    PFObject *photo = [self.objects objectAtIndex:view.tag];
     if (photo) {
         PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
         [self.navigationController pushViewController:photoDetailsVC animated:YES];

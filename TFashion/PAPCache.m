@@ -53,8 +53,39 @@
     [self setAttributes:attributes forPhoto:photo];
 }
 
+- (void)setClothesForPhoto:(PFObject *)photo clothes:(NSArray *)clothes {
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    clothes,kPAPPhotoAttributesClothesKey,
+                                    nil];
+
+    [self setAttributes:attributes forPhoto:photo];
+}
+
+- (void)setClothPiecesForCloth:(PFObject *)cloth clothPieces:(NSArray *)clothPieces {
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+            clothPieces,kPAPClothAttributesClothPiecesKey,
+                    nil];
+
+    [self setAttributes:attributes forCloth:cloth];
+}
+
+- (NSArray *)clothPiecesForCloth:(PFObject *)cloth {
+    NSDictionary *attributes = [self attributesForCloth:cloth];
+    if (attributes) {
+        return [attributes objectForKey:kPAPClothAttributesClothPiecesKey];
+    }
+
+    return [NSArray array];
+}
+
+
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo {
     NSString *key = [self keyForPhoto:photo];
+    return [self.cache objectForKey:key];
+}
+
+- (NSDictionary *)attributesForCloth:(PFObject *)cloth {
+    NSString *key = [self keyForCloth:cloth];
     return [self.cache objectForKey:key];
 }
 
@@ -91,6 +122,15 @@
         return [attributes objectForKey:kPAPPhotoAttributesCommentersKey];
     }
     
+    return [NSArray array];
+}
+
+- (NSArray *)clothesForPhoto:(PFObject *)photo {
+    NSDictionary *attributes = [self attributesForPhoto:photo];
+    if (attributes) {
+        return [attributes objectForKey:kPAPPhotoAttributesClothesKey];
+    }
+
     return [NSArray array];
 }
 
@@ -227,6 +267,11 @@
     [self.cache setObject:attributes forKey:key];    
 }
 
+- (void)setAttributes:(NSDictionary *)attributes forCloth:(PFObject *)cloth {
+    NSString *key = [self keyForCloth:cloth];
+    [self.cache setObject:attributes forKey:key];
+}
+
 - (NSString *)keyForPhoto:(PFObject *)photo {
     return [NSString stringWithFormat:@"photo_%@", [photo objectId]];
 }
@@ -234,5 +279,10 @@
 - (NSString *)keyForUser:(PFUser *)user {
     return [NSString stringWithFormat:@"user_%@", [user objectId]];
 }
+
+- (NSString *)keyForCloth:(PFObject *)cloth {
+    return [NSString stringWithFormat:@"cloth_%@", [cloth objectId]];
+}
+
 
 @end
