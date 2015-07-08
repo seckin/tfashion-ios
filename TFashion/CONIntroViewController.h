@@ -26,5 +26,6 @@
  *  @param introViewController the scroll view controller that's been scrolled
  */
 - (void)intoViewControllerDidDismiss:(CONIntroViewController *)introViewController;
+- (IBAction)signUpButtonHandler:(id)sender;
 
 @end

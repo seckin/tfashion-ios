@@ -98,6 +98,7 @@ NSString *const kPAPUserTwitterIDKey                            = @"twitterId";
 NSString *const kPAPUserInstagramIDKey                          = @"instagramId";
 NSString *const kPAPUserTumblrIDKey                             = @"tumblrId";
 NSString *const kPAPUserDidUpdateUsernameKey                    = @"didUpdateUsername";
+NSString *const kPAPUserNumPhotosKey                            = @"numPhotos";
 
 #pragma mark - Photo Class
 // Class key
@@ -117,7 +118,11 @@ NSString *const kPAPPhotoAttributesLikeCountKey            = @"likeCount";
 NSString *const kPAPPhotoAttributesLikersKey               = @"likers";
 NSString *const kPAPPhotoAttributesCommentCountKey         = @"commentCount";
 NSString *const kPAPPhotoAttributesCommentersKey           = @"commenters";
+NSString *const kPAPPhotoAttributesClothesKey              = @"clothes";
 
+#pragma mark - Cached Cloth Attributes
+// keys
+NSString *const kPAPClothAttributesClothPiecesKey = @"clothPieces";
 
 #pragma mark - Cached User Attributes
 // keys

@@ -126,7 +126,7 @@
     self.welcomeViewController = [[PAPWelcomeViewController alloc] init];
     self.v2IntroViewController = [[CONV2IntroViewController alloc] init];
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.v2IntroViewController];
     self.navController.navigationBarHidden = YES;
 
     self.window.rootViewController = self.navController;

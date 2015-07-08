@@ -12,16 +12,12 @@
 @class CONImageOverlay;
 @class CONDEMOTag;
 @class CONTagPopover;
-@class CONTagDetailPopover;
 
 @interface PAPPhotoCell : PFTableViewCell
 
+@property (nonatomic, strong) PFObject *photo;
 @property (nonatomic, strong) UIButton *photoButton;
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;
 @property (nonatomic, strong) NSMutableArray *clothOverlays;
-@property (nonatomic, strong) NSMutableArray *clothesDataArr;
-@property (strong) CONDEMOTag *tag;
-@property (strong) CONTagPopover *tagpopover;
-@property (strong) CONTagDetailPopover *tagdetailpopover;
 
 @end

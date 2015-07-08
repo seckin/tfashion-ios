@@ -120,6 +120,7 @@ extern NSString *const kPAPUserTwitterIDKey;
 extern NSString *const kPAPUserInstagramIDKey;
 extern NSString *const kPAPUserTumblrIDKey;
 extern NSString *const kPAPUserDidUpdateUsernameKey;
+extern NSString *const kPAPUserNumPhotosKey;
 
 
 #pragma mark - PFObject Photo Class
@@ -140,7 +141,11 @@ extern NSString *const kPAPPhotoAttributesLikeCountKey;
 extern NSString *const kPAPPhotoAttributesLikersKey;
 extern NSString *const kPAPPhotoAttributesCommentCountKey;
 extern NSString *const kPAPPhotoAttributesCommentersKey;
+extern NSString *const kPAPPhotoAttributesClothesKey;
 
+#pragma mark - Cached Cloth Attributes
+// keys
+extern NSString *const kPAPClothAttributesClothPiecesKey;
 
 #pragma mark - Cached User Attributes
 // keys
