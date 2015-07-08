@@ -37,8 +37,8 @@
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     
-    [self placeViews];
-    [self configureAnimation];
+    //[self placeViews];
+    //[self configureAnimation];
     
     self.delegate = self;
 }
