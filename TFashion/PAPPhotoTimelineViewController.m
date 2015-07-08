@@ -242,45 +242,6 @@
     return nil;
 }
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-
-    UIView *view = recognizer.view;
-    while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
-        view = [view superview];
-    }
-
-    PFObject *object = self.objects[view.tag];
-    NSArray *clothes = [[PAPCache sharedCache] clothesForPhoto:object];
-
-    for(int i = 0; i < [clothes count]; i++) {
-        PFObject *cloth = [clothes objectAtIndex:i];
-        NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
-
-        if([PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
-            CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, view.bounds.size.width, view.bounds.size.width)];
-
-            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
-            animation.fromValue = @(0.0);
-            animation.toValue = @(0.40);
-
-            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
-
-            [NSTimer scheduledTimerWithTimeInterval:0.2
-                                             target:self
-                                           selector:@selector(removeImageOverlay:)
-                                           userInfo:nil
-                                            repeats:NO];
-
-            PAPPhotoCell *cell = (PAPPhotoCell *)[recognizer.view superview];
-            [cell.clothOverlays addObject:tmpImageOverlay];
-            [cell addSubview:[cell.clothOverlays objectAtIndex:([cell.clothOverlays count] - 1)]];
-        }
-    }
-
-    [[recognizer.view superview] setNeedsDisplay];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *CellIdentifier = @"Cell";
     
@@ -299,10 +260,8 @@
 
         cell.tag = index;
         cell.photoButton.tag = index;
+        cell.photo = object;
 
-        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-        [doubleTapGesture setNumberOfTapsRequired:2];
-        [cell.imageView addGestureRecognizer:doubleTapGesture];
 //        [cell.imageView addTarget:self
 //                            action:@selector(getPhoto)
 //                  forControlEvents:UIControlEventTouchUpInside];
