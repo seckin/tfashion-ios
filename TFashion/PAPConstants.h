@@ -120,6 +120,7 @@ extern NSString *const kPAPUserTwitterIDKey;
 extern NSString *const kPAPUserInstagramIDKey;
 extern NSString *const kPAPUserTumblrIDKey;
 extern NSString *const kPAPUserDidUpdateUsernameKey;
+extern NSString *const kPAPUserNumPhotosKey;
 
 
 #pragma mark - PFObject Photo Class
