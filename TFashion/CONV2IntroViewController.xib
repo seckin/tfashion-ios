@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -12,24 +12,75 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundLogin" translatesAutoresizingMaskIntoConstraints="NO" id="YEc-F0-tdU">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BackGround" translatesAutoresizingMaskIntoConstraints="NO" id="jgd-Jq-rQg">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="IntoLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rRB-VH-VJe">
+                    <rect key="frame" x="73" y="45" width="172" height="67"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsA-Cz-6lV">
+                    <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                    <color key="backgroundColor" red="0.90588235289999997" green="0.098039215690000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="qHj-y6-kMQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Get Into">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Browse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sd0-mG-7jG">
+                    <rect key="frame" x="124" y="374" width="69.5" height="24"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Explore recent fashion trends, get the best ideas." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oej-H5-u6T">
+                    <rect key="frame" x="39" y="398" width="240" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="RNL-Cn-1oN"/>
+                        <constraint firstAttribute="width" constant="240" id="yri-kK-cUk"/>
+                    </constraints>
+                    <color key="textColor" red="0.99215692280000001" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="57r-Ug-1hZ">
+                    <rect key="frame" x="132" y="463" width="55" height="37"/>
+                    <color key="currentPageIndicatorTintColor" red="0.9960784912109375" green="0.9960784912109375" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
+                </pageControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="YEc-F0-tdU" secondAttribute="bottom" id="AlY-YI-lgL"/>
-                <constraint firstItem="YEc-F0-tdU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ka3-yU-Ljg"/>
-                <constraint firstAttribute="trailing" secondItem="YEc-F0-tdU" secondAttribute="trailing" id="Psx-eN-auL"/>
-                <constraint firstItem="YEc-F0-tdU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="w2o-Vv-QIE"/>
+                <constraint firstAttribute="centerY" secondItem="jgd-Jq-rQg" secondAttribute="centerY" id="33h-vU-7Kp"/>
+                <constraint firstAttribute="centerX" secondItem="oej-H5-u6T" secondAttribute="centerX" id="AL0-5C-XMi"/>
+                <constraint firstAttribute="centerX" secondItem="jgd-Jq-rQg" secondAttribute="centerX" id="Eif-km-iho"/>
+                <constraint firstItem="rRB-VH-VJe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="45" id="JXB-Yb-6LG"/>
+                <constraint firstAttribute="centerX" secondItem="LsA-Cz-6lV" secondAttribute="centerX" id="NgF-NC-yf6"/>
+                <constraint firstAttribute="trailing" secondItem="jgd-Jq-rQg" secondAttribute="trailing" id="QIe-YJ-ZRU"/>
+                <constraint firstItem="sd0-mG-7jG" firstAttribute="centerX" secondItem="LsA-Cz-6lV" secondAttribute="centerX" id="QaV-QR-Yxk"/>
+                <constraint firstAttribute="centerX" secondItem="rRB-VH-VJe" secondAttribute="centerX" id="SsS-ic-bH9"/>
+                <constraint firstAttribute="bottom" secondItem="LsA-Cz-6lV" secondAttribute="bottom" id="TyH-x7-wn4"/>
+                <constraint firstItem="LsA-Cz-6lV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UP0-yy-1s9"/>
+                <constraint firstAttribute="bottom" secondItem="jgd-Jq-rQg" secondAttribute="bottom" id="Xq4-fg-62x"/>
+                <constraint firstItem="jgd-Jq-rQg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cey-mZ-SF6"/>
+                <constraint firstAttribute="centerX" secondItem="57r-Ug-1hZ" secondAttribute="centerX" id="jGa-Hu-CCh"/>
+                <constraint firstItem="57r-Ug-1hZ" firstAttribute="top" secondItem="oej-H5-u6T" secondAttribute="bottom" constant="5" id="jUB-CG-L17"/>
+                <constraint firstAttribute="centerX" secondItem="LsA-Cz-6lV" secondAttribute="centerX" id="lXw-1C-7nL"/>
+                <constraint firstItem="jgd-Jq-rQg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mXL-5a-k1m"/>
+                <constraint firstItem="oej-H5-u6T" firstAttribute="top" secondItem="sd0-mG-7jG" secondAttribute="bottom" id="p8I-G4-Dfj"/>
+                <constraint firstItem="LsA-Cz-6lV" firstAttribute="top" secondItem="sd0-mG-7jG" secondAttribute="bottom" constant="120" id="sNV-tS-mpA"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="348" y="402"/>
         </view>
     </objects>
     <resources>
-        <image name="BackgroundLogin" width="375" height="667"/>
+        <image name="BackGround" width="320" height="568"/>
+        <image name="IntoLogo" width="172" height="67"/>
     </resources>
 </document>
