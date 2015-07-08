@@ -15,14 +15,15 @@
 #import "POPSpringAnimation.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
-#import "CONTagDetailPopover.h"
+#import "CONPopoversView.h"
 
 @implementation PAPPhotoCell
 @synthesize photoButton;
 @synthesize imageOverlay;
 @synthesize clothOverlays;
-@synthesize clothesDataArr;
-
+@synthesize popover1;
+@synthesize popover2;
+@synthesize popover3;
 
 #pragma mark - NSObject
 
@@ -41,9 +42,8 @@
         self.imageView.backgroundColor = [UIColor blackColor];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *recog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-        [recog setNumberOfTapsRequired:2];
-        [self.imageView addGestureRecognizer:recog];
+
+        [self loadGestureRecognizers];
 
         [self.contentView addSubview:self.photoButton];
     }
@@ -51,31 +51,38 @@
     return self;
 }
 
+- (void)loadGestureRecognizers
+{
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    [doubleTapGesture setNumberOfTapsRequired:2];
+    [self.imageView addGestureRecognizer:doubleTapGesture];
+}
+
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:[recognizer.view superview]];
 
-    for(int i = 0; i < [self.clothesDataArr count]; i++) {
-        NSDictionary *cloth_data = [self.clothesDataArr objectAtIndex:i];
-        if([PAPUtility isLocationInsideCloth:location.x withY:location.y clothData:cloth_data]) {
-            CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
-            tmpImageOverlay.clothDataArr = cloth_data;
-
-            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
-            animation.fromValue = @(0.0);
-            animation.toValue = @(0.40);
-
-            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
-
-            [NSTimer scheduledTimerWithTimeInterval:0.2
-                                             target:self
-                                           selector:@selector(removeImageOverlay:)
-                                           userInfo:nil
-                                            repeats:NO];
-
-            [self.clothOverlays addObject:tmpImageOverlay];
-            [self addSubview:[self.clothOverlays objectAtIndex:([self.clothOverlays count] - 1)]];
-        }
-    }
+//    for(int i = 0; i < [self.clothesDataArr count]; i++) {
+//        NSDictionary *cloth_data = [self.clothesDataArr objectAtIndex:i];
+//        if([PAPUtility isLocationInsideCloth:location.x withY:location.y clothData:cloth_data]) {
+//            CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
+//            tmpImageOverlay.clothDataArr = cloth_data;
+//
+//            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+//            animation.fromValue = @(0.0);
+//            animation.toValue = @(0.40);
+//
+//            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+//
+//            [NSTimer scheduledTimerWithTimeInterval:0.2
+//                                             target:self
+//                                           selector:@selector(removeImageOverlay:)
+//                                           userInfo:nil
+//                                            repeats:NO];
+//
+//            [self.clothOverlays addObject:tmpImageOverlay];
+//            [self addSubview:[self.clothOverlays objectAtIndex:([self.clothOverlays count] - 1)]];
+//        }
+//    }
 
     [self setNeedsDisplay];
 }

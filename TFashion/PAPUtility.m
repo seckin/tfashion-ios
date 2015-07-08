@@ -344,14 +344,14 @@
     return queryClothPieces;
 }
 
-+ (BOOL)isLocationInsideCloth:(CGFloat)x withY:(CGFloat)y clothData:(NSDictionary *)clothData {
++ (BOOL)isLocationInsideCloth:(CGFloat)x withY:(CGFloat)y clothPieces:(NSArray *)clothPieces {
 
     float scale = 320.0 / 560.0;
-    NSArray *cloth_pieces = [clothData objectForKey:@"cloth_pieces"];
-    if([cloth_pieces count] == 0) {
+//    NSArray *cloth_pieces = [clothData objectForKey:@"cloth_pieces"];
+    if([clothPieces count] == 0) {
         return NO;
     }
-    PFObject *cloth_piece = [cloth_pieces objectAtIndex:0];
+    PFObject *cloth_piece = [clothPieces objectAtIndex:0];
     NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
 
     // Step 1: test bounding box and vertex equality

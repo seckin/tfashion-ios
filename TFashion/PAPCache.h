@@ -14,11 +14,15 @@
 
 - (void)clear;
 - (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
+- (void)setClothesForPhoto:(PFObject *)photo clothes:(NSArray *)clothes;
+- (void)setClothPiecesForCloth:(PFObject *)cloth clothPieces:(NSArray *)clothPieces;
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo;
 - (NSNumber *)likeCountForPhoto:(PFObject *)photo;
 - (NSNumber *)commentCountForPhoto:(PFObject *)photo;
 - (NSArray *)likersForPhoto:(PFObject *)photo;
 - (NSArray *)commentersForPhoto:(PFObject *)photo;
+- (NSArray *)clothesForPhoto:(PFObject *)photo;
+- (NSArray *)clothPiecesForCloth:(PFObject *)cloth;
 - (void)setPhotoIsLikedByCurrentUser:(PFObject *)photo liked:(BOOL)liked;
 - (BOOL)isPhotoLikedByCurrentUser:(PFObject *)photo;
 - (void)incrementLikerCountForPhoto:(PFObject *)photo;

@@ -11,7 +11,6 @@
 		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
 		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
 		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
-		0585CE341B2D790A00E5DAEE /* CONTagDetailPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 0585CE331B2D790A00E5DAEE /* CONTagDetailPopover.m */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
 		092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B213A1D7EB00DA740F /* CFNetwork.framework */; };
@@ -128,7 +127,6 @@
 		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
 		055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONV2IntroViewController.m; sourceTree = "<group>"; };
 		055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONV2IntroViewController.xib; sourceTree = "<group>"; };
-		0585CE331B2D790A00E5DAEE /* CONTagDetailPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagDetailPopover.m; sourceTree = "<group>"; };
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
 		092354AF13A1D7E200DA740F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -409,7 +407,6 @@
 				BC2138CD1A24D49B003DD8C4 /* AppDelegate.h */,
 				BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */,
 				BC2138CF1A24D49B003DD8C4 /* PAPCache.h */,
-				0585CE331B2D790A00E5DAEE /* CONTagDetailPopover.m */,
 				BC2138D01A24D49B003DD8C4 /* PAPCache.m */,
 				BC2138D11A24D49B003DD8C4 /* PAPConstants.h */,
 				BC2138D21A24D49B003DD8C4 /* PAPConstants.m */,
@@ -1000,7 +997,6 @@
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
 				BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */,
-				0585CE341B2D790A00E5DAEE /* CONTagDetailPopover.m in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,

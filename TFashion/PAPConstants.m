@@ -117,7 +117,11 @@ NSString *const kPAPPhotoAttributesLikeCountKey            = @"likeCount";
 NSString *const kPAPPhotoAttributesLikersKey               = @"likers";
 NSString *const kPAPPhotoAttributesCommentCountKey         = @"commentCount";
 NSString *const kPAPPhotoAttributesCommentersKey           = @"commenters";
+NSString *const kPAPPhotoAttributesClothesKey              = @"clothes";
 
+#pragma mark - Cached Cloth Attributes
+// keys
+NSString *const kPAPClothAttributesClothPiecesKey = @"clothPieces";
 
 #pragma mark - Cached User Attributes
 // keys
