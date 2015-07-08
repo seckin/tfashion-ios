@@ -16,7 +16,6 @@
 #import "CONImageOverlay.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
-#import "CONPopoversView.h"
 #import "POPSpringAnimation.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 

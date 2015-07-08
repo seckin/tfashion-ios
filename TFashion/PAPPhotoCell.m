@@ -15,7 +15,6 @@
 #import "POPSpringAnimation.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
-#import "CONPopoversView.h"
 
 @implementation PAPPhotoCell
 @synthesize photoButton;
