@@ -20,9 +20,6 @@
 @synthesize photoButton;
 @synthesize imageOverlay;
 @synthesize clothOverlays;
-@synthesize popover1;
-@synthesize popover2;
-@synthesize popover3;
 
 #pragma mark - NSObject
 

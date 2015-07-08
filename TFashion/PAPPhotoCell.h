@@ -18,8 +18,5 @@
 @property (nonatomic, strong) UIButton *photoButton;
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;
 @property (nonatomic, strong) NSMutableArray *clothOverlays;
-@property (nonatomic, strong) CONTagPopover *popover1;
-@property (nonatomic, strong) CONTagPopover *popover2;
-@property (nonatomic, strong) CONTagPopover *popover3;
 
 @end
