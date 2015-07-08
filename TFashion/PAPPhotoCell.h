@@ -15,6 +15,7 @@
 
 @interface PAPPhotoCell : PFTableViewCell
 
+@property (nonatomic, strong) PFObject *photo;
 @property (nonatomic, strong) UIButton *photoButton;
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;
 @property (nonatomic, strong) NSMutableArray *clothOverlays;
