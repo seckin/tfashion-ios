@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#include "PAPLogInViewController.h"
-
-@interface CONV2IntroViewController : UIViewController <PAPLogInViewControllerDelegate>
-
-- (void)presentLoginViewController:(BOOL)animated;
+@interface CONV2IntroViewController : UIViewController
 
 @end
