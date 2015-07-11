@@ -74,7 +74,7 @@
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
     CALayer *layer = [profilePictureImageView layer];
-    layer.cornerRadius = 66.0f;
+    layer.cornerRadius = 30.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 1.0f;
 
