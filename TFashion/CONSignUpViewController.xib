@@ -77,27 +77,27 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="seperator " translatesAutoresizingMaskIntoConstraints="NO" id="ty3-Bp-aJq">
                     <rect key="frame" x="0.0" y="-1" width="320" height="1"/>
                 </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPg-AI-tvM">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-dI-YcG">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                     <textInputTraits key="textInputTraits"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="30" y="342" width="36" height="22"/>
+                    </variation>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-dI-YcG">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALi-Ug-4R2">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                     <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALi-Ug-4R2">
-                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                    <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="30" y="403" width="69" height="22"/>
+                    </variation>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+1 813 987 32 32" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-ae-EXw">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                    <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="0.75" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -106,17 +106,20 @@
                     <color key="textColor" red="0.23921568630000001" green="0.30980392159999998" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                     <textInputTraits key="textInputTraits"/>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="30" y="220" width="92" height="22"/>
-                    </variation>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Surname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ct-MI-q4i">
                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                     <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                     <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPg-AI-tvM">
+                    <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                    <color key="textColor" red="0.23921568627450979" green="0.30980392156862746" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                    <textInputTraits key="textInputTraits"/>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="191" y="220" width="77" height="22"/>
+                        <rect key="frame" x="30" y="281" width="87" height="22"/>
                     </variation>
                 </textField>
             </subviews>
@@ -162,12 +165,12 @@
                     <exclude reference="a5j-Fq-ggd"/>
                     <exclude reference="8p4-RE-kuH"/>
                     <exclude reference="ty3-Bp-aJq"/>
-                    <exclude reference="UPg-AI-tvM"/>
                     <exclude reference="V3y-dI-YcG"/>
                     <exclude reference="ALi-Ug-4R2"/>
                     <exclude reference="8zo-ae-EXw"/>
                     <exclude reference="527-RE-FST"/>
                     <exclude reference="5ct-MI-q4i"/>
+                    <exclude reference="UPg-AI-tvM"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="1Rd-Np-o0u"/>
@@ -209,12 +212,12 @@
                     <include reference="a5j-Fq-ggd"/>
                     <include reference="8p4-RE-kuH"/>
                     <include reference="ty3-Bp-aJq"/>
-                    <include reference="UPg-AI-tvM"/>
                     <include reference="V3y-dI-YcG"/>
                     <include reference="ALi-Ug-4R2"/>
                     <include reference="8zo-ae-EXw"/>
                     <include reference="527-RE-FST"/>
                     <include reference="5ct-MI-q4i"/>
+                    <include reference="UPg-AI-tvM"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="1Rd-Np-o0u"/>
