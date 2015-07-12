@@ -78,7 +78,7 @@
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
     CALayer *layer = [profilePictureImageView layer];
-    layer.cornerRadius = 66.0f;
+    layer.cornerRadius = 30.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 1.0f;
     
@@ -94,22 +94,32 @@
     // Add a bottomBorder.
     CALayer *bottomBorder = [CALayer layer];
     
-    bottomBorder.frame = CGRectMake(0.0f, 220.0f, headerView.frame.size.width, (1.0f / [UIScreen mainScreen].scale));
+    bottomBorder.frame = CGRectMake(0.0f, 100.0f, headerView.frame.size.width, (1.0f / [UIScreen mainScreen].scale));
     
     bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f
                                                      alpha:1.0f].CGColor;
     
     [headerView.layer addSublayer:bottomBorder];
     
-    photoCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 110.0f, 92.0f, 22.0f)];
+    // Add a bottomBorderTwo.
+    CALayer *bottomBorderTwo = [CALayer layer];
+    
+    bottomBorderTwo.frame = CGRectMake(0.0f, 144.0f, headerView.frame.size.width, (15.0f / [UIScreen mainScreen].scale));
+    
+    bottomBorderTwo.backgroundColor = [UIColor colorWithWhite:0.8f
+                                                     alpha:1.0f].CGColor;
+    
+    [headerView.layer addSublayer:bottomBorderTwo];
+    
+    photoCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 120.0f, 92.0f, 22.0f)];
     [photoCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [photoCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [photoCountTextLabel  setTextColor:[UIColor blackColor]];
-    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:photoCountTextLabel ];
     [photoCountTextLabel setText:@"Photos"];
     
-    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 94.0f, 92.0f, 22.0f)];
+    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 105.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentLeft];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
@@ -117,45 +127,44 @@
     [self.headerView addSubview:photoCountLabel];
     [photoCountLabel setText:@"0"];
     
-    followerCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 130.0f, 110.0f, 226.0f - 130.0f, 22.0f)];
+    followerCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 130.0f, 120.0f, 226.0f - 130.0f, 22.0f)];
     [followerCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [followerCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [followerCountTextLabel  setTextColor:[UIColor blackColor]];
-    [followerCountTextLabel  setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [followerCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:followerCountTextLabel ];
     [followerCountTextLabel setText:@"Follower"];
     
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [followerCountButton setFrame:CGRectMake( 90.0f, 94.0f, 226.0f - 130.0f, 22.0f)];
+    [followerCountButton setFrame:CGRectMake( 90.0f, 105.0f, 226.0f - 130.0f, 22.0f)];
     [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [followerCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followerCountButton];
     
-    
-    followingCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 22.0f)];
+    followingCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 226.0f, 120.0f, self.headerView.bounds.size.width - 226.0f, 22.0f)];
     [followingCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [followingCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [followingCountTextLabel  setTextColor:[UIColor blackColor]];
-    [followingCountTextLabel  setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [followingCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:followingCountTextLabel ];
     [followingCountTextLabel setText:@"Following"];
     
     followingCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [followingCountButton setFrame:CGRectMake( 186.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 22.0f)];
+    [followingCountButton setFrame:CGRectMake( 186.0f, 105.0f, self.headerView.bounds.size.width - 226.0f, 22.0f)];
     [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [followingCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
     
-    UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
-    [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
+    UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 10.0f, self.headerView.bounds.size.width, 22.0f)];
+    [userDisplayNameLabel setTextAlignment:NSTextAlignmentLeft];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
     [userDisplayNameLabel setTextColor:[UIColor blackColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
-    [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
+    [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
     [followerCountButton setTitle:@"0" forState:UIControlStateNormal];
@@ -166,7 +175,7 @@
     [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [followerCountButton setTitle:[NSString stringWithFormat:@"%d%@", number, number==1?@"":@"s"] forState:UIControlStateNormal];
+            [followerCountButton setTitle:[NSString stringWithFormat:@"%d%@", number, number==1?@"":@""] forState:UIControlStateNormal];
         }
     }];
     
