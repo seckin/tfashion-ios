@@ -62,12 +62,12 @@
     }
     
     //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
-    self.navigationItem.title = [NSString stringWithFormat:@"@%@", self.user.username];
+    self.navigationItem.title = [NSString stringWithFormat:@"", self.user.username];
     
     // Add Settings button
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 222.0f)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 152.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
     
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -104,7 +104,7 @@
     // Add a bottomBorderTwo.
     CALayer *bottomBorderTwo = [CALayer layer];
     
-    bottomBorderTwo.frame = CGRectMake(0.0f, 144.0f, headerView.frame.size.width, (15.0f / [UIScreen mainScreen].scale));
+    bottomBorderTwo.frame = CGRectMake(0.0f, 145.0f, headerView.frame.size.width, (15.0f / [UIScreen mainScreen].scale));
     
     bottomBorderTwo.backgroundColor = [UIColor colorWithWhite:0.8f
                                                      alpha:1.0f].CGColor;
@@ -167,6 +167,15 @@
     [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
+    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 35.0f, self.headerView.bounds.size.width, 22.0f)];
+    [usernameLabel setTextAlignment:NSTextAlignmentLeft];
+    [usernameLabel setBackgroundColor:[UIColor clearColor]];
+    [usernameLabel setTextColor:[UIColor colorWithRed:239.0f/255.0f green:53.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [usernameLabel setText:[self.user objectForKey:@"username"]];
+    [usernameLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [usernameLabel setText:[NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]]];
+    [self.headerView addSubview:usernameLabel];
+
     [followerCountButton setTitle:@"0" forState:UIControlStateNormal];
     
     PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
