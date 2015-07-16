@@ -72,7 +72,7 @@
 
         CGSize size = CGSizeMake(200, 200);
         UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-        [[UIColor greenColor] setFill];
+        [[UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] setFill];
         UIRectFill(CGRectMake(0, 0, size.width, size.height));
         UIImage *followButtonActiveStateBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -82,7 +82,7 @@
         [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
         [self.followButton setImage:[plusIcon imageWithSize:CGSizeMake(12.0f, 12.0f)] forState:UIControlStateNormal];
         FAKFoundationIcons *checkIcon = [FAKFoundationIcons checkIconWithSize:12.0f];
-        [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        [checkIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
         [self.followButton setImage:[checkIcon imageWithSize:CGSizeMake(12.0f, 12.0f)]
                            forState:UIControlStateSelected];
         [self.followButton setTitle:@"Follow"
@@ -91,14 +91,14 @@
                            forState:UIControlStateSelected];
         [self.followButton setTitleColor:[UIColor blackColor]
                                 forState:UIControlStateNormal];
-        [self.followButton setTitleColor:[UIColor blackColor]
+        [self.followButton setTitleColor:[UIColor whiteColor]
                                 forState:UIControlStateSelected];
         [self.followButton addTarget:self action:@selector(didTapFollowButtonAction:)
                     forControlEvents:UIControlEventTouchUpInside];
         
         self.followButton.clipsToBounds = YES;
         self.followButton.layer.cornerRadius = 5.0f;
-        self.followButton.layer.borderWidth = (1.0f / [UIScreen mainScreen].scale);
+        self.followButton.layer.borderWidth = (0.5f / [UIScreen mainScreen].scale);
         self.followButton.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:self.followButton];
     }

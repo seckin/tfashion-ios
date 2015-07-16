@@ -22,6 +22,8 @@
 @property (nonatomic, strong) UIButton *followingCountButton;
 @property (nonatomic, strong) UILabel *photoCountLabel;
 @property (nonatomic, strong) UILabel *photoCountTextLabel;
+@property (nonatomic, strong) UILabel *followingCountTextLabel;
+@property (nonatomic, strong) UILabel *followerCountTextLabel;
 @end
 
 @implementation PAPAccountViewController
@@ -31,6 +33,8 @@
 @synthesize followingCountButton;
 @synthesize photoCountLabel;
 @synthesize photoCountTextLabel;
+@synthesize followingCountTextLabel;
+@synthesize followerCountTextLabel;
 
 #pragma mark - Initialization
 
@@ -38,11 +42,11 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         self.user = aUser;
-
+        
         if (!aUser) {
             [NSException raise:NSInvalidArgumentException format:@"PAPAccountViewController init exception: user cannot be nil"];
         }
-
+        
     }
     return self;
 }
@@ -56,20 +60,20 @@
         self.user = [PFUser currentUser];
         [[PFUser currentUser] fetchIfNeeded];
     }
-
-//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
-    self.navigationItem.title = [NSString stringWithFormat:@"@%@", self.user.username];
+    
+    //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+    self.navigationItem.title = [NSString stringWithFormat:@"", self.user.username];
     
     // Add Settings button
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 222.0f)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 152.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]]; // should be clear, this will be the container for our avatar, photo count, follower count, following count, and so on
-
+    
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     [texturedBackgroundView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = texturedBackgroundView;
-
+    
     PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 12.0f, 12.0f, 62.0f, 62.0f)];
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -77,7 +81,7 @@
     layer.cornerRadius = 30.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 1.0f;
-
+    
     if ([PAPUtility userHasProfilePictures:self.user]) {
         PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
@@ -86,26 +90,36 @@
     } else {
         profilePictureImageView.image = [PAPUtility defaultProfilePicture];
     }
-
+    
     // Add a bottomBorder.
     CALayer *bottomBorder = [CALayer layer];
-
-    bottomBorder.frame = CGRectMake(0.0f, 220.0f, headerView.frame.size.width, (1.0f / [UIScreen mainScreen].scale));
-
+    
+    bottomBorder.frame = CGRectMake(0.0f, 100.0f, headerView.frame.size.width, (1.0f / [UIScreen mainScreen].scale));
+    
     bottomBorder.backgroundColor = [UIColor colorWithWhite:0.8f
                                                      alpha:1.0f].CGColor;
-
+    
     [headerView.layer addSublayer:bottomBorder];
-
-    photoCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 110.0f, 92.0f, 22.0f)];
+    
+    // Add a bottomBorderTwo.
+    CALayer *bottomBorderTwo = [CALayer layer];
+    
+    bottomBorderTwo.frame = CGRectMake(0.0f, 145.0f, headerView.frame.size.width, (15.0f / [UIScreen mainScreen].scale));
+    
+    bottomBorderTwo.backgroundColor = [UIColor colorWithWhite:0.8f
+                                                     alpha:1.0f].CGColor;
+    
+    [headerView.layer addSublayer:bottomBorderTwo];
+    
+    photoCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 12.0f, 120.0f, 92.0f, 22.0f)];
     [photoCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [photoCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [photoCountTextLabel  setTextColor:[UIColor blackColor]];
-    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:photoCountTextLabel ];
     [photoCountTextLabel setText:@"Photos"];
     
-    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 30.0f, 94.0f, 92.0f, 22.0f)];
+    photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 12.0f, 105.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentLeft];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
@@ -113,31 +127,56 @@
     [self.headerView addSubview:photoCountLabel];
     [photoCountLabel setText:@"0"];
     
+    followerCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 135.0f, 120.0f, 226.0f - 130.0f, 22.0f)];
+    [followerCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
+    [followerCountTextLabel  setBackgroundColor:[UIColor clearColor]];
+    [followerCountTextLabel  setTextColor:[UIColor blackColor]];
+    [followerCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [self.headerView addSubview:followerCountTextLabel ];
+    [followerCountTextLabel setText:@"Follower"];
+    
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [followerCountButton setFrame:CGRectMake( 226.0f, 94.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
-    [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [followerCountButton setFrame:CGRectMake( 94.0f, 105.0f, 226.0f - 130.0f, 22.0f)];
+    [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [followerCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followerCountButton];
     
+    followingCountTextLabel = [[UILabel alloc] initWithFrame:CGRectMake( 245.0f, 120.0f, self.headerView.bounds.size.width - 245.0f, 22.0f)];
+    [followingCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
+    [followingCountTextLabel  setBackgroundColor:[UIColor clearColor]];
+    [followingCountTextLabel  setTextColor:[UIColor blackColor]];
+    [followingCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [self.headerView addSubview:followingCountTextLabel ];
+    [followingCountTextLabel setText:@"Following"];
+    
     followingCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [followingCountButton setFrame:CGRectMake( 226.0f, 110.0f, self.headerView.bounds.size.width - 226.0f, 16.0f)];
+    [followingCountButton setFrame:CGRectMake( 214.0f, 105.0f, self.headerView.bounds.size.width - 245.0f, 22.0f)];
     [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [followingCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
     
-    UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
-    [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
+    UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 10.0f, self.headerView.bounds.size.width, 22.0f)];
+    [userDisplayNameLabel setTextAlignment:NSTextAlignmentLeft];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
     [userDisplayNameLabel setTextColor:[UIColor blackColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
-    [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
+    [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
-    [followerCountButton setTitle:@"0 followers" forState:UIControlStateNormal];
+    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 35.0f, self.headerView.bounds.size.width, 22.0f)];
+    [usernameLabel setTextAlignment:NSTextAlignmentLeft];
+    [usernameLabel setBackgroundColor:[UIColor clearColor]];
+    [usernameLabel setTextColor:[UIColor colorWithRed:239.0f/255.0f green:53.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [usernameLabel setText:[self.user objectForKey:@"username"]];
+    [usernameLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [usernameLabel setText:[NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]]];
+    [self.headerView addSubview:usernameLabel];
+
+    [followerCountButton setTitle:@"0" forState:UIControlStateNormal];
     
     PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
     [queryFollowerCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
@@ -145,7 +184,7 @@
     [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [followerCountButton setTitle:[NSString stringWithFormat:@"%d follower%@", number, number==1?@"":@"s"] forState:UIControlStateNormal];
+            [followerCountButton setTitle:[NSString stringWithFormat:@"%d%@", number, number==1?@"":@""] forState:UIControlStateNormal];
         }
     }];
     
@@ -179,7 +218,7 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-
+    
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -248,7 +287,7 @@
 {
     NSDictionary *followingDictionary = [[PFUser currentUser] objectForKey:@"following"];
     if (followingDictionary) {
-        [followingCountButton setTitle:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]] forState:UIControlStateNormal];
+        [followingCountButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)[[followingDictionary allValues] count]] forState:UIControlStateNormal];
     }
     
     PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
@@ -257,7 +296,7 @@
     [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [followingCountButton setTitle:[NSString stringWithFormat:@"%d following", number] forState:UIControlStateNormal];
+            [followingCountButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
         }
     }];
 }
@@ -271,9 +310,9 @@
     UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [loadingActivityIndicatorView startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
-
+    
     [self configureUnfollowButton];
-
+    
     [PAPUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
             [self configureFollowButton];
@@ -285,9 +324,9 @@
     UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [loadingActivityIndicatorView startAnimating];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
-
+    
     [self configureFollowButton];
-
+    
     [PAPUtility unfollowUserEventually:self.user];
 }
 
