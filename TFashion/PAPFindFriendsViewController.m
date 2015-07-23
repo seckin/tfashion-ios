@@ -171,24 +171,11 @@ static const NSUInteger kSearchResultLimit = 20;
         [friendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookFriends];
         [subQueryArray addObject:friendsQuery];
     }
-    
-    // Query for all Parse employees
-    /*
-    NSMutableArray *parseEmployees = [[NSMutableArray alloc] initWithArray:kPAPParseEmployeeAccounts];
-    [parseEmployees removeObject:[[PFUser currentUser] objectForKey:kPAPUserFacebookIDKey]];
-    PFQuery *parseEmployeeQuery = [PFUser query];
-    [parseEmployeeQuery whereKey:kPAPUserFacebookIDKey containedIn:parseEmployees];
-     
-    [subQueryArray addObject:parseEmployeeQuery];
-    */
-    
+
     PFQuery *mostUploadersQuery = [PFUser query]; //[PFQuery queryWithClassName:@"_User"];
     [mostUploadersQuery whereKey:kPAPUserNumPhotosKey greaterThan:[NSNumber numberWithInt:0]];
     [mostUploadersQuery whereKey:kPAPUserObjectIdKey notEqualTo:[[PFUser currentUser] objectId]];
-    //[mostUploadersQuery setLimit:2];
-    //[mostUploadersQuery orderByDescending:@"displayName"];
-    [mostUploadersQuery setCachePolicy:kPFCachePolicyNetworkOnly];
-    
+
     [subQueryArray addObject:mostUploadersQuery];
         
     PFQuery *query = [PFQuery orQueryWithSubqueries:subQueryArray];

@@ -11,7 +11,11 @@
 + (void)likePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
 + (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
 
++ (void)likeClothInBackground:(id)cloth block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
+
 + (void)processFacebookProfilePictureData:(NSData *)data;
+
++ (void)processClothActivitiesOfCloth:(PFObject *)cloth clothActivities:(NSArray *)clothActivities;
 
 + (BOOL)userHasValidFacebookData:(PFUser *)user;
 + (BOOL)userHasValidTwitterData:(PFUser *)user;
@@ -31,6 +35,7 @@
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 + (PFQuery *)queryForClothesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 + (PFQuery *)queryForClothPiecesOfCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy;
++ (PFQuery *)queryForClothActivitiesOnPhoto:(PFObject *)photo cloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy;
 
 + (BOOL)isLocationInsideCloth:(CGFloat)x withY:(CGFloat)y clothPieces:(NSArray *)clothPieces;
 

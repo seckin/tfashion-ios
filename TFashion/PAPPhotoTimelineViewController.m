@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
 @property (nonatomic, strong) NSMutableDictionary *outstandingPhotoClothesQueries;
 @property (nonatomic, strong) NSMutableDictionary *outstandingClothClothPiecesQueries;
+@property (nonatomic, strong) NSMutableDictionary *outstandingClothActivitiesQueries;
 @end
 
 @implementation PAPPhotoTimelineViewController
@@ -33,6 +34,7 @@
 @synthesize outstandingSectionHeaderQueries;
 @synthesize outstandingPhotoClothesQueries;
 @synthesize outstandingClothClothPiecesQueries;
+@synthesize outstandingClothActivitiesQueries;
 
 #pragma mark - Initialization
 
@@ -52,6 +54,7 @@
         self.outstandingSectionHeaderQueries = [NSMutableDictionary dictionary];
         self.outstandingPhotoClothesQueries = [NSMutableDictionary dictionary];
         self.outstandingClothClothPiecesQueries = [NSMutableDictionary dictionary];
+        self.outstandingClothActivitiesQueries = [NSMutableDictionary dictionary];
 
         // The className to query on
         self.parseClassName = kPAPPhotoClassKey;
@@ -308,8 +311,42 @@
                                                 if (error) {
                                                     return;
                                                 }
+                                                NSLog(@"calling setClothPiecesForCloth");
                                                 [[PAPCache sharedCache] setClothPiecesForCloth:cloth clothPieces:cloth_pieces];
                                                 [self.tableView reloadData];
+
+                                                NSLog(@"about to fetch clothactivities");
+                                                @synchronized (self) {
+                                                    NSNumber *outstandingClothActivitiesQueryStatus = [self.outstandingClothActivitiesQueries objectForKey:cloth];
+                                                    if (!outstandingClothActivitiesQueryStatus) {
+                                                        [self.outstandingClothActivitiesQueries setObject:@"YES" forKey:cloth.objectId];
+                                                        PFQuery *clothActivitiesQuery = [PAPUtility queryForClothActivitiesOnPhoto:object cloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
+                                                        NSLog(@"about to fetch clothactivities2");
+                                                        [clothActivitiesQuery findObjectsInBackgroundWithBlock:^(NSArray *clothActivities, NSError *error) {
+                                                            @synchronized (self) {
+//                                                              [self.outstandingClothActivitiesQueries removeObjectForKey:cloth];
+                                                                if (error) {
+                                                                    return;
+                                                                }
+                                                                NSLog(@"clothActivities fetched. count: %d", [clothActivities count]);
+                                                                [[PAPCache sharedCache] setClothActivitiesForCloth:cloth clothActivities:clothActivities];
+                                                                [PAPUtility processClothActivitiesOfCloth:cloth clothActivities:clothActivities];
+
+                                                                for(int m = 0; m < [cell.contentView.subviews count]; m++) {
+                                                                    UIView *uiview = cell.contentView.subviews[m];
+                                                                    if([uiview isKindOfClass:[CONTagPopover class]]) {
+                                                                        if( ((CONTagPopover *)uiview).cloth.objectId == cloth.objectId ) {
+                                                                            NSLog(@"found the relevant popover for cloth. trying to update the like count");
+                                                                            [((CONTagPopover *) uiview) setText:@""];
+                                                                        }
+                                                                    }
+                                                                }
+
+//                                                                [self.tableView reloadData];
+                                                            }
+                                                        }];
+                                                    }
+                                                }
                                             }
                                         }];
                                     }
@@ -334,8 +371,6 @@
                     [tagpopover initWithTag:tag];
                     NSLog(@"burda14");
 
-
-//                                    NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
                     PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
                     NSLog(@"burda13");
 
@@ -355,6 +390,7 @@
                     if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
                         NSLog(@"adding popover");
                         tagpopover.tag = i;
+                        tagpopover.cloth = cloth;
 
                         [tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
 
@@ -364,9 +400,12 @@
                         tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
                         [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
                         [tagpopover addSubview:tagpopoverLayover];
+
+                        // to update the counts of comment and like:
+                        [tagpopover setText:@""];
                     } else {
                         NSLog(@"not adding popover");
-                        NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
+                        NSLog(@"because the class type is: %@", [[cell.contentView viewWithTag:i] class]);
                     }
                 }
             }

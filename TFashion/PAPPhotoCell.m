@@ -62,7 +62,21 @@
     for(int i = 0; i < [clothes count]; i++) {
         PFObject *cloth = [clothes objectAtIndex:i];
         NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
-        if(YES || [PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
+        NSLog(@"about to like location.x: %f, location.y: %f", location.x, location.y);
+        if(!cloth_pieces) {
+            NSLog(@"cloth_pieces not null");
+        } else {
+            NSLog(@"cloth_pieces null");
+        }
+        if([PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
+            NSLog(@"about to like is inside = true");
+            [PAPUtility likeClothInBackground:cloth block:^(BOOL succeeded, NSError *error) {
+                NSLog(@"sent like");
+                if(succeeded) {
+                    NSLog(@"liked cloth with doubletap");
+                }
+            }];
+
             CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
             tmpImageOverlay.cloth_pieces = cloth_pieces;
 

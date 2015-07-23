@@ -14,8 +14,10 @@
 
 - (void)clear;
 - (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
+- (void)setAttributesForCloth:(PFObject *)cloth likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
 - (void)setClothesForPhoto:(PFObject *)photo clothes:(NSArray *)clothes;
 - (void)setClothPiecesForCloth:(PFObject *)cloth clothPieces:(NSArray *)clothPieces;
+- (void)setClothActivitiesForCloth:(PFObject *)cloth clothActivities:(NSArray *)clothActivities;
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo;
 - (NSNumber *)likeCountForPhoto:(PFObject *)photo;
 - (NSNumber *)commentCountForPhoto:(PFObject *)photo;
@@ -23,6 +25,8 @@
 - (NSArray *)commentersForPhoto:(PFObject *)photo;
 - (NSArray *)clothesForPhoto:(PFObject *)photo;
 - (NSArray *)clothPiecesForCloth:(PFObject *)cloth;
+- (NSArray *)clothLikeActivitiesForCloth:(PFObject *)cloth;
+- (NSArray *)clothCommentActivitiesForCloth:(PFObject *)cloth;
 - (void)setPhotoIsLikedByCurrentUser:(PFObject *)photo liked:(BOOL)liked;
 - (BOOL)isPhotoLikedByCurrentUser:(PFObject *)photo;
 - (void)incrementLikerCountForPhoto:(PFObject *)photo;
