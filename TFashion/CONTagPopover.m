@@ -21,17 +21,12 @@
 @property (weak) UITextField *tagTextField;
 @property (assign) UIButton *commentButton;
 @property (assign) UIButton *likeButton;
-@property (nonatomic, strong) UILabel *likeCountLabel;
-@property (nonatomic, strong) UILabel *commentCountLabel;
 @property (assign, getter = isCanceled) BOOL canceled;
-@property (nonatomic) float iconFontSize;
-@property (nonatomic) float countFontSize;
 @end
 
 #pragma mark - EBTagPopover
 
 @implementation CONTagPopover
-@synthesize cloth;
 
 - (id)init
 {
@@ -65,9 +60,6 @@
     tagBounds.size.height += 0.0f;
     tagBounds.origin.x = 0;
     tagBounds.origin.y = 0;
-
-    self.iconFontSize = 16.0f;
-    self.countFontSize = 10.0f;
     
     [self setFrame:tagBounds];
     
@@ -111,9 +103,6 @@
 
 - (UIView *)newContentView
 {
-    int likeCount = 0;
-    int commentCount = 0;
-
     NSString *placeholderText = NSLocalizedString(@"New Tag",
                                                   @"Appears as placeholder text before a user enters text for a photo tag.");
     UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
@@ -133,56 +122,6 @@
     [textField setUserInteractionEnabled:NO];
 
     [self setTagTextField:textField];
-
-    // add heart icon
-    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.likeButton.tag = 0;
-    [self.likeButton setFrame:CGRectMake(0.0f, 3.0f, self.iconFontSize, self.iconFontSize)];
-    [self.likeButton setBackgroundColor:[UIColor clearColor]];
-    [self.likeButton setAdjustsImageWhenHighlighted:NO];
-    [self.likeButton setAdjustsImageWhenDisabled:NO];
-    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:self.iconFontSize];
-    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
-    [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(self.iconFontSize, self.iconFontSize)] forState:UIControlStateNormal];
-    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:self.iconFontSize];
-    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
-    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(self.iconFontSize, self.iconFontSize)] forState:UIControlStateSelected];
-    [self.likeButton setSelected:NO];
-    [self.tagTextField addSubview:self.likeButton];
-
-    // add like count
-    self.likeCountLabel = [[UILabel alloc] init];
-    self.likeCountLabel.tag = 1;
-    NSString *likeCountText = [NSString stringWithFormat:@"%d", likeCount];
-    self.likeCountLabel.text = likeCountText;
-    [self.likeCountLabel sizeToFit];
-    [self.likeCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
-    [self.likeCountLabel setFont:[UIFont systemFontOfSize:self.countFontSize]];
-    [self.likeCountLabel setFrame:CGRectMake( 18.0, 3.0f, 16.0f, 16.0f)];
-    [self.tagTextField addSubview:self.likeCountLabel];
-
-    // add comment icon
-    self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.commentButton.tag = 2;
-    [self.commentButton setFrame:CGRectMake( 32.0, 3.0f, self.iconFontSize, self.iconFontSize)];
-    [self.commentButton setBackgroundColor:[UIColor clearColor]];
-    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:self.iconFontSize];
-    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
-    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(self.iconFontSize, self.iconFontSize)] forState:UIControlStateNormal];
-    [self.commentButton setSelected:NO];
-    [self.tagTextField addSubview:self.commentButton];
-
-    // add comment count
-    self.commentCountLabel = [[UILabel alloc] init];
-    self.commentButton.tag = 3;
-    NSString *commentCountText = [NSString stringWithFormat:@"%d", commentCount];
-    self.commentCountLabel.text = commentCountText;
-    [self.commentCountLabel sizeToFit];
-    [self.commentCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
-    [self.commentCountLabel setFont:[UIFont systemFontOfSize:self.countFontSize]];
-    [self.commentCountLabel setFrame:CGRectMake( 48.0, 3.0f, 16.0f, 16.0f)];
-    [self.tagTextField addSubview:self.commentCountLabel];
-
     return textField;
 }
 
@@ -482,35 +421,17 @@ replacementString:(NSString *)string {
 
 - (void)resizeTextField
 {
-    NSLog(@"updating like/comment counts for cloth: %@", self.cloth.objectId);
-    NSArray *clothLikeActivities = [[PAPCache sharedCache] clothLikeActivitiesForCloth:self.cloth];
-    int newlikeCount = [clothLikeActivities count];
-    NSLog(@"newlikecount: %d", newlikeCount);
-
-    NSArray *clothCommentActivities = [[PAPCache sharedCache] clothCommentActivitiesForCloth:self.cloth];
-    int newcommentCount = [clothCommentActivities count];
-    NSLog(@"newcommentCount: %d", newcommentCount);
-
-    NSString *countTexts = [NSString stringWithFormat:@"%d%d",newlikeCount, newcommentCount];
-    CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:self.countFontSize]}];
+    int iconFontSize = 16.0f;
+    int countFontSize = 10.0f;
+    int likeCount = 2;
+    int commentCount = 1;
+    NSString *countTexts = [NSString stringWithFormat:@"%d%d",likeCount, commentCount];
+    CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:countFontSize]}];
     
     CGSize newTagSize = countTextsSize;
     // allocate space for icons:
-    newTagSize.width += self.iconFontSize * 2 + 20;
+    newTagSize.width += iconFontSize * 2 + 20;
     newTagSize.height += 6;
-
-    for (UIView *i in self.tagTextField.subviews){
-        if([i isKindOfClass:[UILabel class]]){
-            UILabel *newLbl = (UILabel *)i;
-            if(newLbl.tag == 1) {
-                NSString *newLikeCountText = [NSString stringWithFormat:@"%d", newlikeCount];
-                [newLbl setText:newLikeCountText];
-            } else if(newLbl.tag == 3) {
-                NSString *newCommentCountText = [NSString stringWithFormat:@"%d", newcommentCount];
-                [newLbl setText:newCommentCountText];
-            }
-        }
-    }
 
     CGRect newTextFieldFrame = self.tagTextField.frame;
     newTextFieldFrame.size.width = newTagSize.width;
@@ -526,6 +447,52 @@ replacementString:(NSString *)string {
     CGPoint originalCenter = self.center;
 
     [self setFrame:tagBounds];
+    
+    // add heart icon
+    self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.likeButton setFrame:CGRectMake(0.0f, 3.0f, iconFontSize, iconFontSize)];
+    [self.likeButton setBackgroundColor:[UIColor clearColor]];
+    [self.likeButton setAdjustsImageWhenHighlighted:NO];
+    [self.likeButton setAdjustsImageWhenDisabled:NO];
+    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:iconFontSize];
+    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
+    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:iconFontSize];
+    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
+    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateSelected];
+    [self.likeButton setSelected:NO];
+    [self.tagTextField addSubview:self.likeButton];
+    
+    // add like count
+    UILabel *likeCountLabel = [[UILabel alloc] init];
+    NSString *likeCountText = [NSString stringWithFormat:@"%d", likeCount];
+    likeCountLabel.text = likeCountText;
+    [likeCountLabel sizeToFit];
+    [likeCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [likeCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [likeCountLabel setFrame:CGRectMake( 18.0, 3.0f, 16.0f, 16.0f)];
+    [self.tagTextField addSubview:likeCountLabel];
+    
+    // add comment icon
+    self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.commentButton setFrame:CGRectMake( 32.0, 3.0f, iconFontSize, iconFontSize)];
+    [self.commentButton setBackgroundColor:[UIColor clearColor]];
+    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:iconFontSize];
+    [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
+    [self.commentButton setSelected:NO];
+    [self.tagTextField addSubview:self.commentButton];
+
+    // add comment count
+    UILabel *commentCountLabel = [[UILabel alloc] init];
+    NSString *commentCountText = [NSString stringWithFormat:@"%d", commentCount];
+    commentCountLabel.text = commentCountText;
+    [commentCountLabel sizeToFit];
+    [commentCountLabel setTextColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+    [commentCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [commentCountLabel setFrame:CGRectMake( 48.0, 3.0f, 16.0f, 16.0f)];
+    [self.tagTextField addSubview:commentCountLabel];
+
 
     [self setCenter:originalCenter];
 

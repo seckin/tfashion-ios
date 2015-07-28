@@ -14,6 +14,20 @@ typedef enum {
     PAPProfileTabBarItemIndex = 4
 } PAPTabBarControllerViewControllerIndex;
 
+
+// Ilya     400680
+// James    403902
+// David    1225726
+// Bryan    4806789
+// Thomas   6409809
+// Ashley   12800553
+// Héctor   121800083
+// Kevin    500011038
+// Chris    558159381
+// Matt     723748661
+
+#define kPAPParseEmployeeAccounts [NSArray arrayWithObjects:@"400680", @"403902", @"1225726", @"4806789", @"6409809", @"12800553", @"121800083", @"500011038", @"558159381", @"723748661", nil]
+
 #pragma mark - NSUserDefaults
 extern NSString *const kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey;
 extern NSString *const kPAPUserDefaultsCacheFacebookFriendsKey;
@@ -27,7 +41,6 @@ extern NSString *const kPAPLaunchURLHostTakePicture;
 extern NSString *const PAPAppDelegateApplicationDidReceiveRemoteNotification;
 extern NSString *const PAPUtilityUserFollowingChangedNotification;
 extern NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
-extern NSString *const PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification;
 extern NSString *const PAPUtilityDidFinishProcessingProfilePictureNotification;
 extern NSString *const PAPTabBarControllerDidFinishEditingPhotoNotification;
 extern NSString *const PAPTabBarControllerDidFinishImageFileUploadNotification;
@@ -38,7 +51,6 @@ extern NSString *const PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotifica
 
 #pragma mark - User Info Keys
 extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey;
-extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey;
 extern NSString *const kPAPEditPhotoViewControllerUserInfoCommentKey;
 
 
@@ -72,7 +84,6 @@ extern NSString *const kPAPActivityFromUserKey;
 extern NSString *const kPAPActivityToUserKey;
 extern NSString *const kPAPActivityContentKey;
 extern NSString *const kPAPActivityPhotoKey;
-extern NSString *const kPAPActivityClothKey;
 extern NSString *const kPAPActivityCommentKey;
 
 extern NSString *const kPAPTagTextKey;
@@ -86,8 +97,6 @@ extern NSString *const kPAPActivityTypeFollow;
 extern NSString *const kPAPActivityTypeComment;
 extern NSString *const kPAPActivityTypeJoined;
 extern NSString *const kPAPActivityTypeMention;
-extern NSString *const kPAPActivityTypeClothLike;
-extern NSString *const kPAPActivityTypeClothComment;
 
 extern NSString *const kPAPNotificationSettingTypeOff;
 extern NSString *const kPAPNotificationSettingTypeFromPeopleIFollow;
@@ -137,12 +146,6 @@ extern NSString *const kPAPPhotoAttributesClothesKey;
 #pragma mark - Cached Cloth Attributes
 // keys
 extern NSString *const kPAPClothAttributesClothPiecesKey;
-extern NSString *const kPAPClothAttributesClothActivitiesKey;
-extern NSString *const kPAPClothAttributesIsLikedByCurrentUserKey;
-extern NSString *const kPAPClothAttributesLikeCountKey;
-extern NSString *const kPAPClothAttributesLikersKey;
-extern NSString *const kPAPClothAttributesCommentCountKey;
-extern NSString *const kPAPClothAttributesCommentersKey;
 
 #pragma mark - Cached User Attributes
 // keys

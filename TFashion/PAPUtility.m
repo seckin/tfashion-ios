@@ -77,6 +77,7 @@
 
         }];
     }];
+
 }
 
 + (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
@@ -133,88 +134,6 @@
     }];  
 }
 
-+ (void)likeClothInBackground:(id)cloth block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
-    PFQuery *queryExistingClothLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryExistingClothLikes whereKey:kPAPActivityPhotoKey equalTo:[cloth objectForKey:kPAPClothPhotoKey]];
-    [queryExistingClothLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeClothLike];
-    [queryExistingClothLikes whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
-    [queryExistingClothLikes setCachePolicy:kPFCachePolicyNetworkOnly];
-    NSLog(@"will find like objs");
-    [queryExistingClothLikes findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-        NSLog(@"found like objs");
-        if (!error) {
-            for (PFObject *activity in activities) {
-                [activity delete];
-            }
-        }
-        NSLog(@"found like objs, error sonrasi");
-
-        PFObject *photo = [cloth objectForKey:kPAPClothPhotoKey];
-        [photo fetchInBackgroundWithBlock:^(PFObject *photoFetched, NSError *error){
-    //        [photo objectForKey:kPAPPhotoUserKey]
-            NSLog(@"found like objs, error sonrasi photo");
-            // proceed to creating new cloth like
-            PFObject *clothLikeActivity = [PFObject objectWithClassName:kPAPActivityClassKey];
-            NSLog(@"found like objs, error sonrasi photo, new created");
-            [clothLikeActivity setObject:kPAPActivityTypeClothLike forKey:kPAPActivityTypeKey];
-            NSLog(@"found like objs, error sonrasi photo, new created2");
-            [clothLikeActivity setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
-            NSLog(@"found like objs, error sonrasi photo, new created3");
-            [clothLikeActivity setObject:[photoFetched objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey];
-            NSLog(@"found like objs, error sonrasi photo, new created4");
-            [clothLikeActivity setObject:photoFetched forKey:kPAPActivityPhotoKey];
-            [clothLikeActivity setObject:cloth forKey:kPAPActivityClothKey];
-            NSLog(@"clothlikeobj creating");
-
-            PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-            [likeACL setPublicReadAccess:YES];
-            [likeACL setWriteAccess:YES forUser:[photoFetched objectForKey:kPAPPhotoUserKey]];
-            clothLikeActivity.ACL = likeACL;
-
-            NSLog(@"clothLikeActivity will save in background");
-            [clothLikeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                NSLog(@"clothLikeActivity saved");
-                if (completionBlock) {
-                    completionBlock(succeeded,error);
-                }
-
-                // refresh cache
-                PFQuery *query = [PAPUtility queryForClothActivitiesOnPhoto:photo cloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        [PAPUtility processClothActivitiesOfCloth:cloth clothActivities:objects];
-                    }
-
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:photo userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:succeeded] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
-                }];
-            }];
-        }];
-    }];
-}
-
-+ (void)processClothActivitiesOfCloth:(PFObject *)cloth clothActivities:(NSArray *)clothActivities {
-    NSMutableArray *likers = [NSMutableArray array];
-    NSMutableArray *commenters = [NSMutableArray array];
-
-    BOOL isLikedByCurrentUser = NO;
-
-    for (PFObject *clothactivity in clothActivities) {
-        if ([[clothactivity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeClothLike] && [clothactivity objectForKey:kPAPActivityFromUserKey]) {
-            [likers addObject:[clothactivity objectForKey:kPAPActivityFromUserKey]];
-        } else if ([[clothactivity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeClothComment] && [clothactivity objectForKey:kPAPActivityFromUserKey]) {
-            [commenters addObject:[clothactivity objectForKey:kPAPActivityFromUserKey]];
-        }
-
-        if ([[[clothactivity objectForKey:kPAPActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-            if ([[clothactivity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeClothLike]) {
-                isLikedByCurrentUser = YES;
-            }
-        }
-    }
-
-    [[PAPCache sharedCache] setClothActivitiesForCloth:cloth clothActivities:clothActivities];
-    [[PAPCache sharedCache] setAttributesForCloth:cloth likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
-}
 
 #pragma mark Facebook
 
@@ -414,24 +333,6 @@
     return queryClothes;
 }
 
-+ (PFQuery *)queryForClothActivitiesOnPhoto:(PFObject *)photo cloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
-    PFQuery *clothLikeActivitiesQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [clothLikeActivitiesQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeClothLike];
-    [clothLikeActivitiesQuery whereKey:kPAPActivityPhotoKey equalTo:photo];
-    [clothLikeActivitiesQuery whereKey:kPAPActivityClothKey equalTo:cloth];
-
-    PFQuery *clothCommentActivitiesQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [clothCommentActivitiesQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeClothComment];
-    [clothCommentActivitiesQuery whereKey:kPAPActivityPhotoKey equalTo:photo];
-    [clothCommentActivitiesQuery whereKey:kPAPActivityClothKey equalTo:cloth];
-
-    PFQuery *query = [PFQuery orQueryWithSubqueries:@[clothLikeActivitiesQuery, clothCommentActivitiesQuery]];
-    [query setLimit:1000];
-    [query setCachePolicy:kPFCachePolicyNetworkOnly];
-
-    return query;
-}
-
 #pragma mark ClothPieces
 
 + (PFQuery *)queryForClothPiecesOfCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
@@ -448,12 +349,10 @@
     float scale = 320.0 / 560.0;
 //    NSArray *cloth_pieces = [clothData objectForKey:@"cloth_pieces"];
     if([clothPieces count] == 0) {
-        NSLog(@"returning NO");
         return NO;
     }
     PFObject *cloth_piece = [clothPieces objectAtIndex:0];
     NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
-    NSLog(@"boundary_points count: %d", [boundary_points count]);
 
     // Step 1: test bounding box and vertex equality
     int _coordinateCount = [boundary_points count];

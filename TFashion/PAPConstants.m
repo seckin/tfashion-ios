@@ -22,7 +22,6 @@ NSString *const kPAPLaunchURLHostTakePicture = @"camera";
 NSString *const PAPAppDelegateApplicationDidReceiveRemoteNotification           = @"com.parse.Anypic.appDelegate.applicationDidReceiveRemoteNotification";
 NSString *const PAPUtilityUserFollowingChangedNotification                      = @"com.parse.Anypic.utility.userFollowingChanged";
 NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedPhotoCallbackFinished";
-NSString *const PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedClothCallbackFinished";
 NSString *const PAPUtilityDidFinishProcessingProfilePictureNotification         = @"com.parse.Anypic.utility.didFinishProcessingProfilePictureNotification";
 NSString *const PAPTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.Anypic.tabBarController.didFinishEditingPhoto";
 NSString *const PAPTabBarControllerDidFinishImageFileUploadNotification         = @"com.parse.Anypic.tabBarController.didFinishImageFileUploadNotification";
@@ -33,7 +32,6 @@ NSString *const PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification   
 
 #pragma mark - User Info Keys
 NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey = @"liked";
-NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey = @"clothliked";
 NSString *const kPAPEditPhotoViewControllerUserInfoCommentKey = @"comment";
 
 #pragma mark - Installation Class
@@ -64,7 +62,6 @@ NSString *const kPAPActivityFromUserKey    = @"fromUser";
 NSString *const kPAPActivityToUserKey      = @"toUser";
 NSString *const kPAPActivityContentKey     = @"content";
 NSString *const kPAPActivityPhotoKey       = @"photo";
-NSString *const kPAPActivityClothKey       = @"cloth";
 NSString *const kPAPActivityCommentKey     = @"comment";
 
 NSString *const kPAPTagTextKey             = @"text";
@@ -79,8 +76,6 @@ NSString *const kPAPActivityTypeFollow     = @"follow";
 NSString *const kPAPActivityTypeComment    = @"comment";
 NSString *const kPAPActivityTypeJoined     = @"joined";
 NSString *const kPAPActivityTypeMention    = @"mention";
-NSString *const kPAPActivityTypeClothLike  = @"clothlike";
-NSString *const kPAPActivityTypeClothComment = @"clothcomment";
 
 NSString *const kPAPNotificationSettingTypeOff                  = @"off";
 NSString *const kPAPNotificationSettingTypeFromPeopleIFollow    = @"fromPeopleIFollow";
@@ -127,14 +122,7 @@ NSString *const kPAPPhotoAttributesClothesKey              = @"clothes";
 
 #pragma mark - Cached Cloth Attributes
 // keys
-NSString *const kPAPClothAttributesClothPiecesKey           = @"clothPieces";
-NSString *const kPAPClothAttributesClothActivitiesKey       = @"clothActivities";
-NSString *const kPAPClothAttributesIsLikedByCurrentUserKey  = @"isLikedByCurrentUser";
-NSString *const kPAPClothAttributesLikeCountKey             = @"likeCount";
-NSString *const kPAPClothAttributesLikersKey                = @"likers";
-NSString *const kPAPClothAttributesCommentCountKey          = @"commentCount";
-NSString *const kPAPClothAttributesCommentersKey            = @"commenters";
-
+NSString *const kPAPClothAttributesClothPiecesKey = @"clothPieces";
 
 #pragma mark - Cached User Attributes
 // keys

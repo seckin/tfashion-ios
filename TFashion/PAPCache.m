@@ -61,19 +61,7 @@
     [self setAttributes:attributes forPhoto:photo];
 }
 
-- (void)setAttributesForCloth:(PFObject *)cloth likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithBool:likedByCurrentUser],kPAPClothAttributesIsLikedByCurrentUserKey,
-            @([likers count]),kPAPClothAttributesLikeCountKey,
-            likers,kPAPClothAttributesLikersKey,
-            @([commenters count]),kPAPClothAttributesCommentCountKey,
-            commenters,kPAPClothAttributesCommentersKey,
-                    nil];
-    [self setAttributes:attributes forCloth:cloth];
-}
-
 - (void)setClothPiecesForCloth:(PFObject *)cloth clothPieces:(NSArray *)clothPieces {
-    NSLog(@"setClothPiecesForCloth called for cloth: %@, count: %d", cloth.objectId, [clothPieces count]);
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
             clothPieces,kPAPClothAttributesClothPiecesKey,
                     nil];
@@ -82,56 +70,9 @@
 }
 
 - (NSArray *)clothPiecesForCloth:(PFObject *)cloth {
-    NSLog(@"clothPiecesForCloth called for cloth: %@", cloth.objectId);
     NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        NSLog(@"attributes not null, %d", [[attributes objectForKey:kPAPClothAttributesClothPiecesKey] count]);
         return [attributes objectForKey:kPAPClothAttributesClothPiecesKey];
-    } else {
-        NSLog(@"attributes null");
-    }
-
-    return [NSArray array];
-}
-
-- (void)setClothActivitiesForCloth:(PFObject *)cloth clothActivities:(NSArray *)clothActivities {
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-            clothActivities,kPAPClothAttributesClothActivitiesKey,
-                    nil];
-
-    [self setAttributes:attributes forCloth:cloth];
-}
-
-- (NSArray *)clothLikeActivitiesForCloth:(PFObject *)cloth {
-    NSDictionary *attributes = [self attributesForCloth:cloth];
-    if (attributes) {
-        NSArray *clothActivities = [attributes objectForKey:kPAPClothAttributesClothActivitiesKey];
-        NSLog(@"clothActivities cache'ten cekildi, count: %d", [clothActivities count]);
-        NSMutableArray *clothLikeActivities = [[NSMutableArray alloc] init];
-        for(int i = 0 ; i < [clothActivities count]; i++) {
-            if([[clothActivities[i] objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeClothLike]) {
-                [clothLikeActivities addObject:clothActivities[i]];
-            }
-        }
-        NSArray *result = [clothLikeActivities copy];
-        return result;
-    }
-
-    return [NSArray array];
-}
-
-- (NSArray *)clothCommentActivitiesForCloth:(PFObject *)cloth {
-    NSDictionary *attributes = [self attributesForCloth:cloth];
-    if (attributes) {
-        NSArray *clothActivities = [attributes objectForKey:kPAPClothAttributesClothActivitiesKey];
-        NSMutableArray *clothCommentActivities = [[NSMutableArray alloc] init];
-        for(int i = 0 ; i < [clothActivities count]; i++) {
-            if([[clothActivities[i] objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeClothComment]) {
-                [clothCommentActivities addObject:clothActivities[i]];
-            }
-        }
-        NSArray *result = [clothCommentActivities copy];
-        return result;
     }
 
     return [NSArray array];
