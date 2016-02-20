@@ -23,7 +23,7 @@
 #import "CONSocialAccount.h"
 #import "CONV2IntroViewController.h"
 #import <Lookback/Lookback.h>
-#import <Analytics.h>
+//#import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
 #import <PonyDebugger/PonyDebugger.h>
@@ -93,7 +93,7 @@
 #endif
     
     //MARK: Analytics Integration
-    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
+    //[SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
     
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
@@ -297,8 +297,8 @@
 
 - (void)logOut {
     //MARK: Track Log out event for Analytics
-    [[SEGAnalytics sharedAnalytics] track:@"Logged Out"
-                               properties:nil];
+    //[[SEGAnalytics sharedAnalytics] track:@"Logged Out"
+    //                           properties:nil];
     
     // clear cache
     [[PAPCache sharedCache] clear];
@@ -334,10 +334,10 @@
 
 // Set up appearance parameters to achieve Pera's custom look and feel
 - (void)setupAppearance {
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                 NSForegroundColorAttributeName: [UIColor blackColor]

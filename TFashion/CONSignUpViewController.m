@@ -10,7 +10,7 @@
 #import "CONSignupAttempt.h"
 #import "AppDelegate.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import <libPhoneNumber-iOS/NBPhoneNumberUtil.h>
+#import "libPhoneNumber-iOS/NBPhoneNumberUtil.h"
 
 @interface CONSignUpViewController ()
 

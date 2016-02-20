@@ -8,11 +8,10 @@
 
 #import <pop/POPAnimatableProperty.h>
 #import <pop/POPBasicAnimation.h>
-#import <pop/POPSpringAnimation.h>
 #import "PAPPhotoCell.h"
 #import "PAPUtility.h"
 #import "CONImageOverlay.h"
-#import "POPSpringAnimation.h"
+//#import "POPSpringAnimation.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
 
@@ -65,12 +64,12 @@
         if(YES || [PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
             CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
             tmpImageOverlay.cloth_pieces = cloth_pieces;
-
-            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
-            animation.fromValue = @(0.0);
-            animation.toValue = @(0.40);
-
-            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+//
+//            POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+//            animation.fromValue = @(0.0);
+//            animation.toValue = @(0.40);
+//
+//            [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
 
             [NSTimer scheduledTimerWithTimeInterval:0.2
                                              target:self

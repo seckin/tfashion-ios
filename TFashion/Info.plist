@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FacebookDisplayName</key>
+	<string>Pera</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -50,7 +52,7 @@
 			<string>Icon@2x</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb192275100793250</string>
+				<string>fb130121850656709</string>
 				<string>pin1441756</string>
 			</array>
 		</dict>
@@ -62,16 +64,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>Pera</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string>Icon@2x</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>parsephoto</string>
 			</array>
 		</dict>
 	</array>
@@ -92,7 +84,7 @@
 		</array>
 	</dict>
 	<key>FacebookAppID</key>
-	<string>192275100793250</string>
+	<string>130121850656709</string>
 	<key>LSApplicationCategoryType</key>
 	<string>Photo</string>
 	<key>LSRequiresIPhoneOS</key>

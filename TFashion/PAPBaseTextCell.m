@@ -84,7 +84,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.nameButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:self.nameButton];
         
-        self.contentLabel = [[TTTAttributedLabel alloc] init];
+        self.contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         [self.contentLabel setFont:[UIFont systemFontOfSize:13.0f]];
         if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
             [self.contentLabel setTextColor:[UIColor blackColor]];

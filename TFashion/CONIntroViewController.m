@@ -198,40 +198,42 @@
     CGFloat dy = 240;
     
     // apply a 3D zoom animation to the first label
-    IFTTTTransform3DAnimation * labelTransform = [IFTTTTransform3DAnimation animationWithView:self.firstLabel];
-    IFTTTTransform3D *tt1 = [IFTTTTransform3D transformWithM34:0.03f];
-    IFTTTTransform3D *tt2 = [IFTTTTransform3D transformWithM34:0.3f];
-    tt2.rotate = (IFTTTTransform3DRotate){ -(CGFloat)(M_PI), 1, 0, 0 };
-    tt2.translate = (IFTTTTransform3DTranslate){ 0, 0, 50 };
-    tt2.scale = (IFTTTTransform3DScale){ 1.f, 2.f, 1.f };
-    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(0)
-                                                                andAlpha:1.0f]];
-    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1)
-                                                          andTransform3D:tt1]];
-    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1.5)
-                                                          andTransform3D:tt2]];
-    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1.5) + 1
-                                                                andAlpha:0.0f]];
-    [self.animator addAnimation:labelTransform];
-    
+//    IFTTTTransform3DAnimation * labelTransform = [IFTTTTransform3DAnimation animationWithView:self.firstLabel];
+//    IFTTTTransform3D *tt1 = [IFTTTTransform3D transformWithM34:0.03f];
+//    IFTTTTransform3D *tt2 = [IFTTTTransform3D transformWithM34:0.3f];
+//    tt2.rotate = (IFTTTTransform3DRotate){ -(CGFloat)(M_PI), 1, 0, 0 };
+//    tt2.translate = (IFTTTTransform3DTranslate){ 0, 0, 50 };
+//    tt2.scale = (IFTTTTransform3DScale){ 1.f, 2.f, 1.f };
+//    
+//    [labelTransform addKeyF
+//    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(0)
+//                                                                andAlpha:1.0f]];
+//    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1)
+//                                                          andTransform3D:tt1]];
+//    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1.5)
+//                                                          andTransform3D:tt2]];
+//    [labelTransform addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1.5) + 1
+//                                                                andAlpha:0.0f]];
+//    [self.animator addAnimation:labelTransform];
+//    
     // let's animate the wordmark
     IFTTTFrameAnimation *wordmarkFrameAnimation = [IFTTTFrameAnimation animationWithView:self.wordmark];
     [self.animator addAnimation:wordmarkFrameAnimation];
     
-    [wordmarkFrameAnimation addKeyFrames:@[
-                                           [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1) andFrame:CGRectOffset(self.wordmark.frame, 200, 0)],
-                                           [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2) andFrame:self.wordmark.frame],
-                                           [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3) andFrame:CGRectOffset(self.wordmark.frame, self.view.frame.size.width, dy)],
-                                           [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4) andFrame:CGRectOffset(self.wordmark.frame, 0, dy)],
-                                           ]];
+    [wordmarkFrameAnimation addKeyframeForTime:30 frame:CGRectOffset(self.wordmark.frame, 200, 0)];
+    [wordmarkFrameAnimation addKeyframeForTime:60 frame:self.wordmark.frame];
+    [wordmarkFrameAnimation addKeyframeForTime:90 frame:CGRectOffset(self.wordmark.frame, self.view.frame.size.width, dy)];
+    [wordmarkFrameAnimation addKeyframeForTime:120 frame:CGRectOffset(self.wordmark.frame, 0, dy)];
+
     
     // Rotate a full circle from page 2 to 3
-    IFTTTAngleAnimation *wordmarkRotationAnimation = [IFTTTAngleAnimation animationWithView:self.wordmark];
-    [self.animator addAnimation:wordmarkRotationAnimation];
-    [wordmarkRotationAnimation addKeyFrames:@[
-                                              [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2) andAngle:0.0f],
-                                              [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3) andAngle:(CGFloat)(2 * M_PI)],
-                                              ]];
+//    IFTTTAngleAnimation *wordmarkRotationAnimation = [IFTTTAngleAnimation animationWithView:self.wordmark];
+//    [self.animator addAnimation:wordmarkRotationAnimation];
+//    [wordmarkRotationAnimation addKeyFrames]
+//     [wordmarkRotationAnimation addKeyFrames:@[
+//                                              [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2) andAngle:0.0f],
+//                                              [IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3) andAngle:(CGFloat)(2 * M_PI)],
+//                                              ]];
     
     // now, we animate the unicorn
     IFTTTFrameAnimation *unicornFrameAnimation = [IFTTTFrameAnimation animationWithView:self.unicorn];
@@ -240,22 +242,22 @@
     CGFloat ds = 50;
     
     // move down and to the right, and shrink between pages 2 and 3
-    [unicornFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2) andFrame:self.unicorn.frame]];
-    [unicornFrameAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3)
-                                                                       andFrame:CGRectOffset(CGRectInset(self.unicorn.frame, ds, ds), timeForPage(2), dy)]];
+    [unicornFrameAnimation addKeyframeForTime:60 frame:self.unicorn.frame];
+    [unicornFrameAnimation addKeyframeForTime:90 frame:CGRectOffset(CGRectInset(self.unicorn.frame, ds, ds), timeForPage(2), dy)];
+
     // fade the unicorn in on page 2 and out on page 4
     IFTTTAlphaAnimation *unicornAlphaAnimation = [IFTTTAlphaAnimation animationWithView:self.unicorn];
     [self.animator addAnimation:unicornAlphaAnimation];
-    
-    [unicornAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(1) andAlpha:0.0f]];
-    [unicornAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(2) andAlpha:1.0f]];
-    [unicornAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(3) andAlpha:1.0f]];
-    [unicornAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4) andAlpha:0.0f]];
+
+    [unicornAlphaAnimation addKeyframeForTime:30 alpha:0.0f];
+    [unicornAlphaAnimation addKeyframeForTime:60 alpha:1.0f];
+    [unicornAlphaAnimation addKeyframeForTime:90 alpha:1.0f];
+    [unicornAlphaAnimation addKeyframeForTime:120 alpha:0.0f];
     
     // Fade out the label by dragging on the last page
     IFTTTAlphaAnimation *labelAlphaAnimation = [IFTTTAlphaAnimation animationWithView:self.lastLabel];
-    [labelAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4) andAlpha:1.0f]];
-    [labelAlphaAnimation addKeyFrame:[IFTTTAnimationKeyFrame keyFrameWithTime:timeForPage(4.35f) andAlpha:0.0f]];
+    [labelAlphaAnimation addKeyframeForTime:120 alpha:1.0f];
+    [labelAlphaAnimation addKeyframeForTime:30*4.35f alpha:0.0f];
     [self.animator addAnimation:labelAlphaAnimation];
 }
 

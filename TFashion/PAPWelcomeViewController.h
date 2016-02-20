@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
-#include "PAPLogInViewController.h"
+#import "PAPLogInViewController.h"
 
 @interface PAPWelcomeViewController : UIViewController <PAPLogInViewControllerDelegate>
 

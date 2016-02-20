@@ -16,7 +16,7 @@
 #import "CONImageOverlay.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
-#import "POPSpringAnimation.h"
+//#import "POPSpringAnimation.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
