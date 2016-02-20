@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 050423A61B2C096F006A1B02 /* CONTagPopover.m */; };
+		050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F61C79202000798AD0 /* FontAwesome.otf */; };
+		050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F81C79264F00798AD0 /* ionicons.ttf */; };
 		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
 		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
 		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
 		05B3EE2D1B9DEA2500B9E987 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B3EE2C1B9DEA2500B9E987 /* Reveal.framework */; };
-		05D9145B1B9DF659008C26C2 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 05D9145A1B9DF659008C26C2 /* FontAwesome.otf */; };
 		092354B313A1D7EB00DA740F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B213A1D7EB00DA740F /* CFNetwork.framework */; };
 		092354B513A1D7F000DA740F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B413A1D7F000DA740F /* SystemConfiguration.framework */; };
 		092354B713A1D83C00DA740F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 092354B613A1D83C00DA740F /* MobileCoreServices.framework */; };
@@ -125,6 +126,9 @@
 		050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CONPhotoTagProtocol.h; sourceTree = "<group>"; };
 		050423A51B2C096F006A1B02 /* CONTagPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONTagPopover.h; sourceTree = "<group>"; };
 		050423A61B2C096F006A1B02 /* CONTagPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagPopover.m; sourceTree = "<group>"; };
+		050C80F51C791FF300798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		050C80F61C79202000798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		050C80F81C79264F00798AD0 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = Pods/FontAwesomeKit/FontAwesomeKit/ionicons.ttf; sourceTree = "<group>"; };
 		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
@@ -355,6 +359,9 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
+				050C80F81C79264F00798AD0 /* ionicons.ttf */,
+				050C80F61C79202000798AD0 /* FontAwesome.otf */,
+				050C80F51C791FF300798AD0 /* FontAwesome.otf */,
 				05D9145A1B9DF659008C26C2 /* FontAwesome.otf */,
 				09ABC07713A1D52D009C3FCF /* Pera */,
 				09ABC07013A1D52D009C3FCF /* Frameworks */,
@@ -908,7 +915,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05D9145B1B9DF659008C26C2 /* FontAwesome.otf in Resources */,
+				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
+				050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */,
 				BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */,
 				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,
