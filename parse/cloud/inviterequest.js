@@ -54,7 +54,7 @@ Parse.Cloud.job("consumeInviteRequests", function(request, status) {
         if (fetchedContact.get("emails")[0]) {
           Mailgun.sendEmail({
             to: fetchedContact.get("emails")[0],
-            from: "team@conceive.io",
+            from: "team@pera.io",
             subject: "Join me on TFashion!",
             text: inviteText
           }, {

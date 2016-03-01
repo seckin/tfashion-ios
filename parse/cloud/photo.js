@@ -32,7 +32,7 @@ Parse.Cloud.afterSave("Photo", function(request) {
 
 	Parse.Cloud.httpRequest({
 	  method: 'POST',
-	  url: 'http://conceive.io/create_media_from_parse',
+	  url: 'http://pera.io/create_media_from_parse',
 	  followRedirects: true,
 	  headers: {
 	    'Content-Type': 'application/json;charset=utf-8'
