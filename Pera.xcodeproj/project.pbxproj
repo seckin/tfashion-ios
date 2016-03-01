@@ -10,6 +10,9 @@
 		050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 050423A61B2C096F006A1B02 /* CONTagPopover.m */; };
 		050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F61C79202000798AD0 /* FontAwesome.otf */; };
 		050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F81C79264F00798AD0 /* ionicons.ttf */; };
+		052965101C85609500B98183 /* foundation-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650D1C85609500B98183 /* foundation-icons.ttf */; };
+		052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */; };
+		052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 052965121C85610800B98183 /* TSMessagesDefaultDesign.json */; };
 		054B828B1A542117007E9770 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 054B828A1A542117007E9770 /* libstdc++.6.dylib */; };
 		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
 		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
@@ -129,6 +132,11 @@
 		050C80F51C791FF300798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		050C80F61C79202000798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		050C80F81C79264F00798AD0 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = Pods/FontAwesomeKit/FontAwesomeKit/ionicons.ttf; sourceTree = "<group>"; };
+		0529650C1C85609500B98183 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		0529650D1C85609500B98183 /* foundation-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "foundation-icons.ttf"; path = "Pods/FontAwesomeKit/FontAwesomeKit/foundation-icons.ttf"; sourceTree = "<group>"; };
+		0529650E1C85609500B98183 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = Pods/FontAwesomeKit/FontAwesomeKit/ionicons.ttf; sourceTree = "<group>"; };
+		0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zocial-regular-webfont.ttf"; path = "Pods/FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"; sourceTree = "<group>"; };
+		052965121C85610800B98183 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Pods/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
 		054B828A1A542117007E9770 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		054B828C1A54219F007E9770 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
@@ -359,6 +367,11 @@
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
+				052965121C85610800B98183 /* TSMessagesDefaultDesign.json */,
+				0529650C1C85609500B98183 /* FontAwesome.otf */,
+				0529650D1C85609500B98183 /* foundation-icons.ttf */,
+				0529650E1C85609500B98183 /* ionicons.ttf */,
+				0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */,
 				050C80F81C79264F00798AD0 /* ionicons.ttf */,
 				050C80F61C79202000798AD0 /* FontAwesome.otf */,
 				050C80F51C791FF300798AD0 /* FontAwesome.otf */,
@@ -915,8 +928,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
+				052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */,
 				050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */,
+				052965101C85609500B98183 /* foundation-icons.ttf in Resources */,
+				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
+				052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */,
 				BC09CAEC1A309456001F8DC8 /* Info.plist in Resources */,
 				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,

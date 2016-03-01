@@ -16,6 +16,8 @@
 #import "CONImageOverlay.h"
 #import "CONDemoTag.h"
 #import "CONTagPopover.h"
+#import "PINDiskCache.h"
+#import "PINCache.h"
 //#import "POPSpringAnimation.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -277,99 +279,130 @@
             cell.clothOverlays = [[NSMutableArray alloc] init];
 
             @synchronized(self) {
-                // check if we can update the cache
+                // check if there is already a cloth query running for this photo
                 NSNumber *outstandingPhotoClothesQueryStatus = [self.outstandingPhotoClothesQueries objectForKey:@(index)];
-//                outstandingPhotoClothesQueryStatus = self.outstandingPhotoClothesQueries[@(index)];
                 if (!outstandingPhotoClothesQueryStatus) {
-                    [self.outstandingPhotoClothesQueries setObject:@"YES" forKey:@(index)];
-                    PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
-                    [query findObjectsInBackgroundWithBlock:^(NSArray *clothes, NSError *error) {
-                        @synchronized (self) {
-//                            [self.outstandingPhotoClothesQueries removeObjectForKey:@(index)];
+                    __block NSArray *cachedclothes;
+                    // check if we have already fetched this photo's clothes
+                    [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:object] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                        cachedclothes = (NSArray *)tmpobj;
 
-                            if (error) {
-                                return;
-                            }
-                            //                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[clothes count]);
-                            [[PAPCache sharedCache] setClothesForPhoto:object clothes:clothes];
-
-                            for (int j = 0; j < [clothes count]; j++) {
-                                PFObject *cloth = [clothes objectAtIndex:j];
-
+                        if(!cachedclothes) {
+                            // we have not fetched this photo's clothes yet
+                            [self.outstandingPhotoClothesQueries setObject:@"YES" forKey:@(index)];
+                            PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
+                            [query findObjectsInBackgroundWithBlock:^(NSArray *clothes, NSError *error) {
                                 @synchronized (self) {
-                                    // check if we can update the cache
-                                    NSNumber *outstandingClothClothPiecesQueryStatus = [self.outstandingClothClothPiecesQueries objectForKey:cloth];
-                                    if (!outstandingClothClothPiecesQueryStatus) {
-                                        [self.outstandingClothClothPiecesQueries setObject:@"YES" forKey:cloth.objectId];
-                                        PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
-                                        [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
-                                            @synchronized (self) {
-//                                                    [self.outstandingClothClothPiecesQueries removeObjectForKey:cloth];
-                                                if (error) {
-                                                    return;
-                                                }
-                                                [[PAPCache sharedCache] setClothPiecesForCloth:cloth clothPieces:cloth_pieces];
-                                                [self.tableView reloadData];
+                                    [self.outstandingPhotoClothesQueries removeObjectForKey:@(index)];
+
+                                    if (error) {
+                                        return;
+                                    }
+                                    //                        NSLog(@"photo id : %@, objects(clothes) count: %lu", object.objectId, (unsigned long)[clothes count]);
+                                    [[PINMemoryCache sharedCache] setObject:clothes forKey:[PAPCache getKeyForClothesForPhoto:object] block:nil];
+
+                                    for (int j = 0; j < [clothes count]; j++) {
+                                        PFObject *cloth = [clothes objectAtIndex:j];
+
+                                        @synchronized (self) {
+                                            // check if we have already fetched this cloth's cloth_pieces
+                                            NSNumber *outstandingClothClothPiecesQueryStatus = [self.outstandingClothClothPiecesQueries objectForKey:cloth];
+                                            if (!outstandingClothClothPiecesQueryStatus) {
+                                                __block NSArray *cachedclothpieces;
+                                                // check if we have already fetched this photo's clothes
+                                                [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                                                    cachedclothpieces = (NSArray *)tmpobj;
+
+                                                    if(!cachedclothpieces) {
+                                                        // we have not fetched this cloth's cloth_pieces yet
+                                                        [self.outstandingClothClothPiecesQueries setObject:@"YES" forKey:cloth.objectId];
+                                                        PFQuery *clothPiecesQuery = [PAPUtility queryForClothPiecesOfCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
+                                                        [clothPiecesQuery findObjectsInBackgroundWithBlock:^(NSArray *cloth_pieces, NSError *error) {
+                                                            @synchronized (self) {
+                                                                [self.outstandingClothClothPiecesQueries removeObjectForKey:cloth.objectId];
+                                                                if (error) {
+                                                                    return;
+                                                                }
+                                                                [[PINMemoryCache sharedCache] setObject:cloth_pieces forKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:nil];
+                                                                [self.tableView reloadData];
+                                                            }
+                                                        }];
+                                                    }
+                                                }];
                                             }
-                                        }];
+                                        }
+
+
+
                                     }
                                 }
+                            }];
+                        }
+                    }];
 
 
+                }
+            }
 
+            __block NSArray *clothes;
+            [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:object] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                clothes = (NSArray *)tmpobj;
+                NSLog(@"clothes fetched: %lu", (unsigned long)clothes.count);
+
+                for (int i = 0; i < [clothes count]; i++) {
+                    PFObject *cloth = [clothes objectAtIndex:i];
+                    __block NSArray *cached_cloth_pieces;
+                    [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                        cached_cloth_pieces = (NSArray *)tmpobj;
+                        NSLog(@"cached_cloth_pieces fetched: %lu", (unsigned long)cached_cloth_pieces.count);
+
+                        if ([cached_cloth_pieces count] > 0) {
+                            CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
+                                    @"tagText" : @""}];
+                            CONTagPopover *tagpopover = [[CONTagPopover alloc] init];
+                            [tagpopover initWithTag:tag];
+
+                            PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
+
+                            NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
+
+                            CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+                            for (int k = 0; k < [boundary_points count]; k++) {
+                                cum_x += (CGFloat) [boundary_points[k][0] floatValue];
+                                cum_y += (CGFloat) [boundary_points[k][1] floatValue];
+                            }
+                            avg_x = cum_x / [boundary_points count];
+                            avg_y = cum_y / [boundary_points count];
+
+                            float scale = 320.0 / 560.0;
+
+                            if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
+                                NSLog(@"adding popover");
+                                tagpopover.tag = i;
+
+                                [tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
+
+                                UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
+                                tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, tagpopover.bounds.size.width, tagpopover.bounds.size.width);
+                                tagpopoverLayover.backgroundColor = [UIColor clearColor];
+                                tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
+                                [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
+                                [tagpopover addSubview:tagpopoverLayover];
+
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    NSLog(@"cell setNeedsDisplay called");
+                                    [cell setNeedsDisplay];
+                                });
+
+                            } else {
+                                NSLog(@"not adding popover");
+                                NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
                             }
                         }
                     }];
+
                 }
-            }
-
-            NSArray *clothes = [[PAPCache sharedCache] clothesForPhoto:object];
-            for (int i = 0; i < [clothes count]; i++) {
-                PFObject *cloth = [clothes objectAtIndex:i];
-                NSArray *cached_cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
-                if ([cached_cloth_pieces count] > 0) {
-                    CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
-                            @"tagText" : @""}];
-                    CONTagPopover *tagpopover = [[CONTagPopover alloc] init];
-                    [tagpopover initWithTag:tag];
-                    NSLog(@"burda14");
-
-
-//                                    NSArray *cloth_pieces = [[PAPCache sharedCache] clothPiecesForCloth:cloth];
-                    PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
-                    NSLog(@"burda13");
-
-                    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
-
-                    CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
-                    for (int k = 0; k < [boundary_points count]; k++) {
-                        cum_x += (CGFloat) [boundary_points[k][0] floatValue];
-                        cum_y += (CGFloat) [boundary_points[k][1] floatValue];
-                    }
-                    avg_x = cum_x / [boundary_points count];
-                    avg_y = cum_y / [boundary_points count];
-
-                    NSLog(@"burda1");
-                    float scale = 320.0 / 560.0;
-                    NSLog(@"photo objectid: %@", object.objectId);
-                    if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
-                        NSLog(@"adding popover");
-                        tagpopover.tag = i;
-
-                        [tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
-
-                        UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
-                        tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, tagpopover.bounds.size.width, tagpopover.bounds.size.width);
-                        tagpopoverLayover.backgroundColor = [UIColor clearColor];
-                        tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
-                        [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
-                        [tagpopover addSubview:tagpopoverLayover];
-                    } else {
-                        NSLog(@"not adding popover");
-                        NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
-                    }
-                }
-            }
+            }];
 
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }

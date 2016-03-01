@@ -17,11 +17,12 @@
 
 
 @interface CONTagPopover ()
-@property (weak) UIView *contentView;
-@property (weak) UITextField *tagTextField;
-@property (assign) UIButton *commentButton;
-@property (assign) UIButton *likeButton;
+@property (strong) UIView *contentView;
+@property (strong) UITextField *tagTextField;
+@property (strong) UIButton *commentButton;
+@property (strong) UIButton *likeButton;
 @property (assign, getter = isCanceled) BOOL canceled;
+
 @end
 
 #pragma mark - EBTagPopover
@@ -45,13 +46,14 @@
                  @"A tag's data source must conform to CONPhotoTagProtocol.");
         [self initialize];
         [self setDataSource:aTag];
-        [self setText:self.dataSource.tagText];
+            [self setText:self.dataSource.tagText];
     }
     return self;
 }
 
 - (void)initialize
 {
+    NSLog(@"initialize called");
     [self loadContentView];
     [self loadGestureRecognizers];
     
@@ -86,6 +88,7 @@
 
 - (void)loadContentView
 {
+    NSLog(@"loadContentView called");
     UIView *contentView = [self newContentView];
     [self addSubview:contentView];
     [self setContentView:contentView];
@@ -103,6 +106,7 @@
 
 - (UIView *)newContentView
 {
+    NSLog(@"entered newContentview");
     NSString *placeholderText = NSLocalizedString(@"New Tag",
                                                   @"Appears as placeholder text before a user enters text for a photo tag.");
     UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
@@ -121,7 +125,9 @@
     [textField setDelegate:self];
     [textField setUserInteractionEnabled:NO];
 
+    NSLog(@"setTagTextField called");
     [self setTagTextField:textField];
+
     return textField;
 }
 
@@ -165,9 +171,12 @@
 
 - (void)setText:(NSString *)text
 {
-    NSLog(@"setText called with text = %@", text);
     [self.tagTextField setText:text];
-    [self resizeTextField];
+    NSLog(@"dispatch async being called");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"resizetextfield being called inside dispatch");
+        [self resizeTextField];
+    });
 }
 
 - (void)presentPopoverFromPoint:(CGPoint)point
@@ -237,6 +246,7 @@
 
 - (void)drawRect:(CGRect)fullRect
 {
+    NSLog(@"drawRect called");
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     
@@ -353,6 +363,7 @@
 - (BOOL)textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
+    NSLog(@"shouldChangeCharactersInRange called.");
     BOOL result = NO;
     
     if(textField == self.tagTextField){
@@ -361,7 +372,8 @@ replacementString:(NSString *)string {
             result = YES;
         }
     }
-    
+
+    NSLog(@"shouldChangeCharactersInRange returning %@", result);
     return result;
 }
 
@@ -421,6 +433,7 @@ replacementString:(NSString *)string {
 
 - (void)resizeTextField
 {
+    NSLog(@"resizeTextField called");
     int iconFontSize = 16.0f;
     int countFontSize = 10.0f;
     int likeCount = 2;
@@ -447,12 +460,12 @@ replacementString:(NSString *)string {
     CGPoint originalCenter = self.center;
 
     [self setFrame:tagBounds];
-    
     // add heart icon
     self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.likeButton setFrame:CGRectMake(0.0f, 3.0f, iconFontSize, iconFontSize)];
     [self.likeButton setBackgroundColor:[UIColor clearColor]];
     [self.likeButton setAdjustsImageWhenHighlighted:NO];
+
     [self.likeButton setAdjustsImageWhenDisabled:NO];
     FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:iconFontSize];
     [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f/255.0f green:50.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
@@ -462,7 +475,7 @@ replacementString:(NSString *)string {
     [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateSelected];
     [self.likeButton setSelected:NO];
     [self.tagTextField addSubview:self.likeButton];
-    
+
     // add like count
     UILabel *likeCountLabel = [[UILabel alloc] init];
     NSString *likeCountText = [NSString stringWithFormat:@"%d", likeCount];
@@ -472,7 +485,7 @@ replacementString:(NSString *)string {
     [likeCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
     [likeCountLabel setFrame:CGRectMake( 18.0, 3.0f, 16.0f, 16.0f)];
     [self.tagTextField addSubview:likeCountLabel];
-    
+
     // add comment icon
     self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.commentButton setFrame:CGRectMake( 32.0, 3.0f, iconFontSize, iconFontSize)];
@@ -493,9 +506,9 @@ replacementString:(NSString *)string {
     [commentCountLabel setFrame:CGRectMake( 48.0, 3.0f, 16.0f, 16.0f)];
     [self.tagTextField addSubview:commentCountLabel];
 
-
     [self setCenter:originalCenter];
 
+    NSLog(@"setNeedsDisplay is being called now.");
     [self setNeedsDisplay];
 }
 

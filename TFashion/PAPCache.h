@@ -11,6 +11,8 @@
 @interface PAPCache : NSObject
 
 + (id)sharedCache;
++ (NSString *)getKeyForClothesForPhoto:(PFObject *)photo;
++ (NSString *)getKeyForClothPiecesForCloth:(PFObject *)cloth;
 
 - (void)clear;
 - (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
@@ -38,4 +40,6 @@
 
 - (void)setFacebookFriends:(NSArray *)friends;
 - (NSArray *)facebookFriends;
+
+
 @end

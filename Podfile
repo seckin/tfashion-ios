@@ -27,4 +27,5 @@ pod 'AFNetworking'
 pod 'Mantle'
 pod 'RNFrostedSidebar'
 pod 'pop', '~> 1.0'
-
+pod 'PINCache'
+#pod 'Parse+NSCoding'

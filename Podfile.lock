@@ -51,6 +51,7 @@ PODS:
   - MBProgressHUD (0.9.2)
   - NSData+Base64 (1.0.0)
   - PDKTZipArchive (0.3.5)
+  - PINCache (2.2.1)
   - PonyDebugger (0.4.5):
     - SocketRocket
   - pop (1.0.9)
@@ -101,6 +102,7 @@ DEPENDENCIES:
   - LookbackSafe
   - Mantle
   - MBProgressHUD (~> 0.9)
+  - PINCache
   - PonyDebugger (~> 0.4.0)
   - pop (~> 1.0)
   - Reachability (~> 3.2)
@@ -132,6 +134,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
   PDKTZipArchive: 81c4824eb5587131e422fc58b92c043c4aa96466
+  PINCache: ed1f07a85cc6fbf488f8ecc1980b07b49b7b85b5
   PonyDebugger: 1c60f7c876bdb6a8b6bf0f0269087f8a234fafa7
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

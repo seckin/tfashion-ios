@@ -284,5 +284,12 @@
     return [NSString stringWithFormat:@"cloth_%@", [cloth objectId]];
 }
 
++(NSString *)getKeyForClothesForPhoto:(PFObject *)photo {
+    return [NSString stringWithFormat:@"clothes_for_photo_%@", [photo objectId]];
+}
+
++(NSString *)getKeyForClothPiecesForCloth:(PFObject *)cloth {
+    return [NSString stringWithFormat:@"cloth_pieces_for_cloth_%@", [cloth objectId]];
+}
 
 @end
