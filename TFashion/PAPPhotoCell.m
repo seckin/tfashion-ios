@@ -21,6 +21,7 @@
 @synthesize photoButton;
 @synthesize imageOverlay;
 @synthesize clothOverlays;
+@synthesize tagPopovers;
 
 #pragma mark - NSObject
 
@@ -40,6 +41,9 @@
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.userInteractionEnabled = YES;
 
+//        self.clothOverlays = [[NSMutableArray alloc] init];
+        self.tagPopovers = [[NSMutableArray alloc] init];
+
         [self loadGestureRecognizers];
 
         [self.contentView addSubview:self.photoButton];
@@ -57,48 +61,55 @@
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-    __block NSArray *clothes;
-    [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:self.photo] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
-        clothes = (NSArray *)tmpobj;
-        NSLog(@"handling double tap");
-        NSLog(@"[clothes count]:");
-        NSLog(@"%lu", (unsigned long)[clothes count]);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"location.x: %f location.y: %f", location.x, location.y);
+        __block NSArray *clothes;
+        [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:self.photo] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+            clothes = (NSArray *) tmpobj;
+            NSLog(@"handling double tap");
+            NSLog(@"[clothes count]:");
+            NSLog(@"%lu", (unsigned long) [clothes count]);
 
-        for(int i = 0; i < [clothes count]; i++) {
-            NSLog(@"handling %d", i);
-            PFObject *cloth = [clothes objectAtIndex:i];
-            __block NSArray *cloth_pieces;
-            [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
-                cloth_pieces = tmpobj;
-                if (cloth_pieces && cloth_pieces.count > 0 && [PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
-                    NSLog(@"location inside cloth!");
-                    CONImageOverlay *tmpImageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
-                    tmpImageOverlay.cloth_pieces = cloth_pieces;
+            for (int i = 0; i < [clothes count]; i++) {
+                NSLog(@"handling %d", i);
+                PFObject *cloth = [clothes objectAtIndex:i];
+                __block NSArray *cloth_pieces;
+                [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                    cloth_pieces = tmpobj;
+                    if (cloth_pieces && cloth_pieces.count > 0 && [PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
+                        NSLog(@"location inside cloth!");
+                        self.imageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
+                        self.imageOverlay.cloth_pieces = cloth_pieces;
+//
+//                        POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
+//                        animation.fromValue = @(0.0);
+//                        animation.toValue = @(0.40);
+//
+//                        [self.imageOverlay pop_addAnimation:animation forKey:@"fadespring"];
 
-                    POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewAlpha];
-                    animation.fromValue = @(0.0);
-                    animation.toValue = @(0.40);
+                        [NSTimer scheduledTimerWithTimeInterval:0.2
+                                                         target:self
+                                                       selector:@selector(removeImageOverlay:)
+                                                       userInfo:nil
+                                                        repeats:NO];
 
-                    [tmpImageOverlay pop_addAnimation:animation forKey:@"fadespring"];
+                        [self.clothOverlays addObject:self.imageOverlay];
+                        [self addSubview:self.imageOverlay];
+                        [self.contentView setNeedsDisplay];
+                        NSLog(@"location inside cloth done!");
+                    }
+                }];
+            }
+        }];
+        
 
-                    [NSTimer scheduledTimerWithTimeInterval:0.2
-                                                     target:self
-                                                   selector:@selector(removeImageOverlay:)
-                                                   userInfo:nil
-                                                    repeats:NO];
-
-                    [self.clothOverlays addObject:tmpImageOverlay];
-                    [self addSubview:[self.clothOverlays objectAtIndex:([self.clothOverlays count] - 1)]];
-                }
-            }];
-        }
-    }];
-
-
-    [self setNeedsDisplay];
+    });
 }
 
 - (void) removeImageOverlay:(NSTimer*)theTimer {
+    NSLog(@"removeImageOverlay called");
+    [self.imageOverlay removeFromSuperview];
+    self.imageOverlay = nil;
     for(int i = 0 ; i < [self.clothOverlays count]; i++) {
         [[self.clothOverlays objectAtIndex:i] removeFromSuperview];
     }

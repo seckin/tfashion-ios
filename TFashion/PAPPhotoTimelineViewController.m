@@ -245,7 +245,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-    static NSString *CellIdentifier = @"Cell";
+    NSString *string1 = [NSString stringWithFormat:@"%ld", (long)indexPath.section];
+    NSString *string2 = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    string1 = [string1 stringByAppendingString:string2];
+    NSString *CellIdentifier = string1;
     
     NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
 
@@ -254,11 +257,11 @@
     } else {
         [tableView registerClass:[PAPPhotoCell class] forCellReuseIdentifier:CellIdentifier];
         PAPPhotoCell *cell = (PAPPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        for (UIView *subV in [cell.contentView subviews]) {
-            if([subV isKindOfClass:[CONTagPopover class]]) {
-                [subV removeFromSuperview];
-            }
-        }
+//        for (UIView *subV in [cell.contentView subviews]) {
+//            if([subV isKindOfClass:[CONTagPopover class]]) {
+//                [subV removeFromSuperview];
+//            }
+//        }
 
         cell.tag = index;
         cell.photoButton.tag = index;
@@ -344,68 +347,85 @@
                 }
             }
 
-            __block NSArray *clothes;
-            [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:object] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
-                clothes = (NSArray *)tmpobj;
-                NSLog(@"clothes fetched: %lu", (unsigned long)clothes.count);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __block NSArray *clothes;
+                [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:object] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                    clothes = (NSArray *)tmpobj;
+                    NSLog(@"clothes fetched: %lu", (unsigned long)clothes.count);
 
-                for (int i = 0; i < [clothes count]; i++) {
-                    PFObject *cloth = [clothes objectAtIndex:i];
-                    __block NSArray *cached_cloth_pieces;
-                    [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
-                        cached_cloth_pieces = (NSArray *)tmpobj;
-                        NSLog(@"cached_cloth_pieces fetched: %lu", (unsigned long)cached_cloth_pieces.count);
-
-                        if ([cached_cloth_pieces count] > 0) {
-                            CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
-                                    @"tagText" : @""}];
-                            CONTagPopover *tagpopover = [[CONTagPopover alloc] init];
-                            [tagpopover initWithTag:tag];
-
-                            PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
-
-                            NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
-
-                            CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
-                            for (int k = 0; k < [boundary_points count]; k++) {
-                                cum_x += (CGFloat) [boundary_points[k][0] floatValue];
-                                cum_y += (CGFloat) [boundary_points[k][1] floatValue];
-                            }
-                            avg_x = cum_x / [boundary_points count];
-                            avg_y = cum_y / [boundary_points count];
-
-                            float scale = 320.0 / 560.0;
-
-                            if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
-                                NSLog(@"adding popover");
-                                tagpopover.tag = i;
-
-                                [tagpopover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
-
-                                UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
-                                tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, tagpopover.bounds.size.width, tagpopover.bounds.size.width);
-                                tagpopoverLayover.backgroundColor = [UIColor clearColor];
-                                tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
-                                [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
-                                [tagpopover addSubview:tagpopoverLayover];
-
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    NSLog(@"cell setNeedsDisplay called");
-                                    [cell setNeedsDisplay];
-                                });
-
-                            } else {
-                                NSLog(@"not adding popover");
-                                NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
-                            }
+//                    if(cell.tagPopovers.count < [clothes count]) {
+                        cell.tagPopovers = [[NSMutableArray alloc] initWithCapacity:[clothes count]];
+                        for(int j = 0; j < [clothes count]; j++) {
+                            [cell.tagPopovers addObject:[NSNull null]];
                         }
-                    }];
+//                    }
 
-                }
-            }];
+                    for (int i = 0; i < [clothes count]; i++) {
+                        PFObject *cloth = [clothes objectAtIndex:i];
+                        __block NSArray *cached_cloth_pieces;
+                        [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                            cached_cloth_pieces = (NSArray *)tmpobj;
+                            NSLog(@"cached_cloth_pieces fetched: %lu", (unsigned long)cached_cloth_pieces.count);
 
+                            if ([cached_cloth_pieces count] > 0) {
+                                CONDEMOTag *tag = [CONDEMOTag tagWithProperties:@{@"tagPosition" : [NSValue valueWithCGPoint:CGPointMake(0.0f, 0.0f)],
+                                        @"tagText" : @""}];
+                                CONTagPopover *tmp_popover = [[CONTagPopover alloc] init];
+                                [tmp_popover initWithTag:tag];
+
+                                PFObject *cloth_piece = [cached_cloth_pieces objectAtIndex:0];
+
+                                NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
+
+                                CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+                                for (int k = 0; k < [boundary_points count]; k++) {
+                                    cum_x += (CGFloat) [boundary_points[k][0] floatValue];
+                                    cum_y += (CGFloat) [boundary_points[k][1] floatValue];
+                                }
+                                avg_x = cum_x / [boundary_points count];
+                                avg_y = cum_y / [boundary_points count];
+
+                                float scale = 320.0 / 560.0;
+
+                                if(![cell.contentView viewWithTag:i] || [cell.contentView viewWithTag:i] == cell.contentView) {
+                                    NSLog(@"adding popover");
+                                    tmp_popover.tag = i;
+
+                                    [tmp_popover presentPopoverFromPoint:CGPointMake(avg_x * scale, avg_y * scale) inRect:CGRectMake(0.0f, 0.0f, cell.bounds.size.width, cell.bounds.size.width) inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionLeft animated:NO];
+
+                                    UIButton *tagpopoverLayover = [UIButton buttonWithType:UIButtonTypeCustom];
+                                    tagpopoverLayover.frame = CGRectMake( 0.0f, 0.0f, tmp_popover.bounds.size.width, tmp_popover.bounds.size.width);
+                                    tagpopoverLayover.backgroundColor = [UIColor clearColor];
+                                    tagpopoverLayover.contentMode = UIViewContentModeScaleAspectFit;
+                                    [tagpopoverLayover addTarget:self action:@selector(didTapOnPopoverAction:) forControlEvents:UIControlEventTouchUpInside];
+                                    [tmp_popover addSubview:tagpopoverLayover];
+                                    [cell.tagPopovers replaceObjectAtIndex:i withObject:tmp_popover];
+
+                                    
+//                                        [cell.contentView performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:YES];
+    //                                    [cell.tagPopovers performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:YES];
+
+                                    
+//                                    NSLog(@"cell setNeedsDisplay called inside tagpopoverLayover part2");
+
+
+                                } else {
+                                    NSLog(@"not adding popover");
+                                    NSLog(@"coz class type: %@", [[cell.contentView viewWithTag:i] class]);
+                                }
+                            }
+                        }];
+
+                    }
+                }];
+                NSLog(@"cell setNeedsDisplay called");
+                [cell.contentView setNeedsDisplay];
+                [CATransaction flush];
+            });
+            
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
+
 
         return cell;
     }

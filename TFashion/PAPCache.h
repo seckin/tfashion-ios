@@ -13,6 +13,7 @@
 + (id)sharedCache;
 + (NSString *)getKeyForClothesForPhoto:(PFObject *)photo;
 + (NSString *)getKeyForClothPiecesForCloth:(PFObject *)cloth;
++ (NSString *)getKeyForClothLikesForCloth:(PFObject *)cloth;
 
 - (void)clear;
 - (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;

@@ -292,4 +292,8 @@
     return [NSString stringWithFormat:@"cloth_pieces_for_cloth_%@", [cloth objectId]];
 }
 
++(NSString *)getKeyForClothLikesForCloth:(PFObject *)cloth {
+    return [NSString stringWithFormat:@"cloth_likes_for_cloth_%@", [cloth objectId]];
+}
+
 @end

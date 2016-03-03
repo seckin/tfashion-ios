@@ -23,7 +23,7 @@
     CGContextSetRGBStrokeColor(context, 0.0, 1.0, 0.0, 1.0);
     CGContextSetLineWidth(context, 1.0);
 
-    NSArray *cloth_pieces = self.cloth_pieces;
+    //NSArray *cloth_pieces = self.cloth_pieces;
     CGFloat x,y;
     float scale = 320.0 / 560.0;
     for(int i = 0; i < [cloth_pieces count]; i++) {
