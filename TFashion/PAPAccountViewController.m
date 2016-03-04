@@ -15,6 +15,7 @@
 #import "CONSettingsViewController.h"
 #import "CONFollowersViewController.h"
 #import "CONFollowingViewController.h"
+#import "UIImageView+WebCache.h"
 
 @interface PAPAccountViewController()
 @property (nonatomic, strong) UIView *headerView;
@@ -87,9 +88,14 @@
         [profilePictureImageView setFile:imageFile];
         [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
         }];
-    } else {
-        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
     }
+//    else {
+//        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
+//    }
+    NSString *substring = [profilePictureImageView.file.url substringFromIndex:7];
+    NSString *prefix = @"https://s3.amazonaws.com/";
+    NSString *httpsfileurl = [prefix stringByAppendingString:substring];
+    [profilePictureImageView sd_setImageWithURL:[NSURL URLWithString:httpsfileurl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
     
     // Add a bottomBorder.
     CALayer *bottomBorder = [CALayer layer];

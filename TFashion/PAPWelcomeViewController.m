@@ -197,7 +197,10 @@
                     // result is a dictionary with the user's Facebook data
                     NSDictionary *userData = (NSDictionary *) result;
 
-                    NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
+//                    NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
+                    NSString *substring = [userData[@"picture"][@"data"][@"url"] substringFromIndex:7];
+                    NSString *prefix = @"https://s3.amazonaws.com/";
+                    NSString *profilePictureURL = [prefix stringByAppendingString:substring];
 
                     // Now add the data to the UI elements
                     NSURLRequest *profilePictureURLRequest = [NSURLRequest requestWithURL:profilePictureURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f]; // Facebook profile picture cache policy: Expires in 2 weeks

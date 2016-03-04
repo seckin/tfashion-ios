@@ -323,6 +323,26 @@
     return query;
 }
 
++ (PFQuery *)queryForActivitiesOnPhotoForCloth:(PFObject *)photo cloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
+    PFQuery *queryLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
+    [queryLikes whereKey:kPAPActivityPhotoKey equalTo:photo];
+    [queryLikes whereKey:kPAPActivityClothKey equalTo:cloth];
+    [queryLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeLike];
+
+    PFQuery *queryComments = [PFQuery queryWithClassName:kPAPActivityClassKey];
+    [queryComments whereKey:kPAPActivityPhotoKey equalTo:photo];
+    [queryComments whereKey:kPAPActivityClothKey equalTo:cloth];
+    [queryComments whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeComment];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:queryLikes,queryComments,nil]];
+    [query setCachePolicy:cachePolicy];
+    [query includeKey:kPAPActivityFromUserKey];
+    [query includeKey:kPAPActivityPhotoKey];
+    [query includeKey:kPAPActivityClothKey];
+
+    return query;
+}
+
 #pragma mark Clothes
 
 + (PFQuery *)queryForClothesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy {
@@ -351,60 +371,68 @@
     if([clothPieces count] == 0) {
         return NO;
     }
-    PFObject *cloth_piece = [clothPieces objectAtIndex:0];
-    NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
 
-    // Step 1: test bounding box and vertex equality
-    int _coordinateCount = [boundary_points count];
-    CGFloat minLatitude = 10000.0f, minLongitude = 10000.0f, maxLatitude = -10000.0f, maxLongitude = -10000.0f;
-    for (int index = 0; index < _coordinateCount; index++) {
-        if ((CGFloat)[boundary_points[index][1] floatValue] * scale == y && (CGFloat)[boundary_points[index][0] floatValue] * scale == x) {
-            return YES;
-        }
+    bool is_inside = false;
+    for(int i = 0; i < [clothPieces count]; i++) {
+        PFObject *cloth_piece = [clothPieces objectAtIndex:i];
+        NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
 
-        if ((CGFloat)[boundary_points[index][0] floatValue] * scale < minLatitude) {
-            minLatitude = (CGFloat)[boundary_points[index][0] floatValue] * scale;
-        }
-        if ((CGFloat)[boundary_points[index][1] floatValue] * scale < minLongitude) {
-            minLongitude = (CGFloat)[boundary_points[index][1] floatValue] * scale;
-        }
-        if ((CGFloat)[boundary_points[index][0] floatValue] * scale > maxLatitude) {
-            maxLatitude = (CGFloat)[boundary_points[index][0] floatValue] * scale;
-        }
-        if ((CGFloat)[boundary_points[index][1] floatValue] * scale > maxLongitude) {
-            maxLongitude = (CGFloat)[boundary_points[index][1] floatValue] * scale;
-        }
-    }
-    if (x < minLatitude || x > maxLatitude || y < minLongitude || y > maxLongitude) {
-        return NO;
-    }
-
-    // Step 2: cast two rays in "random" directions
-    // For a ray going straight to the right, loop through each side;
-    // the coordinate lat must be between the points on the side
-    // and the coordinate long must be less than where the ray intersection would be
-    // If we pass through a different number of sides (mod 2) in different directions, we're starting on an edge. That's inside.
-    NSInteger sidesCrossedMovingRight = 0;
-    NSInteger sidesCrossedMovingLeft = 0;
-    NSInteger previousIndex = _coordinateCount - 1;
-    for (int index = 0; index < _coordinateCount; index++) {
-        CGFloat firstCoordinateX = (CGFloat)[boundary_points[previousIndex][0] floatValue] * scale;
-        CGFloat firstCoordinateY = (CGFloat)[boundary_points[previousIndex][1] floatValue] * scale;
-        CGFloat secondCoordinateX = (CGFloat)[boundary_points[index][0] floatValue] * scale;
-        CGFloat secondCoordinateY = (CGFloat)[boundary_points[index][1] floatValue] * scale;
-
-        if ((firstCoordinateX <= x && x < secondCoordinateX) ||
-                (secondCoordinateX <= x && x < firstCoordinateX)) {
-            if (y <= (secondCoordinateY - firstCoordinateY) * (x - firstCoordinateX) / (secondCoordinateX - firstCoordinateX) + firstCoordinateY) {
-                sidesCrossedMovingRight++;
+        // Step 1: test bounding box and vertex equality
+        int _coordinateCount = [boundary_points count];
+        CGFloat minLatitude = 10000.0f, minLongitude = 10000.0f, maxLatitude = -10000.0f, maxLongitude = -10000.0f;
+        for (int index = 0; index < _coordinateCount; index++) {
+            if ((CGFloat) [boundary_points[index][1] floatValue] * scale == y && (CGFloat) [boundary_points[index][0] floatValue] * scale == x) {
+                return YES;
             }
-            if (y >= (secondCoordinateY - firstCoordinateY) * (x - firstCoordinateX) / (secondCoordinateX - firstCoordinateX) + firstCoordinateY) {
-                sidesCrossedMovingLeft++;
+
+            if ((CGFloat) [boundary_points[index][0] floatValue] * scale < minLatitude) {
+                minLatitude = (CGFloat) [boundary_points[index][0] floatValue] * scale;
+            }
+            if ((CGFloat) [boundary_points[index][1] floatValue] * scale < minLongitude) {
+                minLongitude = (CGFloat) [boundary_points[index][1] floatValue] * scale;
+            }
+            if ((CGFloat) [boundary_points[index][0] floatValue] * scale > maxLatitude) {
+                maxLatitude = (CGFloat) [boundary_points[index][0] floatValue] * scale;
+            }
+            if ((CGFloat) [boundary_points[index][1] floatValue] * scale > maxLongitude) {
+                maxLongitude = (CGFloat) [boundary_points[index][1] floatValue] * scale;
             }
         }
-        previousIndex = index;
+        if (x < minLatitude || x > maxLatitude || y < minLongitude || y > maxLongitude) {
+            continue;
+        }
+
+        // Step 2: cast two rays in "random" directions
+        // For a ray going straight to the right, loop through each side;
+        // the coordinate lat must be between the points on the side
+        // and the coordinate long must be less than where the ray intersection would be
+        // If we pass through a different number of sides (mod 2) in different directions, we're starting on an edge. That's inside.
+        NSInteger sidesCrossedMovingRight = 0;
+        NSInteger sidesCrossedMovingLeft = 0;
+        NSInteger previousIndex = _coordinateCount - 1;
+        for (int index = 0; index < _coordinateCount; index++) {
+            CGFloat firstCoordinateX = (CGFloat) [boundary_points[previousIndex][0] floatValue] * scale;
+            CGFloat firstCoordinateY = (CGFloat) [boundary_points[previousIndex][1] floatValue] * scale;
+            CGFloat secondCoordinateX = (CGFloat) [boundary_points[index][0] floatValue] * scale;
+            CGFloat secondCoordinateY = (CGFloat) [boundary_points[index][1] floatValue] * scale;
+
+            if ((firstCoordinateX <= x && x < secondCoordinateX) ||
+                    (secondCoordinateX <= x && x < firstCoordinateX)) {
+                if (y <= (secondCoordinateY - firstCoordinateY) * (x - firstCoordinateX) / (secondCoordinateX - firstCoordinateX) + firstCoordinateY) {
+                    sidesCrossedMovingRight++;
+                }
+                if (y >= (secondCoordinateY - firstCoordinateY) * (x - firstCoordinateX) / (secondCoordinateX - firstCoordinateX) + firstCoordinateY) {
+                    sidesCrossedMovingLeft++;
+                }
+            }
+            previousIndex = index;
+        }
+        is_inside = is_inside || sidesCrossedMovingLeft % 2 == 1 || sidesCrossedMovingLeft % 2 != sidesCrossedMovingRight % 2;
+        if(is_inside) {
+            return is_inside;
+        }
     }
-    return sidesCrossedMovingLeft % 2 == 1 || sidesCrossedMovingLeft % 2 != sidesCrossedMovingRight % 2;
+    return is_inside;
 }
 
 

@@ -10,6 +10,7 @@
 #import "PAPProfileImageView.h"
 #import "TTTTimeIntervalFormatter.h"
 #import <ParseUI/ParseUI.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define baseHorizontalOffset 0.0f
 #define baseWidth 320.0f
@@ -218,11 +219,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
     self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     PFFile *imageFile = [self.photo objectForKey:kPAPPhotoPictureKey];
+    NSString *substring = [imageFile.url substringFromIndex:7];
+    NSString *prefix = @"https://s3.amazonaws.com/";
+    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
 
-    if (imageFile) {
-        self.photoImageView.file = imageFile;
-        [self.photoImageView loadInBackground];
-    }
+    [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:updatedImageUrl] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
+    NSLog(@"updatedImageUrl: %@", updatedImageUrl);
     
     [self addSubview:self.photoImageView];
     
@@ -238,11 +240,20 @@ static TTTTimeIntervalFormatter *timeFormatter;
         // Create avatar view
         PAPProfileImageView *avatarImageView = [[PAPProfileImageView alloc] initWithFrame:CGRectMake(avatarImageX, avatarImageY, avatarImageDim, avatarImageDim)];
 
+        PFFile *avatarImageFile;
         if ([PAPUtility userHasProfilePictures:self.photographer]) {
-            [avatarImageView setFile:[self.photographer objectForKey:kPAPUserProfilePicSmallKey]];
-        } else {
-            [avatarImageView setImage:[PAPUtility defaultProfilePicture]];
+            avatarImageFile = [self.photographer objectForKey:kPAPUserProfilePicSmallKey];
         }
+//        else {
+//            [avatarImageView setImage:[PAPUtility defaultProfilePicture]];
+//        }
+        NSString *substring = [avatarImageFile.url substringFromIndex:7];
+        NSString *prefix = @"https://s3.amazonaws.com/";
+        NSString *updatedAvatarImageUrl = [prefix stringByAppendingString:substring];
+
+        [avatarImageView.profileImageView sd_setImageWithURL:[NSURL URLWithString:updatedAvatarImageUrl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
+
+
 
         [avatarImageView setBackgroundColor:[UIColor clearColor]];
         [avatarImageView setOpaque:NO];

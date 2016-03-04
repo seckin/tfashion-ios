@@ -23,8 +23,11 @@
 #pragma mark - PAPImageView
 
 - (void) setFile:(PFFile *)file {
-    NSString *requestURL = file.url; // Save copy of url locally (will not change in block)
-    [self setUrl:file.url]; // Save copy of url on the instance
+    NSString *substring = [file.url substringFromIndex:7];
+    NSString *prefix = @"https://s3.amazonaws.com/";
+    NSString *fileUrl = [prefix stringByAppendingString:substring];
+    NSString *requestURL = fileUrl; // Save copy of url locally (will not change in block)
+    [self setUrl:fileUrl]; // Save copy of url on the instance
     
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
