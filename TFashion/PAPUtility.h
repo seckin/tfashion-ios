@@ -8,8 +8,8 @@
 
 @interface PAPUtility : NSObject
 
-+ (void)likePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-+ (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
++ (void)likeClothInBackground:(PFObject *)cloth photo:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
++ (void)unlikeClothInBackground:(PFObject *)cloth block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
 
 + (void)processFacebookProfilePictureData:(NSData *)data;
 
@@ -29,6 +29,7 @@
 + (void)unfollowUsersEventually:(NSArray *)users;
 
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
++ (PFQuery *)queryForActivitiesOnCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy;
 + (PFQuery *)queryForClothesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 + (PFQuery *)queryForClothPiecesOfCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy;
 

@@ -140,9 +140,9 @@
 
 - (void)shouldEnableLikeButton:(BOOL)enable {
     if (enable) {
-        [self.likeButton removeTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.likeButton removeTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [self.likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.likeButton addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -160,10 +160,11 @@
     }
 }
 
-- (void)didTapLikePhotoButtonAction:(UIButton *)button {
-    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
-        [delegate photoHeaderView:self didTapLikePhotoButton:button photo:self.photo];
-    }
+// *** TODO: remove this function
+- (void)didTapLikeClothButtonAction:(UIButton *)button {
+//    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
+//        [delegate photoHeaderView:self didTapLikeClothButton:button photo:self.cloth];
+//    }
 }
 
 - (void)didTapCommentOnPhotoButtonAction:(UIButton *)sender {

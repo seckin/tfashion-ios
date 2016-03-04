@@ -40,17 +40,17 @@ extern NSString *const kPAPLaunchURLHostTakePicture;
 #pragma mark - NSNotification
 extern NSString *const PAPAppDelegateApplicationDidReceiveRemoteNotification;
 extern NSString *const PAPUtilityUserFollowingChangedNotification;
-extern NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification;
+extern NSString *const PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification;
 extern NSString *const PAPUtilityDidFinishProcessingProfilePictureNotification;
 extern NSString *const PAPTabBarControllerDidFinishEditingPhotoNotification;
 extern NSString *const PAPTabBarControllerDidFinishImageFileUploadNotification;
 extern NSString *const PAPPhotoDetailsViewControllerUserDeletedPhotoNotification;
-extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotification;
-extern NSString *const PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification;
+extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification;
+extern NSString *const PAPPhotoDetailsViewControllerUserCommentedOnClothNotification;
 
 
 #pragma mark - User Info Keys
-extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey;
+extern NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey;
 extern NSString *const kPAPEditPhotoViewControllerUserInfoCommentKey;
 
 
@@ -81,6 +81,7 @@ extern NSString *const kPAPClothPieceClothKey;
 // Field keys
 extern NSString *const kPAPActivityTypeKey;
 extern NSString *const kPAPActivityFromUserKey;
+extern NSString *const kPAPActivityClothKey;
 extern NSString *const kPAPActivityToUserKey;
 extern NSString *const kPAPActivityContentKey;
 extern NSString *const kPAPActivityPhotoKey;
@@ -136,16 +137,18 @@ extern NSString *const kPAPPhotoOpenGraphIDKey;
 
 #pragma mark - Cached Photo Attributes
 // keys
-extern NSString *const kPAPPhotoAttributesIsLikedByCurrentUserKey;
-extern NSString *const kPAPPhotoAttributesLikeCountKey;
-extern NSString *const kPAPPhotoAttributesLikersKey;
-extern NSString *const kPAPPhotoAttributesCommentCountKey;
-extern NSString *const kPAPPhotoAttributesCommentersKey;
+
 extern NSString *const kPAPPhotoAttributesClothesKey;
 
 #pragma mark - Cached Cloth Attributes
 // keys
 extern NSString *const kPAPClothAttributesClothPiecesKey;
+extern NSString *const kPAPClothAttributesIsLikedByCurrentUserKey;
+extern NSString *const kPAPClothAttributesLikeCountKey;
+extern NSString *const kPAPClothAttributesLikersKey;
+extern NSString *const kPAPClothAttributesCommentCountKey;
+extern NSString *const kPAPClothAttributesCommentersKey;
+
 
 #pragma mark - Cached User Attributes
 // keys

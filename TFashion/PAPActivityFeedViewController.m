@@ -134,8 +134,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < self.objects.count) {
         PFObject *activity = [self.objects objectAtIndex:indexPath.row];
-        if ([activity objectForKey:kPAPActivityPhotoKey]) {
-            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:[activity objectForKey:kPAPActivityPhotoKey]];
+        if ([activity objectForKey:kPAPActivityPhotoKey] && [activity objectForKey:kPAPActivityClothKey]) {
+            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:[activity objectForKey:kPAPActivityPhotoKey] cloth:[activity objectForKey:kPAPActivityClothKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         } else if ([activity objectForKey:kPAPActivityFromUserKey]) {
             PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -266,9 +266,10 @@
         activity = [activity objectForKey:kPAPActivityCommentKey];
     }
     PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
+    PFObject *cloth = [activity objectForKey:kPAPActivityClothKey];
     
     // Push single photo view controller
-    PAPPhotoDetailsViewController *photoViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
+    PAPPhotoDetailsViewController *photoViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo cloth:cloth];
     [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
@@ -285,13 +286,13 @@
 
 + (NSString *)stringForActivityType:(NSString *)activityType {
     if ([activityType isEqualToString:kPAPActivityTypeLike]) {
-        return NSLocalizedString(@"liked your photo", nil);
+        return NSLocalizedString(@"liked your cloth in a photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeFollow]) {
         return NSLocalizedString(@"started following you", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeComment]) {
-        return NSLocalizedString(@"commented on your photo", nil);
+        return NSLocalizedString(@"commented on your cloth in a photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeJoined]) {
-        return NSLocalizedString(@"joined TFashion", nil);
+        return NSLocalizedString(@"joined Pera", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeMention]) {
         return NSLocalizedString(@"mentioned you in a comment", nil);
     } else {

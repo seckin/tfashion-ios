@@ -77,7 +77,7 @@ typedef enum {
  Sent to the delegate when the like photo button is tapped
  @param photo the PFObject for the photo that is being liked or disliked
  */
-- (void)photoHeaderView:(PAPPhotoHeaderView *)photoHeaderView didTapLikePhotoButton:(UIButton *)button photo:(PFObject *)photo;
+- (void)photoHeaderView:(PAPPhotoHeaderView *)photoHeaderView didTapLikeClothButton:(UIButton *)button cloth:(PFObject *)cloth;
 
 /*!
  Sent to the delegate when the comment on photo button is tapped

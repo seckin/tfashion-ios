@@ -7,14 +7,10 @@
 //
 
 #import "PAPPhotoDetailsViewController.h"
-#import "PAPBaseTextCell.h"
 #import "PAPActivityCell.h"
-#import "PAPConstants.h"
 #import "PAPAccountViewController.h"
 #import "PAPLoadMoreCell.h"
-#import "PAPUtility.h"
 #import "MBProgressHUD.h"
-#import "CONTag.h"
 #import "AppDelegate.h"
 
 enum ActionSheetTags {
@@ -37,17 +33,18 @@ enum ActionSheetTags {
 static const CGFloat kPAPCellInsetWidth = 0.0f;
 
 @implementation PAPPhotoDetailsViewController
-@synthesize photo, headerView;
+@synthesize photo, headerView, cloth;
 
 #pragma mark - Initialization
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:self.cloth];
 }
 
-- (id)initWithPhoto:(PFObject *)aPhoto {
+- (id)initWithPhoto:(PFObject *)aPhoto cloth:(PFObject *)aCloth {
+    NSLog(@"Papphotodetailsviewcontroller initwithphoto");
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         // The className to query on
@@ -63,6 +60,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
         self.objectsPerPage = 30;
         
         self.photo = aPhoto;
+        self.cloth = aCloth;
         
         self.likersQueryInProgress = NO;
     }
@@ -73,6 +71,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
+    NSLog(@"Papphotodetailsviewcontroller viewdidload");
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [super viewDidLoad];
@@ -86,7 +85,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     self.tableView.backgroundView = texturedBackgroundView;
 
     // Set table header
-    self.headerView = [[PAPPhotoDetailsHeaderView alloc] initWithFrame:[PAPPhotoDetailsHeaderView rectForView] photo:self.photo];
+    self.headerView = [[PAPPhotoDetailsHeaderView alloc] initWithFrame:[PAPPhotoDetailsHeaderView rectForView] photo:self.photo cloth:self.cloth];
     self.headerView.delegate = self;
     
     self.tableView.tableHeaderView = self.headerView;
@@ -127,7 +126,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     // Register to be notified when the keyboard will be shown to scroll the view
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedCloth:) name:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:self.cloth];
     
     // Generate mention data
     
@@ -156,7 +155,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [self.headerView reloadLikeBar];
     
     // we will only hit the network if we have no cached data for this photo
-    BOOL hasCachedLikers = [[PAPCache sharedCache] attributesForPhoto:self.photo] != nil;
+    BOOL hasCachedLikers = [[PAPCache sharedCache] attributesForCloth:self.cloth] != nil;
     if (!hasCachedLikers) {
         [self loadLikers];
     }
@@ -201,6 +200,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
         [comment setObject:trimmedComment forKey:kPAPActivityContentKey]; // Set comment text
         [comment setObject:[self.photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey]; // Set toUser
         [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey]; // Set fromUser
+        [comment setObject:self.cloth forKey:kPAPActivityClothKey]; // Set fromUser
         [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
         [comment setObject:self.photo forKey:kPAPActivityPhotoKey];
         
@@ -209,7 +209,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
         [ACL setWriteAccess:YES forUser:[self.photo objectForKey:kPAPPhotoUserKey]];
         comment.ACL = ACL;
         
-        [[PAPCache sharedCache] incrementCommentCountForPhoto:self.photo];
+        [[PAPCache sharedCache] incrementCommentCountForCloth:self.cloth];
         
         // Show HUD view
         [MBProgressHUD showHUDAddedTo:self.view.superview animated:YES];
@@ -221,13 +221,13 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
             [timer invalidate];
             
             if (error && error.code == kPFErrorObjectNotFound) {
-                [[PAPCache sharedCache] decrementCommentCountForPhoto:self.photo];
+                [[PAPCache sharedCache] decrementCommentCountForCloth:self.cloth];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not post comment", nil) message:NSLocalizedString(@"This photo is no longer available", nil) delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alert show];
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification object:self.photo userInfo:@{@"comments": @(self.objects.count + 1)}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserCommentedOnClothNotification object:self.cloth userInfo:@{@"comments": @(self.objects.count + 1)}];
             [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
             [self loadObjects];
             
@@ -345,6 +345,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     [query whereKey:kPAPActivityPhotoKey equalTo:self.photo];
+    [query whereKey:kPAPActivityClothKey equalTo:self.cloth];
     [query includeKey:kPAPActivityFromUserKey];
     [query whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeComment];
     [query orderByAscending:@"createdAt"]; 
@@ -520,7 +521,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)userLikedOrUnlikedPhoto:(NSNotification *)note {
+- (void)userLikedOrUnlikedCloth:(NSNotification *)note {
     [self.headerView reloadLikeBar];
 }
 
@@ -585,7 +586,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     }
 
     self.likersQueryInProgress = YES;
-    PFQuery *query = [PAPUtility queryForActivitiesOnPhoto:photo cachePolicy:kPFCachePolicyNetworkOnly];
+    PFQuery *query = [PAPUtility queryForActivitiesOnCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.likersQueryInProgress = NO;
         if (error) {
@@ -611,8 +612,8 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
                 }
             }
         }
-        
-        [[PAPCache sharedCache] setAttributesForPhoto:photo likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
+
+        [[PAPCache sharedCache] setAttributesForCloth:cloth likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
         [self.headerView reloadLikeBar];
     }];
 }

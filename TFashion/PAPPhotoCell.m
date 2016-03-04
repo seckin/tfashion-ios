@@ -96,12 +96,49 @@
                             [self.clothOverlays addObject:self.imageOverlay];
                             [self addSubview:self.imageOverlay];
                             [self.contentView setNeedsDisplay];
+
+                            // we showed the flash above, now we need to save the like
+                            [self saveUserLike:cloth];
+
                             NSLog(@"location inside cloth done!");
                         }
                     });
                 }];
             }
         }];
+}
+
+- (void)saveUserLike:(PFObject *)cloth {
+    BOOL liked = YES; // assumption: user is probably liking this picture for the first time
+    NSArray *likeUsers = [[PAPCache sharedCache] likersForCloth:cloth];
+    for (PFUser *likeUser in likeUsers) {
+        if ([[likeUser objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+            liked = NO;
+            break;
+        }
+    }
+
+    if(!liked) {
+        // user has already liked this picture before. we won't unlike here.
+        return;
+    }
+
+    NSMutableSet *newLikeUsersSet = [NSMutableSet setWithCapacity:[likeUsers count]];
+
+    for (PFUser *likeUser in likeUsers) {
+        [newLikeUsersSet addObject:likeUser];
+    }
+    [newLikeUsersSet addObject:[PFUser currentUser]];
+    [[PAPCache sharedCache] incrementLikerCountForCloth:cloth];
+    [[PAPCache sharedCache] setClothIsLikedByCurrentUser:cloth liked:liked];
+
+    NSLog(@"user attemted to like the picture with double tap");
+    [PAPUtility likeClothInBackground:cloth photo:self.photo block:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            //[[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
+        }
+    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
 }
 
 - (void) removeImageOverlay:(NSTimer*)theTimer {

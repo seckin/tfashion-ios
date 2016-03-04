@@ -13,25 +13,25 @@
 + (id)sharedCache;
 + (NSString *)getKeyForClothesForPhoto:(PFObject *)photo;
 + (NSString *)getKeyForClothPiecesForCloth:(PFObject *)cloth;
-+ (NSString *)getKeyForClothLikesForCloth:(PFObject *)cloth;
 
 - (void)clear;
-- (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
+- (void)setAttributesForCloth:(PFObject *)cloth likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
 - (void)setClothesForPhoto:(PFObject *)photo clothes:(NSArray *)clothes;
 - (void)setClothPiecesForCloth:(PFObject *)cloth clothPieces:(NSArray *)clothPieces;
-- (NSDictionary *)attributesForPhoto:(PFObject *)photo;
-- (NSNumber *)likeCountForPhoto:(PFObject *)photo;
-- (NSNumber *)commentCountForPhoto:(PFObject *)photo;
-- (NSArray *)likersForPhoto:(PFObject *)photo;
-- (NSArray *)commentersForPhoto:(PFObject *)photo;
+- (NSDictionary *)attributesForCloth:(PFObject *)cloth;
+- (NSNumber *)likeCountForCloth:(PFObject *)cloth;
+- (NSNumber *)commentCountForCloth:(PFObject *)cloth;
+- (NSArray *)likersForCloth:(PFObject *)cloth;
+- (NSArray *)commentersForCloth:(PFObject *)cloth;
 - (NSArray *)clothesForPhoto:(PFObject *)photo;
 - (NSArray *)clothPiecesForCloth:(PFObject *)cloth;
-- (void)setPhotoIsLikedByCurrentUser:(PFObject *)photo liked:(BOOL)liked;
-- (BOOL)isPhotoLikedByCurrentUser:(PFObject *)photo;
-- (void)incrementLikerCountForPhoto:(PFObject *)photo;
-- (void)decrementLikerCountForPhoto:(PFObject *)photo;
-- (void)incrementCommentCountForPhoto:(PFObject *)photo;
-- (void)decrementCommentCountForPhoto:(PFObject *)photo;
+// *** TODO: remove these 4 and their uses (or change their uses to clothes where applicable)
+- (void)setClothIsLikedByCurrentUser:(PFObject *)cloth liked:(BOOL)liked;
+- (BOOL)isClothLikedByCurrentUser:(PFObject *)cloth;
+- (void)incrementLikerCountForCloth:(PFObject *)cloth;
+- (void)decrementLikerCountForCloth:(PFObject *)cloth;
+- (void)incrementCommentCountForCloth:(PFObject *)cloth;
+- (void)decrementCommentCountForCloth:(PFObject *)cloth;
 
 - (NSDictionary *)attributesForUser:(PFUser *)user;
 - (NSNumber *)photoCountForUser:(PFUser *)user;

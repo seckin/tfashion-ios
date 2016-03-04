@@ -24,4 +24,6 @@
 // holds one popover for each cloth. indexes align
 @property (nonatomic, strong) NSMutableArray *tagPopovers;
 
+- (void)saveUserLike:(PFObject *)cloth;
+
 @end

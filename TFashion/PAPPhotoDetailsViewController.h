@@ -14,7 +14,8 @@
 @interface PAPPhotoDetailsViewController : PFQueryTableViewController <UIActionSheetDelegate, PAPPhotoDetailsHeaderViewDelegate, PAPBaseTextCellDelegate, TTTAttributedLabelDelegate, CONCommentTextViewDelegate>
 
 @property (nonatomic, strong) PFObject *photo;
+@property (nonatomic, strong) PFObject *cloth;
 
-- (id)initWithPhoto:(PFObject*)aPhoto;
+- (id)initWithPhoto:(PFObject*)aPhoto cloth:(PFObject *)cloth;
 
 @end

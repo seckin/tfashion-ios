@@ -346,10 +346,9 @@
         if (succeeded) {
             NSLog(@"Photo uploaded");
 
-            [[PAPCache sharedCache] setAttributesForPhoto:photo likers:[NSArray array] commenters:[NSArray array] likedByCurrentUser:NO];
-            
             // userInfo might contain any caption which might have been posted by the uploader
             if (userInfo) {
+                // *** TODO: change this to caption activity from a comment activity
                 NSString *commentText = [userInfo objectForKey:kPAPEditPhotoViewControllerUserInfoCommentKey];
                 if (commentText && commentText.length != 0) {
                     // create and save photo caption
@@ -373,7 +372,6 @@
                         [mention setObject:comment forKey:kPAPActivityCommentKey];
                         [mention saveEventually];
                     }
-                    [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
                     
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];

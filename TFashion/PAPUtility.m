@@ -8,6 +8,7 @@
 
 #import "PAPUtility.h"
 #import "UIImage+ResizeAdditions.h"
+#import "PINCache.h"
 
 @implementation PAPUtility
 
@@ -15,25 +16,31 @@
 #pragma mark - PAPUtility
 #pragma mark Like Photos
 
-+ (void)likePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
++ (void)likeClothInBackground:(PFObject *)cloth photo:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
+    NSLog(@"entered likeClothInBackground");
+    NSLog(@"cloth is: %@", cloth.objectId);
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryExistingLikes whereKey:kPAPActivityPhotoKey equalTo:photo];
+    [queryExistingLikes whereKey:kPAPActivityClothKey equalTo:cloth];
     [queryExistingLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeLike];
     [queryExistingLikes whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
     [queryExistingLikes setCachePolicy:kPFCachePolicyNetworkOnly];
+    NSLog(@"queryExistingLikes is being called now");
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        NSLog(@"inside queryExistingLikes");
         if (!error) {
             for (PFObject *activity in activities) {
                 [activity delete];
             }
         }
-        
+
+        NSLog(@"proceed to creating new like");
         // proceed to creating new like
         PFObject *likeActivity = [PFObject objectWithClassName:kPAPActivityClassKey];
         [likeActivity setObject:kPAPActivityTypeLike forKey:kPAPActivityTypeKey];
         [likeActivity setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
+        NSLog(@"touser part: %@", [photo objectForKey:kPAPPhotoUserKey]);
         [likeActivity setObject:[photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey];
-        [likeActivity setObject:photo forKey:kPAPActivityPhotoKey];
+        [likeActivity setObject:cloth forKey:kPAPActivityClothKey];
         
         PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [likeACL setPublicReadAccess:YES];
@@ -46,7 +53,7 @@
             }
 
             // refresh cache
-            PFQuery *query = [PAPUtility queryForActivitiesOnPhoto:photo cachePolicy:kPFCachePolicyNetworkOnly];
+            PFQuery *query = [PAPUtility queryForActivitiesOnCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
                     
@@ -68,11 +75,11 @@
                             }
                         }
                     }
-                    
-                    [[PAPCache sharedCache] setAttributesForPhoto:photo likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
+
+                    [[PAPCache sharedCache] setAttributesForCloth:cloth likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
                 }
 
-                [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:photo userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:succeeded] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:succeeded] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
             }];
 
         }];
@@ -80,9 +87,9 @@
 
 }
 
-+ (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
++ (void)unlikeClothInBackground:(PFObject *)cloth block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryExistingLikes whereKey:kPAPActivityPhotoKey equalTo:photo];
+    [queryExistingLikes whereKey:kPAPActivityClothKey equalTo:cloth];
     [queryExistingLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeLike];
     [queryExistingLikes whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
     [queryExistingLikes setCachePolicy:kPFCachePolicyNetworkOnly];
@@ -97,7 +104,7 @@
             }
 
             // refresh cache
-            PFQuery *query = [PAPUtility queryForActivitiesOnPhoto:photo cachePolicy:kPFCachePolicyNetworkOnly];
+            PFQuery *query = [PAPUtility queryForActivitiesOnCloth:cloth cachePolicy:kPFCachePolicyNetworkOnly];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
                     
@@ -119,11 +126,11 @@
                             }
                         }
                     }
-                    
-                    [[PAPCache sharedCache] setAttributesForPhoto:photo likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
+
+                    [[PAPCache sharedCache] setAttributesForCloth:cloth likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
                 }
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:photo userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
             }];
 
         } else {
@@ -323,21 +330,18 @@
     return query;
 }
 
-+ (PFQuery *)queryForActivitiesOnPhotoForCloth:(PFObject *)photo cloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
++ (PFQuery *)queryForActivitiesOnCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
     PFQuery *queryLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryLikes whereKey:kPAPActivityPhotoKey equalTo:photo];
     [queryLikes whereKey:kPAPActivityClothKey equalTo:cloth];
     [queryLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeLike];
 
     PFQuery *queryComments = [PFQuery queryWithClassName:kPAPActivityClassKey];
-    [queryComments whereKey:kPAPActivityPhotoKey equalTo:photo];
     [queryComments whereKey:kPAPActivityClothKey equalTo:cloth];
     [queryComments whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeComment];
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects:queryLikes,queryComments,nil]];
     [query setCachePolicy:cachePolicy];
     [query includeKey:kPAPActivityFromUserKey];
-    [query includeKey:kPAPActivityPhotoKey];
     [query includeKey:kPAPActivityClothKey];
 
     return query;

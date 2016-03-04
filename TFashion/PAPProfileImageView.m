@@ -61,7 +61,7 @@
     NSString *prefix = @"https://s3.amazonaws.com/";
     NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
     [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:updatedImageUrl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholder.png"]];
-    NSLog(@"updatedprofile image url: %@", updatedImageUrl);
+//    NSLog(@"updatedprofile image url: %@", updatedImageUrl);
     [self.profileImageView loadInBackground];
 }
 

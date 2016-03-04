@@ -15,6 +15,8 @@
 /// The photo displayed in the view
 @property (nonatomic, strong, readonly) PFObject *photo;
 
+@property (nonatomic, strong) PFObject *cloth;
+
 /// The user that took the photo
 @property (nonatomic, strong, readonly) PFUser *photographer;
 
@@ -29,7 +31,7 @@
 
 + (CGRect)rectForView;
 
-- (id)initWithFrame:(CGRect)frame photo:(PFObject*)aPhoto;
+- (id)initWithFrame:(CGRect)frame photo:(PFObject*)aPhoto cloth:(PFObject *)aCloth;
 - (id)initWithFrame:(CGRect)frame photo:(PFObject*)aPhoto photographer:(PFUser*)aPhotographer likeUsers:(NSArray*)theLikeUsers;
 
 - (void)setLikeButtonState:(BOOL)selected;

@@ -82,6 +82,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 @implementation PAPPhotoDetailsHeaderView
 
 @synthesize photo;
+@synthesize cloth;
 @synthesize photographer;
 @synthesize likeUsers;
 @synthesize nameHeaderView;
@@ -93,7 +94,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 #pragma mark - NSObject
 
-- (id)initWithFrame:(CGRect)frame photo:(PFObject*)aPhoto {
+- (id)initWithFrame:(CGRect)frame photo:(PFObject*)aPhoto cloth:(PFObject *)aCloth {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -102,6 +103,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         }
         
         self.photo = aPhoto;
+        self.cloth = aCloth;
         self.photographer = [self.photo objectForKey:kPAPPhotoUserKey];
         self.likeUsers = nil;
         
@@ -201,9 +203,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
 }
 
 - (void)reloadLikeBar {
-    self.likeUsers = [[PAPCache sharedCache] likersForPhoto:self.photo];
-    [self setLikeButtonState:[[PAPCache sharedCache] isPhotoLikedByCurrentUser:self.photo]];
-    [likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];    
+    self.likeUsers = [[PAPCache sharedCache] likersForCloth:self.cloth];
+    [self setLikeButtonState:[[PAPCache sharedCache] isClothLikedByCurrentUser:self.cloth]];
+    [likeButton addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -224,7 +226,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
 
     [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:updatedImageUrl] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
-    NSLog(@"updatedImageUrl: %@", updatedImageUrl);
+//    NSLog(@"updatedImageUrl: %@", updatedImageUrl);
     
     [self addSubview:self.photoImageView];
     
@@ -331,7 +333,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:29.0f];
     [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor]];
     [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
-    [likeButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [likeButton addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [likeBarView addSubview:likeButton];
     
     [self reloadLikeBar];
@@ -341,9 +343,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     //[likeBarView addSubview:separator];
 }
 
-- (void)didTapLikePhotoButtonAction:(UIButton *)button {
+- (void)didTapLikeClothButtonAction:(UIButton *)button {
     BOOL liked = !button.selected;
-    [button removeTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button removeTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self setLikeButtonState:liked];
 
     NSArray *originalLikeUsersArray = [NSArray arrayWithArray:self.likeUsers];
@@ -357,35 +359,36 @@ static TTTTimeIntervalFormatter *timeFormatter;
     }
     
     if (liked) {
-        [[PAPCache sharedCache] incrementLikerCountForPhoto:self.photo];
+        [[PAPCache sharedCache] incrementLikerCountForCloth:self.cloth];
         [newLikeUsersSet addObject:[PFUser currentUser]];
     } else {
-        [[PAPCache sharedCache] decrementLikerCountForPhoto:self.photo];
+        [[PAPCache sharedCache] decrementLikerCountForCloth:self.cloth];
     }
     
-    [[PAPCache sharedCache] setPhotoIsLikedByCurrentUser:self.photo liked:liked];
+    [[PAPCache sharedCache] setClothIsLikedByCurrentUser:self.cloth liked:liked];
 
     [self setLikeUsers:[newLikeUsersSet allObjects]];
 
     if (liked) {
-        [PAPUtility likePhotoInBackground:self.photo block:^(BOOL succeeded, NSError *error) {
+        NSLog(@"user attemted to like the picture");
+        [PAPUtility likeClothInBackground:self.cloth photo:self.photo block:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
-                [button addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 [self setLikeUsers:originalLikeUsersArray];
                 [self setLikeButtonState:NO];
             }
         }];
     } else {
-        [PAPUtility unlikePhotoInBackground:self.photo block:^(BOOL succeeded, NSError *error) {
+        [PAPUtility unlikeClothInBackground:self.cloth block:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
-                [button addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 [self setLikeUsers:originalLikeUsersArray];
                 [self setLikeButtonState:YES];
             }
         }];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotification object:self.photo userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:self.cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
 }
 
 - (void)didTapLikerButtonAction:(UIButton *)button {

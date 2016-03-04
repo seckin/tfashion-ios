@@ -456,6 +456,7 @@
     return NO;
 }
 
+// *** TODO: change this func to handle clothes (ie notification clicks should also send the cloth along with photo)
 - (void)shouldNavigateToPhoto:(PFObject *)targetPhoto {
     for (PFObject *photo in self.homeViewController.objects) {
         if ([photo.objectId isEqualToString:targetPhoto.objectId]) {
@@ -470,7 +471,7 @@
             UINavigationController *homeNavigationController = [[self.tabBarController viewControllers] objectAtIndex:PAPHomeTabBarItemIndex];
             [self.tabBarController setSelectedViewController:homeNavigationController];
             
-            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object];
+            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object cloth:nil];
             [homeNavigationController pushViewController:detailViewController animated:YES];
         }
     }];

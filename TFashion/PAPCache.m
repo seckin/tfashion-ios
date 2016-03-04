@@ -42,15 +42,15 @@
     [self.cache removeAllObjects];
 }
 
-- (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
+- (void)setAttributesForCloth:(PFObject *)cloth likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithBool:likedByCurrentUser],kPAPPhotoAttributesIsLikedByCurrentUserKey,
-                                      @([likers count]),kPAPPhotoAttributesLikeCountKey,
-                                      likers,kPAPPhotoAttributesLikersKey,
-                                      @([commenters count]),kPAPPhotoAttributesCommentCountKey,
-                                      commenters,kPAPPhotoAttributesCommentersKey,
+                                      [NSNumber numberWithBool:likedByCurrentUser],kPAPClothAttributesIsLikedByCurrentUserKey,
+                                      @([likers count]),kPAPClothAttributesLikeCountKey,
+                                      likers,kPAPClothAttributesLikersKey,
+                                      @([commenters count]),kPAPClothAttributesCommentCountKey,
+                                      commenters,kPAPClothAttributesCommentersKey,
                                       nil];
-    [self setAttributes:attributes forPhoto:photo];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
 - (void)setClothesForPhoto:(PFObject *)photo clothes:(NSArray *)clothes {
@@ -89,37 +89,37 @@
     return [self.cache objectForKey:key];
 }
 
-- (NSNumber *)likeCountForPhoto:(PFObject *)photo {
-    NSDictionary *attributes = [self attributesForPhoto:photo];
+- (NSNumber *)likeCountForCloth:(PFObject *)cloth {
+    NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        return [attributes objectForKey:kPAPPhotoAttributesLikeCountKey];
+        return [attributes objectForKey:kPAPClothAttributesLikeCountKey];
     }
 
     return [NSNumber numberWithInt:0];
 }
 
-- (NSNumber *)commentCountForPhoto:(PFObject *)photo {
-    NSDictionary *attributes = [self attributesForPhoto:photo];
+- (NSNumber *)commentCountForCloth:(PFObject *)cloth {[self keyForCloth:cloth];
+    NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        return [attributes objectForKey:kPAPPhotoAttributesCommentCountKey];
+        return [attributes objectForKey:kPAPClothAttributesCommentCountKey];
     }
     
     return [NSNumber numberWithInt:0];
 }
 
-- (NSArray *)likersForPhoto:(PFObject *)photo {
-    NSDictionary *attributes = [self attributesForPhoto:photo];
+- (NSArray *)likersForCloth:(PFObject *)cloth {
+    NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        return [attributes objectForKey:kPAPPhotoAttributesLikersKey];
+        return [attributes objectForKey:kPAPClothAttributesLikersKey];
     }
     
     return [NSArray array];
 }
 
-- (NSArray *)commentersForPhoto:(PFObject *)photo {
-    NSDictionary *attributes = [self attributesForPhoto:photo];
+- (NSArray *)commentersForCloth:(PFObject *)cloth {
+    NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        return [attributes objectForKey:kPAPPhotoAttributesCommentersKey];
+        return [attributes objectForKey:kPAPClothAttributesCommentersKey];
     }
     
     return [NSArray array];
@@ -134,53 +134,53 @@
     return [NSArray array];
 }
 
-- (void)setPhotoIsLikedByCurrentUser:(PFObject *)photo liked:(BOOL)liked {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForPhoto:photo]];
-    [attributes setObject:[NSNumber numberWithBool:liked] forKey:kPAPPhotoAttributesIsLikedByCurrentUserKey];
-    [self setAttributes:attributes forPhoto:photo];
+- (void)setClothIsLikedByCurrentUser:(PFObject *)cloth liked:(BOOL)liked {
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForCloth:cloth]];
+    [attributes setObject:[NSNumber numberWithBool:liked] forKey:kPAPClothAttributesIsLikedByCurrentUserKey];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
-- (BOOL)isPhotoLikedByCurrentUser:(PFObject *)photo {
-    NSDictionary *attributes = [self attributesForPhoto:photo];
+- (BOOL)isClothLikedByCurrentUser:(PFObject *)cloth {
+    NSDictionary *attributes = [self attributesForCloth:cloth];
     if (attributes) {
-        return [[attributes objectForKey:kPAPPhotoAttributesIsLikedByCurrentUserKey] boolValue];
+        return [[attributes objectForKey:kPAPClothAttributesIsLikedByCurrentUserKey] boolValue];
     }
     
     return NO;
 }
 
-- (void)incrementLikerCountForPhoto:(PFObject *)photo {
-    NSNumber *likerCount = [NSNumber numberWithInt:[[self likeCountForPhoto:photo] intValue] + 1];
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForPhoto:photo]];
-    [attributes setObject:likerCount forKey:kPAPPhotoAttributesLikeCountKey];
-    [self setAttributes:attributes forPhoto:photo];
+- (void)incrementLikerCountForCloth:(PFObject *)cloth {
+    NSNumber *likerCount = [NSNumber numberWithInt:[[self likeCountForCloth:cloth] intValue] + 1];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForCloth:cloth]];
+    [attributes setObject:likerCount forKey:kPAPClothAttributesLikeCountKey];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
-- (void)decrementLikerCountForPhoto:(PFObject *)photo {
-    NSNumber *likerCount = [NSNumber numberWithInt:[[self likeCountForPhoto:photo] intValue] - 1];
+- (void)decrementLikerCountForCloth:(PFObject *)cloth {
+    NSNumber *likerCount = [NSNumber numberWithInt:[[self likeCountForCloth:cloth] intValue] - 1];
     if ([likerCount intValue] < 0) {
         return;
     }
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForPhoto:photo]];
-    [attributes setObject:likerCount forKey:kPAPPhotoAttributesLikeCountKey];
-    [self setAttributes:attributes forPhoto:photo];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForCloth:cloth]];
+    [attributes setObject:likerCount forKey:kPAPClothAttributesLikeCountKey];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
-- (void)incrementCommentCountForPhoto:(PFObject *)photo {
-    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForPhoto:photo] intValue] + 1];
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForPhoto:photo]];
-    [attributes setObject:commentCount forKey:kPAPPhotoAttributesCommentCountKey];
-    [self setAttributes:attributes forPhoto:photo];
+- (void)incrementCommentCountForCloth:(PFObject *)cloth {
+    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForCloth:cloth] intValue] + 1];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForCloth:cloth]];
+    [attributes setObject:commentCount forKey:kPAPClothAttributesCommentCountKey];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
-- (void)decrementCommentCountForPhoto:(PFObject *)photo {
-    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForPhoto:photo] intValue] - 1];
+- (void)decrementCommentCountForCloth:(PFObject *)cloth {
+    NSNumber *commentCount = [NSNumber numberWithInt:[[self commentCountForCloth:cloth] intValue] - 1];
     if ([commentCount intValue] < 0) {
         return;
     }
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForPhoto:photo]];
-    [attributes setObject:commentCount forKey:kPAPPhotoAttributesCommentCountKey];
-    [self setAttributes:attributes forPhoto:photo];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self attributesForCloth:cloth]];
+    [attributes setObject:commentCount forKey:kPAPClothAttributesCommentCountKey];
+    [self setAttributes:attributes forCloth:cloth];
 }
 
 - (void)setAttributesForUser:(PFUser *)user photoCount:(NSNumber *)count followedByCurrentUser:(BOOL)following {
@@ -290,10 +290,6 @@
 
 +(NSString *)getKeyForClothPiecesForCloth:(PFObject *)cloth {
     return [NSString stringWithFormat:@"cloth_pieces_for_cloth_%@", [cloth objectId]];
-}
-
-+(NSString *)getKeyForClothLikesForCloth:(PFObject *)cloth {
-    return [NSString stringWithFormat:@"cloth_likes_for_cloth_%@", [cloth objectId]];
 }
 
 @end

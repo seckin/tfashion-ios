@@ -18,14 +18,18 @@
 
 @interface CONTagPopover : UIView <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
-@property (strong) id <CONPhotoTagProtocol> dataSource;
+//@property (strong) id <CONPhotoTagProtocol> dataSource;
 @property (assign) CGPoint normalizedArrowPoint;
 @property (assign) CGPoint normalizedArrowOffset;
 @property (assign) CGSize minimumTextFieldSize;
 @property (assign) CGSize minimumTextFieldSizeWhileEditing;
 @property (assign) NSInteger maximumTextLength; //set to 0 for no limit on a tag's length.
 
-- (id)initWithTag:(id<CONPhotoTagProtocol>)aTag;
+@property (nonatomic, strong, readonly) PFObject *photo;
+@property (nonatomic, strong, readonly) PFObject *cloth;
+
+//- (id)initWithTag:(id<CONPhotoTagProtocol>)aTag;
+- (id)initWithPhoto:(PFObject*)aPhoto cloth:(PFObject *)cloth;
 
 - (NSString *)text;
 - (void)setText:(NSString *)text;

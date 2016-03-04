@@ -21,17 +21,17 @@ NSString *const kPAPLaunchURLHostTakePicture = @"camera";
 
 NSString *const PAPAppDelegateApplicationDidReceiveRemoteNotification           = @"com.parse.Anypic.appDelegate.applicationDidReceiveRemoteNotification";
 NSString *const PAPUtilityUserFollowingChangedNotification                      = @"com.parse.Anypic.utility.userFollowingChanged";
-NSString *const PAPUtilityUserLikedUnlikedPhotoCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedPhotoCallbackFinished";
+NSString *const PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification     = @"com.parse.Anypic.utility.userLikedUnlikedClothCallbackFinished";
 NSString *const PAPUtilityDidFinishProcessingProfilePictureNotification         = @"com.parse.Anypic.utility.didFinishProcessingProfilePictureNotification";
 NSString *const PAPTabBarControllerDidFinishEditingPhotoNotification            = @"com.parse.Anypic.tabBarController.didFinishEditingPhoto";
 NSString *const PAPTabBarControllerDidFinishImageFileUploadNotification         = @"com.parse.Anypic.tabBarController.didFinishImageFileUploadNotification";
 NSString *const PAPPhotoDetailsViewControllerUserDeletedPhotoNotification       = @"com.parse.Anypic.photoDetailsViewController.userDeletedPhoto";
-NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotification  = @"com.parse.Anypic.photoDetailsViewController.userLikedUnlikedPhotoInDetailsViewNotification";
-NSString *const PAPPhotoDetailsViewControllerUserCommentedOnPhotoNotification   = @"com.parse.Anypic.photoDetailsViewController.userCommentedOnPhotoInDetailsViewNotification";
+NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification  = @"com.parse.Anypic.photoDetailsViewController.userLikedUnlikedClothInDetailsViewNotification";
+NSString *const PAPPhotoDetailsViewControllerUserCommentedOnClothNotification   = @"com.parse.Anypic.photoDetailsViewController.userCommentedOnClothInDetailsViewNotification";
 
 
 #pragma mark - User Info Keys
-NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedPhotoNotificationUserInfoLikedKey = @"liked";
+NSString *const PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey = @"liked";
 NSString *const kPAPEditPhotoViewControllerUserInfoCommentKey = @"comment";
 
 #pragma mark - Installation Class
@@ -59,6 +59,7 @@ NSString *const kPAPClothPieceClothKey     = @"cloth";
 // Field keys
 NSString *const kPAPActivityTypeKey        = @"type";
 NSString *const kPAPActivityFromUserKey    = @"fromUser";
+NSString *const kPAPActivityClothKey       = @"cloth";
 NSString *const kPAPActivityToUserKey      = @"toUser";
 NSString *const kPAPActivityContentKey     = @"content";
 NSString *const kPAPActivityPhotoKey       = @"photo";
@@ -113,16 +114,17 @@ NSString *const kPAPPhotoOpenGraphIDKey    = @"fbOpenGraphID";
 
 #pragma mark - Cached Photo Attributes
 // keys
-NSString *const kPAPPhotoAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
-NSString *const kPAPPhotoAttributesLikeCountKey            = @"likeCount";
-NSString *const kPAPPhotoAttributesLikersKey               = @"likers";
-NSString *const kPAPPhotoAttributesCommentCountKey         = @"commentCount";
-NSString *const kPAPPhotoAttributesCommentersKey           = @"commenters";
 NSString *const kPAPPhotoAttributesClothesKey              = @"clothes";
 
 #pragma mark - Cached Cloth Attributes
 // keys
-NSString *const kPAPClothAttributesClothPiecesKey = @"clothPieces";
+NSString *const kPAPClothAttributesClothPiecesKey          = @"clothPieces";
+NSString *const kPAPClothAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentUser";
+NSString *const kPAPClothAttributesLikeCountKey            = @"likeCount";
+NSString *const kPAPClothAttributesLikersKey               = @"likers";
+NSString *const kPAPClothAttributesCommentCountKey         = @"commentCount";
+NSString *const kPAPClothAttributesCommentersKey           = @"commenters";
+
 
 #pragma mark - Cached User Attributes
 // keys
