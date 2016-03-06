@@ -40,6 +40,7 @@
         [likeActivity setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
         NSLog(@"touser part: %@", [photo objectForKey:kPAPPhotoUserKey]);
         [likeActivity setObject:[photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey];
+        [likeActivity setObject:photo forKey:kPAPActivityPhotoKey];
         [likeActivity setObject:cloth forKey:kPAPActivityClothKey];
         
         PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];

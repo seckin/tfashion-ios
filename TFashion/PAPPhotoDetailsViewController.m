@@ -44,7 +44,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 }
 
 - (id)initWithPhoto:(PFObject *)aPhoto cloth:(PFObject *)aCloth {
-    NSLog(@"Papphotodetailsviewcontroller initwithphoto");
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         // The className to query on
@@ -54,10 +53,12 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
         self.pullToRefreshEnabled = YES;
 
         // Whether the built-in pagination is enabled
-        self.paginationEnabled = YES;
+        self.paginationEnabled = NO;
         
         // The number of comments to show per page
         self.objectsPerPage = 30;
+
+        self.loadingViewEnabled = NO;
         
         self.photo = aPhoto;
         self.cloth = aCloth;
@@ -129,6 +130,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedCloth:) name:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:self.cloth];
     
     // Generate mention data
+    NSLog(@"burda1");
     
     // Find users who are followed by current user
     PFQuery *followingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
@@ -137,6 +139,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [followingQuery includeKey:kPAPActivityToUserKey];
     [followingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
+            NSLog(@"burda3");
             NSMutableArray *followees = [[NSMutableArray alloc] init];
             for (PFObject *followActivity in objects) {
                 PFUser *followee = [followActivity objectForKey:kPAPActivityToUserKey];
@@ -150,6 +153,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"burda2");
     [super viewDidAppear:animated];
 
     [self.headerView reloadLikeBar];

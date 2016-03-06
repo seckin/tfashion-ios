@@ -7,11 +7,8 @@
 //
 
 #import "PAPFindFriendsViewController.h"
-#import "PAPProfileImageView.h"
-#import "AppDelegate.h"
 #import "PAPLoadMoreCell.h"
 #import "PAPAccountViewController.h"
-#import "MBProgressHUD.h"
 #import "CONInviteFriendsViewController.h"
 
 typedef enum {
@@ -171,17 +168,7 @@ static const NSUInteger kSearchResultLimit = 20;
         [friendsQuery whereKey:kPAPUserFacebookIDKey containedIn:facebookFriends];
         [subQueryArray addObject:friendsQuery];
     }
-    
-    // Query for all Parse employees
-    /*
-    NSMutableArray *parseEmployees = [[NSMutableArray alloc] initWithArray:kPAPParseEmployeeAccounts];
-    [parseEmployees removeObject:[[PFUser currentUser] objectForKey:kPAPUserFacebookIDKey]];
-    PFQuery *parseEmployeeQuery = [PFUser query];
-    [parseEmployeeQuery whereKey:kPAPUserFacebookIDKey containedIn:parseEmployees];
-     
-    [subQueryArray addObject:parseEmployeeQuery];
-    */
-    
+
     PFQuery *mostUploadersQuery = [PFUser query]; //[PFQuery queryWithClassName:@"_User"];
     [mostUploadersQuery whereKey:kPAPUserNumPhotosKey greaterThan:[NSNumber numberWithInt:0]];
     [mostUploadersQuery whereKey:kPAPUserObjectIdKey notEqualTo:[[PFUser currentUser] objectId]];
@@ -209,12 +196,24 @@ static const NSUInteger kSearchResultLimit = 20;
         searchResults = nil;
         return;
     }
+    NSMutableArray *subQueryArray = [[NSMutableArray alloc] init];
     
-    PFQuery *query = [PFUser query];
-    query.limit = kSearchResultLimit;
+    PFQuery *query1 = [PFUser query];
     // Modifier "i" is for making search case-insensitive
-    [query whereKey:@"username" matchesRegex:searchText modifiers:@"i"];
-    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [query1 whereKey:@"username" matchesRegex:searchText modifiers:@"i"];
+    [query1 whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [subQueryArray addObject:query1];
+    
+    PFQuery *query2 = [PFUser query];
+    // Modifier "i" is for making search case-insensitive
+    [query2 whereKey:@"displayName" matchesRegex:searchText modifiers:@"i"];
+    [query2 whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [subQueryArray addObject:query2];
+    
+    PFQuery *query = [PFQuery orQueryWithSubqueries:subQueryArray];
+    query.cachePolicy = kPFCachePolicyNetworkOnly;
+    
+    [query orderByAscending:kPAPUserDisplayNameKey];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -237,19 +236,16 @@ static const NSUInteger kSearchResultLimit = 20;
         if (!error) {
             if (number == self.objects.count) {
                 self.followStatus = PAPFindFriendsFollowingAll;
-                [self configureUnfollowAllButton];
                 for (PFUser *user in self.objects) {
                     [[PAPCache sharedCache] setFollowStatus:YES user:user];
                 }
             } else if (number == 0) {
                 self.followStatus = PAPFindFriendsFollowingNone;
-                [self configureFollowAllButton];
                 for (PFUser *user in self.objects) {
                     [[PAPCache sharedCache] setFollowStatus:NO user:user];
                 }
             } else {
                 self.followStatus = PAPFindFriendsFollowingSome;
-                [self configureFollowAllButton];
             }
         }
     }];
@@ -386,10 +382,6 @@ static const NSUInteger kSearchResultLimit = 20;
 
 #pragma mark - ()
 
-- (void)backButtonAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)inviteFriendsButtonAction:(id)sender {
     CONInviteFriendsViewController *inviteVC = [[CONInviteFriendsViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:inviteVC];
@@ -415,66 +407,6 @@ static const NSUInteger kSearchResultLimit = 20;
     [searchBar becomeFirstResponder];
 }
 
-- (void)followAllFriendsButtonAction:(id)sender {
-    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-
-    self.followStatus = PAPFindFriendsFollowingAll;
-    [self configureUnfollowAllButton];
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
-
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.objects.count];
-        for (int r = 0; r < self.objects.count; r++) {
-            PFObject *user = [self.objects objectAtIndex:r];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:r inSection:0];
-            PAPFindFriendsCell *cell = (PAPFindFriendsCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath object:user];
-            cell.followButton.selected = YES;
-            [indexPaths addObject:indexPath];
-        }
-        
-        [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
-        
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(followUsersTimerFired:) userInfo:nil repeats:NO];
-        [PAPUtility followUsersEventually:self.objects block:^(BOOL succeeded, NSError *error) {
-            // note -- this block is called once for every user that is followed successfully. We use a timer to only execute the completion block once no more saveEventually blocks have been called in 2 seconds
-            [timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2.0f]];
-        }];
-
-    });
-}
-
-- (void)unfollowAllFriendsButtonAction:(id)sender {
-    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-
-    self.followStatus = PAPFindFriendsFollowingNone;
-    [self configureFollowAllButton];
-
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
-
-        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:self.objects.count];
-        for (int r = 0; r < self.objects.count; r++) {
-            PFObject *user = [self.objects objectAtIndex:r];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:r inSection:0];
-            PAPFindFriendsCell *cell = (PAPFindFriendsCell *)[self tableView:self.tableView cellForRowAtIndexPath:indexPath object:user];
-            cell.followButton.selected = NO;
-            [indexPaths addObject:indexPath];
-        }
-        
-        [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:YES];
-
-        [PAPUtility unfollowUsersEventually:self.objects];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserFollowingChangedNotification object:nil];
-    });
-
-}
-
 - (void)shouldToggleFollowFriendForCell:(PAPFindFriendsCell*)cell {
     PFUser *cellUser = cell.user;
     if ([cell.followButton isSelected]) {
@@ -493,19 +425,6 @@ static const NSUInteger kSearchResultLimit = 20;
             }
         }];
     }
-}
-
-- (void)configureUnfollowAllButton {
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow All" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowAllFriendsButtonAction:)];
-}
-
-- (void)configureFollowAllButton {
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow All" style:UIBarButtonItemStylePlain target:self action:@selector(followAllFriendsButtonAction:)];
-}
-
-- (void)followUsersTimerFired:(NSTimer *)timer {
-    [self.tableView reloadData];
-    [[NSNotificationCenter defaultCenter] postNotificationName:PAPUtilityUserFollowingChangedNotification object:nil];
 }
 
 @end

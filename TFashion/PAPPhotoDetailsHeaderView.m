@@ -371,6 +371,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
     if (liked) {
         NSLog(@"user attemted to like the picture");
+        NSLog(@"clothid: %@", self.cloth.objectId);
         [PAPUtility likeClothInBackground:self.cloth photo:self.photo block:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 [button addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];

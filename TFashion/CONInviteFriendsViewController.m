@@ -133,7 +133,7 @@ ABAddressBookRef addressBook;
     }
 
     [self.hud hide:YES];
-    [TSMessage showNotificationWithTitle:@"Invitations has been sent" type:TSMessageNotificationTypeSuccess];
+    [TSMessage showNotificationWithTitle:@"Invitations have been sent" type:TSMessageNotificationTypeSuccess];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

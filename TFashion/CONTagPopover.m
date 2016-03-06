@@ -1,22 +1,4 @@
-//
-//  Created by Eddy Borja.
-//  Copyright (c) 2014 Eddy Borja. All rights reserved.
-/*
- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-
 #import "CONTagPopover.h"
-//#import "EBPhotoPagesController.h"
-//#import "EBPhotoPagesNotifications.h"
-#import <QuartzCore/QuartzCore.h>
-#import "PINCache.h";
-#import "PAPPhotoTimelineViewController.h"
-
 
 @interface CONTagPopover ()
 @property (strong) UIView *contentView;
@@ -44,26 +26,11 @@
     return self;
 }
 
-//- (id)initWithTag:(id<CONPhotoTagProtocol>)aTag
-//{
-//    self = [super init];
-//    if(self){
-//        NSAssert([(NSObject *)aTag conformsToProtocol:@protocol(CONPhotoTagProtocol)],
-//                 @"A tag's data source must conform to CONPhotoTagProtocol.");
-//        [self initialize];
-//        [self setDataSource:aTag];
-//        [self setText:self.dataSource.tagText];
-//    }
-//    return self;
-//}
-
 - (id)initWithPhoto:(PFObject*)aPhoto cloth:(PFObject *)cloth {
     self = [super init];
     if(self) {
         self.cloth = cloth;
-        NSLog(@"cloth for popover: %@", cloth.objectId);
         self.photo = aPhoto;
-        NSLog(@"photo for popover: %@", self.photo.objectId);
         [self initialize];
         [self setText:@""];
     }
@@ -98,7 +65,6 @@
     
     [self beginObservations];
     [self loadLikers];
-    NSLog(@"loadlikers finished");
 }
 
 - (void)dealloc
@@ -115,15 +81,13 @@
     }
 
     self.likersQueryInProgress = YES;
-    NSLog(@"about to run queryForActivitiesOnCloth clothid:%@", self.cloth.objectId);
     PFQuery *query = [PAPUtility queryForActivitiesOnCloth:self.cloth cachePolicy:kPFCachePolicyNetworkOnly];
-    NSLog(@"queryForActivitiesOnPhotoForCloth query created");
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.likersQueryInProgress = NO;
         if (error) {
             return;
         }
-        NSLog(@"objects returned count: %d", [objects count]);
+        NSLog(@"activities on cloth returned count: %d", [objects count]);
 
         NSMutableArray *likers = [NSMutableArray array];
         NSMutableArray *commenters = [NSMutableArray array];
@@ -152,13 +116,9 @@
 
 - (void)loadContentView
 {
-    NSLog(@"loadContentView called");
     UIView *contentView = [self newContentView];
-    NSLog(@"newContentView called");
     [self addSubview:contentView];
-    NSLog(@"addSubview called");
     [self setContentView:contentView];
-    NSLog(@"setContentView called");
 }
 
 - (void)loadGestureRecognizers
@@ -308,7 +268,6 @@
     NSLog(@"drawRect called");
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    
     float radius = 8.0f;
     float arrowHeight =  5.0f; //this is how far the arrow extends from the rect
     float arrowWidth = 10.0;
@@ -347,8 +306,7 @@
     
     //we are done
     CGPathCloseSubpath(tagPath);
-    
-    
+
     
     CGContextAddPath(context, tagPath);
     //CGContextSetShadowWithColor(context, CGSizeMake(0, 2), 1.5, [[UIColor colorWithRed:0 green:0 blue:20/255.0 alpha:0.35] CGColor]);
@@ -369,7 +327,6 @@
     //CGPathRelease(arrowPath);
     CGPathRelease(tagPath);
     CGColorSpaceRelease(colorSpace);
-    NSLog(@"drawrect exited");
 }
 
 - (void)repositionInRect:(CGRect)rect
@@ -489,51 +446,15 @@ replacementString:(NSString *)string {
     NSLog(@"resizeTextField called");
     int iconFontSize = 16.0f;
     int countFontSize = 10.0f;
-//
-//    UIView *view = self;
-//    while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
-//        view = [view superview];
-//    }
-////    UIViewController *vc = [self nextResponder];
-////    while(![vc isKindOfClass:[UIViewController class]] && vc!=nil)
-////    {
-////        vc = [vc nextResponder];
-////    }
-//    NSLog(@"girdi01");
-//    PAPPhotoTimelineViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
-//    // vc is papphototimelineviewcontroller
-//    PFObject *photo = [controller.objects objectAtIndex:view.tag];
-//    NSLog(@"photoid: %@", photo.objectId);
-//
-//    __block NSArray *clothes;
-//    [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:photo] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
-//        clothes = (NSArray *)tmpobj;
-//        PFObject *cloth = clothes[self.tag];
-//
 
-            // TODO: add cloth comments or photo comments count
-
-
-    // clean subviews first:
     // remove residual popovers
     for (UIView *subV in [self.tagTextField subviews]) {
         NSLog(@"cleaning subview: %@", subV);
         [subV removeFromSuperview];
     }
 
-
-
     int likeCount = 0;
     int commentCount = 0;
-//    NSDictionary *attributesForCloth = [[PAPCache sharedCache] attributesForCloth:self.cloth];
-//
-//    if (attributesForCloth) {
-////        [[PAPCache sharedCache] isPhotoLikedByCurrentUser:self.photo];
-//        likeCount = (int)[[PAPCache sharedCache] likeCountForCloth:self.cloth];
-//        NSLog(@"likeCount: %d", likeCount);
-//        commentCount = (int)[[PAPCache sharedCache] commentCountForCloth:self.cloth];
-//        NSLog(@"commentCount: %d", commentCount);
-//    }
 
     NSArray *likers = [[PAPCache sharedCache] likersForCloth:self.cloth];
     NSArray *commenters = [[PAPCache sharedCache] commentersForCloth:self.cloth];
@@ -615,14 +536,6 @@ replacementString:(NSString *)string {
     [self.tagTextField addSubview:commentCountLabel];
 
     [self setCenter:originalCenter];
-
-//            NSLog(@"setNeedsDisplay is being called now.");
-//            [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:YES];
-//            [self.tagTextField performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:YES];
-//            [self setNeedsDisplay];
-//            [self setNeedsLayout];
-//        }];
-//    }];
 }
 
 

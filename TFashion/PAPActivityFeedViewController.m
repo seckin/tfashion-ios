@@ -51,7 +51,7 @@
         self.objectsPerPage = 15;
 
         // The Loading text clashes with the dark Anypic design
-        self.loadingViewEnabled = NO;
+        self.loadingViewEnabled = YES;
     }
     return self;
 }
@@ -76,6 +76,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidReceiveRemoteNotification:) name:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil];
     
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
+    NSLog(@"2. self.tableView.bounds: height, width: %f %f", self.tableView.bounds.size.height, self.tableView.bounds.size.width);
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -139,7 +140,7 @@
             [self.navigationController pushViewController:detailViewController animated:YES];
         } else if ([activity objectForKey:kPAPActivityFromUserKey]) {
             PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-            NSLog(@"Presenting account view controller with user: %@", [activity objectForKey:kPAPActivityFromUserKey]);
+            NSLog(@"activityfeedview Presenting account view controller with user: %@", [activity objectForKey:kPAPActivityFromUserKey]);
             [detailViewController setUser:[activity objectForKey:kPAPActivityFromUserKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         }
@@ -166,7 +167,7 @@
     [query includeKey:kPAPActivityFromUserKey];
     [query includeKey:kPAPActivityPhotoKey];
     [query includeKey:kPAPActivityCommentKey];
-    [query includeKey:@"comment.photo"];
+//    [query includeKey:@"comment.photo"];
     [query orderByDescending:@"createdAt"];
     [query setCachePolicy:kPFCachePolicyNetworkOnly];
 
@@ -292,7 +293,7 @@
     } else if ([activityType isEqualToString:kPAPActivityTypeComment]) {
         return NSLocalizedString(@"commented on your cloth in a photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeJoined]) {
-        return NSLocalizedString(@"joined Pera", nil);
+        return NSLocalizedString(@"joined Standout", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeMention]) {
         return NSLocalizedString(@"mentioned you in a comment", nil);
     } else {

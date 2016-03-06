@@ -15,6 +15,8 @@
 @interface PAPLogInViewController() {
     FBLoginView *_facebookLoginView;
     PFLogInView *_logInView;
+    UILabel *appName;
+    UILabel *appIntro;
 }
 
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -37,10 +39,27 @@
     // There is no documentation on how to handle assets with the taller iPhone 5 screen as of 9/13/2012
     if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
         // for the iPhone 5
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin-568h.png"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchBackGround.png"]];
     } else {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchBackGround.png"]];
     }
+
+
+    appName = [[UILabel alloc] init];
+    [appName setText: @"Standout"];
+    [appName setTextColor:[UIColor whiteColor]];
+    [appName setFont:[UIFont boldSystemFontOfSize:24.0f]];
+    [appName setFrame:CGRectMake(100, 75, 200, 50)];
+    [self.view addSubview:appName];
+
+    appIntro = [[UILabel alloc] init];
+    [appIntro setText: @"A community of tastemakers sharing pictures of clothes. Share your clothes to get them tagged so other users can double tap on them to like and comment!"];
+    [appIntro setTextColor:[UIColor whiteColor]];
+    [appIntro setFont:[UIFont systemFontOfSize:12.0f]];
+    [appIntro setFrame:CGRectMake(50, 340, 220, 100)];
+    appIntro.lineBreakMode = NSLineBreakByWordWrapping;
+    appIntro.numberOfLines = 0;
+    [self.view addSubview:appIntro];
 
     //Position of the Facebook button
     CGFloat yPosition = 360.0f;
@@ -52,7 +71,7 @@
     _facebookLoginView.delegate = self;
     _facebookLoginView.tooltipBehavior = FBLoginViewTooltipBehaviorDisable;
     [self.view addSubview:_facebookLoginView];
-    
+
     // Sign up button
     _logInView = [[PFLogInView alloc] initWithFields:PFLogInFieldsSignUpButton];
     _logInView.backgroundColor = [UIColor clearColor];
@@ -65,17 +84,18 @@
         [_logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
     }
     [_logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // Test login button
-    UIButton *testLoginButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [testLoginButton setTitle:@"Test Login" forState:UIControlStateNormal];
-    [testLoginButton setFrame:CGRectMake(36.0f, CGRectGetMinY(_facebookLoginView.frame) - 53, 244.0f, 42.0f)];
-    testLoginButton.clipsToBounds = YES;
-    testLoginButton.layer.cornerRadius = 3;
-    [testLoginButton setBackgroundColor:[UIColor orangeColor]];
-    [testLoginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [testLoginButton addTarget:self action:@selector(testLoginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:testLoginButton];
+
+    // disabled for now:
+//     Test login button
+//    UIButton *testLoginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [testLoginButton setTitle:@"Test Login" forState:UIControlStateNormal];
+//    [testLoginButton setFrame:CGRectMake(36.0f, CGRectGetMinY(_facebookLoginView.frame) - 53, 244.0f, 42.0f)];
+//    testLoginButton.clipsToBounds = YES;
+//    testLoginButton.layer.cornerRadius = 3;
+//    [testLoginButton setBackgroundColor:[UIColor orangeColor]];
+//    [testLoginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [testLoginButton addTarget:self action:@selector(testLoginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:testLoginButton];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -97,7 +117,6 @@
 
 - (void)showSignUpController:(id)sender
 {
-    NSLog(@"showSignUpController called");
     CONSignUpViewController *signUpController = [[CONSignUpViewController alloc] init];
     signUpController.fields = PFSignUpFieldsDismissButton | PFSignUpFieldsSignUpButton;
     signUpController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;

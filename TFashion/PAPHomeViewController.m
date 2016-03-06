@@ -7,13 +7,8 @@
 //
 
 #import "PAPHomeViewController.h"
-#import "CONSettingsViewController.h"
-#import "PAPSettingsButtonItem.h"
 #import "PAPFindFriendsViewController.h"
-#import "MBProgressHUD.h"
 #import "CONIntroViewController.h"
-#import "SVWebViewController.h"
-#import <FontAwesomeKit/FAKFontAwesome.h>
 
 @interface PAPHomeViewController () <CONIntroViewControllerDelegate>
 @property (nonatomic, strong) UIView *blankTimelineView;
@@ -31,12 +26,12 @@
     
     BOOL didUserSeeIntro = [[[NSUserDefaults standardUserDefaults] valueForKey:kDidUserCompletedIntro] boolValue];
     if (!didUserSeeIntro) {
-        CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
-        introVC.introViewControllerDelegate = self;
-        [self.parentViewController presentViewController:introVC animated:NO completion:nil];
+//        CONIntroViewController *introVC = [[CONIntroViewController alloc] init];
+//        introVC.introViewControllerDelegate = self;
+//        [self.parentViewController presentViewController:introVC animated:NO completion:nil];
     }
 
-    self.navigationItem.title = @"Pera";
+    self.navigationItem.title = @"Standout";
 //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
@@ -46,8 +41,8 @@
     NSDictionary *darkAttributes = @{ NSForegroundColorAttributeName: [UIColor darkGrayColor] };
     NSDictionary *underlineAttributes = @{ NSUnderlineStyleAttributeName: @1 };
     
-    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"You don't have any\n friends on Pera yet.\n\nSearch for people."];
-    [buttonTitle setAttributes:underlineAttributes range:NSMakeRange(44, 16)];
+    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"You don't have any\n friends on Standout yet.\n\nSearch for people."];
+    [buttonTitle setAttributes:underlineAttributes range:NSMakeRange(40, 20)];
     NSMutableAttributedString *buttonTitleHighlighted = [[NSMutableAttributedString alloc] initWithAttributedString:buttonTitle];
     [buttonTitle addAttributes:darkAttributes range:NSMakeRange(0, 60)];
     [buttonTitleHighlighted addAttributes:lightAttributes range:NSMakeRange(0, 60)];
@@ -68,8 +63,14 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-
-    if (self.objects.count == 0 && ![[self queryForTable] hasCachedResult] & !self.firstLaunch) {
+    NSLog(@"home objectsDidLoad called");
+    NSLog(@"home self.objects.count = %d", self.objects.count);
+    if([[self queryForTable] hasCachedResult]) {
+        NSLog(@"home queryfortable has cached result");
+    } else {
+        NSLog(@"home queryfortable does not have cached result");
+    }
+    if (self.objects.count == 0) {
         self.tableView.scrollEnabled = NO;
         
         if (!self.blankTimelineView.superview) {

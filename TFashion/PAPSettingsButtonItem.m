@@ -7,6 +7,7 @@
 //
 
 #import "PAPSettingsButtonItem.h"
+#import "UIColor+CreateMethods.h"
 
 @implementation PAPSettingsButtonItem
 
@@ -17,13 +18,12 @@
 
     self = [super initWithCustomView:settingsButton];
     if (self) {
-        FAKIonIcons *settingsIcon = [FAKIonIcons iosGearIconWithSize:28];
-        [settingsIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
-                blackColor]];
+        FAKIonIcons *settingsIcon = [FAKIonIcons iosGearIconWithSize:27];
+        [settingsIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
         
         [settingsButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-        [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 28.0f, 28.0f)];
-        [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(28, 28)] forState:UIControlStateNormal];
+        [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 27.0f, 27.0f)];
+        [settingsButton setImage:[settingsIcon imageWithSize:CGSizeMake(27, 27)] forState:UIControlStateNormal];
     }
     
     return self;

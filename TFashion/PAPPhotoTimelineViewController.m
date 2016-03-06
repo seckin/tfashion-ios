@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "CONTagPopover.h"
 #import "PINCache.h"
+#import "PAPFindFriendsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
@@ -67,7 +68,7 @@
         self.reusableSectionHeaderViews = [NSMutableSet setWithCapacity:3];
 
         // The Loading text clashes with the dark Anypic design
-        self.loadingViewEnabled = NO;
+        self.loadingViewEnabled = YES;
 
         self.shouldReloadOnAppear = NO;
     }
@@ -88,6 +89,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLikeOrUnlikeCloth:) name:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLikeOrUnlikeCloth:) name:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidCommentOnCloth:) name:PAPPhotoDetailsViewControllerUserCommentedOnClothNotification object:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -205,28 +207,6 @@
     if (self.objects.count == 0 || ![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
         [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     }
-
-    /*
-     This query will result in an error if the schema hasn't been set beforehand. While Parse usually handles this automatically, this is not the case for a compound query such as this one. The error thrown is:
-     
-     Error: bad special key: __type
-     
-     To set up your schema, you may post a photo with a caption. This will automatically set up the Photo and Activity classes needed by this query.
-     
-     You may also use the Data Browser at Parse.com to set up your classes in the following manner.
-     
-     Create a User class: "User" (if it does not exist)
-     
-     Create a Custom class: "Activity"
-     - Add a column of type pointer to "User", named "fromUser"
-     - Add a column of type pointer to "User", named "toUser"
-     - Add a string column "type"
-     
-     Create a Custom class: "Photo"
-     - Add a column of type pointer to "User", named "user"
-     
-     You'll notice that these correspond to each of the fields used by the preceding query.
-     */
 
     return query;
 }
@@ -381,7 +361,7 @@
 
                                 NSMutableArray *boundary_points = [cloth_piece objectForKey:@"boundary_points"];
 
-                                CGFloat x, y, cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
+                                CGFloat cum_x = 0.0f, cum_y = 0.0f, avg_x, avg_y;
                                 for (int k = 0; k < [boundary_points count]; k++) {
                                     cum_x += (CGFloat) [boundary_points[k][0] floatValue];
                                     cum_y += (CGFloat) [boundary_points[k][1] floatValue];
@@ -485,62 +465,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
-// *** TODO: remove this function
-- (void)photoHeaderView:(PAPPhotoHeaderView *)photoHeaderView didTapLikePhotoButton:(UIButton *)button photo:(PFObject *)photo {
-//    [photoHeaderView shouldEnableLikeButton:NO];
-//
-//    BOOL liked = !button.selected;
-//    [photoHeaderView setLikeStatus:liked];
-//
-//    NSString *originalButtonTitle = button.titleLabel.text;
-//
-//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-//    [numberFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-//
-//    NSNumber *likeCount = [numberFormatter numberFromString:button.titleLabel.text];
-//    if (liked) {
-//        likeCount = [NSNumber numberWithInt:[likeCount intValue] + 1];
-//        [[PAPCache sharedCache] incrementLikerCountForPhoto:photo];
-//    } else {
-//        if ([likeCount intValue] > 0) {
-//            likeCount = [NSNumber numberWithInt:[likeCount intValue] - 1];
-//        }
-//        [[PAPCache sharedCache] decrementLikerCountForPhoto:photo];
-//    }
-//
-//    [[PAPCache sharedCache] setPhotoIsLikedByCurrentUser:photo liked:liked];
-//
-//    [button setTitle:[numberFormatter stringFromNumber:likeCount] forState:UIControlStateNormal];
-//
-//    if (liked) {
-//        [PAPUtility likePhotoInBackground:photo block:^(BOOL succeeded, NSError *error) {
-//            PAPPhotoHeaderView *actualHeaderView = (PAPPhotoHeaderView *)[self tableView:self.tableView viewForHeaderInSection:button.tag];
-//            [actualHeaderView shouldEnableLikeButton:YES];
-//            [actualHeaderView setLikeStatus:succeeded];
-//
-//            if (!succeeded) {
-//                [actualHeaderView.likeButton setTitle:originalButtonTitle forState:UIControlStateNormal];
-//            }
-//        }];
-//    } else {
-//        [PAPUtility unlikePhotoInBackground:photo block:^(BOOL succeeded, NSError *error) {
-//            PAPPhotoHeaderView *actualHeaderView = (PAPPhotoHeaderView *)[self tableView:self.tableView viewForHeaderInSection:button.tag];
-//            [actualHeaderView shouldEnableLikeButton:YES];
-//            [actualHeaderView setLikeStatus:!succeeded];
-//
-//            if (!succeeded) {
-//                [actualHeaderView.likeButton setTitle:originalButtonTitle forState:UIControlStateNormal];
-//            }
-//        }];
-//    }
-}
-
-- (void)photoHeaderView:(PAPPhotoHeaderView *)photoHeaderView didTapCommentOnPhotoButton:(UIButton *)button  photo:(PFObject *)photo {
-//    PAPPhotoDetailsViewController *photoDetailsVC = [[PAPPhotoDetailsViewController alloc] initWithPhoto:photo];
-//    [self.navigationController pushViewController:photoDetailsVC animated:YES];
-}
-
-
 #pragma mark - ()
 
 - (UITableViewCell *)detailPhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -562,10 +486,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *object = [self objectAtIndexPath:indexPath];
     headerView.photo = object;
     headerView.tag = index;
-    [headerView.likeButton setTag:index];
-
-    headerView.likeButton.alpha = 0.0f;
-    headerView.commentButton.alpha = 0.0f;
 
     return headerView;
 }
@@ -657,6 +577,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (NSUInteger)indexForObjectAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.row / 2;
+}
+
+- (void)inviteFriendsButtonAction:(id)sender {
+    PAPFindFriendsViewController *detailViewController = [[PAPFindFriendsViewController alloc] init];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 

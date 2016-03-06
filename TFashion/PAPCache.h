@@ -23,9 +23,9 @@
 - (NSNumber *)commentCountForCloth:(PFObject *)cloth;
 - (NSArray *)likersForCloth:(PFObject *)cloth;
 - (NSArray *)commentersForCloth:(PFObject *)cloth;
-- (NSArray *)clothesForPhoto:(PFObject *)photo;
-- (NSArray *)clothPiecesForCloth:(PFObject *)cloth;
-// *** TODO: remove these 4 and their uses (or change their uses to clothes where applicable)
+// *** TODO: remove these as we use PINCache for these two cases:
+//- (NSArray *)clothesForPhoto:(PFObject *)photo;
+//- (NSArray *)clothPiecesForCloth:(PFObject *)cloth;
 - (void)setClothIsLikedByCurrentUser:(PFObject *)cloth liked:(BOOL)liked;
 - (BOOL)isClothLikedByCurrentUser:(PFObject *)cloth;
 - (void)incrementLikerCountForCloth:(PFObject *)cloth;

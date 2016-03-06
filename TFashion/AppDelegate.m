@@ -22,6 +22,10 @@
 #import "CONSignUpViewController.h"
 #import "CONSocialAccount.h"
 #import "CONV2IntroViewController.h"
+#import "PINMemoryCache.h"
+#import "UIColor+CreateMethods.h"
+#import "UIImage+AlphaAdditions.h"
+#import "UIImage+TintColor.h"
 #import <Lookback/Lookback.h>
 //#import <Analytics.h>
 
@@ -264,15 +268,19 @@
     UINavigationController *activityFeedNavigationController2 = [[UINavigationController alloc] initWithRootViewController:self.activityViewController];
     UINavigationController *accountNavigationController = [[UINavigationController alloc] initWithRootViewController:self.accountViewController];
 
-    FAKIonIcons *homeIcon = [FAKIonIcons homeIconWithSize:27.0f];
-    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+    FAKIonIcons *homeIcon = [FAKIonIcons iosHomeIconWithSize:27.0f];
+    [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
+            whiteColor]];
+    UIImage *homeImage = [homeIcon imageWithSize:CGSizeMake(27.0f, 27.0f)];
+    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"") image:homeImage tag:0];
 
-    FAKIonIcons *activityIcon = [FAKIonIcons iosBellIconWithSize:27.0f];
+    FAKIonIcons *activityIcon = [FAKIonIcons iosBellIconWithSize:27.0f ];
     UITabBarItem *activityFeedTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
-    UITabBarItem *activityFeedTabBarItem2 = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"", @"") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+    UITabBarItem *activityFeedTabBarItem2 = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Notifications", @"") image:[activityIcon imageWithSize:CGSizeMake(27.0f, 27.0f)] tag:0];
+
 
     FAKFontAwesome *accountIcon = [FAKFontAwesome userIconWithSize:22.0f];
-    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"" image:[accountIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
+    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:[accountIcon imageWithSize:CGSizeMake(22.0f, 22.0f)] tag:0];
     
     [homeNavigationController setTabBarItem:homeTabBarItem];
     [activityFeedNavigationController setTabBarItem:activityFeedTabBarItem];
@@ -294,6 +302,7 @@
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
+
 
 - (void)logOut {
     //MARK: Track Log out event for Analytics
@@ -332,11 +341,12 @@
 
 #pragma mark - ()
 
-// Set up appearance parameters to achieve Pera's custom look and feel
+// Set up appearance parameters to achieve Standout's custom look and feel
 - (void)setupAppearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -348,6 +358,7 @@
         forState:UIControlStateNormal];
 
     [[UISearchBar appearance] setTintColor:[UIColor darkGrayColor]];
+//    [[UISearchBar appearance] setTintColor:[UIColor whiteColor]];
     [self.window setTintColor:[[UINavigationBar appearance] tintColor]];
 }
 
@@ -470,9 +481,35 @@
         if (!error) {
             UINavigationController *homeNavigationController = [[self.tabBarController viewControllers] objectAtIndex:PAPHomeTabBarItemIndex];
             [self.tabBarController setSelectedViewController:homeNavigationController];
-            
-            PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object cloth:nil];
-            [homeNavigationController pushViewController:detailViewController animated:YES];
+
+            __block NSArray *cachedclothes;
+            [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:object] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
+                cachedclothes = (NSArray *) tmpobj;
+                if(!cachedclothes || [cachedclothes count] == 0) {
+                    // try to fetch from network:
+                    PFQuery *query = [PAPUtility queryForClothesOnPhoto:object cachePolicy:kPFCachePolicyNetworkOnly];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray *clothes, NSError *error) {
+                        if (error) {
+                            return;
+                        }
+
+                        [[PINMemoryCache sharedCache] setObject:clothes forKey:[PAPCache getKeyForClothesForPhoto:object] block:nil];
+
+                        PFObject *cloth = nil;
+                        if([clothes count] > 0) {
+                            cloth = clothes[0];
+                        }
+
+                        PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object cloth:cloth];
+                        [homeNavigationController pushViewController:detailViewController animated:YES];
+                    }];
+                } else {
+                    PFObject *cloth = cachedclothes[0];
+                    PAPPhotoDetailsViewController *detailViewController = [[PAPPhotoDetailsViewController alloc] initWithPhoto:object cloth:cloth];
+                    [homeNavigationController pushViewController:detailViewController animated:YES];
+                }
+            }];
+
         }
     }];
 }

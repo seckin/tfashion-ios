@@ -62,9 +62,7 @@
     [mainView setFrame:CGRectMake( self.cellInsetWidth, self.contentView.frame.origin.y, self.contentView.frame.size.width-2*self.cellInsetWidth, self.contentView.frame.size.height)];
     
     // Layout load more text
-    // TODO: this might be the correct one:
-    // [self.loadMoreImageView setFrame:CGRectMake(144.5f, 10.0f, 31.0f, 31.0f)];
-    [self.loadMoreImageView setFrame:CGRectMake( 105.0f, 15.0f, 111.0f, 18.0f)];
+    [self.loadMoreImageView setFrame:CGRectMake(144.5f, 10.0f, 31.0f, 31.0f)];
 
     // Layout separator
     [self.separatorImageBottom setFrame:CGRectMake( 0.0f, self.frame.size.height - 2.0f, self.frame.size.width-self.cellInsetWidth * 2.0f, 2.0f)];

@@ -7,6 +7,8 @@
 //
 
 #import "PAPTabBarController.h"
+#import "UIImage+ResizeAdditions.h"
+#import "UIColor+CreateMethods.h"
 
 @interface PAPTabBarController ()
 @property (nonatomic,strong) UINavigationController *navController;
@@ -21,10 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tabBar.tintColor = [UIColor darkGrayColor];
+    self.tabBar.tintColor = [UIColor whiteColor];
 //    self.tabBar.tintColor = [UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
     
-    self.tabBar.barTintColor = [UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f];
+    self.tabBar.barTintColor = [UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
+//    self.tabBar.barTintColor = [UIColor colorWithHex:@"#7BC8A4" alpha:1.0f];
+
+    [[UITabBar appearance] setSelectedImageTintColor:[UIColor darkGrayColor]];//[UIColor colorWithHex:@"#F16745" alpha:1.0f]];
+    [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];//[UIColor colorWithHex:@"#FFC65D" alpha:1.0f]];
+    [[UITabBar appearance] setAlpha:1];
 
     self.navController = [[UINavigationController alloc] init];
 }
@@ -39,15 +46,26 @@
 - (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
     [super setViewControllers:viewControllers animated:animated];
     
-    FAKIonIcons *cameraIcon = [FAKIonIcons iosCameraIconWithSize:30.0f];
+    FAKIonIcons *cameraIcon = [FAKIonIcons iosCameraIconWithSize:27.0f];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor
             grayColor]];
+
+    UILabel *cameraText = [[UILabel alloc] init];
+    [cameraText setText:@"Camera"];
+    [cameraText setTextColor:[UIColor grayColor]];
+    [cameraText setFont:[UIFont systemFontOfSize:10]];
+    [cameraText setFrame:CGRectMake( 184.0f, 36.0f, 40.0f, 12.0f)];
+    [cameraText setTextAlignment:NSTextAlignmentCenter];
+//    [cameraText addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
+
     UIButton *cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.frame = CGRectMake( 180.0f, 2.0f, 51.0f, 35.0f);
     [cameraButton setImage:[cameraIcon imageWithSize:CGSizeMake(30.0f, 30.0f)] forState:UIControlStateNormal];
 //    [cameraButton setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Home", @"") image:homeImage tag:0];
     [self.tabBar addSubview:cameraButton];
+    [self.tabBar addSubview:cameraText];
 }
 
 - (BOOL)shouldPresentPhotoCaptureController

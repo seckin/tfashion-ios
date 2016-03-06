@@ -61,10 +61,9 @@
         self.user = [PFUser currentUser];
         [[PFUser currentUser] fetchIfNeeded];
     }
-    
-    //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
-    self.navigationItem.title = [NSString stringWithFormat:@"", self.user.username];
-    
+
+    self.navigationItem.title = [NSString stringWithFormat:@"%@", self.user.username];
+
     // Add Settings button
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
@@ -74,7 +73,7 @@
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     [texturedBackgroundView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = texturedBackgroundView;
-    
+
     PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:CGRectMake( 12.0f, 12.0f, 62.0f, 62.0f)];
     [self.headerView addSubview:profilePictureImageView];
     [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -82,21 +81,20 @@
     layer.cornerRadius = 30.0f;
     layer.masksToBounds = YES;
     profilePictureImageView.alpha = 1.0f;
-    
+
     if ([PAPUtility userHasProfilePictures:self.user]) {
         PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
-        [profilePictureImageView loadInBackground:^(UIImage *image, NSError *error) {
-        }];
+//        NSString *substring = [profilePictureImageView.file.url substringFromIndex:7];
+//        NSString *prefix = @"https://s3.amazonaws.com/";
+//        NSString *httpsfileurl = [prefix stringByAppendingString:substring];
+//        [profilePictureImageView sd_setImageWithURL:[NSURL URLWithString:httpsfileurl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
+    } else {
+        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
     }
-//    else {
-//        profilePictureImageView.image = [PAPUtility defaultProfilePicture];
-//    }
-    NSString *substring = [profilePictureImageView.file.url substringFromIndex:7];
-    NSString *prefix = @"https://s3.amazonaws.com/";
-    NSString *httpsfileurl = [prefix stringByAppendingString:substring];
-    [profilePictureImageView sd_setImageWithURL:[NSURL URLWithString:httpsfileurl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
-    
+    [profilePictureImageView loadInBackground];
+
+    NSLog(@"burda5");
     // Add a bottomBorder.
     CALayer *bottomBorder = [CALayer layer];
     
@@ -139,7 +137,7 @@
     [followerCountTextLabel  setTextColor:[UIColor blackColor]];
     [followerCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [self.headerView addSubview:followerCountTextLabel ];
-    [followerCountTextLabel setText:@"Follower"];
+    [followerCountTextLabel setText:@"Followers"];
     
     followerCountButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [followerCountButton setFrame:CGRectMake( 94.0f, 105.0f, 226.0f - 130.0f, 22.0f)];
@@ -164,7 +162,7 @@
     [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
-    
+
     UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 10.0f, self.headerView.bounds.size.width, 22.0f)];
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentLeft];
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
@@ -193,7 +191,7 @@
             [followerCountButton setTitle:[NSString stringWithFormat:@"%d%@", number, number==1?@"":@""] forState:UIControlStateNormal];
         }
     }];
-    
+
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [loadingActivityIndicatorView startAnimating];

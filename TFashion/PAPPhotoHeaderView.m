@@ -19,7 +19,6 @@
 @property (nonatomic, strong) TTTTimeIntervalFormatter *timeIntervalFormatter;
 @end
 
-
 @implementation PAPPhotoHeaderView
 @synthesize containerView;
 @synthesize avatarImageView;
@@ -28,8 +27,6 @@
 @synthesize timeIntervalFormatter;
 @synthesize photo;
 @synthesize buttons;
-@synthesize likeButton;
-@synthesize commentButton;
 @synthesize delegate;
 
 #pragma mark - Initialization
@@ -98,7 +95,6 @@
     self.avatarImageView.layer.cornerRadius = 17.5;
     self.avatarImageView.layer.masksToBounds = YES;
 
-
     NSString *authorName = [user objectForKey:kPAPUserDisplayNameKey];
     [self.userButton setTitle:authorName forState:UIControlStateNormal];
     
@@ -128,24 +124,6 @@
     [self setNeedsDisplay];
 }
 
-- (void)setLikeStatus:(BOOL)liked {
-    [self.likeButton setSelected:liked];
-    
-    if (liked) {
-        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(-3.0f, 0.0f, 0.0f, 0.0f)];
-    } else {
-        [self.likeButton setTitleEdgeInsets:UIEdgeInsetsMake(-3.0f, 0.0f, 0.0f, 0.0f)];
-    }
-}
-
-- (void)shouldEnableLikeButton:(BOOL)enable {
-    if (enable) {
-        [self.likeButton removeTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [self.likeButton addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-}
-
 #pragma mark - ()
 
 + (void)validateButtons:(PAPPhotoHeaderButtons)buttons {
@@ -157,19 +135,6 @@
 - (void)didTapUserButtonAction:(UIButton *)sender {
     if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapUserButton:user:)]) {
         [delegate photoHeaderView:self didTapUserButton:sender user:[self.photo objectForKey:kPAPPhotoUserKey]];
-    }
-}
-
-// *** TODO: remove this function
-- (void)didTapLikeClothButtonAction:(UIButton *)button {
-//    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapLikePhotoButton:photo:)]) {
-//        [delegate photoHeaderView:self didTapLikeClothButton:button photo:self.cloth];
-//    }
-}
-
-- (void)didTapCommentOnPhotoButtonAction:(UIButton *)sender {
-    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapCommentOnPhotoButton:photo:)]) {
-        [delegate photoHeaderView:self didTapCommentOnPhotoButton:sender photo:self.photo];
     }
 }
 

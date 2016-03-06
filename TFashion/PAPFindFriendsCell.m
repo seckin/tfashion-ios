@@ -8,6 +8,7 @@
 
 #import "PAPFindFriendsCell.h"
 #import "PAPProfileImageView.h"
+#import "UIColor+CreateMethods.h"
 
 @interface PAPFindFriendsCell ()
 /*! The cell's views. These shouldn't be modified but need to be exposed for the subclass */
@@ -72,7 +73,9 @@
 
         CGSize size = CGSizeMake(200, 200);
         UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-        [[UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] setFill];
+//        [[UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] setFill];
+//        [[UIColor colorWithHex:@"#93648D" alpha:1.0f] setFill];
+        [[UIColor orangeColor] setFill];
         UIRectFill(CGRectMake(0, 0, size.width, size.height));
         UIImage *followButtonActiveStateBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
