@@ -46,7 +46,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb130121850656709</string>
+				<string>fb985193038244424</string>
 			</array>
 		</dict>
 		<dict>
@@ -93,9 +93,9 @@
 		</array>
 	</dict>
 	<key>FacebookDisplayName</key>
-	<string>Pera</string>
+	<string>Standout</string>
 	<key>FacebookAppID</key>
-	<string>130121850656709</string>
+	<string>985193038244424</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

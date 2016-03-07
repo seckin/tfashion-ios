@@ -7,21 +7,109 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05BDADAB1C8CE91E0093088D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BDADAA1C8CE91E0093088D /* main.m */; };
-		05BDADAE1C8CE91E0093088D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BDADAD1C8CE91E0093088D /* AppDelegate.m */; };
-		05BDADB11C8CE91E0093088D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BDADB01C8CE91E0093088D /* MasterViewController.m */; };
-		05BDADB41C8CE91E0093088D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BDADB31C8CE91E0093088D /* DetailViewController.m */; };
-		05BDADB71C8CE91E0093088D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05BDADB51C8CE91E0093088D /* Main.storyboard */; };
-		05BDADB91C8CE91E0093088D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05BDADB81C8CE91E0093088D /* Assets.xcassets */; };
-		05BDADBC1C8CE91E0093088D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05BDADBA1C8CE91E0093088D /* LaunchScreen.storyboard */; };
+		050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 050423A61B2C096F006A1B02 /* CONTagPopover.m */; };
+		050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F61C79202000798AD0 /* FontAwesome.otf */; };
+		050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 050C80F81C79264F00798AD0 /* ionicons.ttf */; };
+		052965101C85609500B98183 /* foundation-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650D1C85609500B98183 /* foundation-icons.ttf */; };
+		052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */; };
+		052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 052965121C85610800B98183 /* TSMessagesDefaultDesign.json */; };
+		052C491D1C8ABE120077F80B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052C491C1C8ABE120077F80B /* FBSDKLoginKit.framework */; };
+		052C49211C8ABF910077F80B /* FacebookSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 052C49201C8ABF910077F80B /* FacebookSDKStrings.bundle */; };
+		052C49231C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset in Resources */ = {isa = PBXBuildFile; fileRef = 052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */; };
+		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
+		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
+		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
+		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
+		05A702841C8D48F200F49115 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A702831C8D48F200F49115 /* FBSDKCoreKit.framework */; };
+		05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */; };
+		05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */; };
+		1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E771F4FC7423A645E872C3B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B802D1681B49B0A600E83656 /* CONSignUpViewController.xib */; };
+		BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* CONContact.m */; };
+		BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */; };
+		BC09CAED1A309456001F8DC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAEA1A309456001F8DC8 /* main.m */; };
+		BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC139CDB1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m */; };
+		BC19D2A71A278686002B9944 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC19D2A61A278686002B9944 /* Images.xcassets */; };
+		BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138CE1A24D49B003DD8C4 /* AppDelegate.m */; };
+		BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D01A24D49B003DD8C4 /* PAPCache.m */; };
+		BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D21A24D49B003DD8C4 /* PAPConstants.m */; };
+		BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138D41A24D49B003DD8C4 /* PAPUtility.m */; };
+		BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */; };
+		BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138DD1A24D51B003DD8C4 /* PAPFindFriendsViewController.m */; };
+		BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E31A24D561003DD8C4 /* PAPPhotoDetailsViewController.m */; };
+		BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E61A24D577003DD8C4 /* PAPActivityFeedViewController.m */; };
+		BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138E91A24D5A0003DD8C4 /* PAPEditPhotoViewController.m */; };
+		BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138EC1A24D64A003DD8C4 /* PAPAccountViewController.m */; };
+		BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138EE1A24D64A003DD8C4 /* PAPHomeViewController.m */; };
+		BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F01A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m */; };
+		BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F51A24D706003DD8C4 /* PAPLogInViewController.m */; };
+		BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138F71A24D706003DD8C4 /* PAPWelcomeViewController.m */; };
+		BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FB1A24D749003DD8C4 /* PAPImageView.m */; };
+		BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FD1A24D749003DD8C4 /* PAPProfileImageView.m */; };
+		BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2138FF1A24D74A003DD8C4 /* PAPSettingsButtonItem.m */; };
+		BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */; };
+		BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */; };
+		BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC21390E1A24D788003DD8C4 /* Entitlements.plist */; };
+		BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139101A24D788003DD8C4 /* PAPActivityCell.m */; };
+		BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139121A24D788003DD8C4 /* PAPBaseTextCell.m */; };
+		BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139141A24D788003DD8C4 /* PAPFindFriendsCell.m */; };
+		BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC21391A1A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m */; };
+		BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC21391C1A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m */; };
+		BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139231A24D788003DD8C4 /* UIImage+AlphaAdditions.m */; };
+		BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139251A24D788003DD8C4 /* UIImage+ResizeAdditions.m */; };
+		BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */; };
+		BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC54066D1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m */; };
+		BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62935B1A53C28B0080F506 /* CONSocialAccount.m */; };
+		BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6293611A5437A50080F506 /* CONProviderDetailViewController.m */; };
+		BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3391A484C2C00452469 /* THContactViewStyle.m */; };
+		BC64A3411A484C2C00452469 /* THContactView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33B1A484C2C00452469 /* THContactView.m */; };
+		BC64A3421A484C2C00452469 /* THContactPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33D1A484C2C00452469 /* THContactPickerView.m */; };
+		BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A33F1A484C2C00452469 /* THContactTextField.m */; };
+		BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A3481A485DC100452469 /* CONInviteFriendsViewController.m */; };
+		BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BC64A34B1A48617E00452469 /* CONInviteRequest.m */; };
+		BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21421A4C12F800ECFDB0 /* CONIntroViewController.m */; };
+		BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A21471A4EF9E900ECFDB0 /* CONSettingsViewController.m */; };
+		BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6A214A1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m */; };
+		BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC82D0DD1A793DAD00139B57 /* UIColor+InitAdditions.m */; };
+		BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044A1A39D88100088C96 /* CONSignUpViewController.m */; };
+		BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F044D1A39E3D600088C96 /* CONSignupAttempt.m */; };
+		BC9F3F921A821C6F00629745 /* SVModalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F3F8D1A821C6F00629745 /* SVModalWebViewController.m */; };
+		BC9F3F931A821C6F00629745 /* SVWebViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3F8E1A821C6F00629745 /* SVWebViewController.bundle */; };
+		BC9F3F941A821C6F00629745 /* SVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F3F901A821C6F00629745 /* SVWebViewController.m */; };
+		BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3F911A821C6F00629745 /* SVWebViewController.strings */; };
+		BC9F3F991A821C9B00629745 /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F3F981A821C9B00629745 /* SVWebViewControllerActivity.m */; };
+		BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3F9B1A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png */; };
+		BC9F3FA11A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3F9C1A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png */; };
+		BC9F3FA21A821CBF00629745 /* SVWebViewControllerActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F3F9E1A821CBF00629745 /* SVWebViewControllerActivitySafari.m */; };
+		BC9F3FA31A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3F9F1A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png */; };
+		BC9F3FAA1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3FA51A821CD400629745 /* SVWebViewControllerActivityChrome-iPad.png */; };
+		BC9F3FAB1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3FA61A821CD400629745 /* SVWebViewControllerActivityChrome-iPad@2x.png */; };
+		BC9F3FAC1A821CD400629745 /* SVWebViewControllerActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9F3FA81A821CD400629745 /* SVWebViewControllerActivityChrome.m */; };
+		BC9F3FAD1A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9F3FA91A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png */; };
+		BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB748E31A643D8F00044872 /* CONNotificationSetting.m */; };
+		BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCC085431A2314620026C4B6 /* FacebookSDK.framework */; };
+		BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B3D1A7138BE0065E1D4 /* HPGrowingTextView.m */; };
+		BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B3F1A7138BE0065E1D4 /* HPTextViewInternal.m */; };
+		BCD46B441A7147170065E1D4 /* CONCommentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD46B431A7147170065E1D4 /* CONCommentTextView.m */; };
+		BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCD488541A498EBD00751A6E /* MainWindow.xib */; };
+		BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */; };
+		BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */; };
+		BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */; };
+		BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858A1A58301300BF8029 /* Parse.framework */; };
+		BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */; };
+		BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */; };
+		BCE485911A58301300BF8029 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858D1A58301300BF8029 /* ParseUI.framework */; };
+		C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */; };
+		C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */; };
+		C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */; };
+		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
+		E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0501374C1C8CE34300B0A41A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CONPhotoTagProtocol.h; sourceTree = "<group>"; };
 		050423A51B2C096F006A1B02 /* CONTagPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONTagPopover.h; sourceTree = "<group>"; };
 		050423A61B2C096F006A1B02 /* CONTagPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagPopover.m; sourceTree = "<group>"; };
-		0508EF6B1C8CE01000653E63 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		050C80F51C791FF300798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		050C80F61C79202000798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
 		050C80F81C79264F00798AD0 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = Pods/FontAwesomeKit/FontAwesomeKit/ionicons.ttf; sourceTree = "<group>"; };
@@ -31,7 +119,6 @@
 		0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zocial-regular-webfont.ttf"; path = "Pods/FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"; sourceTree = "<group>"; };
 		052965121C85610800B98183 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Pods/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
 		052C491C1C8ABE120077F80B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		052C491E1C8ABF3A0077F80B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		052C49201C8ABF910077F80B /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKStrings.bundle; path = ../TFashion/FacebookSDKStrings.bundle; sourceTree = "<group>"; };
 		052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "FacebookSDK-4_10-for-iOS.docset"; sourceTree = "<group>"; };
 		052C49241C8AC6D30077F80B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Resources/Info.plist; sourceTree = "<group>"; };
@@ -41,21 +128,11 @@
 		055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONV2IntroViewController.xib; sourceTree = "<group>"; };
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
-		05BDADA71C8CE91E0093088D /* Standout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standout.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		05BDADAA1C8CE91E0093088D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		05BDADAC1C8CE91E0093088D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		05BDADAD1C8CE91E0093088D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		05BDADAF1C8CE91E0093088D /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		05BDADB01C8CE91E0093088D /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		05BDADB21C8CE91E0093088D /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		05BDADB31C8CE91E0093088D /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		05BDADB61C8CE91E0093088D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		05BDADB81C8CE91E0093088D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		05BDADBB1C8CE91E0093088D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		05BDADBD1C8CE91E0093088D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05A702831C8D48F200F49115 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		05D9145A1B9DF659008C26C2 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		09ABC06D13A1D52D009C3FCF /* Standout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		192EAD6B2595B13292D939E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3E771F4FC7423A645E872C3B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCCF19ADF46CF4E4A039B76 /* Pods.ad hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.ad hoc.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.ad hoc.xcconfig"; sourceTree = "<group>"; };
@@ -192,11 +269,11 @@
 		BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		BCE4858D1A58301300BF8029 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
 		C9FB344B276308A0E366A45F /* CONDemoTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONDemoTag.h; sourceTree = "<group>"; };
 		C9FB3603C366E3750566773D /* CONImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONImageOverlay.h; sourceTree = "<group>"; };
-		C9FB37B158FE2B9A1609C264 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
+		C9FB38A212646C23B10A6DD7 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONDemoTag.m; sourceTree = "<group>"; };
-		C9FB3F42B53A993D7EB00949 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONImageOverlay.m; sourceTree = "<group>"; };
 		E7ADD4BC17BEA09500E975E2 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -206,42 +283,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		05BDADA41C8CE91E0093088D /* Frameworks */ = {
+		09ABC06A13A1D52D009C3FCF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */,
+				05A702841C8D48F200F49115 /* FBSDKCoreKit.framework in Frameworks */,
+				05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */,
+				BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */,
+				052C491D1C8ABE120077F80B /* FBSDKLoginKit.framework in Frameworks */,
+				059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */,
+				BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */,
+				BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */,
+				BCE485911A58301300BF8029 /* ParseUI.framework in Frameworks */,
+				059881331A257E64006AD82A /* Fabric.framework in Frameworks */,
+				BCC085441A2314620026C4B6 /* FacebookSDK.framework in Frameworks */,
+				1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		05BDADA81C8CE91E0093088D /* Standout */ = {
-			isa = PBXGroup;
-			children = (
-				05BDADAC1C8CE91E0093088D /* AppDelegate.h */,
-				05BDADAD1C8CE91E0093088D /* AppDelegate.m */,
-				05BDADAF1C8CE91E0093088D /* MasterViewController.h */,
-				05BDADB01C8CE91E0093088D /* MasterViewController.m */,
-				05BDADB21C8CE91E0093088D /* DetailViewController.h */,
-				05BDADB31C8CE91E0093088D /* DetailViewController.m */,
-				05BDADB51C8CE91E0093088D /* Main.storyboard */,
-				05BDADB81C8CE91E0093088D /* Assets.xcassets */,
-				05BDADBA1C8CE91E0093088D /* LaunchScreen.storyboard */,
-				05BDADBD1C8CE91E0093088D /* Info.plist */,
-				05BDADA91C8CE91E0093088D /* Supporting Files */,
-			);
-			path = Standout;
-			sourceTree = "<group>";
-		};
-		05BDADA91C8CE91E0093088D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				05BDADAA1C8CE91E0093088D /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +321,6 @@
 				05D9145A1B9DF659008C26C2 /* FontAwesome.otf */,
 				09ABC07713A1D52D009C3FCF /* Pera */,
 				E7ADD44517BEA09500E975E2 /* Vendor */,
-				05BDADA81C8CE91E0093088D /* Standout */,
 				09ABC06E13A1D52D009C3FCF /* Products */,
 				C4CD7502EDD9F92F003405E5 /* Pods */,
 				D73A2DE0A31B8544170CC55C /* Frameworks */,
@@ -268,7 +330,7 @@
 		09ABC06E13A1D52D009C3FCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05BDADA71C8CE91E0093088D /* Standout.app */,
+				09ABC06D13A1D52D009C3FCF /* Standout.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -672,11 +734,9 @@
 		E7ADD44517BEA09500E975E2 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				05A702831C8D48F200F49115 /* FBSDKCoreKit.framework */,
 				052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */,
-				0501374C1C8CE34300B0A41A /* FBSDKLoginKit.framework */,
-				0508EF6B1C8CE01000653E63 /* FBSDKCoreKit.framework */,
 				052C49201C8ABF910077F80B /* FacebookSDKStrings.bundle */,
-				052C491E1C8ABF3A0077F80B /* FBSDKCoreKit.framework */,
 				BC9F3F8B1A821C1800629745 /* SVWebViewController */,
 				BCE4858A1A58301300BF8029 /* Parse.framework */,
 				BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */,
@@ -723,8 +783,8 @@
 				BC2139271A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m */,
 				BC82D0DC1A793DAD00139B57 /* UIColor+InitAdditions.h */,
 				BC82D0DD1A793DAD00139B57 /* UIColor+InitAdditions.m */,
-				C9FB37B158FE2B9A1609C264 /* UIColor+CreateMethods.m */,
-				C9FB3F42B53A993D7EB00949 /* UIColor+CreateMethods.h */,
+				C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */,
+				C9FB38A212646C23B10A6DD7 /* UIColor+CreateMethods.h */,
 			);
 			name = Categories;
 			path = ../Vendor;
@@ -733,21 +793,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		05BDADA61C8CE91E0093088D /* Standout */ = {
+		09ABC06C13A1D52D009C3FCF /* Standout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 05BDADC21C8CE91E0093088D /* Build configuration list for PBXNativeTarget "Standout" */;
+			buildConfigurationList = 09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "Standout" */;
 			buildPhases = (
-				05BDADA31C8CE91E0093088D /* Sources */,
-				05BDADA41C8CE91E0093088D /* Frameworks */,
-				05BDADA51C8CE91E0093088D /* Resources */,
+				878A4448CD9A2B73B98BDD49 /* Check Pods Manifest.lock */,
+				09ABC06913A1D52D009C3FCF /* Sources */,
+				09ABC06A13A1D52D009C3FCF /* Frameworks */,
+				09ABC06B13A1D52D009C3FCF /* Resources */,
+				A956C7A00485A30BE48909C5 /* Copy Pods Resources */,
+				A206DEDAC378E8AAA1BC4A2D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Standout;
-			productName = Standout;
-			productReference = 05BDADA71C8CE91E0093088D /* Standout.app */;
+			productName = ParseStarterProject;
+			productReference = 09ABC06D13A1D52D009C3FCF /* Standout.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -757,10 +820,10 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CON;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
-					05BDADA61C8CE91E0093088D = {
-						CreatedOnToolsVersion = 7.2.1;
+					09ABC06C13A1D52D009C3FCF = {
+						DevelopmentTeam = U78SY2V4GS;
 					};
 				};
 			};
@@ -770,62 +833,171 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 09ABC06213A1D52D009C3FCF;
 			productRefGroup = 09ABC06E13A1D52D009C3FCF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				05BDADA61C8CE91E0093088D /* Standout */,
+				09ABC06C13A1D52D009C3FCF /* Standout */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		05BDADA51C8CE91E0093088D /* Resources */ = {
+		09ABC06B13A1D52D009C3FCF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05BDADBC1C8CE91E0093088D /* LaunchScreen.storyboard in Resources */,
-				05BDADB91C8CE91E0093088D /* Assets.xcassets in Resources */,
-				05BDADB71C8CE91E0093088D /* Main.storyboard in Resources */,
+				052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */,
+				050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */,
+				052965101C85609500B98183 /* foundation-icons.ttf in Resources */,
+				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
+				052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */,
+				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
+				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,
+				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
+				055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */,
+				BC9F3FA31A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
+				B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */,
+				052C49211C8ABF910077F80B /* FacebookSDKStrings.bundle in Resources */,
+				BC9F3F931A821C6F00629745 /* SVWebViewController.bundle in Resources */,
+				BC9F3FA11A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
+				052C49231C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset in Resources */,
+				BC9F3FAD1A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
+				BC9F3FAA1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
+				BC19D2A71A278686002B9944 /* Images.xcassets in Resources */,
+				BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */,
+				BC9F3FAB1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
+				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		878A4448CD9A2B73B98BDD49 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A206DEDAC378E8AAA1BC4A2D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A956C7A00485A30BE48909C5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		05BDADA31C8CE91E0093088D /* Sources */ = {
+		09ABC06913A1D52D009C3FCF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05BDADAE1C8CE91E0093088D /* AppDelegate.m in Sources */,
-				05BDADB11C8CE91E0093088D /* MasterViewController.m in Sources */,
-				05BDADAB1C8CE91E0093088D /* main.m in Sources */,
-				05BDADB41C8CE91E0093088D /* DetailViewController.m in Sources */,
+				BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */,
+				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
+				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
+				050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */,
+				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
+				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
+				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
+				BC9F3F921A821C6F00629745 /* SVModalWebViewController.m in Sources */,
+				BC9F3F991A821C9B00629745 /* SVWebViewControllerActivity.m in Sources */,
+				BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */,
+				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
+				BC64A3421A484C2C00452469 /* THContactPickerView.m in Sources */,
+				E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */,
+				BCD46B441A7147170065E1D4 /* CONCommentTextView.m in Sources */,
+				BC21392B1A24D788003DD8C4 /* PAPActivityCell.m in Sources */,
+				BC2138D51A24D49B003DD8C4 /* AppDelegate.m in Sources */,
+				BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */,
+				BC64A3431A484C2C00452469 /* THContactTextField.m in Sources */,
+				BC6A21431A4C12F800ECFDB0 /* CONIntroViewController.m in Sources */,
+				BC2138D81A24D49B003DD8C4 /* PAPUtility.m in Sources */,
+				BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */,
+				BCB748E41A643D8F00044872 /* CONNotificationSetting.m in Sources */,
+				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
+				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
+				055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */,
+				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,
+				BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */,
+				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
+				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
+				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
+				BC9F3FA21A821CBF00629745 /* SVWebViewControllerActivitySafari.m in Sources */,
+				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
+				BC9F3F941A821C6F00629745 /* SVWebViewController.m in Sources */,
+				BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */,
+				BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */,
+				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
+				BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */,
+				BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */,
+				BC9F3FAC1A821CD400629745 /* SVWebViewControllerActivityChrome.m in Sources */,
+				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
+				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
+				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
+				BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */,
+				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
+				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
+				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
+				BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */,
+				BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */,
+				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
+				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
+				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
+				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
+				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
+				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
+				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
+				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
+				BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */,
+				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
+				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
+				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
+				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
+				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
+				C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */,
+				C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		05BDADB51C8CE91E0093088D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				05BDADB61C8CE91E0093088D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		05BDADBA1C8CE91E0093088D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				05BDADBB1C8CE91E0093088D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -837,117 +1009,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		05BDADBE1C8CE91E0093088D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Standout/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tf.Standout;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		05BDADBF1C8CE91E0093088D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Standout/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tf.Standout;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		05BDADC01C8CE91E0093088D /* Ad Hoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Standout/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tf.Standout;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "Ad Hoc";
-		};
-		05BDADC11C8CE91E0093088D /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Standout/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tf.Standout;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Distribution;
-		};
 		09ABC08C13A1D52E009C3FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1013,6 +1074,85 @@
 			};
 			name = Release;
 		};
+		09ABC08F13A1D52E009C3FCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC6EB0D9AA47FEBCDCD7B557 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Vendor",
+					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"ENABLE_PONYDEBUGGER=1",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Standout;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		09ABC09013A1D52E009C3FCF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 192EAD6B2595B13292D939E6 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Vendor",
+					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Standout;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		C42500E01599424D0087C4F4 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1041,6 +1181,43 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		C42500E11599424D0087C4F4 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC0A015B22A032758BB65FAC /* Pods.distribution.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Vendor",
+					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Standout;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
 		};
@@ -1075,19 +1252,46 @@
 			};
 			name = "Ad Hoc";
 		};
+		C4F10201156C54D40061BC3E /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CCCF19ADF46CF4E4A039B76 /* Pods.ad hoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(SRCROOT)/Vendor",
+					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Standout;
+				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		05BDADC21C8CE91E0093088D /* Build configuration list for PBXNativeTarget "Standout" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				05BDADBE1C8CE91E0093088D /* Debug */,
-				05BDADBF1C8CE91E0093088D /* Release */,
-				05BDADC01C8CE91E0093088D /* Ad Hoc */,
-				05BDADC11C8CE91E0093088D /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "Standout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1095,6 +1299,17 @@
 				09ABC08D13A1D52E009C3FCF /* Release */,
 				C4F10200156C54D40061BC3E /* Ad Hoc */,
 				C42500E01599424D0087C4F4 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Distribution;
+		};
+		09ABC08E13A1D52E009C3FCF /* Build configuration list for PBXNativeTarget "Standout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09ABC08F13A1D52E009C3FCF /* Debug */,
+				09ABC09013A1D52E009C3FCF /* Release */,
+				C4F10201156C54D40061BC3E /* Ad Hoc */,
+				C42500E11599424D0087C4F4 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Distribution;
