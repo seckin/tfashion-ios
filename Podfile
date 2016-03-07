@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '9.0'
 
-xcodeproj 'Pera.xcodeproj'
+xcodeproj 'Standout.xcodeproj'
 use_frameworks!
 
 pod 'Reachability', '~> 3.2'

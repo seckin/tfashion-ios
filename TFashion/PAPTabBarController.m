@@ -8,7 +8,7 @@
 
 #import "PAPTabBarController.h"
 #import "UIImage+ResizeAdditions.h"
-#import "UIColor+CreateMethods.h"
+//#import "UIColor+CreateMethods.h"
 
 @interface PAPTabBarController ()
 @property (nonatomic,strong) UINavigationController *navController;
