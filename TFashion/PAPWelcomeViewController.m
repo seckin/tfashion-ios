@@ -81,8 +81,7 @@
         }
     }
     _facebookResponseCount = 0;
-    NSLog(@"done processing all Facebook requests");
-    
+
     PFUser *currentParseUser = [PFUser currentUser];
 
     [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -183,7 +182,6 @@
                     NSArray *nameparts = [facebookName componentsSeparatedByString:@" "];
                     NSString *concatanatedName = [nameparts componentsJoinedByString:@""];
                     NSString *lowercaseconcatanatedName = [concatanatedName lowercaseString];
-                    NSLog(@"lowercaseconcatanatedName : %@", lowercaseconcatanatedName);
                     [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
                     [currentParseUser setUsername:lowercaseconcatanatedName];
                 }
@@ -205,6 +203,7 @@
                     NSDictionary *userData = (NSDictionary *) result;
 
                     NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
+                    NSLog(@"profilePictureURL: %@", profilePictureURL);
 //                    NSString *substring = [userData[@"picture"][@"data"][@"url"] substringFromIndex:7];
 //                    NSString *prefix = @"https://s3.amazonaws.com/";
 //                    NSString *profilePictureURL = [prefix stringByAppendingString:substring];

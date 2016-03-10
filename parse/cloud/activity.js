@@ -134,13 +134,13 @@ var alertMessage = function(request) {
 
   if (request.object.get("type") === "comment") {
     if (request.user.get('displayName')) {
-      message = request.user.get('displayName') + ': ' + request.object.get('content').trim();
+      message = request.user.get('displayName') + ' commented on one of your clothes: ' + request.object.get('content').trim();
     } else {
       message = "Someone commented on your photo.";
     }
   } else if (request.object.get("type") === "like") {
     if (request.user.get('displayName')) {
-      message = request.user.get('displayName') + ' liked your photo.';
+      message = request.user.get('displayName') + ' liked one of your clothes.';
     } else {
       message = 'Someone likes your photo.';
     }

@@ -27,6 +27,11 @@
 #import "UIImage+AlphaAdditions.h"
 #import "UIImage+TintColor.h"
 #import <Lookback/Lookback.h>
+//#import "TFashion-Swift.h"
+//#import "TFashion-Swift.h"
+#import <StandoutModule-Swift.h>
+//#import "StandoutModule-Swift.h"
+
 //#import <Analytics.h>
 
 #if ENABLE_PONYDEBUGGER
@@ -43,6 +48,11 @@
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
 @property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 @property (nonatomic, strong) CONV2IntroViewController *v2IntroViewController;
+
+@property (nonatomic, strong) ActivityViewController *a;
+@property (nonatomic, strong) GesturesViewController *g;
+@property (nonatomic, strong) SpringsViewController *s;
+@property (nonatomic, strong) GravityViewController *gravity;
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
@@ -130,10 +140,23 @@
     self.welcomeViewController = [[PAPWelcomeViewController alloc] init];
     self.v2IntroViewController = [[CONV2IntroViewController alloc] init];
     
+    self.a = [[ActivityViewController alloc] init];
+    self.g = [[GesturesViewController alloc] init];
+    self.s = [[SpringsViewController alloc] init];
+    self.gravity = [[GravityViewController alloc] init];
+//    let a = ActivityViewController();
+//    let a = ActivityViewController()
+//    let g = GesturesViewController()
+//    let s = SpringsViewController()
+//    let gravity = GravityViewController()
+//
+    BrowserViewController *b = [[BrowserViewController alloc] initWithViewControllers:@[self.a, self.gravity, self.s, self.g]];
+    self.window.rootViewController = b;
+    
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];
     self.navController.navigationBarHidden = YES;
 
-    self.window.rootViewController = self.navController;
+//    self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
 
     [self handlePush:launchOptions];
@@ -159,6 +182,7 @@
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
     }
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken called omg");
 
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];

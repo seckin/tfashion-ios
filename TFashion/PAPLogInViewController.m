@@ -55,7 +55,7 @@
     appIntro = [[UILabel alloc] init];
     [appIntro setText: @"A community of tastemakers sharing pictures of clothes. Share your clothes to get them tagged so other users can double tap on them to like and comment!"];
     [appIntro setTextColor:[UIColor whiteColor]];
-    [appIntro setFont:[UIFont systemFontOfSize:12.0f]];
+    [appIntro setFont:[UIFont systemFontOfSize:14.0f]];
     [appIntro setFrame:CGRectMake(50, 340, 220, 100)];
     appIntro.lineBreakMode = NSLineBreakByWordWrapping;
     appIntro.numberOfLines = 0;
@@ -75,7 +75,7 @@
     // Sign up button
     _logInView = [[PFLogInView alloc] initWithFields:PFLogInFieldsSignUpButton];
     _logInView.backgroundColor = [UIColor clearColor];
-    _logInView.frame = CGRectMake(20.0f, CGRectGetMaxY(_facebookLoginView.frame) + 10, 276.0f, 58.0f);
+    _logInView.frame = CGRectMake(20.0f, CGRectGetMaxY(_facebookLoginView.frame) + 10, 276.0f, 62.0f);
     [self.view addSubview:_logInView];
 
     NSArray *signUpButtonActions = [_logInView.signUpButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
@@ -84,6 +84,13 @@
         [_logInView.signUpButton removeTarget:self action:oldAction forControlEvents:UIControlEventTouchUpInside];
     }
     [_logInView.signUpButton addTarget:self action:@selector(showSignUpController:) forControlEvents:UIControlEventTouchUpInside];
+    [_logInView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [_logInView.signUpButton setTitle:@"Sign Up With Text" forState:UIControlStateNormal];
+    [_logInView.signUpButton setFont:[UIFont boldSystemFontOfSize:16]];
+    _logInView.signUpButton.layer.cornerRadius = 10;
+    _logInView.signUpButton.layer.borderWidth = 3;
+    _logInView.signUpButton.layer.borderColor = [UIColor whiteColor].CGColor;
+
 
     // disabled for now:
 //     Test login button

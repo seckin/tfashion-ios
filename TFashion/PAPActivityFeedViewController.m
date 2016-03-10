@@ -70,9 +70,6 @@
 //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     self.navigationItem.title = @"Notifications";
 
-    // Add Settings button
-    self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidReceiveRemoteNotification:) name:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil];
     
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
@@ -303,11 +300,6 @@
 
 
 #pragma mark - ()
-
-- (void)settingsButtonAction:(id)sender {
-    CONSettingsViewController *settingsVC = [[CONSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:settingsVC animated:YES];
-}
 
 - (void)inviteFriendsButtonAction:(id)sender {
     PAPFindFriendsViewController *detailViewController = [[PAPFindFriendsViewController alloc] init];

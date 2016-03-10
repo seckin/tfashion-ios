@@ -1,4 +1,5 @@
 PODS:
+  - Advance (0.9)
   - AFNetworking (3.0.4):
     - AFNetworking/NSURLSession (= 3.0.4)
     - AFNetworking/Reachability (= 3.0.4)
@@ -92,6 +93,7 @@ PODS:
   - YLProgressBar (3.8.0)
 
 DEPENDENCIES:
+  - Advance (~> 0.9)
   - AFNetworking
   - DBCamera
   - FontAwesomeKit
@@ -117,6 +119,7 @@ DEPENDENCIES:
   - YLProgressBar
 
 SPEC CHECKSUMS:
+  Advance: 2872109f4d069b0b0245e1375ab5073e09dd051a
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   CMDQueryStringSerialization: 4bb0a2f5e7d8d8678d911d88072274952cbef4e5
   cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8

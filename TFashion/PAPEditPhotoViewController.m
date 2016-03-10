@@ -85,20 +85,20 @@
     _inputBar.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
     [self.scrollView addSubview:_inputBar];
     
-    // Set comment text view
-    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
-    _commentTextView.delegate = self;
-    _commentTextView.presentingView = self.view;
-    [_inputBar addSubview:_commentTextView];
-    
-    // Set send button
-    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
-    _sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
-    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    _sendButton.enabled = NO;
-    [_inputBar addSubview:_sendButton];
+//    // Set comment text view
+//    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
+//    _commentTextView.delegate = self;
+//    _commentTextView.presentingView = self.view;
+//    [_inputBar addSubview:_commentTextView];
+//
+//    // Set send button
+//    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
+//    _sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+//    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+//    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    _sendButton.enabled = NO;
+//    [_inputBar addSubview:_sendButton];
 
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + _inputBar.frame.size.height)];
 }

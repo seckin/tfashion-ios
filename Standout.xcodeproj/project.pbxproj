@@ -21,6 +21,25 @@
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
 		05A702841C8D48F200F49115 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A702831C8D48F200F49115 /* FBSDKCoreKit.framework */; };
+		05BBA08A1C9120440007124A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0751C9120440007124A /* ActivityView.swift */; };
+		05BBA08B1C9120440007124A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0761C9120440007124A /* ActivityViewController.swift */; };
+		05BBA08D1C9120440007124A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05BBA0781C9120440007124A /* Assets.xcassets */; };
+		05BBA08E1C9120440007124A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05BBA0791C9120440007124A /* LaunchScreen.storyboard */; };
+		05BBA08F1C9120440007124A /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07B1C9120440007124A /* BrowserView.swift */; };
+		05BBA0901C9120440007124A /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07C1C9120440007124A /* BrowserViewController.swift */; };
+		05BBA0911C9120440007124A /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07D1C9120440007124A /* CoverView.swift */; };
+		05BBA0921C9120440007124A /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07E1C9120440007124A /* DemoViewController.swift */; };
+		05BBA0931C9120440007124A /* DirectManipulationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */; };
+		05BBA0941C9120440007124A /* GesturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0801C9120440007124A /* GesturesViewController.swift */; };
+		05BBA0951C9120440007124A /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0811C9120440007124A /* GestureView.swift */; };
+		05BBA0961C9120440007124A /* GravityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0821C9120440007124A /* GravityFunction.swift */; };
+		05BBA0971C9120440007124A /* GravitySimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0831C9120440007124A /* GravitySimulation.swift */; };
+		05BBA0981C9120440007124A /* GravityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0841C9120440007124A /* GravityViewController.swift */; };
+		05BBA0991C9120440007124A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 05BBA0851C9120440007124A /* Info.plist */; };
+		05BBA09A1C9120440007124A /* SimpleTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0861C9120440007124A /* SimpleTransform.swift */; };
+		05BBA09B1C9120440007124A /* SpringConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0871C9120440007124A /* SpringConfigurationView.swift */; };
+		05BBA09C1C9120440007124A /* SpringsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0881C9120440007124A /* SpringsViewController.swift */; };
+		05BBA09D1C9120440007124A /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0891C9120440007124A /* SpringView.swift */; };
 		05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */; };
 		05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */; };
 		1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E771F4FC7423A645E872C3B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -129,6 +148,26 @@
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
 		05A702831C8D48F200F49115 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		05BBA0731C911A210007124A /* Standout-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Standout-Bridging-Header.h"; path = "TFashion/Standout-Bridging-Header.h"; sourceTree = "<group>"; };
+		05BBA0751C9120440007124A /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		05BBA0761C9120440007124A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		05BBA0781C9120440007124A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		05BBA07A1C9120440007124A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		05BBA07B1C9120440007124A /* BrowserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
+		05BBA07C1C9120440007124A /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		05BBA07D1C9120440007124A /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
+		05BBA07E1C9120440007124A /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectManipulationGestureRecognizer.swift; sourceTree = "<group>"; };
+		05BBA0801C9120440007124A /* GesturesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturesViewController.swift; sourceTree = "<group>"; };
+		05BBA0811C9120440007124A /* GestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
+		05BBA0821C9120440007124A /* GravityFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravityFunction.swift; sourceTree = "<group>"; };
+		05BBA0831C9120440007124A /* GravitySimulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravitySimulation.swift; sourceTree = "<group>"; };
+		05BBA0841C9120440007124A /* GravityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravityViewController.swift; sourceTree = "<group>"; };
+		05BBA0851C9120440007124A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05BBA0861C9120440007124A /* SimpleTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTransform.swift; sourceTree = "<group>"; };
+		05BBA0871C9120440007124A /* SpringConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringConfigurationView.swift; sourceTree = "<group>"; };
+		05BBA0881C9120440007124A /* SpringsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringsViewController.swift; sourceTree = "<group>"; };
+		05BBA0891C9120440007124A /* SpringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
 		05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		05D9145A1B9DF659008C26C2 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
@@ -305,9 +344,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05BBA0741C9120440007124A /* AdvanceSample3 */ = {
+			isa = PBXGroup;
+			children = (
+				05BBA0751C9120440007124A /* ActivityView.swift */,
+				05BBA0761C9120440007124A /* ActivityViewController.swift */,
+				05BBA0781C9120440007124A /* Assets.xcassets */,
+				05BBA0791C9120440007124A /* LaunchScreen.storyboard */,
+				05BBA07B1C9120440007124A /* BrowserView.swift */,
+				05BBA07C1C9120440007124A /* BrowserViewController.swift */,
+				05BBA07D1C9120440007124A /* CoverView.swift */,
+				05BBA07E1C9120440007124A /* DemoViewController.swift */,
+				05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */,
+				05BBA0801C9120440007124A /* GesturesViewController.swift */,
+				05BBA0811C9120440007124A /* GestureView.swift */,
+				05BBA0821C9120440007124A /* GravityFunction.swift */,
+				05BBA0831C9120440007124A /* GravitySimulation.swift */,
+				05BBA0841C9120440007124A /* GravityViewController.swift */,
+				05BBA0851C9120440007124A /* Info.plist */,
+				05BBA0861C9120440007124A /* SimpleTransform.swift */,
+				05BBA0871C9120440007124A /* SpringConfigurationView.swift */,
+				05BBA0881C9120440007124A /* SpringsViewController.swift */,
+				05BBA0891C9120440007124A /* SpringView.swift */,
+			);
+			path = AdvanceSample3;
+			sourceTree = "<group>";
+		};
 		09ABC06213A1D52D009C3FCF = {
 			isa = PBXGroup;
 			children = (
+				05BBA0731C911A210007124A /* Standout-Bridging-Header.h */,
 				05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */,
 				05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */,
 				052965121C85610800B98183 /* TSMessagesDefaultDesign.json */,
@@ -347,6 +413,7 @@
 				BC2138CF1A24D49B003DD8C4 /* PAPCache.h */,
 				BC2138D01A24D49B003DD8C4 /* PAPCache.m */,
 				BC2138D11A24D49B003DD8C4 /* PAPConstants.h */,
+				05BBA0741C9120440007124A /* AdvanceSample3 */,
 				BC2138D21A24D49B003DD8C4 /* PAPConstants.m */,
 				BC2138D31A24D49B003DD8C4 /* PAPUtility.h */,
 				BC2138D41A24D49B003DD8C4 /* PAPUtility.m */,
@@ -833,6 +900,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 09ABC06213A1D52D009C3FCF;
 			productRefGroup = 09ABC06E13A1D52D009C3FCF /* Products */;
@@ -851,12 +919,15 @@
 			files = (
 				052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */,
 				050C80F71C79202000798AD0 /* FontAwesome.otf in Resources */,
+				05BBA08D1C9120440007124A /* Assets.xcassets in Resources */,
 				052965101C85609500B98183 /* foundation-icons.ttf in Resources */,
 				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
 				052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */,
 				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,
+				05BBA0991C9120440007124A /* Info.plist in Resources */,
 				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
+				05BBA08E1C9120440007124A /* LaunchScreen.storyboard in Resources */,
 				055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */,
 				BC9F3FA31A821CBF00629745 /* SVWebViewControllerActivitySafari@2x.png in Resources */,
 				B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */,
@@ -928,14 +999,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BBA0981C9120440007124A /* GravityViewController.swift in Sources */,
 				BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */,
 				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
 				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
 				050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */,
 				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
 				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
+				05BBA0941C9120440007124A /* GesturesViewController.swift in Sources */,
 				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
+				05BBA08F1C9120440007124A /* BrowserView.swift in Sources */,
 				BC9F3F921A821C6F00629745 /* SVModalWebViewController.m in Sources */,
+				05BBA09C1C9120440007124A /* SpringsViewController.swift in Sources */,
 				BC9F3F991A821C9B00629745 /* SVWebViewControllerActivity.m in Sources */,
 				BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */,
 				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
@@ -956,20 +1031,26 @@
 				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,
 				BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
+				05BBA08A1C9120440007124A /* ActivityView.swift in Sources */,
 				BC2138F81A24D706003DD8C4 /* PAPLogInViewController.m in Sources */,
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
 				BC9F3FA21A821CBF00629745 /* SVWebViewControllerActivitySafari.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
 				BC9F3F941A821C6F00629745 /* SVWebViewController.m in Sources */,
+				05BBA0911C9120440007124A /* CoverView.swift in Sources */,
+				05BBA0951C9120440007124A /* GestureView.swift in Sources */,
 				BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */,
 				BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */,
 				BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */,
 				BC9F3FAC1A821CD400629745 /* SVWebViewControllerActivityChrome.m in Sources */,
+				05BBA09D1C9120440007124A /* SpringView.swift in Sources */,
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
+				05BBA0921C9120440007124A /* DemoViewController.swift in Sources */,
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
+				05BBA08B1C9120440007124A /* ActivityViewController.swift in Sources */,
 				BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
@@ -977,20 +1058,26 @@
 				BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */,
 				BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */,
 				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
+				05BBA0971C9120440007124A /* GravitySimulation.swift in Sources */,
+				05BBA0961C9120440007124A /* GravityFunction.swift in Sources */,
+				05BBA0931C9120440007124A /* DirectManipulationGestureRecognizer.swift in Sources */,
 				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
 				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
 				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
 				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
+				05BBA09B1C9120440007124A /* SpringConfigurationView.swift in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
 				BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
+				05BBA09A1C9120440007124A /* SimpleTransform.swift in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
 				C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */,
+				05BBA0901C9120440007124A /* BrowserViewController.swift in Sources */,
 				C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -998,6 +1085,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		05BBA0791C9120440007124A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05BBA07A1C9120440007124A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		BC09CAE11A3091E5001F8DC8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1019,7 +1114,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: io.conceive.Standout";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1035,11 +1131,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PRODUCT_MODULE_NAME = StandoutModule;
+				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TFashion/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1053,7 +1152,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: io.conceive.Standout";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1065,12 +1165,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_MODULE_NAME = StandoutModule;
+				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TFashion/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1163,7 +1266,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: io.conceive.Standout";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1175,12 +1279,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_MODULE_NAME = StandoutModule;
+				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TFashion/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Distribution;
 		};
@@ -1231,7 +1338,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: io.conceive.Standout";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1243,12 +1351,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_MODULE_NAME = StandoutModule;
+				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TFashion/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = "Ad Hoc";
 		};
