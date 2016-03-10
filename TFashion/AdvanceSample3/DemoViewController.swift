@@ -55,7 +55,7 @@ class DemoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
         
-        contentView.alpha = 0.4
+        contentView.alpha = 1.0
         contentView.layer.allowsGroupOpacity = false
         contentView.userInteractionEnabled = false
         contentView.frame = view.bounds
@@ -71,36 +71,8 @@ class DemoViewController: UIViewController {
         noteLabel.textColor = UIColor.darkGrayColor()
         noteLabel.textAlignment = .Center
         noteLabel.numberOfLines = 0
-        noteLabel.alpha = 0.0
-        view.addSubview(noteLabel)
-    }
-    
-    final var fullScreen = false {
-        didSet {
-            guard fullScreen != oldValue else { return }
-            
-            UIView.animateWithDuration(0.4) {
-                if self.fullScreen {
-                    self.didEnterFullScreen()
-                } else {
-                    self.didLeaveFullScreen()
-                }
-            }
-        }
-    }
-    
-    func didEnterFullScreen() {
         noteLabel.alpha = 1.0
-        contentView.alpha = 1.0
-        contentView.userInteractionEnabled = true
-        titleLabel.alpha = 0.0
-    }
-    
-    func didLeaveFullScreen() {
-        noteLabel.alpha = 0.0
-        contentView.alpha = 0.5
-        contentView.userInteractionEnabled = false
-        titleLabel.alpha = 1.0
+        view.addSubview(noteLabel)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,7 +83,7 @@ class DemoViewController: UIViewController {
         let labelHeight = noteLabel.sizeThatFits(CGSize(width: view.bounds.width-64.0, height: CGFloat.max)).height
         var labelFrame = CGRect.zero
         labelFrame.origin.x = 32.0
-        labelFrame.origin.y = 64.0
+        labelFrame.origin.y = 96.0
         labelFrame.size.width = view.bounds.width - 64.0
         labelFrame.size.height = labelHeight
         noteLabel.frame = labelFrame

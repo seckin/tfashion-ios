@@ -1,15 +1,15 @@
 
 import UIKit
 
-@objc class ActivityViewController: DemoViewController {
+@objc class ActivityViewController4: DemoViewController {
     
-    let activityView = ActivityView()
+    let activityView = ActivityView4()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Step #1"
-        note = "Take amazing pictures"
+        title = "Step #4"
+        note = "Explore, curate, make new friends!"
                 
         contentView.addSubview(activityView)
     }

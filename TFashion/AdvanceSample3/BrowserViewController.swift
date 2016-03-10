@@ -132,13 +132,13 @@ extension BrowserViewController: BrowserViewDelegate {
     
     func browserView(browserView: BrowserView, didEnterFullScreenForItem item: BrowserItem) {
         guard let item = item as? DemoItem else { fatalError() }
-        item.viewController.fullScreen = true
+//        item.viewController.fullScreen = true
 
     }
     
     func browserView(browserView: BrowserView, didLeaveFullScreenForItem item: BrowserItem) {
         guard let item = item as? DemoItem else { fatalError() }
-        item.viewController.fullScreen = false
+//        item.viewController.fullScreen = false
     }
     
     func browserViewDidScroll(browserView: BrowserView) {

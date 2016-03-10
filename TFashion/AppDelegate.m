@@ -50,9 +50,12 @@
 @property (nonatomic, strong) CONV2IntroViewController *v2IntroViewController;
 
 @property (nonatomic, strong) ActivityViewController *a;
-@property (nonatomic, strong) GesturesViewController *g;
-@property (nonatomic, strong) SpringsViewController *s;
-@property (nonatomic, strong) GravityViewController *gravity;
+@property (nonatomic, strong) ActivityViewController2 *a2;
+@property (nonatomic, strong) ActivityViewController3 *a3;
+@property (nonatomic, strong) ActivityViewController4 *a4;
+//@property (nonatomic, strong) GesturesViewController *g;
+//@property (nonatomic, strong) SpringsViewController *s;
+//@property (nonatomic, strong) GravityViewController *gravity;
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
@@ -141,16 +144,19 @@
     self.v2IntroViewController = [[CONV2IntroViewController alloc] init];
     
     self.a = [[ActivityViewController alloc] init];
-    self.g = [[GesturesViewController alloc] init];
-    self.s = [[SpringsViewController alloc] init];
-    self.gravity = [[GravityViewController alloc] init];
+    self.a2 = [[ActivityViewController2 alloc] init];
+    self.a3 = [[ActivityViewController3 alloc] init];
+    self.a4 = [[ActivityViewController4 alloc] init];
+//    self.g = [[GesturesViewController alloc] init];
+//    self.s = [[SpringsViewController alloc] init];
+//    self.gravity = [[GravityViewController alloc] init];
 //    let a = ActivityViewController();
 //    let a = ActivityViewController()
 //    let g = GesturesViewController()
 //    let s = SpringsViewController()
 //    let gravity = GravityViewController()
 //
-    BrowserViewController *b = [[BrowserViewController alloc] initWithViewControllers:@[self.a, self.gravity, self.s, self.g]];
+    BrowserViewController *b = [[BrowserViewController alloc] initWithViewControllers:@[self.a, self.a2, self.a3, self.a4]];
     self.window.rootViewController = b;
     
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];

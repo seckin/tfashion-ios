@@ -29,17 +29,15 @@
 		05BBA0901C9120440007124A /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07C1C9120440007124A /* BrowserViewController.swift */; };
 		05BBA0911C9120440007124A /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07D1C9120440007124A /* CoverView.swift */; };
 		05BBA0921C9120440007124A /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07E1C9120440007124A /* DemoViewController.swift */; };
-		05BBA0931C9120440007124A /* DirectManipulationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */; };
-		05BBA0941C9120440007124A /* GesturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0801C9120440007124A /* GesturesViewController.swift */; };
-		05BBA0951C9120440007124A /* GestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0811C9120440007124A /* GestureView.swift */; };
-		05BBA0961C9120440007124A /* GravityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0821C9120440007124A /* GravityFunction.swift */; };
-		05BBA0971C9120440007124A /* GravitySimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0831C9120440007124A /* GravitySimulation.swift */; };
-		05BBA0981C9120440007124A /* GravityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0841C9120440007124A /* GravityViewController.swift */; };
 		05BBA0991C9120440007124A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 05BBA0851C9120440007124A /* Info.plist */; };
-		05BBA09A1C9120440007124A /* SimpleTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0861C9120440007124A /* SimpleTransform.swift */; };
-		05BBA09B1C9120440007124A /* SpringConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0871C9120440007124A /* SpringConfigurationView.swift */; };
-		05BBA09C1C9120440007124A /* SpringsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0881C9120440007124A /* SpringsViewController.swift */; };
-		05BBA09D1C9120440007124A /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0891C9120440007124A /* SpringView.swift */; };
+		05BBA0A11C912D7B0007124A /* ActivityViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0A01C912D7B0007124A /* ActivityViewController2.swift */; };
+		05BBA0A31C912D820007124A /* ActivityView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0A21C912D820007124A /* ActivityView2.swift */; };
+		05BBA0A61C912E510007124A /* DirectManipulationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0A41C912E510007124A /* DirectManipulationGestureRecognizer.swift */; };
+		05BBA0A71C912E510007124A /* SimpleTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0A51C912E510007124A /* SimpleTransform.swift */; };
+		05BBA57F1C9139010007124A /* ActivityView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA57D1C9139010007124A /* ActivityView3.swift */; };
+		05BBA5801C9139010007124A /* ActivityViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA57E1C9139010007124A /* ActivityViewController3.swift */; };
+		05BBA5831C91429C0007124A /* ActivityView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA5811C91429C0007124A /* ActivityView4.swift */; };
+		05BBA5841C91429C0007124A /* ActivityViewController4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA5821C91429C0007124A /* ActivityViewController4.swift */; };
 		05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */; };
 		05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */; };
 		1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E771F4FC7423A645E872C3B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -157,17 +155,15 @@
 		05BBA07C1C9120440007124A /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		05BBA07D1C9120440007124A /* CoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		05BBA07E1C9120440007124A /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
-		05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectManipulationGestureRecognizer.swift; sourceTree = "<group>"; };
-		05BBA0801C9120440007124A /* GesturesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturesViewController.swift; sourceTree = "<group>"; };
-		05BBA0811C9120440007124A /* GestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureView.swift; sourceTree = "<group>"; };
-		05BBA0821C9120440007124A /* GravityFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravityFunction.swift; sourceTree = "<group>"; };
-		05BBA0831C9120440007124A /* GravitySimulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravitySimulation.swift; sourceTree = "<group>"; };
-		05BBA0841C9120440007124A /* GravityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GravityViewController.swift; sourceTree = "<group>"; };
 		05BBA0851C9120440007124A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		05BBA0861C9120440007124A /* SimpleTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTransform.swift; sourceTree = "<group>"; };
-		05BBA0871C9120440007124A /* SpringConfigurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringConfigurationView.swift; sourceTree = "<group>"; };
-		05BBA0881C9120440007124A /* SpringsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringsViewController.swift; sourceTree = "<group>"; };
-		05BBA0891C9120440007124A /* SpringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
+		05BBA0A01C912D7B0007124A /* ActivityViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController2.swift; sourceTree = "<group>"; };
+		05BBA0A21C912D820007124A /* ActivityView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView2.swift; sourceTree = "<group>"; };
+		05BBA0A41C912E510007124A /* DirectManipulationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectManipulationGestureRecognizer.swift; sourceTree = "<group>"; };
+		05BBA0A51C912E510007124A /* SimpleTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTransform.swift; sourceTree = "<group>"; };
+		05BBA57D1C9139010007124A /* ActivityView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView3.swift; sourceTree = "<group>"; };
+		05BBA57E1C9139010007124A /* ActivityViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController3.swift; sourceTree = "<group>"; };
+		05BBA5811C91429C0007124A /* ActivityView4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView4.swift; sourceTree = "<group>"; };
+		05BBA5821C91429C0007124A /* ActivityViewController4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController4.swift; sourceTree = "<group>"; };
 		05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		05D9145A1B9DF659008C26C2 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
@@ -348,24 +344,22 @@
 			isa = PBXGroup;
 			children = (
 				05BBA0751C9120440007124A /* ActivityView.swift */,
+				05BBA0A21C912D820007124A /* ActivityView2.swift */,
+				05BBA5811C91429C0007124A /* ActivityView4.swift */,
+				05BBA5821C91429C0007124A /* ActivityViewController4.swift */,
 				05BBA0761C9120440007124A /* ActivityViewController.swift */,
+				05BBA57D1C9139010007124A /* ActivityView3.swift */,
+				05BBA57E1C9139010007124A /* ActivityViewController3.swift */,
+				05BBA0A01C912D7B0007124A /* ActivityViewController2.swift */,
 				05BBA0781C9120440007124A /* Assets.xcassets */,
 				05BBA0791C9120440007124A /* LaunchScreen.storyboard */,
 				05BBA07B1C9120440007124A /* BrowserView.swift */,
 				05BBA07C1C9120440007124A /* BrowserViewController.swift */,
 				05BBA07D1C9120440007124A /* CoverView.swift */,
+				05BBA0A41C912E510007124A /* DirectManipulationGestureRecognizer.swift */,
+				05BBA0A51C912E510007124A /* SimpleTransform.swift */,
 				05BBA07E1C9120440007124A /* DemoViewController.swift */,
-				05BBA07F1C9120440007124A /* DirectManipulationGestureRecognizer.swift */,
-				05BBA0801C9120440007124A /* GesturesViewController.swift */,
-				05BBA0811C9120440007124A /* GestureView.swift */,
-				05BBA0821C9120440007124A /* GravityFunction.swift */,
-				05BBA0831C9120440007124A /* GravitySimulation.swift */,
-				05BBA0841C9120440007124A /* GravityViewController.swift */,
 				05BBA0851C9120440007124A /* Info.plist */,
-				05BBA0861C9120440007124A /* SimpleTransform.swift */,
-				05BBA0871C9120440007124A /* SpringConfigurationView.swift */,
-				05BBA0881C9120440007124A /* SpringsViewController.swift */,
-				05BBA0891C9120440007124A /* SpringView.swift */,
 			);
 			path = AdvanceSample3;
 			sourceTree = "<group>";
@@ -999,18 +993,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05BBA0981C9120440007124A /* GravityViewController.swift in Sources */,
 				BC2138F31A24D64A003DD8C4 /* PAPPhotoTimelineViewController.m in Sources */,
+				05BBA57F1C9139010007124A /* ActivityView3.swift in Sources */,
 				BC2138DE1A24D51B003DD8C4 /* PAPFindFriendsViewController.m in Sources */,
 				BC2139371A24D788003DD8C4 /* UIImage+RoundedCornerAdditions.m in Sources */,
 				050423A71B2C096F006A1B02 /* CONTagPopover.m in Sources */,
 				BC2139001A24D74A003DD8C4 /* PAPImageView.m in Sources */,
 				BC2139361A24D788003DD8C4 /* UIImage+ResizeAdditions.m in Sources */,
-				05BBA0941C9120440007124A /* GesturesViewController.swift in Sources */,
 				BC21392D1A24D788003DD8C4 /* PAPFindFriendsCell.m in Sources */,
 				05BBA08F1C9120440007124A /* BrowserView.swift in Sources */,
 				BC9F3F921A821C6F00629745 /* SVModalWebViewController.m in Sources */,
-				05BBA09C1C9120440007124A /* SpringsViewController.swift in Sources */,
 				BC9F3F991A821C9B00629745 /* SVWebViewControllerActivity.m in Sources */,
 				BC64A34C1A48617E00452469 /* CONInviteRequest.m in Sources */,
 				BC2139021A24D74A003DD8C4 /* PAPSettingsButtonItem.m in Sources */,
@@ -1036,44 +1028,44 @@
 				BC2139301A24D788003DD8C4 /* PAPPhotoDetailsHeaderView.m in Sources */,
 				BC9F3FA21A821CBF00629745 /* SVWebViewControllerActivitySafari.m in Sources */,
 				BC2139011A24D74A003DD8C4 /* PAPProfileImageView.m in Sources */,
+				05BBA0A71C912E510007124A /* SimpleTransform.swift in Sources */,
 				BC9F3F941A821C6F00629745 /* SVWebViewController.m in Sources */,
 				05BBA0911C9120440007124A /* CoverView.swift in Sources */,
-				05BBA0951C9120440007124A /* GestureView.swift in Sources */,
 				BC139CDC1A2DCC8700F1F3E5 /* CONShareSettingsViewController.m in Sources */,
 				BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */,
+				05BBA5841C91429C0007124A /* ActivityViewController4.swift in Sources */,
 				BC2139071A24D775003DD8C4 /* PAPLoadMoreCell.m in Sources */,
 				BCD46B411A7138BE0065E1D4 /* HPTextViewInternal.m in Sources */,
+				05BBA0A61C912E510007124A /* DirectManipulationGestureRecognizer.swift in Sources */,
 				BC64A3491A485DC100452469 /* CONInviteFriendsViewController.m in Sources */,
 				BC9F3FAC1A821CD400629745 /* SVWebViewControllerActivityChrome.m in Sources */,
-				05BBA09D1C9120440007124A /* SpringView.swift in Sources */,
 				BC2139311A24D788003DD8C4 /* PAPPhotoDetailsTableViewControllerViewController.m in Sources */,
 				05BBA0921C9120440007124A /* DemoViewController.swift in Sources */,
 				BC2138F21A24D64A003DD8C4 /* PAPHomeViewController.m in Sources */,
 				BC64A3411A484C2C00452469 /* THContactView.m in Sources */,
 				05BBA08B1C9120440007124A /* ActivityViewController.swift in Sources */,
 				BC82D0DE1A793DAD00139B57 /* UIColor+InitAdditions.m in Sources */,
+				05BBA5801C9139010007124A /* ActivityViewController3.swift in Sources */,
+				05BBA0A11C912D7B0007124A /* ActivityViewController2.swift in Sources */,
 				BC2138E41A24D561003DD8C4 /* PAPPhotoDetailsViewController.m in Sources */,
 				BC9F044B1A39D88100088C96 /* CONSignUpViewController.m in Sources */,
+				05BBA0A31C912D820007124A /* ActivityView2.swift in Sources */,
+				05BBA5831C91429C0007124A /* ActivityView4.swift in Sources */,
 				BC2138E71A24D577003DD8C4 /* PAPActivityFeedViewController.m in Sources */,
 				BC62935C1A53C28B0080F506 /* CONSocialAccount.m in Sources */,
 				BC6A21481A4EF9E900ECFDB0 /* CONSettingsViewController.m in Sources */,
 				BC2138D71A24D49B003DD8C4 /* PAPConstants.m in Sources */,
-				05BBA0971C9120440007124A /* GravitySimulation.swift in Sources */,
-				05BBA0961C9120440007124A /* GravityFunction.swift in Sources */,
-				05BBA0931C9120440007124A /* DirectManipulationGestureRecognizer.swift in Sources */,
 				BC2139081A24D775003DD8C4 /* PAPPhotoCell.m in Sources */,
 				BC2138EA1A24D5A0003DD8C4 /* PAPEditPhotoViewController.m in Sources */,
 				BC2138F11A24D64A003DD8C4 /* PAPAccountViewController.m in Sources */,
 				BC2139351A24D788003DD8C4 /* UIImage+AlphaAdditions.m in Sources */,
 				BC9F044E1A39E3D600088C96 /* CONSignupAttempt.m in Sources */,
-				05BBA09B1C9120440007124A /* SpringConfigurationView.swift in Sources */,
 				BC2138DB1A24D4EE003DD8C4 /* PAPTabBarController.m in Sources */,
 				BC6A214B1A4F060A00ECFDB0 /* CONPushNotificationSettingsViewController.m in Sources */,
 				BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */,
 				E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */,
 				BC09CAED1A309456001F8DC8 /* main.m in Sources */,
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
-				05BBA09A1C9120440007124A /* SimpleTransform.swift in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
 				C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */,
