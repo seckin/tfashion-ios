@@ -6,24 +6,37 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "PAPWelcomeViewController.h"
 #import "AppDelegate.h"
 #import "CONSocialAccount.h"
+#import "Bugsnag.h"
+#import <StandoutModule-Swift.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface PAPWelcomeViewController () {
     BOOL _presentedLoginViewController;
+    BOOL _presentedBrowserController;
     int _facebookResponseCount;
     int _expectedFacebookResponseCount;
     NSMutableData *_profilePicData;
 }
 
+@property (nonatomic, strong) ActivityViewController *a;
+@property (nonatomic, strong) ActivityViewController2 *a2;
+@property (nonatomic, strong) ActivityViewController3 *a3;
+@property (nonatomic, strong) ActivityViewController4 *a4;
+
 @end
 
 @implementation PAPWelcomeViewController
+@synthesize firstLaunch;
 
 #pragma mark - UIViewController
 
 - (void)loadView {
+    [super loadView];
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     [backgroundImageView setImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
     self.view = backgroundImageView;
@@ -31,6 +44,19 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [Bugsnag leaveBreadcrumbWithMessage:@"welcomecontroller viewdidappear"];
+    
+    if(self.firstLaunch) {
+        NSLog(@"welcomeviewcontroller self.firstLaunch: true");
+    } else {
+        NSLog(@"welcomeviewcontroller self.firstLaunch: false");
+    }
+    
+    if(self.firstLaunch) {
+        NSLog(@"welcome first launch");
+        [self presentBrowserController:NO];
+        return;
+    }
 
     if (![PFUser currentUser]) {
         [self presentLoginViewController:NO];
@@ -47,6 +73,23 @@
 
 
 #pragma mark - PAPWelcomeViewController
+
+- (void)presentBrowserController:(BOOL)animated {
+    if (_presentedBrowserController) {
+        return;
+    }
+    
+    _presentedBrowserController = YES;
+    firstLaunch = false;
+    self.a = [[ActivityViewController alloc] init];
+    self.a2 = [[ActivityViewController2 alloc] init];
+    self.a3 = [[ActivityViewController3 alloc] init];
+    self.a4 = [[ActivityViewController4 alloc] init];
+    
+    BrowserViewController *b = [[BrowserViewController alloc] initWithViewControllers:@[self.a, self.a2, self.a3, self.a4]];
+
+    [self presentViewController:b animated:animated completion:nil];
+}
 
 - (void)presentLoginViewController:(BOOL)animated {
     if (_presentedLoginViewController) {
@@ -106,10 +149,8 @@
 
 - (void)refreshCurrentUserCallbackWithResult:(PFObject *)refreshedObject error:(NSError *)error {
     // This fetches the most recent data from FB, and syncs up all data with the server including profile pic and friends list from FB.
-
     // A kPFErrorObjectNotFound error on currentUser refresh signals a deleted user
     if (error && error.code == kPFErrorObjectNotFound) {
-        NSLog(@"User does not exist.");
         [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
         return;
     }
@@ -156,9 +197,7 @@
             return;
 
         }
-        // refreshed
         NSLog(@"refreshed permissions: %@", session);
-
 
         _expectedFacebookResponseCount = 0;
         NSArray *permissions = [[session accessTokenData] permissions];

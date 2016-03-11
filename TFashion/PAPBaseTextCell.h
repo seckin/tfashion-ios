@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
+#include <UIKit/UIKit.h>
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
+#import <Parse/Parse.h>
 
 @class PAPProfileImageView;
 @protocol PAPBaseTextCellDelegate;

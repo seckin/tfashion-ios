@@ -15,6 +15,8 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - Bugsnag (5.1.0):
+    - KSCrash/RecordingAdvanced (~> 1.0.3)
   - CMDQueryStringSerialization (0.4.1):
     - ISO8601
   - cocoa-oauth (0.0.1):
@@ -41,6 +43,11 @@ PODS:
   - iOS-blur (0.0.5)
   - ISO8601 (0.5.0)
   - JazzHands (2.0.8)
+  - KSCrash/no-arc (1.0.3)
+  - KSCrash/Recording (1.0.3):
+    - KSCrash/no-arc
+  - KSCrash/RecordingAdvanced (1.0.3):
+    - KSCrash/Recording
   - libPhoneNumber-iOS (0.8.10)
   - Lookback (1.1.4):
     - PDKTZipArchive
@@ -95,6 +102,7 @@ PODS:
 DEPENDENCIES:
   - Advance (~> 0.9)
   - AFNetworking
+  - Bugsnag
   - DBCamera
   - FontAwesomeKit
   - iOS-blur
@@ -121,6 +129,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Advance: 2872109f4d069b0b0245e1375ab5073e09dd051a
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  Bugsnag: f766e45078ebdcf621e26739d41a1d26228d3988
   CMDQueryStringSerialization: 4bb0a2f5e7d8d8678d911d88072274952cbef4e5
   cocoa-oauth: 1200a2170276a62a975f2786d505dab6e2db1fa8
   DBCamera: 7a4343a541e1264610f9f33176552b93170a843e
@@ -130,6 +139,7 @@ SPEC CHECKSUMS:
   iOS-blur: 8e4a4a2202b881e940869eca0c957808cbdf0a19
   ISO8601: 25d7a973fa8daf31a50bbd0401d2e7b98e8a7df3
   JazzHands: 355dc5c2b6fc38ee460d0ed7836c69539263f477
+  KSCrash: e8f1367230da7e33f37deb7329c299079202b07e
   libPhoneNumber-iOS: 7bfd00f843fdcd82b5182b463e8eb3b27579f41d
   Lookback: 9ab9027ff246d2dc5ce34be483f70e4a6718280b
   LookbackSafe: 3f1271d9a597bbb8ef854784e87c145854e1fbef
@@ -151,4 +161,4 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   YLProgressBar: b6ec76bea4a1b8d6bdfd2995d828055a7e5f3e9a
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

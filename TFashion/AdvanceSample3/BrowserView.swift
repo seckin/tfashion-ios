@@ -35,8 +35,6 @@ class BrowserItem: NSObject {
     let transform = Spring(value: SimpleTransform())
     let size = Spring(value: CGSize.zero)
     
-    let tapRecognizer = UITapGestureRecognizer()
-
     let recognizer = DirectManipulationGestureRecognizer()
     let panRecognizer = UIPanGestureRecognizer()
     
@@ -89,21 +87,12 @@ class BrowserItem: NSObject {
             self.browserView?.setNeedsLayout()
         }
         
-        tapRecognizer.addTarget(self, action: "tap")
-        view.addGestureRecognizer(tapRecognizer)
-        
         recognizer.addTarget(self, action: "gesture:")
         view.addGestureRecognizer(recognizer)
         
         panRecognizer.addTarget(self, action: "pan:")
         panRecognizer.delegate = self
         view.addGestureRecognizer(panRecognizer)
-    }
-    
-    private dynamic func tap() {
-//        if browserView?.fullScreenItem != self {
-//            browserView?.enterFullScreen(self)
-//        }
     }
     
     private dynamic func gesture(recognizer: DirectManipulationGestureRecognizer) {

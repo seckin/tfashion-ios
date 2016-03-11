@@ -30,7 +30,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>io.conceive.Standout</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -101,8 +101,8 @@
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
+        <string>fbauth</string>
 		<string>fbshareextension</string>
-		<string>fbauth</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string>Photo</string>
@@ -112,6 +112,30 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<!--<key>NSExceptionDomains</key>-->
+		<!--<dict>-->
+			<!--<key>facebook.com</key>-->
+			<!--<dict>-->
+				<!--<key>NSIncludesSubdomains</key>-->
+				<!--<true/>-->
+				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
+				<!--<false/>-->
+			<!--</dict>-->
+			<!--<key>fbcdn.net</key>-->
+			<!--<dict>-->
+				<!--<key>NSIncludesSubdomains</key>-->
+				<!--<true/>-->
+				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
+				<!--<false/>-->
+			<!--</dict>-->
+			<!--<key>akamaihd.net</key>-->
+			<!--<dict>-->
+				<!--<key>NSIncludesSubdomains</key>-->
+				<!--<true/>-->
+				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
+				<!--<false/>-->
+			<!--</dict>-->
+		<!--</dict>-->
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2014 Monet Labs, Inc.</string>
@@ -163,8 +187,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIViewEdgeAntialiasing</key>
-	<true/>
-	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 </dict>
 </plist>

@@ -9,5 +9,8 @@
 #ifndef Standout_Bridging_Header_h
 #define Standout_Bridging_Header_h
 
+#import "AppDelegate.h"
+#import "PAPWelcomeViewController.h"
+#import <Parse/Parse.h>
 
 #endif /* Standout_Bridging_Header_h */

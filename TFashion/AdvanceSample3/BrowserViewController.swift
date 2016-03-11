@@ -1,30 +1,3 @@
-/*
-
-Copyright (c) 2016, Storehouse Media Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-*/
 
 import UIKit
 import Advance
@@ -49,6 +22,8 @@ final class BrowserViewController: UIViewController {
     
     let browserView = BrowserView(frame: CGRect.zero)
     
+    let tapRecognizer = UITapGestureRecognizer()
+    
     required init(viewControllers: [DemoViewController]) {
         self.viewControllers = viewControllers
         super.init(nibName: nil, bundle: nil)
@@ -66,8 +41,6 @@ final class BrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         
         backgroundImageView.contentMode = .ScaleAspectFill
         backgroundImageView.image = UIImage(named: "background")
@@ -84,8 +57,7 @@ final class BrowserViewController: UIViewController {
         
         let cv = CoverView(frame: CGRect(x: 0.0, y: 0.0, width: 300.0, height: 300.0))
         browserView.coverView = cv
-            
-        
+
         
         view.addSubview(browserView)
         browserView.delegate = self
@@ -97,6 +69,10 @@ final class BrowserViewController: UIViewController {
         blurSpring.changed.observe { [unowned self] (b) in
             self.blurredBackgroundImageView.alpha = b
         }
+
+        tapRecognizer.addTarget(self, action: "tap")
+        tapRecognizer.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
@@ -106,10 +82,20 @@ final class BrowserViewController: UIViewController {
         backgroundDimmingView.frame = view.bounds
         browserView.frame = view.bounds
     }
+
+    private dynamic func tap() {
+        NSLog("doubletap is here2")
+        self.dismissViewControllerAnimated(true, completion: nil);
+        
+        //        if browserView?.fullScreenItem != self {
+        //            browserView?.enterFullScreen(self)
+        //        }
+    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+
 }
 
 extension BrowserViewController: BrowserViewDelegate {

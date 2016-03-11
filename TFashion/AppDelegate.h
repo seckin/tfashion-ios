@@ -7,6 +7,7 @@
 //
 
 #import "PAPTabBarController.h"
+#import "PAPWelcomeViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate>
 
@@ -14,11 +15,13 @@
 
 @property (nonatomic, strong) PAPTabBarController *tabBarController;
 @property (nonatomic, strong) UINavigationController *navController;
+@property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 
 @property (nonatomic, readonly) int networkStatus;
 
 - (BOOL)isParseReachable;
 
+- (void)presentWelcomeViewController;
 - (void)presentLoginViewController;
 - (void)presentLoginViewController:(BOOL)animated;
 - (void)presentTabBarController;

@@ -30,7 +30,7 @@
 //        introVC.introViewControllerDelegate = self;
 //        [self.parentViewController presentViewController:introVC animated:NO completion:nil];
     }
-
+    
     self.navigationItem.title = @"Standout";
 //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 

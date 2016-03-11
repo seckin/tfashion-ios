@@ -9,8 +9,11 @@
 #import "PAPLogInViewController.h"
 #import "CONSignUpViewController.h"
 #import "AppDelegate.h"
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "MBProgressHUD.h"
+#import "Bugsnag.h"
 
 @interface PAPLogInViewController() {
     FBLoginView *_facebookLoginView;
@@ -53,7 +56,7 @@
     [self.view addSubview:appName];
 
     appIntro = [[UILabel alloc] init];
-    [appIntro setText: @"A community of tastemakers sharing pictures of clothes. Share your clothes to get them tagged so other users can double tap on them to like and comment!"];
+//    [appIntro setText: @"A community of tastemakers sharing pictures of clothes. Share your clothes to get them tagged so other users can double tap on them to like and comment!"];
     [appIntro setTextColor:[UIColor whiteColor]];
     [appIntro setFont:[UIFont systemFontOfSize:14.0f]];
     [appIntro setFrame:CGRectMake(50, 340, 220, 100)];
@@ -72,6 +75,11 @@
     _facebookLoginView.tooltipBehavior = FBLoginViewTooltipBehaviorDisable;
     [self.view addSubview:_facebookLoginView];
 
+//    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+//    loginButton.center = self.view.center;
+//    loginButton.delegate = self;
+//    [self.view addSubview:loginButton];
+    
     // Sign up button
     _logInView = [[PFLogInView alloc] initWithFields:PFLogInFieldsSignUpButton];
     _logInView.backgroundColor = [UIColor clearColor];
@@ -164,6 +172,18 @@
     return file;
 }
 
+//#pragma mark - FBSDKLoginButtonDelegate
+//
+//- (void) loginButton: (FBSDKLoginButton *)loginButton
+//    didCompleteWithResult:	(FBSDKLoginManagerLoginResult *)result
+//    error:	(NSError *)error {
+//    NSLog(@"FBSDKLoginButtonDelegate login result %@", result);
+//}
+//
+//- (void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+//    NSLog(@"FBSDKLoginButtonDelegate logout called");
+//}
+
 #pragma mark - FBLoginViewDelegate
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
@@ -172,10 +192,12 @@
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
+    NSLog(@"entered: loginView:(FBLoginView *)loginView handleError");
     [self handleLogInError:error];
 }
 
 - (void)handleFacebookSessionWithUser:(id<FBGraphUser>)user  {
+    NSLog(@"entered: handleFacebookSessionWithUser user:%@", user);
     if ([PFUser currentUser]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(loginViewControllerDidLogUserIn:)]) {
             [self.delegate performSelector:@selector(logInViewController:didLogInUser:) withObject:[PFUser currentUser]];

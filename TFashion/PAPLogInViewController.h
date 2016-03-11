@@ -6,6 +6,13 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
+#include <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 @protocol PAPLogInViewControllerDelegate;
 
 @interface PAPLogInViewController : UIViewController <FBLoginViewDelegate, PFLogInViewControllerDelegate>

@@ -23,14 +23,13 @@
 #import "CONSocialAccount.h"
 #import "CONV2IntroViewController.h"
 #import "PINMemoryCache.h"
-//#import "UIColor+CreateMethods.h"
 #import "UIImage+AlphaAdditions.h"
 #import "UIImage+TintColor.h"
 #import <Lookback/Lookback.h>
-//#import "TFashion-Swift.h"
-//#import "TFashion-Swift.h"
 #import <StandoutModule-Swift.h>
-//#import "StandoutModule-Swift.h"
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+@import Bugsnag;
 
 //#import <Analytics.h>
 
@@ -46,7 +45,7 @@
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController;
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController2;
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
-@property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
+//@property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 @property (nonatomic, strong) CONV2IntroViewController *v2IntroViewController;
 
 @property (nonatomic, strong) ActivityViewController *a;
@@ -123,6 +122,19 @@
 //    [Lookback_Weak lookback].enabled = YES;
     [Lookback_Weak lookback].shakeToRecord = YES;
     [Lookback_Weak lookback].userIdentifier = [[UIDevice currentDevice] name];
+    
+    [Bugsnag startBugsnagWithApiKey:@"41bdc25a87b64e12dc5ca3a5abc94e6b"];
+    [Bugsnag notify:[NSException exceptionWithName:@"ExceptionName" reason:@"Something bad happened" userInfo:nil]];
+
+    firstLaunch = NO;
+    NSLog(@"whether it is firstlaunch is being checked");
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore12"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore12"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        firstLaunch = YES;
+        NSLog(@"whether it is firstlaunch is being checked: YES");
+    }
 
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
@@ -141,28 +153,13 @@
     [self monitorReachability];
 
     self.welcomeViewController = [[PAPWelcomeViewController alloc] init];
+    [self.welcomeViewController setFirstLaunch:firstLaunch];
     self.v2IntroViewController = [[CONV2IntroViewController alloc] init];
-    
-    self.a = [[ActivityViewController alloc] init];
-    self.a2 = [[ActivityViewController2 alloc] init];
-    self.a3 = [[ActivityViewController3 alloc] init];
-    self.a4 = [[ActivityViewController4 alloc] init];
-//    self.g = [[GesturesViewController alloc] init];
-//    self.s = [[SpringsViewController alloc] init];
-//    self.gravity = [[GravityViewController alloc] init];
-//    let a = ActivityViewController();
-//    let a = ActivityViewController()
-//    let g = GesturesViewController()
-//    let s = SpringsViewController()
-//    let gravity = GravityViewController()
-//
-    BrowserViewController *b = [[BrowserViewController alloc] initWithViewControllers:@[self.a, self.a2, self.a3, self.a4]];
-    self.window.rootViewController = b;
-    
+
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];
     self.navController.navigationBarHidden = YES;
 
-//    self.window.rootViewController = self.navController;
+    self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
 
     [self handlePush:launchOptions];
@@ -322,7 +319,6 @@
     
     [self.navController setViewControllers:@[ self.welcomeViewController, self.tabBarController ] animated:NO];
 
-    // seckin: by updating these lines below according to anypic-ios8, I think I broke the push notifications for ios7 devices.
     // Register for Push Notitications
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
             UIUserNotificationTypeBadge |

@@ -41,7 +41,7 @@ final class CoverView: UIView {
     }
     
     override init(frame: CGRect) {
-        logoView = UIImageView(image: UIImage(named: "logo"))
+        logoView = UIImageView(image: UIImage(named: "logo-1"))
         logoView.tintColor = UIColor.whiteColor()
         logoView.sizeToFit()
         
