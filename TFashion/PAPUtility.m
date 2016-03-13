@@ -9,6 +9,7 @@
 #import "PAPUtility.h"
 #import "UIImage+ResizeAdditions.h"
 #import "PINCache.h"
+#import "ParseFacebookUtilsV4/PFFacebookUtils.h"
 
 @implementation PAPUtility
 
@@ -184,7 +185,8 @@
 + (BOOL)userHasValidFacebookData:(PFUser *)user {
     // Check that PFUser has valid fbid that matches current FBSessions userId
     NSString *facebookId = [user objectForKey:kPAPUserFacebookIDKey];
-    return (facebookId && facebookId.length > 0 && [facebookId isEqualToString:[[[PFFacebookUtils session] accessTokenData] userID]]);
+//    return (facebookId && facebookId.length > 0 && [facebookId isEqualToString:[[[PFFacebookUtils session] accessTokenData] userID]]);
+    return (facebookId && facebookId.length > 0 && [PFFacebookUtils isLinkedWithUser:user]);
 }
 
 + (BOOL)userHasValidTwitterData:(PFUser *)user {

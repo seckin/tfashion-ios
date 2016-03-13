@@ -27,8 +27,8 @@
 #import "UIImage+TintColor.h"
 #import <Lookback/Lookback.h>
 #import <StandoutModule-Swift.h>
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "FBSDKCoreKit.h"
+#import "ParseFacebookUtilsV4/PFFacebookUtils.h"
 @import Bugsnag;
 
 //#import <Analytics.h>
@@ -45,16 +45,7 @@
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController;
 @property (nonatomic, strong) PAPActivityFeedViewController *activityViewController2;
 @property (nonatomic, strong) PAPAccountViewController *accountViewController;
-//@property (nonatomic, strong) PAPWelcomeViewController *welcomeViewController;
 @property (nonatomic, strong) CONV2IntroViewController *v2IntroViewController;
-
-@property (nonatomic, strong) ActivityViewController *a;
-@property (nonatomic, strong) ActivityViewController2 *a2;
-@property (nonatomic, strong) ActivityViewController3 *a3;
-@property (nonatomic, strong) ActivityViewController4 *a4;
-//@property (nonatomic, strong) GesturesViewController *g;
-//@property (nonatomic, strong) SpringsViewController *s;
-//@property (nonatomic, strong) GravityViewController *gravity;
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 @property (nonatomic, strong) NSTimer *autoFollowTimer;
@@ -74,9 +65,15 @@
     
     // ****************************************************************************
     // Parse initialization
-    [ParseCrashReporting enable];
-    [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
-    [PFFacebookUtils initializeFacebook];
+
+//    [Parse setApplicationId:@"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO" clientKey:@"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so"];
+    [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        configuration.applicationId = @"P5xFUqEkqLlPjLoLPfPlX6GfOFPEqjmsf3ftGWfO";
+        configuration.clientKey = @"BoCGSthLOiP3tXFauR6MRnKz1icZUHgMEB1pP1so";
+        configuration.server = @"https://standouthq.com/parse";
+    }]];
+
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     // ****************************************************************************
     
 #if ENABLE_PONYDEBUGGER
@@ -111,6 +108,10 @@
     //MARK: Analytics Integration
     //[SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
     
+    self.oneSignal = [[OneSignal alloc] initWithLaunchOptions:launchOptions
+                                                        appId:@"0843795b-62de-4467-9485-983c881cc1a0"
+                                           handleNotification:nil];
+    
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
     
@@ -128,9 +129,9 @@
 
     firstLaunch = NO;
     NSLog(@"whether it is firstlaunch is being checked");
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore12"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore16"])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore12"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore16"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         firstLaunch = YES;
         NSLog(@"whether it is firstlaunch is being checked: YES");
@@ -168,24 +169,29 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL wasHandled = false;
-
-    if ([PFFacebookUtils session]) {
-        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
-    } else {
-        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    }
-
-    wasHandled |= [self handleActionURL:url];
-
-    return wasHandled;
+    NSLog(@"openurl called");
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+//    BOOL wasHandled = false;
+//
+//    if ([PFFacebookUtils session]) {
+//        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+//    } else {
+//        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+//    }
+//
+//    wasHandled |= [self handleActionURL:url];
+//
+//    return wasHandled;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
     }
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken called omg");
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken called");
 
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
@@ -225,6 +231,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    NSLog(@"applicationDidBecomeActive called");
 
     // Clear badge and update installation, required for auto-incrementing badges.
     if (application.applicationIconBadgeNumber != 0) {
@@ -247,7 +254,99 @@
     }
     
 
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    [FBSDKAppEvents activateApp];
+    
+    
+        NSLog(@"entered: applicationDidBecomeActive continues");
+        if ([PFUser currentUser]) {
+            if ([self.welcomeViewController respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
+                [self.welcomeViewController performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:[PFUser currentUser]];
+            }
+            return;
+        }
+    
+        FBSDKAccessToken *accessToken = [FBSDKAccessToken currentAccessToken];
+        NSDate *expirationDate = [accessToken expirationDate];
+    //    NSString *facebookUserId = [[[FBSession activeSession] accessTokenData] userID];
+        NSString *facebookUserId = accessToken.userID;
+    
+        if (!accessToken || !facebookUserId) {
+            NSLog(@"Login failure. FB Access Token or user ID does not exist");
+            return;
+        }
+  
+    
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:topController.view animated:YES];
+    
+    [PFFacebookUtils logInInBackgroundWithAccessToken:accessToken block:^(PFUser *user, NSError *error){
+        if (!error) {
+            [self.hud removeFromSuperview];
+            if ([self.welcomeViewController respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
+                [self.welcomeViewController performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:user];
+            }
+            
+        } else {
+            [self cancelLogIn:error];
+        }
+
+    }];
+}
+
+- (void)cancelLogIn:(NSError *)error {
+
+    if (error) {
+        [self handleLogInError:error];
+    }
+
+    [self.hud removeFromSuperview];
+    [PFUser logOut];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
+}
+
+- (void)handleLogInError:(NSError *)error {
+    if (error) {
+        NSLog(@"Error: %@", [[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"]);
+        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in PAPLogInViewController");
+        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in PAPLogInViewController");
+
+        if ([[[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"] isEqualToString:@"com.facebook.sdk:UserLoginCancelled"]) {
+            return;
+        }
+
+        if (error.code == kPFErrorFacebookInvalidSession) {
+            NSLog(@"Invalid session, logging out.");
+            return;
+        }
+
+        if (error.code == kPFErrorConnectionFailed) {
+            NSString *ok = NSLocalizedString(@"OK", @"OK");
+            NSString *title = NSLocalizedString(@"Offline Error", @"Offline Error");
+            NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Offline message");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:ok, nil];
+            [alert show];
+
+            return;
+        }
+
+        NSString *ok = NSLocalizedString(@"OK", @"OK");
+
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:ok, nil];
+        [alertView show];
+    }
 }
 
 - (BOOL)checkNotificationType:(UIUserNotificationType)type
@@ -352,7 +451,8 @@
     
     // Log out
     [PFUser logOut];
-    [FBSession setActiveSession:nil];
+//    [PFSession setActiveSession:nil];
+    [FBSDKAccessToken setCurrentAccessToken:nil];
 
     // clear out cached data, view controllers, etc
     [self.navController popToRootViewControllerAnimated:NO];
@@ -389,7 +489,7 @@
 }
 
 - (void)monitorReachability {
-    Reachability *hostReach = [Reachability reachabilityWithHostname:@"api.parse.com"];
+    Reachability *hostReach = [Reachability reachabilityWithHostname:@"standouthq.com/parse"];
 
     hostReach.reachableBlock = ^(Reachability*reach) {
         _networkStatus = [reach currentReachabilityStatus];

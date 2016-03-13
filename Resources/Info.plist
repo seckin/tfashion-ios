@@ -92,55 +92,33 @@
 			</dict>
 		</array>
 	</dict>
-	<key>FacebookDisplayName</key>
-	<string>Standout</string>
 	<key>FacebookAppID</key>
 	<string>985193038244424</string>
+	<key>FacebookDisplayName</key>
+	<string>Standout</string>
+	<key>LSApplicationCategoryType</key>
+	<string>Photo</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
-        <string>fbauth</string>
+		<string>fbauth</string>
 		<string>fbshareextension</string>
 	</array>
-	<key>LSApplicationCategoryType</key>
-	<string>Photo</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
-		<!--<key>NSExceptionDomains</key>-->
-		<!--<dict>-->
-			<!--<key>facebook.com</key>-->
-			<!--<dict>-->
-				<!--<key>NSIncludesSubdomains</key>-->
-				<!--<true/>-->
-				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
-				<!--<false/>-->
-			<!--</dict>-->
-			<!--<key>fbcdn.net</key>-->
-			<!--<dict>-->
-				<!--<key>NSIncludesSubdomains</key>-->
-				<!--<true/>-->
-				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
-				<!--<false/>-->
-			<!--</dict>-->
-			<!--<key>akamaihd.net</key>-->
-			<!--<dict>-->
-				<!--<key>NSIncludesSubdomains</key>-->
-				<!--<true/>-->
-				<!--<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>-->
-				<!--<false/>-->
-			<!--</dict>-->
-		<!--</dict>-->
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2014 Monet Labs, Inc.</string>
 	<key>UIBackgroundModes</key>
-	<array/>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UIInterfaceOrientation</key>
 	<string>UIInterfaceOrientationPortrait</string>
 	<key>UIPrerenderedIcon</key>
@@ -162,11 +140,11 @@
 			<key>TintColor</key>
 			<dict>
 				<key>Blue</key>
-				<real>0</real>
+				<real>0.0</real>
 				<key>Green</key>
-				<real>0</real>
+				<real>0.0</real>
 				<key>Red</key>
-				<real>0</real>
+				<real>0.0</real>
 			</dict>
 			<key>Translucent</key>
 			<true/>

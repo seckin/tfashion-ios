@@ -8,8 +8,8 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Step #1"
-        note = "Take amazing pictures"
+        title = "Share"
+        note = "Take amazing pictures to share"
                 
         contentView.addSubview(activityView)
     }

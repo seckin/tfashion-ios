@@ -140,7 +140,7 @@
                 socialAccount.providerId = [currentParseUser valueForKey:kPAPUserFacebookIDKey];
                 socialAccount.providerUsername = [currentParseUser valueForKey:kPAPUserEmailKey];
                 socialAccount.providerDisplayName = [currentParseUser valueForKey:kPAPUserDisplayNameKey];
-                socialAccount.scope = [[PFFacebookUtils session] permissions];
+//                socialAccount.scope = [[PFFacebookUtils session] permissions];
                 [socialAccount saveInBackground];
             }
         }
@@ -155,18 +155,19 @@
         return;
     }
 
-    FBSession *session = [PFFacebookUtils session];
-//    if (!session.isOpen) {
-//        NSLog(@"FB Session does not exist, logout");
-//        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
-//        return;
-//    }
+//    FBSession *session = [PFFacebookUtils session];
+    FBSDKAccessToken *accessToken = [FBSDKAccessToken currentAccessToken];
+    if (!accessToken) {
+        NSLog(@"FB Session does not exist, logout");
+        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
+        return;
+    }
 
-//    if (!session.accessTokenData.userID) {
-//        NSLog(@"userID on FB Session does not exist, logout");
-//        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
-//        return;
-//    }
+    if (!accessToken.userID) {
+        NSLog(@"userID on FB Session does not exist, logout");
+        [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
+        return;
+    }
 
     PFUser *currentParseUser = [PFUser currentUser];
     if (!currentParseUser) {
@@ -178,131 +179,100 @@
     NSString *facebookId = [currentParseUser objectForKey:kPAPUserFacebookIDKey];
     if (!facebookId || ![facebookId length]) {
         // set the parse user's FBID
-        [currentParseUser setObject:session.accessTokenData.userID forKey:kPAPUserFacebookIDKey];
+        [currentParseUser setObject:accessToken.userID forKey:kPAPUserFacebookIDKey];
     }
 
     if (![PAPUtility userHasValidFacebookData:currentParseUser]) {
-        NSLog(@"User does not have valid facebook ID. PFUser's FBID: %@, FBSessions FBID: %@. logout", [currentParseUser objectForKey:kPAPUserFacebookIDKey], session.accessTokenData.userID);
+        NSLog(@"User does not have valid facebook ID. PFUser's FBID: %@, FBSessions FBID: %@. logout", [currentParseUser objectForKey:kPAPUserFacebookIDKey], accessToken.userID);
         [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
         return;
     }
-
-    // Finished checking for invalid stuff
-    // Refresh FB Session (When we link up the FB access token with the parse user, information other than the access token string is dropped
-    // By going through a refresh, we populate useful parameters on FBAccessTokenData such as permissions.
-    [[PFFacebookUtils session] refreshPermissionsWithCompletionHandler:^(FBSession *session, NSError *error) {
+    
+    
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                   parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error) {
-            NSLog(@"Failed refresh of FB Session, logging out: %@", error);
+            // Failed to fetch me data.. logout to be safe
+            NSLog(@"couldn't fetch facebook /me data: %@, logout", error);
             [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
             return;
-
         }
-        NSLog(@"refreshed permissions: %@", session);
-
-        _expectedFacebookResponseCount = 0;
-        NSArray *permissions = [[session accessTokenData] permissions];
-        if ([permissions containsObject:@"public_profile"]) {
-            // Logged in with FB
-            // Create batch request for all the stuff
-            FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-            _expectedFacebookResponseCount++;
-            [connection addRequest:[FBRequest requestForMe] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if (error) {
-                    // Failed to fetch me data.. logout to be safe
-                    NSLog(@"couldn't fetch facebook /me data: %@, logout", error);
-                    [(AppDelegate *) [[UIApplication sharedApplication] delegate] logOut];
-                    return;
-                }
-
-                NSString *facebookName = result[@"name"];
-                if (facebookName && [facebookName length] != 0) {
-                    [currentParseUser setObject:facebookName forKey:kPAPUserDisplayNameKey];
-
-                    NSArray *nameparts = [facebookName componentsSeparatedByString:@" "];
-                    NSString *concatanatedName = [nameparts componentsJoinedByString:@""];
-                    NSString *lowercaseconcatanatedName = [concatanatedName lowercaseString];
-                    [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
-                    [currentParseUser setUsername:lowercaseconcatanatedName];
-                }
-                
-                NSString *email = result[@"email"];
-                if (email && [email length] != 0) {
-                    [currentParseUser setObject:email forKey:kPAPUserEmailKey];
-                }
-
-                [self processedFacebookResponse];
-
-            }];
-
-            // profile pic request
-            _expectedFacebookResponseCount++;
-            [connection addRequest:[FBRequest requestWithGraphPath:@"me" parameters:@{@"fields" : @"picture.width(500).height(500)"} HTTPMethod:@"GET"] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if (!error) {
-                    // result is a dictionary with the user's Facebook data
-                    NSDictionary *userData = (NSDictionary *) result;
-
-                    NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
-                    NSLog(@"profilePictureURL: %@", profilePictureURL);
-//                    NSString *substring = [userData[@"picture"][@"data"][@"url"] substringFromIndex:7];
-//                    NSString *prefix = @"https://s3.amazonaws.com/";
-//                    NSString *profilePictureURL = [prefix stringByAppendingString:substring];
-
-                    // Now add the data to the UI elements
-                    NSURLRequest *profilePictureURLRequest = [NSURLRequest requestWithURL:profilePictureURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f]; // Facebook profile picture cache policy: Expires in 2 weeks
-                    [NSURLConnection connectionWithRequest:profilePictureURLRequest delegate:self];
-                } else {
-                    NSLog(@"Error getting profile pic url, setting as default avatar: %@", error);
-                    NSData *profilePictureData = UIImagePNGRepresentation([UIImage imageNamed:@"AvatarPlaceholder.png"]);
-                    [PAPUtility processFacebookProfilePictureData:profilePictureData];
-                }
-                [self processedFacebookResponse];
-            }];
-            if ([permissions containsObject:@"user_friends"]) {
-                // Fetch FB Friends + me
-                _expectedFacebookResponseCount++;
-                [connection addRequest:[FBRequest requestForMyFriends] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                    NSLog(@"processing Facebook friends");
-                    if (error) {
-                        // just clear the FB friend cache
-                        [[PAPCache sharedCache] clear];
-
-                    } else {
-                        NSArray *data = [result objectForKey:@"data"];
-                        NSMutableArray *facebookIds = [[NSMutableArray alloc] initWithCapacity:[data count]];
-                        for (NSDictionary *friendData in data) {
-                            if (friendData[@"id"]) {
-                                [facebookIds addObject:friendData[@"id"]];
-                            }
-                        }
-                        // cache friend data
-                        [[PAPCache sharedCache] setFacebookFriends:facebookIds];
-
-                        if ([currentParseUser objectForKey:kPAPUserFacebookFriendsKey]) {
-                            [currentParseUser removeObjectForKey:kPAPUserFacebookFriendsKey];
-                        }
-                        if ([currentParseUser objectForKey:kPAPUserAlreadyAutoFollowedFacebookFriendsKey]) {
-                            [(AppDelegate *) [[UIApplication sharedApplication] delegate] autoFollowUsers];
-
-                        }
-                    }
-                    [self processedFacebookResponse];
-
-                }];
-            }
-            [connection start];
+        
+        NSString *facebookName = result[@"name"];
+        if (facebookName && [facebookName length] != 0) {
+            [currentParseUser setObject:facebookName forKey:kPAPUserDisplayNameKey];
+            
+            NSArray *nameparts = [facebookName componentsSeparatedByString:@" "];
+            NSString *concatanatedName = [nameparts componentsJoinedByString:@""];
+            NSString *lowercaseconcatanatedName = [concatanatedName lowercaseString];
+            [currentParseUser setObject:[NSNumber numberWithBool:YES] forKey:kPAPUserDidUpdateUsernameKey];
+            [currentParseUser setUsername:lowercaseconcatanatedName];
+        }
+        
+        NSString *email = result[@"email"];
+        if (email && [email length] != 0) {
+            [currentParseUser setObject:email forKey:kPAPUserEmailKey];
+        }
+        
+        [self processedFacebookResponse];
+    }];
+    
+    FBSDKGraphRequest *request2 = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                   parameters:@{@"fields" : @"picture.width(500).height(500)"}];
+    [request2 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // result is a dictionary with the user's Facebook data
+            NSDictionary *userData = (NSDictionary *) result;
+            
+            NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
+            NSLog(@"profilePictureURL: %@", profilePictureURL);
+            //                    NSString *substring = [userData[@"picture"][@"data"][@"url"] substringFromIndex:7];
+            //                    NSString *prefix = @"https://s3.amazonaws.com/";
+            //                    NSString *profilePictureURL = [prefix stringByAppendingString:substring];
+            
+            // Now add the data to the UI elements
+            NSURLRequest *profilePictureURLRequest = [NSURLRequest requestWithURL:profilePictureURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f]; // Facebook profile picture cache policy: Expires in 2 weeks
+            [NSURLConnection connectionWithRequest:profilePictureURLRequest delegate:self];
         } else {
+            NSLog(@"Error getting profile pic url, setting as default avatar: %@", error);
             NSData *profilePictureData = UIImagePNGRepresentation([UIImage imageNamed:@"AvatarPlaceholder.png"]);
             [PAPUtility processFacebookProfilePictureData:profilePictureData];
-
-            [[PAPCache sharedCache] clear];
-            [currentParseUser setObject:@"Someone" forKey:kPAPUserDisplayNameKey];
-            _expectedFacebookResponseCount++;
-            [self processedFacebookResponse];
-
         }
-
-
+        [self processedFacebookResponse];
     }];
+    
+    if ([accessToken.permissions containsObject:@"user_friends"]) {
+        FBSDKGraphRequest *request3 = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
+                                                                       parameters:nil];
+        [request3 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            NSLog(@"processing Facebook friends");
+            if (error) {
+                // *** TODO: only clear facebook friends, not the all cache
+                // just clear the FB friend cache
+                [[PAPCache sharedCache] clear];
+            } else {
+                NSArray *data = [result objectForKey:@"data"];
+                NSMutableArray *facebookIds = [[NSMutableArray alloc] initWithCapacity:[data count]];
+                for (NSDictionary *friendData in data) {
+                    if (friendData[@"id"]) {
+                        [facebookIds addObject:friendData[@"id"]];
+                    }
+                }
+                // cache friend data
+                [[PAPCache sharedCache] setFacebookFriends:facebookIds];
+                
+                if ([currentParseUser objectForKey:kPAPUserFacebookFriendsKey]) {
+                    [currentParseUser removeObjectForKey:kPAPUserFacebookFriendsKey];
+                }
+                if ([currentParseUser objectForKey:kPAPUserAlreadyAutoFollowedFacebookFriendsKey]) {
+                    [(AppDelegate *) [[UIApplication sharedApplication] delegate] autoFollowUsers];
+                    
+                }
+            }
+            [self processedFacebookResponse];
+        }];
+    }
 
 }
 

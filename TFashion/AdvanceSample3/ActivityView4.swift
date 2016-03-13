@@ -16,7 +16,7 @@ public final class ActivityView4: UIView {
         button.setTitle("Double Tap to Continue >", forState: UIControlState.Normal)
         button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         // *** TODO: if you make this button work instead of the double tap in the parent, you need to change -25 to 0
-        button.frame = CGRectMake(25, -10, 200, 25) // X, Y, width, height
+        button.frame = CGRectMake(0, -10, 250, 25) // X, Y, width, height
         button.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(button)
 

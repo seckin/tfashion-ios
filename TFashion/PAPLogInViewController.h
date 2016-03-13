@@ -7,17 +7,18 @@
 //
 
 #include <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import "FBSDKCoreKit.h"
+#import "FBSDKLoginKit.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @protocol PAPLogInViewControllerDelegate;
 
-@interface PAPLogInViewController : UIViewController <FBLoginViewDelegate, PFLogInViewControllerDelegate>
+//@interface PAPLogInViewController : UIViewController <FBLoginViewDelegate, PFLogInViewControllerDelegate>
+@interface PAPLogInViewController : UIViewController <PFLogInViewControllerDelegate>
 
 @property (nonatomic, assign) id<PAPLogInViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 
 @end
 

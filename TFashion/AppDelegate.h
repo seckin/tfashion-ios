@@ -8,8 +8,11 @@
 
 #import "PAPTabBarController.h"
 #import "PAPWelcomeViewController.h"
+#import <OneSignal/OneSignal.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate>
+
+@property (strong, nonatomic) OneSignal *oneSignal;
 
 @property (nonatomic, strong) UIWindow *window;
 

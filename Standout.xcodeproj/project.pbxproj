@@ -13,12 +13,12 @@
 		052965101C85609500B98183 /* foundation-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650D1C85609500B98183 /* foundation-icons.ttf */; };
 		052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */; };
 		052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 052965121C85610800B98183 /* TSMessagesDefaultDesign.json */; };
-		052C49231C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset in Resources */ = {isa = PBXBuildFile; fileRef = 052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */; };
 		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
 		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
-		057625171C92B9D0004AD1AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 057625161C92B9D0004AD1AF /* FacebookSDK.framework */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
 		059881331A257E64006AD82A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881311A257E64006AD82A /* Fabric.framework */; };
+		05B53CAE1C93C166003B9C47 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B53CAA1C93C166003B9C47 /* ParseUI.framework */; };
+		05B53CB01C93C166003B9C47 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B53CAC1C93C166003B9C47 /* Parse.framework */; };
 		05BBA08A1C9120440007124A /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0751C9120440007124A /* ActivityView.swift */; };
 		05BBA08B1C9120440007124A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BBA0761C9120440007124A /* ActivityViewController.swift */; };
 		05BBA08D1C9120440007124A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05BBA0781C9120440007124A /* Assets.xcassets */; };
@@ -108,10 +108,6 @@
 		BCD9F7E91A7AA39C00F9811B /* CONFollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7E81A7AA39C00F9811B /* CONFollowersViewController.m */; };
 		BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */; };
 		BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */; };
-		BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858A1A58301300BF8029 /* Parse.framework */; };
-		BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */; };
-		BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */; };
-		BCE485911A58301300BF8029 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE4858D1A58301300BF8029 /* ParseUI.framework */; };
 		C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */; };
 		C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */; };
 		C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */; };
@@ -131,15 +127,14 @@
 		0529650E1C85609500B98183 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = Pods/FontAwesomeKit/FontAwesomeKit/ionicons.ttf; sourceTree = "<group>"; };
 		0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zocial-regular-webfont.ttf"; path = "Pods/FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"; sourceTree = "<group>"; };
 		052965121C85610800B98183 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Pods/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
-		052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "FacebookSDK-4_10-for-iOS.docset"; sourceTree = "<group>"; };
 		052C49241C8AC6D30077F80B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Resources/Info.plist; sourceTree = "<group>"; };
 		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
 		055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONV2IntroViewController.m; sourceTree = "<group>"; };
 		055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONV2IntroViewController.xib; sourceTree = "<group>"; };
-		057625141C92B92A004AD1AF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		057625161C92B9D0004AD1AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		059881301A257E64006AD82A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		059881311A257E64006AD82A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
+		05B53CAA1C93C166003B9C47 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		05B53CAC1C93C166003B9C47 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		05BBA0731C911A210007124A /* Standout-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Standout-Bridging-Header.h"; path = "TFashion/Standout-Bridging-Header.h"; sourceTree = "<group>"; };
 		05BBA0751C9120440007124A /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		05BBA0761C9120440007124A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
@@ -292,10 +287,6 @@
 		BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONFollowingViewController.m; sourceTree = "<group>"; };
 		BCD9F8001A7BD5EF00F9811B /* CONInstagramMedium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONInstagramMedium.h; sourceTree = "<group>"; };
 		BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInstagramMedium.m; sourceTree = "<group>"; };
-		BCE4858A1A58301300BF8029 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
-		BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
-		BCE4858D1A58301300BF8029 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
 		C9FB344B276308A0E366A45F /* CONDemoTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONDemoTag.h; sourceTree = "<group>"; };
 		C9FB3603C366E3750566773D /* CONImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONImageOverlay.h; sourceTree = "<group>"; };
@@ -316,14 +307,11 @@
 			files = (
 				05BBA5861C91DF590007124A /* UIKit.framework in Frameworks */,
 				05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */,
+				05B53CAE1C93C166003B9C47 /* ParseUI.framework in Frameworks */,
 				05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */,
-				BCE4858F1A58301300BF8029 /* ParseCrashReporting.framework in Frameworks */,
 				059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */,
-				BCE485901A58301300BF8029 /* ParseFacebookUtils.framework in Frameworks */,
-				BCE4858E1A58301300BF8029 /* Parse.framework in Frameworks */,
-				057625171C92B9D0004AD1AF /* FacebookSDK.framework in Frameworks */,
-				BCE485911A58301300BF8029 /* ParseUI.framework in Frameworks */,
 				059881331A257E64006AD82A /* Fabric.framework in Frameworks */,
+				05B53CB01C93C166003B9C47 /* Parse.framework in Frameworks */,
 				1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,14 +772,9 @@
 		E7ADD44517BEA09500E975E2 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				052C49221C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset */,
-				057625161C92B9D0004AD1AF /* FacebookSDK.framework */,
-				057625141C92B92A004AD1AF /* Bolts.framework */,
+				05B53CAA1C93C166003B9C47 /* ParseUI.framework */,
+				05B53CAC1C93C166003B9C47 /* Parse.framework */,
 				BC9F3F8B1A821C1800629745 /* SVWebViewController */,
-				BCE4858A1A58301300BF8029 /* Parse.framework */,
-				BCE4858B1A58301300BF8029 /* ParseCrashReporting.framework */,
-				BCE4858C1A58301300BF8029 /* ParseFacebookUtils.framework */,
-				BCE4858D1A58301300BF8029 /* ParseUI.framework */,
 				059881301A257E64006AD82A /* Crashlytics.framework */,
 				059881311A257E64006AD82A /* Fabric.framework */,
 				BCD46B3B1A7138A90065E1D4 /* GrowingTextView */,
@@ -913,7 +896,6 @@
 				B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */,
 				BC9F3F931A821C6F00629745 /* SVWebViewController.bundle in Resources */,
 				BC9F3FA11A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad@2x.png in Resources */,
-				052C49231C8ABFD50077F80B /* FacebookSDK-4_10-for-iOS.docset in Resources */,
 				BC9F3FAD1A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
 				BC9F3FAA1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				BC19D2A71A278686002B9944 /* Images.xcassets in Resources */,

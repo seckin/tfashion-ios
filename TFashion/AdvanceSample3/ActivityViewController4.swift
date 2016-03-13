@@ -8,7 +8,7 @@ import UIKit
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Step #4"
+        title = "Community"
         note = "Explore, curate, make new friends!"
                 
         contentView.addSubview(activityView)
