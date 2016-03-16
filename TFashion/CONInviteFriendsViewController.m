@@ -108,7 +108,8 @@ ABAddressBookRef addressBook;
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = NSLocalizedString(@"Sending", nil);
     self.hud.dimBackground = YES;
-    
+
+    NSLog(@"sending.. current user: %@", [PFUser currentUser]);
     for (CONContact *contact in self.selectedContacts) {
         CONInviteRequest *inviteRequest = [CONInviteRequest object];
         inviteRequest.fromUser = [PFUser currentUser];

@@ -1,3 +1,4 @@
+
 #import "CONTagPopover.h"
 
 @interface CONTagPopover ()
@@ -75,7 +76,6 @@
 #pragma mark -
 
 - (void)loadLikers {
-    NSLog(@"loadLikers called");
     if (self.likersQueryInProgress) {
         return;
     }
@@ -87,7 +87,6 @@
         if (error) {
             return;
         }
-        NSLog(@"activities on cloth returned count: %d", [objects count]);
 
         NSMutableArray *likers = [NSMutableArray array];
         NSMutableArray *commenters = [NSMutableArray array];
@@ -107,7 +106,6 @@
                 }
             }
         }
-        NSLog(@"likers and commenters filled. likers count: %d commeters count: %d", [likers count], [commenters count]);
 
         [[PAPCache sharedCache] setAttributesForCloth:self.cloth likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
         [self resizeTextField];
@@ -162,11 +160,6 @@
                                              selector:@selector(tagTextFieldDidChangeWithNotification:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:nil];
-    
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(didReceiveCancelNotification:)
-//                                                 name:EBPhotoPagesControllerDidCancelTaggingNotification object:nil];
 }
 
 
@@ -358,22 +351,12 @@
     }
 }
 
-- (void)didReceiveCancelNotification:(NSNotification *)aNotification
-{
-    if(self.isFirstResponder){
-        [self setCanceled:YES];
-        [self resignFirstResponder];
-        [self removeFromSuperview];
-    }
-}
-
 #pragma mark - UITextField Delegate
 
 
 - (BOOL)textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string {
-    NSLog(@"shouldChangeCharactersInRange called.");
     BOOL result = NO;
     
     if(textField == self.tagTextField){
@@ -383,7 +366,6 @@ replacementString:(NSString *)string {
         }
     }
 
-    NSLog(@"shouldChangeCharactersInRange returning %@", result);
     return result;
 }
 
@@ -464,8 +446,6 @@ replacementString:(NSString *)string {
     if(commenters) {
         commentCount = [commenters count];
     }
-    NSLog(@"likeCount: %d", likeCount);
-    NSLog(@"commentCount: %d", commentCount);
 
     NSString *countTexts = [NSString stringWithFormat:@"%d%d", likeCount, commentCount];
     CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:countFontSize]}];

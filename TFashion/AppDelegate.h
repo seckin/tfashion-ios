@@ -8,7 +8,7 @@
 
 #import "PAPTabBarController.h"
 #import "PAPWelcomeViewController.h"
-#import <OneSignal/OneSignal.h>
+#import "OneSignal.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLConnectionDataDelegate, UITabBarControllerDelegate>
 
@@ -24,7 +24,6 @@
 
 - (BOOL)isParseReachable;
 
-- (void)presentWelcomeViewController;
 - (void)presentLoginViewController;
 - (void)presentLoginViewController:(BOOL)animated;
 - (void)presentTabBarController;

@@ -29,6 +29,7 @@
 #import <StandoutModule-Swift.h>
 #import "FBSDKCoreKit.h"
 #import "ParseFacebookUtilsV4/PFFacebookUtils.h"
+#import "OneSignal.h"
 @import Bugsnag;
 
 //#import <Analytics.h>
@@ -95,8 +96,10 @@
     
     // Connect to a specific host
     [debugger connectToURL:[NSURL URLWithString:@"ws://localhost:9000/device"]];
+//    [debugger connectToURL:[NSURL URLWithString:@"ws://192.168.1.34.xip.io:9000/device"]];
+    
     // Or auto connect via bonjour discovery
-    //[debugger autoConnect];
+//    [debugger autoConnect];
     // Or to a specific ponyd bonjour service
     //[debugger autoConnectToBonjourServiceNamed:@"MY PONY"];
     
@@ -109,8 +112,24 @@
     //[SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
     
     self.oneSignal = [[OneSignal alloc] initWithLaunchOptions:launchOptions
-                                                        appId:@"0843795b-62de-4467-9485-983c881cc1a0"
-                                           handleNotification:nil];
+                                                        appId:@"6818323d-795c-43ad-bc7d-ce98225d2d95"
+                                           handleNotification:nil ];
+//                                                   ^(NSString* message, NSDictionary* additionalData, BOOL isActive) {
+//                                               NSLog(@"OneSignal Notification opened:\nMessage: %@", message);
+//
+//                                               if (additionalData) {
+//                                                   NSLog(@"additionalData: %@", additionalData);
+//
+//                                                   // Check for and read any custom values you added to the notification
+//                                                   // This done with the "Additional Data" section the dashboard.
+//                                                   // OR setting the 'data' field on our REST API.
+//                                                   NSString* customKey = additionalData[@"customKey"];
+//                                                   if (customKey)
+//                                                       NSLog(@"customKey: %@", customKey);
+//                                               }}
+
+    
+    //[self.oneSignal enableInAppAlertNotification:YES];
     
     //MARK: Crashlytics
     [Fabric with:@[CrashlyticsKit]];
@@ -125,16 +144,14 @@
     [Lookback_Weak lookback].userIdentifier = [[UIDevice currentDevice] name];
     
     [Bugsnag startBugsnagWithApiKey:@"41bdc25a87b64e12dc5ca3a5abc94e6b"];
-    [Bugsnag notify:[NSException exceptionWithName:@"ExceptionName" reason:@"Something bad happened" userInfo:nil]];
+//    [Bugsnag notify:[NSException exceptionWithName:@"ExceptionName" reason:@"Something bad happened" userInfo:nil]];
 
     firstLaunch = NO;
-    NSLog(@"whether it is firstlaunch is being checked");
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore16"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore18"])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore16"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore18"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         firstLaunch = YES;
-        NSLog(@"whether it is firstlaunch is being checked: YES");
     }
 
     if (application.applicationIconBadgeNumber != 0) {
@@ -169,29 +186,22 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    NSLog(@"openurl called");
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation];
-//    BOOL wasHandled = false;
-//
-//    if ([PFFacebookUtils session]) {
-//        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
-//    } else {
-//        wasHandled |= [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-//    }
-//
-//    wasHandled |= [self handleActionURL:url];
-//
-//    return wasHandled;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
     }
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken called");
+//
+//    [self.oneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
+//        NSLog(@"UserId:%@", userId);
+//        if (pushToken != nil)
+//            NSLog(@"pushToken:%@", pushToken);
+//    }];
 
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
@@ -205,6 +215,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"didReceiveRemoteNotification!!!");
     [[NSNotificationCenter defaultCenter] postNotificationName:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil userInfo:userInfo];
     
     if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
@@ -213,7 +224,7 @@
     }
 
     if ([PFUser currentUser]) {
-        if ([self.tabBarController viewControllers].count > PAPActivityTabBarItemIndex) {
+        //if ([self.tabBarController viewControllers].count > PAPActivityTabBarItemIndex) {
             UITabBarItem *tabBarItem = [[self.tabBarController.viewControllers objectAtIndex:PAPActivityTabBarItemIndex] tabBarItem];
             
             NSString *currentBadgeValue = tabBarItem.badgeValue;
@@ -226,7 +237,7 @@
             } else {
                 tabBarItem.badgeValue = @"1";
             }
-        }
+        //}
     }
 }
 
@@ -244,12 +255,9 @@
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
         if ([self checkNotificationType:UIUserNotificationTypeBadge]) {
-            application.applicationIconBadgeNumber = 1;
             application.applicationIconBadgeNumber = 0;
         }
-        
     } else {
-        application.applicationIconBadgeNumber = 1;
         application.applicationIconBadgeNumber = 0;
     }
     
@@ -451,7 +459,6 @@
     
     // Log out
     [PFUser logOut];
-//    [PFSession setActiveSession:nil];
     [FBSDKAccessToken setCurrentAccessToken:nil];
 
     // clear out cached data, view controllers, etc
@@ -509,6 +516,7 @@
 }
 
 - (void)handlePush:(NSDictionary *)launchOptions {
+    NSLog(@"handlePush!!!");
 
     // If the app was launched in response to a push notification, we'll handle the payload here
     NSDictionary *remoteNotificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];

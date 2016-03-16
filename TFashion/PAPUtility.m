@@ -18,28 +18,22 @@
 #pragma mark Like Photos
 
 + (void)likeClothInBackground:(PFObject *)cloth photo:(PFObject *)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
-    NSLog(@"entered likeClothInBackground");
-    NSLog(@"cloth is: %@", cloth.objectId);
     PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kPAPActivityClassKey];
     [queryExistingLikes whereKey:kPAPActivityClothKey equalTo:cloth];
     [queryExistingLikes whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeLike];
     [queryExistingLikes whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
     [queryExistingLikes setCachePolicy:kPFCachePolicyNetworkOnly];
-    NSLog(@"queryExistingLikes is being called now");
     [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-        NSLog(@"inside queryExistingLikes");
         if (!error) {
             for (PFObject *activity in activities) {
                 [activity delete];
             }
         }
 
-        NSLog(@"proceed to creating new like");
         // proceed to creating new like
         PFObject *likeActivity = [PFObject objectWithClassName:kPAPActivityClassKey];
         [likeActivity setObject:kPAPActivityTypeLike forKey:kPAPActivityTypeKey];
         [likeActivity setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
-        NSLog(@"touser part: %@", [photo objectForKey:kPAPPhotoUserKey]);
         [likeActivity setObject:[photo objectForKey:kPAPPhotoUserKey] forKey:kPAPActivityToUserKey];
         [likeActivity setObject:photo forKey:kPAPActivityPhotoKey];
         [likeActivity setObject:cloth forKey:kPAPActivityClothKey];
@@ -372,9 +366,7 @@
 }
 
 + (BOOL)isLocationInsideCloth:(CGFloat)x withY:(CGFloat)y clothPieces:(NSArray *)clothPieces {
-
     float scale = 320.0 / 560.0;
-//    NSArray *cloth_pieces = [clothData objectForKey:@"cloth_pieces"];
     if([clothPieces count] == 0) {
         return NO;
     }

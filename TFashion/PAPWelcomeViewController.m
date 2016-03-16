@@ -1,19 +1,8 @@
-//
-//  PAPWelcomeViewController.m
-//  Anypic
-//
-//  Created by Héctor Ramos on 5/10/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
 
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "PAPWelcomeViewController.h"
 #import "AppDelegate.h"
 #import "CONSocialAccount.h"
-#import "Bugsnag.h"
 #import <StandoutModule-Swift.h>
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface PAPWelcomeViewController () {
     BOOL _presentedLoginViewController;
@@ -44,16 +33,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [Bugsnag leaveBreadcrumbWithMessage:@"welcomecontroller viewdidappear"];
-    
+
     if(self.firstLaunch) {
-        NSLog(@"welcomeviewcontroller self.firstLaunch: true");
-    } else {
-        NSLog(@"welcomeviewcontroller self.firstLaunch: false");
-    }
-    
-    if(self.firstLaunch) {
-        NSLog(@"welcome first launch");
         [self presentBrowserController:NO];
         return;
     }
@@ -106,6 +87,8 @@
 #pragma mark - PAPLoginViewControllerDelegate
 
 - (void)logInViewControllerDidLogUserIn:(PAPLogInViewController *)logInViewController {
+    [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:kPAPInstallationUserKey];
+    
     if (_presentedLoginViewController) {
         _presentedLoginViewController = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -155,7 +138,6 @@
         return;
     }
 
-//    FBSession *session = [PFFacebookUtils session];
     FBSDKAccessToken *accessToken = [FBSDKAccessToken currentAccessToken];
     if (!accessToken) {
         NSLog(@"FB Session does not exist, logout");
@@ -226,11 +208,7 @@
             NSDictionary *userData = (NSDictionary *) result;
             
             NSURL *profilePictureURL = [NSURL URLWithString:userData[@"picture"][@"data"][@"url"]];
-            NSLog(@"profilePictureURL: %@", profilePictureURL);
-            //                    NSString *substring = [userData[@"picture"][@"data"][@"url"] substringFromIndex:7];
-            //                    NSString *prefix = @"https://s3.amazonaws.com/";
-            //                    NSString *profilePictureURL = [prefix stringByAppendingString:substring];
-            
+
             // Now add the data to the UI elements
             NSURLRequest *profilePictureURLRequest = [NSURLRequest requestWithURL:profilePictureURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f]; // Facebook profile picture cache policy: Expires in 2 weeks
             [NSURLConnection connectionWithRequest:profilePictureURLRequest delegate:self];

@@ -1,10 +1,3 @@
-//
-//  PAPPhotoDetailViewController.m
-//  Anypic
-//
-//  Created by Mattieu Gamache-Asselin on 5/15/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
 
 #import "PAPPhotoDetailsViewController.h"
 #import "PAPActivityCell.h"
@@ -72,7 +65,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
-    NSLog(@"Papphotodetailsviewcontroller viewdidload");
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [super viewDidLoad];
@@ -130,8 +122,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedCloth:) name:PAPUtilityUserLikedUnlikedClothCallbackFinishedNotification object:self.cloth];
     
     // Generate mention data
-    NSLog(@"burda1");
-    
+
     // Find users who are followed by current user
     PFQuery *followingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
     [followingQuery whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
@@ -139,7 +130,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     [followingQuery includeKey:kPAPActivityToUserKey];
     [followingQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && objects) {
-            NSLog(@"burda3");
             NSMutableArray *followees = [[NSMutableArray alloc] init];
             for (PFObject *followActivity in objects) {
                 PFUser *followee = [followActivity objectForKey:kPAPActivityToUserKey];
@@ -153,7 +143,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"burda2");
     [super viewDidAppear:animated];
 
     [self.headerView reloadLikeBar];

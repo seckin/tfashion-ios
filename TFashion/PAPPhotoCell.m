@@ -1,19 +1,7 @@
-//
-//  PAPPhotoCell.m
-//  Anypic
-//
-//  Created by Héctor Ramos on 5/3/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
 
-//#import <pop/POPAnimatableProperty.h>
-//#import <pop/POPBasicAnimation.h>
 #import "PAPPhotoCell.h"
-#import "PAPUtility.h"
 #import "CONImageOverlay.h"
 #import "pop.h"
-#import "CONDemoTag.h"
-#import "CONTagPopover.h"
 #import "PINCache.h"
 
 @implementation PAPPhotoCell

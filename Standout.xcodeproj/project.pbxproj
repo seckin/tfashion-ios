@@ -109,14 +109,12 @@
 		BCD9F7EC1A7AB8E200F9811B /* CONFollowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F7EB1A7AB8E200F9811B /* CONFollowingViewController.m */; };
 		BCD9F8021A7BD5EF00F9811B /* CONInstagramMedium.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */; };
 		C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */; };
-		C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */; };
 		C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */; };
 		E7ADD51117BEA09500E975E2 /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */; };
 		E7ADD51217BEA09500E975E2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD4C017BEA09500E975E2 /* UIImage+ImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CONPhotoTagProtocol.h; sourceTree = "<group>"; };
 		050423A51B2C096F006A1B02 /* CONTagPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONTagPopover.h; sourceTree = "<group>"; };
 		050423A61B2C096F006A1B02 /* CONTagPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONTagPopover.m; sourceTree = "<group>"; };
 		050C80F51C791FF300798AD0 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
@@ -288,10 +286,8 @@
 		BCD9F8001A7BD5EF00F9811B /* CONInstagramMedium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONInstagramMedium.h; sourceTree = "<group>"; };
 		BCD9F8011A7BD5EF00F9811B /* CONInstagramMedium.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONInstagramMedium.m; sourceTree = "<group>"; };
 		C9FB329152595BCD29D9D8AA /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
-		C9FB344B276308A0E366A45F /* CONDemoTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONDemoTag.h; sourceTree = "<group>"; };
 		C9FB3603C366E3750566773D /* CONImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONImageOverlay.h; sourceTree = "<group>"; };
 		C9FB38A212646C23B10A6DD7 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
-		C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONDemoTag.m; sourceTree = "<group>"; };
 		C9FB3FF3860263740FD51EC9 /* CONImageOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONImageOverlay.m; sourceTree = "<group>"; };
 		E7ADD4BC17BEA09500E975E2 /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		E7ADD4BD17BEA09500E975E2 /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
@@ -415,11 +411,8 @@
 				BC2139041A24D775003DD8C4 /* PAPLoadMoreCell.m */,
 				BC2139051A24D775003DD8C4 /* PAPPhotoCell.h */,
 				BC2139061A24D775003DD8C4 /* PAPPhotoCell.m */,
-				050423A41B2C0914006A1B02 /* CONPhotoTagProtocol.h */,
 				050423A51B2C096F006A1B02 /* CONTagPopover.h */,
 				050423A61B2C096F006A1B02 /* CONTagPopover.m */,
-				C9FB3B0756BB25ED48C177CC /* CONDemoTag.m */,
-				C9FB344B276308A0E366A45F /* CONDemoTag.h */,
 			);
 			name = UITableViewCells;
 			sourceTree = "<group>";
@@ -1050,7 +1043,6 @@
 				BCD46B401A7138BE0065E1D4 /* HPGrowingTextView.m in Sources */,
 				BC21392C1A24D788003DD8C4 /* PAPBaseTextCell.m in Sources */,
 				C9FB38FEDE265E2562D3C955 /* CONImageOverlay.m in Sources */,
-				C9FB381D8EA2EE1FAFBB912E /* CONDemoTag.m in Sources */,
 				05BBA0901C9120440007124A /* BrowserViewController.swift in Sources */,
 				C9FB33277DA2E9983660A032 /* UIColor+CreateMethods.m in Sources */,
 			);
@@ -1099,8 +1091,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.conceive.Standout;
 				PRODUCT_MODULE_NAME = StandoutModule;
 				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
@@ -1133,9 +1126,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_BUNDLE_IDENTIFIER = io.conceive.Standout;
 				PRODUCT_MODULE_NAME = StandoutModule;
 				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
@@ -1153,7 +1147,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1179,7 +1173,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1195,7 +1189,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1215,7 +1209,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1247,9 +1241,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_BUNDLE_IDENTIFIER = io.conceive.Standout;
 				PRODUCT_MODULE_NAME = StandoutModule;
 				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
@@ -1267,7 +1262,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1287,7 +1282,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1319,9 +1314,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_BUNDLE_IDENTIFIER = io.conceive.Standout;
 				PRODUCT_MODULE_NAME = StandoutModule;
 				PROVISIONING_PROFILE = "4c06ec53-81ef-411b-aa5b-3be4ecd2e175";
 				SDKROOT = iphoneos;
@@ -1339,7 +1335,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seckin Sahin (9GTXSX9C6X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1359,7 +1355,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
