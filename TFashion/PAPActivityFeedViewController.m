@@ -280,11 +280,11 @@
 
 + (NSString *)stringForActivityType:(NSString *)activityType {
     if ([activityType isEqualToString:kPAPActivityTypeLike]) {
-        return NSLocalizedString(@"liked your cloth in a photo", nil);
+        return NSLocalizedString(@"liked an item in your photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeFollow]) {
         return NSLocalizedString(@"started following you", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeComment]) {
-        return NSLocalizedString(@"commented on your cloth in a photo", nil);
+        return NSLocalizedString(@"commented on an item in your photo", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeJoined]) {
         return NSLocalizedString(@"joined Standout", nil);
     } else if ([activityType isEqualToString:kPAPActivityTypeMention]) {
