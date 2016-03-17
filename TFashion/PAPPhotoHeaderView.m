@@ -57,7 +57,7 @@
             self.userButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [containerView addSubview:self.userButton];
             [self.userButton setBackgroundColor:[UIColor clearColor]];
-            [[self.userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
+            [[self.userButton titleLabel] setFont:[UIFont fontWithName:@"Gotham-Medium" size:15]];
             [self.userButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
             [self.userButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
             [[self.userButton titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
@@ -69,7 +69,7 @@
         self.timestampLabel = [[UILabel alloc] initWithFrame:CGRectMake( 50.0f, 24.0f, containerView.bounds.size.width - 50.0f - 72.0f, 18.0f)];
         [containerView addSubview:self.timestampLabel];
         [self.timestampLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
-        [self.timestampLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        [self.timestampLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
         [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
     }
 

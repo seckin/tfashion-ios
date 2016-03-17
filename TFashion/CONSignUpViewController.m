@@ -39,7 +39,7 @@
     
     _codeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [_codeLabel setText:[self randomStringWithLength:6]];
-    [_codeLabel setFont:[UIFont boldSystemFontOfSize:35]];
+    [_codeLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:35]];
     [_codeLabel setTextColor:[UIColor colorWithRed:91.0f/255.0f green:107.0f/255.0f blue:118.0f/255.0f alpha:1.0f]];
     [self.signUpView addSubview:_codeLabel];
     

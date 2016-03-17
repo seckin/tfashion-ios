@@ -487,7 +487,7 @@ replacementString:(NSString *)string {
     likeCountLabel.text = likeCountText;
     [likeCountLabel sizeToFit];
     [likeCountLabel setTextColor:[UIColor colorWithRed:254.0f / 255.0f green:254.0f / 255.0f blue:254.0f / 255.0f alpha:1.0f]];
-    [likeCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [likeCountLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:countFontSize]];
     [likeCountLabel setFrame:CGRectMake(18.0, 3.0f, 16.0f, 16.0f)];
     [self.tagTextField addSubview:likeCountLabel];
 
@@ -507,7 +507,7 @@ replacementString:(NSString *)string {
     commentCountLabel.text = commentCountText;
     [commentCountLabel sizeToFit];
     [commentCountLabel setTextColor:[UIColor colorWithRed:254.0f / 255.0f green:254.0f / 255.0f blue:254.0f / 255.0f alpha:1.0f]];
-    [commentCountLabel setFont:[UIFont systemFontOfSize:countFontSize]];
+    [commentCountLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:countFontSize]];
     [commentCountLabel setFrame:CGRectMake(48.0, 3.0f, 16.0f, 16.0f)];
     [self.tagTextField addSubview:commentCountLabel];
 

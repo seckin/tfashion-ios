@@ -79,13 +79,13 @@ static TTTTimeIntervalFormatter *timeFormatter;
             [self.nameButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
             [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
         }
-        [self.nameButton.titleLabel setFont:[UIFont boldSystemFontOfSize:13]];
+        [self.nameButton.titleLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]];
         [self.nameButton.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [self.nameButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:self.nameButton];
         
         self.contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-        [self.contentLabel setFont:[UIFont systemFontOfSize:13.0f]];
+        [self.contentLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:13.0f]];
         if ([reuseIdentifier isEqualToString:@"ActivityCell"]) {
             [self.contentLabel setTextColor:[UIColor blackColor]];
         } else {
@@ -104,7 +104,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [mainView insertSubview:self.contentLabel belowSubview:self.nameButton];
         
         self.timeLabel = [[UILabel alloc] init];
-        [self.timeLabel setFont:[UIFont systemFontOfSize:11]];
+        [self.timeLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
         [self.timeLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
         [self.timeLabel setBackgroundColor:[UIColor clearColor]];
         [mainView addSubview:self.timeLabel];
@@ -140,7 +140,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     // Layout the name button
     CGSize nameSize = [self.nameButton.titleLabel.text boundingRectWithSize:CGSizeMake(nameMaxWidth, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin // word wrap?
-                                                 attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]}
                                                     context:nil].size;
     [self.nameButton setFrame:CGRectMake(nameX, nameY + 6.0f, nameSize.width, nameSize.height)];
 
@@ -152,7 +152,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     // Layout the timestamp label
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:11.0f]}
                                                     context:nil].size;
     [self.timeLabel setFrame:CGRectMake(timeX, contentLabel.frame.origin.y + contentLabel.frame.size.height + vertElemSpacing, timeSize.width, timeSize.height)];
     
@@ -182,20 +182,20 @@ static TTTTimeIntervalFormatter *timeFormatter;
 + (CGFloat)heightForCellWithName:(NSString *)name contentString:(NSString *)content cellInsetWidth:(CGFloat)cellInset {
     CGSize nameSize = [name boundingRectWithSize:nameSize
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]}
                                                     context:nil].size;
 
-    NSString *paddedString = [PAPBaseTextCell padString:content withFont:[UIFont systemFontOfSize:13] toWidth:nameSize.width];
+    NSString *paddedString = [PAPBaseTextCell padString:content withFont:[UIFont fontWithName:@"Gotham-Book" size:13] toWidth:nameSize.width];
     CGFloat horizontalTextSpace = [PAPBaseTextCell horizontalTextSpaceForInsetWidth:cellInset];
    
     CGSize contentSize = [paddedString boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)
                                                     options:NSStringDrawingUsesLineFragmentOrigin // word wrap?
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:13.0f]}
                                                     context:nil].size;
 
     CGFloat singleLineHeight = [@"test" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13.0f]}
+                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:13.0f]}
                                                      context:nil].size.height;
     
     // Calculate the added height necessary for multiline text. Ensure value is not below 0.
@@ -254,9 +254,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     if (self.user) {
         CGSize nameSize = [self.nameButton.titleLabel.text boundingRectWithSize:CGSizeMake(nameMaxWidth, CGFLOAT_MAX)
                                                         options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                     attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f]}
+                                                     attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]}
                                                         context:nil].size;
-        NSString *paddedString = [PAPBaseTextCell padString:contentString withFont:[UIFont systemFontOfSize:13] toWidth:nameSize.width];
+        NSString *paddedString = [PAPBaseTextCell padString:contentString withFont:[UIFont fontWithName:@"Gotham-Book" size:13] toWidth:nameSize.width];
         [self.contentLabel setText:paddedString];
     } else { // Otherwise we ignore the padding and we'll add it after we set the user
         [self.contentLabel setText:contentString];

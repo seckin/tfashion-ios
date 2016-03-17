@@ -89,13 +89,13 @@ static const NSUInteger kSearchResultLimit = 20;
     textStyle.alignment = NSTextAlignmentCenter;
     CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
                                                      options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:13.0f], NSParagraphStyleAttributeName: textStyle }
+                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f], NSParagraphStyleAttributeName: textStyle }
                                                      context:nil];
     CGSize inviteStringSize = boundingRect.size;
     
     UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
     [inviteLabel setText:inviteString];
-    [inviteLabel setFont:[UIFont boldSystemFontOfSize:13]];
+    [inviteLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:13]];
     [inviteLabel setTextColor:[UIColor blackColor]];
     [inviteLabel setBackgroundColor:[UIColor clearColor]];
     [self.headerView addSubview:inviteLabel];

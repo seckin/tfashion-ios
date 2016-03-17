@@ -88,7 +88,7 @@
     
     [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
     [button setAttributedTitle:buttonTitleHighlighted forState:UIControlStateHighlighted];
-    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:17.0f]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:17.0f]];
     [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [button.titleLabel setNumberOfLines:0];
     [button.titleLabel setTextAlignment:NSTextAlignmentCenter];

@@ -13,6 +13,10 @@
 		052965101C85609500B98183 /* foundation-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650D1C85609500B98183 /* foundation-icons.ttf */; };
 		052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */; };
 		052965131C85610800B98183 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 052965121C85610800B98183 /* TSMessagesDefaultDesign.json */; };
+		055502901C9A4152005921FE /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0555028F1C9A4152005921FE /* Gotham-Light.otf */; };
+		055502921C9A4759005921FE /* Gotham-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 055502911C9A4759005921FE /* Gotham-Book.otf */; };
+		055502941C9A491D005921FE /* Gotham-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 055502931C9A491D005921FE /* Gotham-Bold.otf */; };
+		055502961C9A49A0005921FE /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 055502951C9A49A0005921FE /* Gotham-Medium.otf */; };
 		055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */; };
 		055A018A1B3F567900BB3E92 /* CONV2IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */; };
 		059881321A257E64006AD82A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059881301A257E64006AD82A /* Crashlytics.framework */; };
@@ -126,6 +130,10 @@
 		0529650F1C85609500B98183 /* zocial-regular-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "zocial-regular-webfont.ttf"; path = "Pods/FontAwesomeKit/FontAwesomeKit/zocial-regular-webfont.ttf"; sourceTree = "<group>"; };
 		052965121C85610800B98183 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = TSMessagesDefaultDesign.json; path = Pods/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
 		052C49241C8AC6D30077F80B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Resources/Info.plist; sourceTree = "<group>"; };
+		0555028F1C9A4152005921FE /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
+		055502911C9A4759005921FE /* Gotham-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.otf"; sourceTree = "<group>"; };
+		055502931C9A491D005921FE /* Gotham-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Bold.otf"; sourceTree = "<group>"; };
+		055502951C9A49A0005921FE /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
 		055A01861B3F567900BB3E92 /* CONV2IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONV2IntroViewController.h; sourceTree = "<group>"; };
 		055A01871B3F567900BB3E92 /* CONV2IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONV2IntroViewController.m; sourceTree = "<group>"; };
 		055A01881B3F567900BB3E92 /* CONV2IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CONV2IntroViewController.xib; sourceTree = "<group>"; };
@@ -727,6 +735,10 @@
 		C4B60864155B085600EFA90C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				055502951C9A49A0005921FE /* Gotham-Medium.otf */,
+				055502931C9A491D005921FE /* Gotham-Bold.otf */,
+				055502911C9A4759005921FE /* Gotham-Book.otf */,
+				0555028F1C9A4152005921FE /* Gotham-Light.otf */,
 				BCD488541A498EBD00751A6E /* MainWindow.xib */,
 				BC19D2A61A278686002B9944 /* Images.xcassets */,
 			);
@@ -881,6 +893,8 @@
 				052965101C85609500B98183 /* foundation-icons.ttf in Resources */,
 				050C80F91C79264F00798AD0 /* ionicons.ttf in Resources */,
 				052965111C85609500B98183 /* zocial-regular-webfont.ttf in Resources */,
+				055502961C9A49A0005921FE /* Gotham-Medium.otf in Resources */,
+				055502921C9A4759005921FE /* Gotham-Book.otf in Resources */,
 				BC9F3FA01A821CBF00629745 /* SVWebViewControllerActivitySafari-iPad.png in Resources */,
 				BC9F3F951A821C6F00629745 /* SVWebViewController.strings in Resources */,
 				BCD488551A498EBD00751A6E /* MainWindow.xib in Resources */,
@@ -892,7 +906,9 @@
 				BC9F3FAD1A821CD400629745 /* SVWebViewControllerActivityChrome@2x.png in Resources */,
 				BC9F3FAA1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad.png in Resources */,
 				BC19D2A71A278686002B9944 /* Images.xcassets in Resources */,
+				055502901C9A4152005921FE /* Gotham-Light.otf in Resources */,
 				BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */,
+				055502941C9A491D005921FE /* Gotham-Bold.otf in Resources */,
 				BC9F3FAB1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
 				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
 			);

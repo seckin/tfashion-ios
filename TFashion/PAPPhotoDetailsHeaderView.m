@@ -271,7 +271,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
         UIButton *userButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [nameHeaderView addSubview:userButton];
         [userButton setBackgroundColor:[UIColor clearColor]];
-        [[userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15.0f]];
+        [[userButton titleLabel] setFont:[UIFont fontWithName:@"Gotham-Medium" size:15.0f]];
         [userButton setTitle:nameString forState:UIControlStateNormal];
         [userButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         [userButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
@@ -295,12 +295,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
         NSString *timeString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.photo createdAt]];
         CGSize timeLabelSize = [timeString boundingRectWithSize:CGSizeMake(nameLabelMaxWidth, CGFLOAT_MAX)
                                                         options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]}
+                                                     attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:11.0f]}
                                                         context:nil].size;
         
         UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, nameLabelY+userButtonSize.height, timeLabelSize.width, timeLabelSize.height)];
         [timeLabel setText:timeString];
-        [timeLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        [timeLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
         [timeLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [self.nameHeaderView addSubview:timeLabel];
@@ -322,16 +322,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
     [likeButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
     [likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-    [[likeButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
+    [[likeButton titleLabel] setFont:[UIFont fontWithName:@"Gotham-Book" size:12.0f]];
     [[likeButton titleLabel] setMinimumScaleFactor:0.8f];
     [[likeButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
     [likeButton setAdjustsImageWhenDisabled:NO];
     [likeButton setAdjustsImageWhenHighlighted:NO];
     FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:29.0f];
-    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor]];
+    [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f / 255.0f green:50.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f]];
     [likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateNormal];
     FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:29.0f];
-    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor]];
+    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f / 255.0f green:50.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f]];
     [likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(29.0f, 29.0f)] forState:UIControlStateSelected];
     [likeButton addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [likeBarView addSubview:likeButton];

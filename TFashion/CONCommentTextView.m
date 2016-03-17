@@ -21,7 +21,7 @@
         self.keyboardType = UIKeyboardTypeTwitter;
         self.minNumberOfLines = 1;
         self.maxNumberOfLines = 6;
-        self.font = [UIFont systemFontOfSize:14.0f];
+        self.font = [UIFont fontWithName:@"Gotham-Book" size:14.0f];
         self.internalTextView.scrollIndicatorInsets = UIEdgeInsetsMake(5, 0, 5, 0);
         self.internalTextView.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor whiteColor];

@@ -118,7 +118,7 @@
     [photoCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [photoCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [photoCountTextLabel  setTextColor:[UIColor blackColor]];
-    [photoCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [photoCountTextLabel  setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [self.headerView addSubview:photoCountTextLabel ];
     [photoCountTextLabel setText:@"Photos"];
     
@@ -126,7 +126,7 @@
     [photoCountLabel setTextAlignment:NSTextAlignmentLeft];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
-    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [photoCountLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:20.0f]];
     [self.headerView addSubview:photoCountLabel];
     [photoCountLabel setText:@"0"];
     
@@ -134,7 +134,7 @@
     [followerCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [followerCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [followerCountTextLabel  setTextColor:[UIColor blackColor]];
-    [followerCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followerCountTextLabel  setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [self.headerView addSubview:followerCountTextLabel ];
     [followerCountTextLabel setText:@"Followers"];
     
@@ -142,7 +142,7 @@
     [followerCountButton setFrame:CGRectMake( 94.0f, 105.0f, 226.0f - 130.0f, 22.0f)];
     [followerCountButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [followerCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [followerCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [followerCountButton.titleLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:20.0f]];
     [followerCountButton addTarget:self action:@selector(followerCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followerCountButton];
     
@@ -150,7 +150,7 @@
     [followingCountTextLabel  setTextAlignment:NSTextAlignmentLeft];
     [followingCountTextLabel  setBackgroundColor:[UIColor clearColor]];
     [followingCountTextLabel  setTextColor:[UIColor blackColor]];
-    [followingCountTextLabel  setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [followingCountTextLabel  setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [self.headerView addSubview:followingCountTextLabel ];
     [followingCountTextLabel setText:@"Following"];
     
@@ -158,7 +158,7 @@
     [followingCountButton setFrame:CGRectMake( 214.0f, 105.0f, self.headerView.bounds.size.width - 245.0f, 22.0f)];
     [followingCountButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [followingCountButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [followingCountButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [followingCountButton.titleLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:20.0f]];
     [followingCountButton addTarget:self action:@selector(followingCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:followingCountButton];
 
@@ -167,7 +167,7 @@
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
     [userDisplayNameLabel setTextColor:[UIColor blackColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
-    [userDisplayNameLabel setFont:[UIFont boldSystemFontOfSize:20.0f]];
+    [userDisplayNameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:20.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
     UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 35.0f, self.headerView.bounds.size.width, 22.0f)];
@@ -175,7 +175,7 @@
     [usernameLabel setBackgroundColor:[UIColor clearColor]];
     [usernameLabel setTextColor:[UIColor colorWithRed:239.0f/255.0f green:53.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
     [usernameLabel setText:[self.user objectForKey:@"username"]];
-    [usernameLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+    [usernameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [usernameLabel setText:[NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]]];
     [self.headerView addSubview:usernameLabel];
 

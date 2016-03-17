@@ -53,7 +53,7 @@
     UILabel *cameraText = [[UILabel alloc] init];
     [cameraText setText:@"Camera"];
     [cameraText setTextColor:[UIColor grayColor]];
-    [cameraText setFont:[UIFont systemFontOfSize:10]];
+    [cameraText setFont:[UIFont fontWithName:@"Gotham-Book" size:10]];
     [cameraText setFrame:CGRectMake( 184.0f, 36.0f, 40.0f, 12.0f)];
     [cameraText setTextAlignment:NSTextAlignmentCenter];
 //    [cameraText addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];

@@ -51,7 +51,7 @@
         
         self.nameButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.nameButton.backgroundColor = [UIColor clearColor];
-        self.nameButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+        self.nameButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:16.0f];
         self.nameButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.nameButton setTitleColor:[UIColor blackColor]
                 forState:UIControlStateNormal];
@@ -62,20 +62,20 @@
         [self.contentView addSubview:self.nameButton];
         
         self.photoLabel = [[UILabel alloc] init];
-        self.photoLabel.font = [UIFont systemFontOfSize:11.0f];
+        self.photoLabel.font = [UIFont fontWithName:@"Gotham-Book" size:11.0f];
         self.photoLabel.textColor = [UIColor grayColor];
         self.photoLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.photoLabel];
         
         self.followButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.followButton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        self.followButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Book" size:12.0f];
         self.followButton.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 10.0f);
 
         CGSize size = CGSizeMake(200, 200);
         UIGraphicsBeginImageContextWithOptions(size, YES, 0);
 //        [[UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f] setFill];
 //        [[UIColor colorWithHex:@"#93648D" alpha:1.0f] setFill];
-        [[UIColor orangeColor] setFill];
+        [[UIColor colorWithRed:247.0f / 255.0f green:50.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f] setFill];
         UIRectFill(CGRectMake(0, 0, size.width, size.height));
         UIImage *followButtonActiveStateBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -125,7 +125,7 @@
     NSString *nameString = [self.user objectForKey:kPAPUserDisplayNameKey];
     CGSize nameSize = [nameString boundingRectWithSize:CGSizeMake(144.0f, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:16.0f]}
                                                     context:nil].size;
     [nameButton setTitle:[self.user objectForKey:kPAPUserDisplayNameKey] forState:UIControlStateNormal];
     [nameButton setTitle:[self.user objectForKey:kPAPUserDisplayNameKey] forState:UIControlStateHighlighted];
@@ -135,7 +135,7 @@
     // Set photo number label
     CGSize photoLabelSize = [@"photos" boundingRectWithSize:CGSizeMake(144.0f, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]}
+                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:11.0f]}
                                                     context:nil].size;
     [photoLabel setFrame:CGRectMake( 60.0f, 17.0f + nameSize.height, 140.0f, photoLabelSize.height)];
     

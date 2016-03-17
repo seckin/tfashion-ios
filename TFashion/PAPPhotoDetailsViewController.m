@@ -107,7 +107,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
     // Set send button
     _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
-    _sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    _sendButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.0];
     [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _sendButton.enabled = NO;
