@@ -401,7 +401,7 @@ static const NSUInteger kSearchResultLimit = 20;
     searchDisplayController.searchResultsDelegate = self;
     searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     searchDisplayController.searchResultsTableView.backgroundColor = [UIColor whiteColor];
-    
+
     self.tableView.tableHeaderView = searchBar;
     
     [searchBar becomeFirstResponder];

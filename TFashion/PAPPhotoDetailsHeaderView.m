@@ -312,14 +312,14 @@ static TTTTimeIntervalFormatter *timeFormatter;
      Create bottom section fo the header view; the likes
      */
     likeBarView = [[UIView alloc] initWithFrame:CGRectMake(likeBarX, likeBarY, likeBarWidth, likeBarHeight)];
-    [likeBarView setBackgroundColor:[UIColor whiteColor]];
+    [likeBarView setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:0.5f]];
     [self addSubview:likeBarView];
     
     // Create the heart-shaped like button
     likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [likeButton setFrame:CGRectMake(likeButtonX, likeButtonY, likeButtonDim, likeButtonDim)];
     [likeButton setBackgroundColor:[UIColor clearColor]];
-    [likeButton setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [likeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [likeButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
     [likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     [[likeButton titleLabel] setFont:[UIFont fontWithName:@"Gotham-Book" size:12.0f]];
@@ -339,8 +339,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self reloadLikeBar];
     
 //    UIImageView *separator = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f)]];
-    //[separator setFrame:CGRectMake(0.0f, likeBarView.frame.size.height - 1.0f, likeBarView.frame.size.width, 1.0f)];
-    //[likeBarView addSubview:separator];
+//    [separator setFrame:CGRectMake(0.0f, likeBarView.frame.size.height - 1.0f, likeBarView.frame.size.width, 1.0f)];
+//    [likeBarView addSubview:separator];
 }
 
 - (void)didTapLikeClothButtonAction:(UIButton *)button {

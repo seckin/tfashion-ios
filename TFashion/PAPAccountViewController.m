@@ -62,7 +62,8 @@
         [[PFUser currentUser] fetchIfNeeded];
     }
 
-    self.navigationItem.title = [NSString stringWithFormat:@"%@", self.user.username];
+    //self.navigationItem.title = [NSString stringWithFormat:@"%@", self.user.username];
+    self.navigationItem.title = [NSString stringWithFormat:@"Profile"];
 
     // Add Settings button
     self.navigationItem.rightBarButtonItem = [[PAPSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
@@ -167,7 +168,7 @@
     [userDisplayNameLabel setBackgroundColor:[UIColor clearColor]];
     [userDisplayNameLabel setTextColor:[UIColor blackColor]];
     [userDisplayNameLabel setText:[self.user objectForKey:@"displayName"]];
-    [userDisplayNameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:20.0f]];
+    [userDisplayNameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:16.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
     UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 35.0f, self.headerView.bounds.size.width, 22.0f)];

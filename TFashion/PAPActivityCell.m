@@ -87,13 +87,20 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self.activityImageView setHidden:YES];
         [self.activityImageButton setHidden:YES];
     }
+    
+    // Layout the name button
+    CGSize nameSize = [self.nameButton.titleLabel.text boundingRectWithSize:CGSizeMake(nameMaxWidth, CGFLOAT_MAX)
+                                                                    options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin // word wrap?
+                                                                 attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]}
+                                                                    context:nil].size;
+    [self.nameButton setFrame:CGRectMake(nameX, nameY + 6.0f, nameSize.width, nameSize.height)];
 
     // Change frame of the content text so it doesn't go through the right-hand side picture
     CGSize contentSize = [self.contentLabel.text boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 72.0f - 46.0f, CGFLOAT_MAX)
                                                     options:NSStringDrawingUsesLineFragmentOrigin // wordwrap?
                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:13.0f]}
                                                     context:nil].size;
-    [self.contentLabel setFrame:CGRectMake( 46.0f, 15.0f, contentSize.width, contentSize.height)];
+    [self.contentLabel setFrame:CGRectMake( 46.0f, 15.0f, contentSize.width, contentSize.height * 1.2)];
 
     // Layout the timestamp label given new vertical 
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 72.0f - 46.0f, CGFLOAT_MAX)

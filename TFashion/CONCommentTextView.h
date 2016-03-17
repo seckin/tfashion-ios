@@ -1,10 +1,3 @@
-//
-//  CONCommentTextView.h
-//  TFashion
-//
-//  Created by Utku Sakil on 1/22/15.
-//
-//
 
 #import "HPGrowingTextView.h"
 #import "PAPBaseTextCell.h"

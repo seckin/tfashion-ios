@@ -1,10 +1,3 @@
-//
-//  CONCommentTextView.m
-//  TFashion
-//
-//  Created by Utku Sakil on 1/22/15.
-//
-//
 
 #import "CONCommentTextView.h"
 #import <Parse/PFFile.h>

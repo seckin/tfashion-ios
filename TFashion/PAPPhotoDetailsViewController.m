@@ -65,7 +65,7 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 
     [super viewDidLoad];
     

@@ -142,7 +142,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin // word wrap?
                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f]}
                                                     context:nil].size;
-    [self.nameButton setFrame:CGRectMake(nameX, nameY + 6.0f, nameSize.width, nameSize.height)];
+    [self.nameButton setFrame:CGRectMake(nameX, nameY + 4.0f, nameSize.width, nameSize.height)];
 
     // Layout the content
     CGSize maxSize = CGSizeMake(horizontalTextSpace, CGFLOAT_MAX);

@@ -476,13 +476,17 @@
 - (void)setupAppearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 
-    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0f]];
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
 
-    [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                NSForegroundColorAttributeName: [UIColor blackColor]
-                                }];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{
+//                                NSForegroundColorAttributeName: [UIColor blackColor]
+//                                }];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+            @{NSForegroundColorAttributeName:[UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0f],
+                    NSFontAttributeName:[UIFont fontWithName:@"Gotham-Book" size:16.0f]}];
+
 
     [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil]
         setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]
