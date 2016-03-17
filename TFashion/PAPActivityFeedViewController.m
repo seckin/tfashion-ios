@@ -73,8 +73,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidReceiveRemoteNotification:) name:PAPAppDelegateApplicationDidReceiveRemoteNotification object:nil];
     
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
-    NSLog(@"2. self.tableView.bounds: height, width: %f %f", self.tableView.bounds.size.height, self.tableView.bounds.size.width);
-    
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 
     NSDictionary *lightAttributes = @{NSForegroundColorAttributeName: [UIColor lightGrayColor] };
@@ -137,7 +136,6 @@
             [self.navigationController pushViewController:detailViewController animated:YES];
         } else if ([activity objectForKey:kPAPActivityFromUserKey]) {
             PAPAccountViewController *detailViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-            NSLog(@"activityfeedview Presenting account view controller with user: %@", [activity objectForKey:kPAPActivityFromUserKey]);
             [detailViewController setUser:[activity objectForKey:kPAPActivityFromUserKey]];
             [self.navigationController pushViewController:detailViewController animated:YES];
         }
@@ -272,9 +270,7 @@
 }
 
 - (void)cell:(PAPBaseTextCell *)cellView didTapUserButton:(PFUser *)user {    
-    // Push account view controller
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-    NSLog(@"Presenting account view controller with user: %@", user);
     [accountViewController setUser:user];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }

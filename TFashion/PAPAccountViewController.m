@@ -94,7 +94,6 @@
     }
     [profilePictureImageView loadInBackground];
 
-    NSLog(@"burda5");
     // Add a bottomBorder.
     CALayer *bottomBorder = [CALayer layer];
     

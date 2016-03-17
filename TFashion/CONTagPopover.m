@@ -186,7 +186,6 @@
 
 - (void)setText:(NSString *)text
 {
-    NSLog(@"setText called with text: %@", text);
     [self.tagTextField setText:text];
     [self resizeTextField];
 }
@@ -258,7 +257,6 @@
 
 - (void)drawRect:(CGRect)fullRect
 {
-    NSLog(@"drawRect called");
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     float radius = 8.0f;
@@ -425,13 +423,11 @@ replacementString:(NSString *)string {
 
 - (void)resizeTextField
 {
-    NSLog(@"resizeTextField called");
     int iconFontSize = 16.0f;
     int countFontSize = 10.0f;
 
     // remove residual popovers
     for (UIView *subV in [self.tagTextField subviews]) {
-        NSLog(@"cleaning subview: %@", subV);
         [subV removeFromSuperview];
     }
 

@@ -178,9 +178,7 @@
 #pragma mark - PAPFindFriendsCellDelegate
 
 - (void)cell:(PAPFindFriendsCell *)cellView didTapUserButton:(PFUser *)aUser {
-    // Push account view controller
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-    NSLog(@"Presenting account view controller with user: %@", aUser);
     [accountViewController setUser:aUser];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }

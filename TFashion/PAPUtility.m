@@ -141,7 +141,6 @@
 #pragma mark Facebook
 
 + (void)processFacebookProfilePictureData:(NSData *)newProfilePictureData {
-    NSLog(@"Processing profile picture of size: %@", @(newProfilePictureData.length));
     if (newProfilePictureData.length == 0) {
         return;
     }
@@ -173,7 +172,6 @@
             }
         }];
     }
-    NSLog(@"Processed profile picture");
 }
 
 + (BOOL)userHasValidFacebookData:(PFUser *)user {
@@ -358,7 +356,6 @@
 
 + (PFQuery *)queryForClothPiecesOfCloth:(PFObject *)cloth cachePolicy:(PFCachePolicy)cachePolicy {
     PFQuery *queryClothPieces = [PFQuery queryWithClassName:kPAPClothPieceClassKey];
-    NSLog(@"creating cloth pieces query for %@", cloth.objectId);
     [queryClothPieces whereKey:kPAPClothPieceClothKey equalTo:cloth];
     [queryClothPieces setCachePolicy:cachePolicy];
 

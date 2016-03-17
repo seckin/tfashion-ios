@@ -49,23 +49,17 @@
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-        NSLog(@"location.x: %f location.y: %f", location.x, location.y);
         __block NSArray *clothes;
         [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothesForPhoto:self.photo] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
             clothes = (NSArray *) tmpobj;
-            NSLog(@"handling double tap");
-            NSLog(@"[clothes count]:");
-            NSLog(@"%lu", (unsigned long) [clothes count]);
 
             for (int i = 0; i < [clothes count]; i++) {
-                NSLog(@"handling %d", i);
                 PFObject *cloth = [clothes objectAtIndex:i];
                 __block NSArray *cloth_pieces;
                 [[PINMemoryCache sharedCache] objectForKey:[PAPCache getKeyForClothPiecesForCloth:cloth] block:^(PINMemoryCache *cache, NSString *key, id tmpobj) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         cloth_pieces = tmpobj;
                         if (cloth_pieces && cloth_pieces.count > 0 && [PAPUtility isLocationInsideCloth:location.x withY:location.y clothPieces:cloth_pieces]) {
-                            NSLog(@"location inside cloth!");
                             self.imageOverlay = [[CONImageOverlay alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width)];
                             self.imageOverlay.cloth_pieces = cloth_pieces;
 
@@ -87,8 +81,6 @@
 
                             // we showed the flash above, now we need to save the like
                             [self saveUserLike:cloth];
-
-                            NSLog(@"location inside cloth done!");
                         }
                     });
                 }];
@@ -120,17 +112,15 @@
     [[PAPCache sharedCache] incrementLikerCountForCloth:cloth];
     [[PAPCache sharedCache] setClothIsLikedByCurrentUser:cloth liked:liked];
 
-    NSLog(@"user attemted to like the picture with double tap");
     [PAPUtility likeClothInBackground:cloth photo:self.photo block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            //[[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
         }
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotification object:cloth userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:liked] forKey:PAPPhotoDetailsViewControllerUserLikedUnlikedClothNotificationUserInfoLikedKey]];
 }
 
 - (void) removeImageOverlay:(NSTimer*)theTimer {
-    NSLog(@"removeImageOverlay called");
     [self.imageOverlay removeFromSuperview];
     self.imageOverlay = nil;
     for(int i = 0 ; i < [self.clothOverlays count]; i++) {

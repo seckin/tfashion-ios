@@ -242,8 +242,6 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    NSLog(@"applicationDidBecomeActive called");
-
     // Clear badge and update installation, required for auto-incrementing badges.
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
@@ -559,7 +557,6 @@
                     self.tabBarController.selectedViewController = homeNavigationController;
                     
                     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-                    NSLog(@"Presenting account view controller with user: %@", user);
                     accountViewController.user = (PFUser *)user;
                     [homeNavigationController pushViewController:accountViewController animated:YES];
                 }

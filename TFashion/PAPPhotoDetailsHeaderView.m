@@ -221,11 +221,11 @@ static TTTTimeIntervalFormatter *timeFormatter;
     self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     PFFile *imageFile = [self.photo objectForKey:kPAPPhotoPictureKey];
-    NSString *substring = [imageFile.url substringFromIndex:7];
-    NSString *prefix = @"https://s3.amazonaws.com/";
-    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
+//    NSString *substring = [imageFile.url substringFromIndex:7];
+//    NSString *prefix = @"https://s3.amazonaws.com/";
+//    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
 
-    [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:updatedImageUrl] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
+    [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageFile.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
 //    NSLog(@"updatedImageUrl: %@", updatedImageUrl);
     
     [self addSubview:self.photoImageView];
@@ -249,11 +249,11 @@ static TTTTimeIntervalFormatter *timeFormatter;
 //        else {
 //            [avatarImageView setImage:[PAPUtility defaultProfilePicture]];
 //        }
-        NSString *substring = [avatarImageFile.url substringFromIndex:7];
-        NSString *prefix = @"https://s3.amazonaws.com/";
-        NSString *updatedAvatarImageUrl = [prefix stringByAppendingString:substring];
+//        NSString *substring = [avatarImageFile.url substringFromIndex:7];
+//        NSString *prefix = @"https://s3.amazonaws.com/";
+//        NSString *updatedAvatarImageUrl = [prefix stringByAppendingString:substring];
 
-        [avatarImageView.profileImageView sd_setImageWithURL:[NSURL URLWithString:updatedAvatarImageUrl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
+        [avatarImageView.profileImageView sd_setImageWithURL:[NSURL URLWithString:avatarImageFile.url] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
 
 
 
@@ -370,8 +370,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self setLikeUsers:[newLikeUsersSet allObjects]];
 
     if (liked) {
-        NSLog(@"user attemted to like the picture");
-        NSLog(@"clothid: %@", self.cloth.objectId);
         [PAPUtility likeClothInBackground:self.cloth photo:self.photo block:^(BOOL succeeded, NSError *error) {
             if (!succeeded) {
                 [button addTarget:self action:@selector(didTapLikeClothButtonAction:) forControlEvents:UIControlEventTouchUpInside];

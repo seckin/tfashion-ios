@@ -35,7 +35,6 @@ public final class ActivityView4: UIView {
     }
     
     func buttonPressed(sender: UIButton!) {
-        NSLog("burda82");
     }
     
 }

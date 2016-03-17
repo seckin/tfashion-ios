@@ -84,7 +84,6 @@ final class BrowserViewController: UIViewController {
     }
 
     private dynamic func tap() {
-        NSLog("doubletap is here2")
         self.dismissViewControllerAnimated(true, completion: nil);
         
         //        if browserView?.fullScreenItem != self {

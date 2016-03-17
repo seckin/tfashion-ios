@@ -76,7 +76,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        NSLog(@"girdi");
         self.socialAccount.isActive = NO;
         [self.socialAccount saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {

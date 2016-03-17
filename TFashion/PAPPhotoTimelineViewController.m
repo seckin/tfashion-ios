@@ -369,10 +369,10 @@
             [CATransaction flush];
 
 
-            NSString *substring = [cell.imageView.file.url substringFromIndex:7];
-            NSString *prefix = @"https://s3.amazonaws.com/";
-            NSString *httpsfileurl = [prefix stringByAppendingString:substring];
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:httpsfileurl] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
+//            NSString *substring = [cell.imageView.file.url substringFromIndex:7];
+//            NSString *prefix = @"https://s3.amazonaws.com/";
+//            NSString *httpsfileurl = [prefix stringByAppendingString:substring];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
 

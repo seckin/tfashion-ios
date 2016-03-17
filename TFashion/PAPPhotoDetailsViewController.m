@@ -505,7 +505,6 @@ static const CGFloat kPAPCellInsetWidth = 0.0f;
 
 - (void)shouldPresentAccountViewForUser:(PFUser *)user {
     PAPAccountViewController *accountViewController = [[PAPAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-    NSLog(@"Presenting account view controller with user: %@", user);
     [accountViewController setUser:user];
     [self.navigationController pushViewController:accountViewController animated:YES];
 }

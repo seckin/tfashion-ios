@@ -112,9 +112,9 @@
 
     [currentParseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!succeeded) {
-            NSLog(@"Failed save in background of user, %@", error);
+            NSLog(@"processedFacebookResponse - Failed save in background of user, %@", error);
         } else {
-            NSLog(@"saved current parse user");
+            NSLog(@"processedFacebookResponse - saved current parse user");
             if ([PAPUtility userHasValidFacebookData:currentParseUser] && currentParseUser.isNew) {
                 CONSocialAccount *socialAccount = [CONSocialAccount object];
                 socialAccount.isActive = YES;

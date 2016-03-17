@@ -57,10 +57,10 @@
 
     self.profileImageView.image = [UIImage imageNamed:@"AvatarPlaceholder.png"];
     self.profileImageView.file = file;
-    NSString *substring = [file.url substringFromIndex:7];
-    NSString *prefix = @"https://s3.amazonaws.com/";
-    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
-    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:updatedImageUrl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholder.png"]];
+//    NSString *substring = [file.url substringFromIndex:7];
+//    NSString *prefix = @"https://s3.amazonaws.com/";
+//    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
+    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.profileImageView.file.url] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholder.png"]];
 //    NSLog(@"updatedprofile image url: %@", updatedImageUrl);
     [self.profileImageView loadInBackground];
 }
