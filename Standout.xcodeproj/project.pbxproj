@@ -839,7 +839,6 @@
 				09ABC06B13A1D52D009C3FCF /* Resources */,
 				A956C7A00485A30BE48909C5 /* Copy Pods Resources */,
 				A206DEDAC378E8AAA1BC4A2D /* Embed Pods Frameworks */,
-				13E045703A3C149E2F9E091F /* Upload Bugsnag dSYM */,
 			);
 			buildRules = (
 			);
@@ -917,21 +916,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		13E045703A3C149E2F9E091F /* Upload Bugsnag dSYM */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Bugsnag dSYM";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/usr/bin/env ruby";
-			shellScript = "fork do\n  Process.setsid\n  STDIN.reopen(\"/dev/null\")\n  STDOUT.reopen(\"/dev/null\", \"a\")\n  STDERR.reopen(\"/dev/null\", \"a\")\n\n  require 'shellwords'\n\n  Dir[\"#{ENV[\"DWARF_DSYM_FOLDER_PATH\"]}/*/Contents/Resources/DWARF/*\"].each do |dsym|\n    system(\"curl -F dsym=@#{Shellwords.escape(dsym)} -F projectRoot=#{Shellwords.escape(ENV[\"PROJECT_DIR\"])} https://upload.bugsnag.com/\")\n  end\nend\n";
-			showEnvVarsInLog = 0;
-		};
 		878A4448CD9A2B73B98BDD49 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1189,7 +1173,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
+				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1225,7 +1209,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
+				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1298,7 +1282,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
+				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1371,7 +1355,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
+				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

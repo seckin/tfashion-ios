@@ -171,8 +171,10 @@
     }
     
     
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:@"id,name,email" forKey:@"fields"];
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
-                                                                   parameters:nil];
+                                                                   parameters:parameters];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error) {
             // Failed to fetch me data.. logout to be safe
@@ -192,6 +194,8 @@
             [currentParseUser setUsername:lowercaseconcatanatedName];
         }
         
+        NSLog(@"email should be here: %@", result);
+                
         NSString *email = result[@"email"];
         if (email && [email length] != 0) {
             [currentParseUser setObject:email forKey:kPAPUserEmailKey];

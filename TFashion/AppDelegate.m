@@ -108,6 +108,7 @@
     
 #endif
     
+    [Fabric with:@[[Crashlytics class]]];
     //MARK: Analytics Integration
     //[SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
     

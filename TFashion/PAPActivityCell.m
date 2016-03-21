@@ -129,7 +129,14 @@ static TTTTimeIntervalFormatter *timeFormatter;
         [self setActivityImageFile:nil];
     } if ([[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeMention]) {
         PFObject *comment = [activity objectForKey:kPAPActivityCommentKey];
-        [self setActivityImageFile:(PFFile*)[[comment objectForKey:kPAPActivityPhotoKey] objectForKey:kPAPPhotoThumbnailKey]];
+        [comment fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            if (!error) {
+                PFObject *photo = [object objectForKey:kPAPActivityPhotoKey];
+                [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_photo, NSError *error) {
+                    [self setActivityImageFile:(PFFile*)[photo objectForKey:kPAPPhotoThumbnailKey]];
+                }];
+            }
+        }];
     } else {
         [self setActivityImageFile:(PFFile*)[[activity objectForKey:kPAPActivityPhotoKey] objectForKey:kPAPPhotoThumbnailKey]];
     }
