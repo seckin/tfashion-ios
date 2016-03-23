@@ -30,7 +30,9 @@
 #import "FBSDKCoreKit.h"
 #import "ParseFacebookUtilsV4/PFFacebookUtils.h"
 #import "OneSignal.h"
-@import Bugsnag;
+//@import Bugsnag;
+#import "Bugsnag.h"
+#import <TSMessages/TSMessageView.h>
 
 //#import <Analytics.h>
 
@@ -107,7 +109,8 @@
     [debugger enableRemoteLogging];
     
 #endif
-    
+
+
     [Fabric with:@[[Crashlytics class]]];
     //MARK: Analytics Integration
     //[SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"3XB78eGNDWWIsLpHmpUvuZsuq31UXIix"]];
@@ -148,9 +151,9 @@
 //    [Bugsnag notify:[NSException exceptionWithName:@"ExceptionName" reason:@"Something bad happened" userInfo:nil]];
 
     firstLaunch = NO;
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore18"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore36"])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore18"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore34"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         firstLaunch = YES;
     }
@@ -197,6 +200,7 @@
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
     }
+
 //
 //    [self.oneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
 //        NSLog(@"UserId:%@", userId);

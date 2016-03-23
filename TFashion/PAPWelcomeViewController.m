@@ -2,11 +2,13 @@
 #import "PAPWelcomeViewController.h"
 #import "AppDelegate.h"
 #import "CONSocialAccount.h"
+#import "CONForceFollowViewController.h"
 #import <StandoutModule-Swift.h>
 
 @interface PAPWelcomeViewController () {
     BOOL _presentedLoginViewController;
     BOOL _presentedBrowserController;
+    BOOL _presentedForceFollowController;
     int _facebookResponseCount;
     int _expectedFacebookResponseCount;
     NSMutableData *_profilePicData;
@@ -35,6 +37,7 @@
     [super viewDidAppear:animated];
 
     if(self.firstLaunch) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"needToShowForceFollowController"];
         [self presentBrowserController:NO];
         return;
     }
@@ -42,6 +45,11 @@
     if (![PFUser currentUser]) {
         [self presentLoginViewController:NO];
         return;
+    }
+
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"needToShowForceFollowController"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"needToShowForceFollowController"];
+        [self presentForceFollowController:NO];
     }
 
     // Present Anypic UI
@@ -54,6 +62,16 @@
 
 
 #pragma mark - PAPWelcomeViewController
+
+- (void)presentForceFollowController:(BOOL)animated {
+    if(_presentedForceFollowController) {
+        return;
+    }
+
+    _presentedLoginViewController = YES;
+    CONForceFollowViewController *forceFollowViewController = [[CONForceFollowViewController alloc] init];
+    [self presentViewController:forceFollowViewController animated:NO completion:nil];
+}
 
 - (void)presentBrowserController:(BOOL)animated {
     if (_presentedBrowserController) {

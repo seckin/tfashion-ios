@@ -41,6 +41,8 @@
 		05BBA5861C91DF590007124A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BBA5851C91DF590007124A /* UIKit.framework */; };
 		05C77DBF1C8B5F530066C1F5 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */; };
 		05C77DC11C8B5F640066C1F5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */; };
+		05FD6AAD1CA2800500748F43 /* profile1.png in Resources */ = {isa = PBXBuildFile; fileRef = 05FD6AAC1CA2800500748F43 /* profile1.png */; };
+		05FD6AB01CA2809700748F43 /* CONForceFollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05FD6AAF1CA2809700748F43 /* CONForceFollowViewController.m */; };
 		1723DFB4A43E7E11E1C5DEA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E771F4FC7423A645E872C3B /* Pods.framework */; };
 		B802D1691B49B0A600E83656 /* CONSignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B802D1681B49B0A600E83656 /* CONSignUpViewController.xib */; };
 		BC09CAD31A3090AA001F8DC8 /* CONContact.m in Sources */ = {isa = PBXBuildFile; fileRef = BC09CAD21A3090AA001F8DC8 /* CONContact.m */; };
@@ -161,6 +163,9 @@
 		05C77DBE1C8B5F530066C1F5 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		05C77DC01C8B5F640066C1F5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		05D9145A1B9DF659008C26C2 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.otf; path = Pods/FontAwesomeKit/FontAwesomeKit/FontAwesome.otf; sourceTree = "<group>"; };
+		05FD6AAC1CA2800500748F43 /* profile1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile1.png; sourceTree = "<group>"; };
+		05FD6AAE1CA2809700748F43 /* CONForceFollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONForceFollowViewController.h; sourceTree = "<group>"; };
+		05FD6AAF1CA2809700748F43 /* CONForceFollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CONForceFollowViewController.m; sourceTree = "<group>"; };
 		09ABC06D13A1D52D009C3FCF /* Standout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		192EAD6B2595B13292D939E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3E771F4FC7423A645E872C3B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -712,6 +717,8 @@
 				C4A894941558796C00DC57D3 /* Take Photo */,
 				BC2138D91A24D4EE003DD8C4 /* PAPTabBarController.h */,
 				BC2138DA1A24D4EE003DD8C4 /* PAPTabBarController.m */,
+				05FD6AAE1CA2809700748F43 /* CONForceFollowViewController.h */,
+				05FD6AAF1CA2809700748F43 /* CONForceFollowViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -737,6 +744,7 @@
 			children = (
 				055502951C9A49A0005921FE /* Gotham-Medium.otf */,
 				055502931C9A491D005921FE /* Gotham-Bold.otf */,
+				05FD6AAC1CA2800500748F43 /* profile1.png */,
 				055502911C9A4759005921FE /* Gotham-Book.otf */,
 				0555028F1C9A4152005921FE /* Gotham-Light.otf */,
 				BCD488541A498EBD00751A6E /* MainWindow.xib */,
@@ -839,6 +847,7 @@
 				09ABC06B13A1D52D009C3FCF /* Resources */,
 				A956C7A00485A30BE48909C5 /* Copy Pods Resources */,
 				A206DEDAC378E8AAA1BC4A2D /* Embed Pods Frameworks */,
+				D01E47C88004E48F8EB71FF8 /* Upload Bugsnag dSYM */,
 			);
 			buildRules = (
 			);
@@ -908,6 +917,7 @@
 				055502901C9A4152005921FE /* Gotham-Light.otf in Resources */,
 				BC09CAE31A3091E5001F8DC8 /* InfoPlist.strings in Resources */,
 				055502941C9A491D005921FE /* Gotham-Bold.otf in Resources */,
+				05FD6AAD1CA2800500748F43 /* profile1.png in Resources */,
 				BC9F3FAB1A821CD400629745 /* SVWebViewControllerActivityChrome-iPad@2x.png in Resources */,
 				BC21392A1A24D788003DD8C4 /* Entitlements.plist in Resources */,
 			);
@@ -961,6 +971,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D01E47C88004E48F8EB71FF8 /* Upload Bugsnag dSYM */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Bugsnag dSYM";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env ruby";
+			shellScript = "fork do\n  Process.setsid\n  STDIN.reopen(\"/dev/null\")\n  STDOUT.reopen(\"/dev/null\", \"a\")\n  STDERR.reopen(\"/dev/null\", \"a\")\n\n  require 'shellwords'\n\n  Dir[\"#{ENV[\"DWARF_DSYM_FOLDER_PATH\"]}/*/Contents/Resources/DWARF/*\"].each do |dsym|\n    system(\"curl -F dsym=@#{Shellwords.escape(dsym)} -F projectRoot=#{Shellwords.escape(ENV[\"PROJECT_DIR\"])} https://upload.bugsnag.com/\")\n  end\nend\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -995,6 +1020,7 @@
 				BC2138F91A24D706003DD8C4 /* PAPWelcomeViewController.m in Sources */,
 				BC54066E1A24DE7300CB0AC6 /* PAPPhotoHeaderView.m in Sources */,
 				055A01891B3F567900BB3E92 /* CONV2IntroViewController.m in Sources */,
+				05FD6AB01CA2809700748F43 /* CONForceFollowViewController.m in Sources */,
 				BC64A3401A484C2C00452469 /* THContactViewStyle.m in Sources */,
 				BC6293621A5437A50080F506 /* CONProviderDetailViewController.m in Sources */,
 				BC2138D61A24D49B003DD8C4 /* PAPCache.m in Sources */,
@@ -1173,7 +1199,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1209,7 +1235,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1282,7 +1308,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1355,7 +1381,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.conceive.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Standout;
-				PROVISIONING_PROFILE = "e150f018-970d-415b-af50-24784e835ec3";
+				PROVISIONING_PROFILE = "ffd33970-f029-4616-b81d-43e76140066a";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

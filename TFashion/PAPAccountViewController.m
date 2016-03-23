@@ -264,6 +264,7 @@
     [super loadObjects];
     
     [self queryForFollowingCount];
+    [self queryForFollowerCount];
     [self queryForPhotoCount];
 }
 
@@ -301,6 +302,24 @@
     [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             [followingCountButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
+        }
+    }];
+}
+
+- (void)queryForFollowerCount
+{
+    NSDictionary *followerDictionary = [[PFUser currentUser] objectForKey:@"followers"];
+    if (followerDictionary) {
+        [followerCountButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)[[followerDictionary allValues] count]] forState:UIControlStateNormal];
+    }
+
+    PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
+    [queryFollowerCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
+    [queryFollowerCount whereKey:kPAPActivityFromUserKey equalTo:self.user];
+    [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            [followerCountButton setTitle:[NSString stringWithFormat:@"%d", number] forState:UIControlStateNormal];
         }
     }];
 }
