@@ -259,13 +259,14 @@
     return cell;
 }
 
-- (void)loadObjects
+- (BFTask<NSArray<__kindof PFObject *> *> *)loadObjects
 {
-    [super loadObjects];
+    BFTask<NSArray<__kindof PFObject *> *> *ret = [super loadObjects];
     
     [self queryForFollowingCount];
     [self queryForFollowerCount];
     [self queryForPhotoCount];
+    return ret;
 }
 
 #pragma mark - ()
@@ -315,7 +316,7 @@
 
     PFQuery *queryFollowerCount = [PFQuery queryWithClassName:kPAPActivityClassKey];
     [queryFollowerCount whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
-    [queryFollowerCount whereKey:kPAPActivityFromUserKey equalTo:self.user];
+    [queryFollowerCount whereKey:kPAPActivityToUserKey equalTo:self.user];
     [queryFollowerCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryFollowerCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {

@@ -154,7 +154,7 @@
             if (!outstandingQuery) {
                 [self.outstandingFollowQueries setObject:[NSNumber numberWithBool:YES] forKey:indexPath];
                 PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kPAPActivityClassKey];
-                [isFollowingQuery whereKey:kPAPActivityFromUserKey equalTo:self.user];
+                [isFollowingQuery whereKey:kPAPActivityFromUserKey equalTo:[PFUser currentUser]];
                 [isFollowingQuery whereKey:kPAPActivityTypeKey equalTo:kPAPActivityTypeFollow];
                 [isFollowingQuery whereKey:kPAPActivityToUserKey equalTo:user];
                 [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
