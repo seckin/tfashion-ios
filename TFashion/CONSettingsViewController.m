@@ -32,7 +32,7 @@ NSString *const kPreferencesTitle = @"PREFERENCES";
     
     self.title = @"Settings";
     
-    self.preferencesArray = [NSArray arrayWithObjects:kShareSettingsTitle, kPushNotificationSettingsTitle, nil];
+    self.preferencesArray = [NSArray arrayWithObjects:kPushNotificationSettingsTitle, nil];
     
 }
 
