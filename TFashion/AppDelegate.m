@@ -151,9 +151,9 @@
 //    [Bugsnag notify:[NSException exceptionWithName:@"ExceptionName" reason:@"Something bad happened" userInfo:nil]];
 
     firstLaunch = NO;
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore36"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedBefore48"])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore34"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedBefore48"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         firstLaunch = YES;
     }
