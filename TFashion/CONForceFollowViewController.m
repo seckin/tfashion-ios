@@ -211,12 +211,12 @@ int followingCount = 0;
     NSTimeInterval seconds = trunc([date timeIntervalSinceReferenceDate] + 5);
     [TSMessage showNotificationInViewController:self
                                           title:@"Follow 5 people"
-                                       subtitle:@"so your feed won't be like the backyard of a meth addict"
+                                       subtitle:@"So your feed won't be like the backyard of a meth addict"
                                           image:nil
                                            type:TSMessageNotificationTypeSuccess
                                        duration:seconds
                                        callback:nil
-                                    buttonTitle:@"OK"
+                                    buttonTitle:@""
                                  buttonCallback:^{
                                      NSLog(@"User tapped the button");
                                  }
@@ -224,7 +224,7 @@ int followingCount = 0;
                            canBeDismissedByUser:YES];
 
     UIView *footerView = [[UIView alloc] init];
-    footerView.backgroundColor = [UIColor greenColor];//[UIColor colorWithRed:200.0/255 green:200.0/255 blue:200.0/255 alpha:1.0f];
+    footerView.backgroundColor = [UIColor colorWithRed:110.0/255 green:218.0/255 blue:114.0/255 alpha:1.0f];
     footerView.opaque = YES;
     footerView.frame = CGRectMake(0,[[UIScreen mainScreen] bounds].size.height - 40,[[UIScreen mainScreen] bounds].size.width, 40);
     followingCountLabel = [[UILabel alloc] init];
