@@ -13,7 +13,7 @@ public final class ActivityView4: UIView {
         self.userInteractionEnabled = true
         
         let button = UIButton();
-        button.setTitle("Double Tap to Continue >", forState: UIControlState.Normal)
+        button.setTitle("Double Tap to Continue", forState: UIControlState.Normal)
         button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         // *** TODO: if you make this button work instead of the double tap in the parent, you need to change -25 to 0
         button.frame = CGRectMake(0, -10, 250, 25) // X, Y, width, height
