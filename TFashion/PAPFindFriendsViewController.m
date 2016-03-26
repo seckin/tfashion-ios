@@ -77,36 +77,36 @@ static const NSUInteger kSearchResultLimit = 20;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search:)];
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 67)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
     [self.headerView setBackgroundColor:[UIColor whiteColor]];
-    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [clearButton setBackgroundColor:[UIColor clearColor]];
-    [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [clearButton setFrame:self.headerView.frame];
-    [self.headerView addSubview:clearButton];
-    NSString *inviteString = @"Choose contacts to invite";
-    NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    textStyle.alignment = NSTextAlignmentCenter;
-    CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
-                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f], NSParagraphStyleAttributeName: textStyle }
-                                                     context:nil];
-    CGSize inviteStringSize = boundingRect.size;
+//    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [clearButton setBackgroundColor:[UIColor clearColor]];
+//    [clearButton addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [clearButton setFrame:self.headerView.frame];
+//    [self.headerView addSubview:clearButton];
+//    NSString *inviteString = @"Choose contacts to invite";
+//    NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+//    textStyle.alignment = NSTextAlignmentCenter;
+//    CGRect boundingRect = [inviteString boundingRectWithSize:CGSizeMake(310.0f, CGFLOAT_MAX)
+//                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+//                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Gotham-Medium" size:13.0f], NSParagraphStyleAttributeName: textStyle }
+//                                                     context:nil];
+//    CGSize inviteStringSize = boundingRect.size;
+//
+//    UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
+//    [inviteLabel setText:inviteString];
+//    [inviteLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:13]];
+//    [inviteLabel setTextColor:[UIColor blackColor]];
+//    [inviteLabel setBackgroundColor:[UIColor clearColor]];
+//    [self.headerView addSubview:inviteLabel];
     
-    UILabel *inviteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (self.headerView.frame.size.height-inviteStringSize.height)/2, inviteStringSize.width, inviteStringSize.height)];
-    [inviteLabel setText:inviteString];
-    [inviteLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:13]];
-    [inviteLabel setTextColor:[UIColor blackColor]];
-    [inviteLabel setBackgroundColor:[UIColor clearColor]];
-    [self.headerView addSubview:inviteLabel];
-    
-    FAKIonIcons *chevronRightIcon = [FAKIonIcons chevronRightIconWithSize:17];
-    [chevronRightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
-    UILabel *chevronLabel = [[UILabel alloc] init];
-    chevronLabel.attributedText = [chevronRightIcon attributedString];
-    [chevronLabel sizeToFit];
-    chevronLabel.center = CGPointMake(CGRectGetMaxX(inviteLabel.frame)+10, inviteLabel.center.y+1);
-    [self.headerView addSubview:chevronLabel];
+//    FAKIonIcons *chevronRightIcon = [FAKIonIcons chevronRightIconWithSize:17];
+//    [chevronRightIcon addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor]];
+//    UILabel *chevronLabel = [[UILabel alloc] init];
+//    chevronLabel.attributedText = [chevronRightIcon attributedString];
+//    [chevronLabel sizeToFit];
+//    chevronLabel.center = CGPointMake(CGRectGetMaxX(inviteLabel.frame)+10, inviteLabel.center.y+1);
+//    [self.headerView addSubview:chevronLabel];
     
     [self.tableView setTableHeaderView:self.headerView];
 }
@@ -133,7 +133,8 @@ static const NSUInteger kSearchResultLimit = 20;
     if (indexPath.row < self.objects.count) {
         return [PAPFindFriendsCell heightForCell];
     } else {
-        return 44.0f;
+//        return 44.0f;
+        return 0.0f;
     }
 }
 
