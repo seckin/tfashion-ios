@@ -9,6 +9,7 @@
 #import "CONTagPopover.h"
 #import "PINCache.h"
 #import "PAPFindFriendsViewController.h"
+#import "PAPPhotoEmptySpaceView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
@@ -114,7 +115,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count * 2 + (self.paginationEnabled ? 1 : 0);
+    return self.objects.count * 3 + (self.paginationEnabled ? 1 : 0);
 }
 
 
@@ -137,11 +138,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.paginationEnabled && (self.objects.count * 2) == indexPath.row) {
+    if (self.paginationEnabled && (self.objects.count * 3) == indexPath.row) {
         // Load More Section
         return 44.0f;
-    } else if (indexPath.row % 2 == 0) {
+    } else if (indexPath.row % 3 == 0) {
+        // profile header part
         return 44.0f;
+    } else if (indexPath.row % 3 == 2) {
+        // empty space
+        return 6.0f;
     }
 
     return 320.0f;
@@ -218,8 +223,11 @@
     
     NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
 
-    if (indexPath.row % 2 == 0) {
+    if (indexPath.row % 3 == 0) {
         return [self detailPhotoCellForRowAtIndexPath:indexPath];
+    } else if (indexPath.row % 3 == 2) {
+        // empty space bw photos
+        return [self emptyspacePhotoCellForRowAtIndexPath:indexPath];
     } else {
         [tableView registerClass:[PAPPhotoCell class] forCellReuseIdentifier:CellIdentifier];
         PAPPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -426,7 +434,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (UITableViewCell *)detailPhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"DetailPhotoCell";
 
-    if (self.paginationEnabled && indexPath.row == self.objects.count * 2) {
+    if (self.paginationEnabled && indexPath.row == self.objects.count * 3) {
         // Load More section
         return nil;
     }
@@ -446,11 +454,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return headerView;
 }
 
+- (UITableViewCell *)emptyspacePhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"emptyspacePhotoCell";
+
+    if (self.paginationEnabled && indexPath.row == self.objects.count * 3) {
+        // Load More section
+        return nil;
+    }
+
+    NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
+
+    PAPPhotoEmptySpaceView *emptyspaceView = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!emptyspaceView) {
+        emptyspaceView = [[PAPPhotoEmptySpaceView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.view.bounds.size.width, 6.0f)];
+        emptyspaceView.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    PFObject *object = [self objectAtIndexPath:indexPath];
+//    emptyspaceView.photo = object;
+    emptyspaceView.tag = index;
+    return emptyspaceView;
+}
+
 - (NSIndexPath *)indexPathForObject:(PFObject *)targetObject {
     for (int i = 0; i < self.objects.count; i++) {
         PFObject *object = [self.objects objectAtIndex:i];
         if ([[object objectId] isEqualToString:[targetObject objectId]]) {
-            return [NSIndexPath indexPathForRow:i*2+1 inSection:0];
+            return [NSIndexPath indexPathForRow:i*3+1 inSection:0];
         }
     }
 
@@ -516,11 +545,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
  */
 
 - (NSIndexPath *)indexPathForObjectAtIndex:(NSUInteger)index header:(BOOL)header {
-    return [NSIndexPath indexPathForItem:(index * 2 + (header ? 0 : 1)) inSection:0];
+    return [NSIndexPath indexPathForItem:(index * 3 + (header ? 0 : 1)) inSection:0];
 }
 
 - (NSUInteger)indexForObjectAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row / 2;
+    return indexPath.row / 3;
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {
