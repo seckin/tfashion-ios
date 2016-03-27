@@ -146,7 +146,7 @@
         return 44.0f;
     } else if (indexPath.row % 3 == 2) {
         // empty space
-        return 6.0f;
+        return 10.0f;
     }
 
     return 320.0f;
@@ -466,7 +466,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     PAPPhotoEmptySpaceView *emptyspaceView = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!emptyspaceView) {
-        emptyspaceView = [[PAPPhotoEmptySpaceView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.view.bounds.size.width, 6.0f)];
+        emptyspaceView = [[PAPPhotoEmptySpaceView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.view.bounds.size.width, 10.0f)];
         emptyspaceView.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     PFObject *object = [self objectAtIndexPath:indexPath];
