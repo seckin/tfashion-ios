@@ -101,13 +101,13 @@ NSString *const kPreferencesTitle = @"PREFERENCES";
         PAPFindFriendsViewController *findFriendsVC = [[PAPFindFriendsViewController alloc] init];
         [self.navigationController pushViewController:findFriendsVC animated:YES];
     } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            CONShareSettingsViewController *shareSettingsVC = [[CONShareSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:shareSettingsVC animated:YES];
-        } else if (indexPath.row == 1) {
+//        if (indexPath.row == 0) {
+//            CONShareSettingsViewController *shareSettingsVC = [[CONShareSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//            [self.navigationController pushViewController:shareSettingsVC animated:YES];
+//        } else if (indexPath.row == 1) {
             CONPushNotificationSettingsViewController *notificationSettingsVC = [[CONPushNotificationSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [self.navigationController pushViewController:notificationSettingsVC animated:YES];
-        }
+//        }
     } else if (indexPath.section == 2) {
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
     }
