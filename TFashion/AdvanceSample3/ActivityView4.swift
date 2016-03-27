@@ -20,8 +20,8 @@ public final class ActivityView4: UIView {
         button.addTarget(self, action: "buttonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(button)
 
-        let image1 = UIImage(named: "make-friends") //750 × 1334
-        let imageview = UIImageView(frame: CGRectMake(0, 25, 75 * 3.5, 133.4 * 3.5))
+        let image1 = UIImage(named: "make-friends") //750 × 1067
+        let imageview = UIImageView(frame: CGRectMake(0, 25, 75 * 3.5, 106.7 * 3.5))
         imageview.image = image1
         self.addSubview(imageview)
     }

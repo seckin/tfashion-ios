@@ -12,8 +12,8 @@ public final class ActivityView3: UIView {
         backgroundColor = UIColor.clearColor()
         layer.allowsGroupOpacity = false
         
-        let image1 = UIImage(named: "comment-like") //750 × 1334
-        let imageview = UIImageView(frame: CGRectMake(0, 25, 75 * 3.5, 133.4 * 3.5))
+        let image1 = UIImage(named: "comment-like") //750 × 1067
+        let imageview = UIImageView(frame: CGRectMake(0, 25, 75 * 3.5, 106.7 * 3.5))
         imageview.image = image1
         self.addSubview(imageview)
 
