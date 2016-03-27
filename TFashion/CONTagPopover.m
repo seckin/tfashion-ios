@@ -131,7 +131,7 @@
 
 - (UIView *)newContentView
 {
-    UIFont *textFieldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    UIFont *textFieldFont = [UIFont fontWithName:@"Gotham-Medium" size:12];
     CGSize tagSize = CGSizeZero;//[placeholderText sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:12]}];
 
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, tagSize.width, tagSize.height)];
@@ -443,8 +443,24 @@ replacementString:(NSString *)string {
         commentCount = [commenters count];
     }
 
+    BOOL currentUserHaveLiked = NO;
+    for(int i = 0; i < [likers count]; i++) {
+        if([[[likers objectAtIndex:i] objectId]  isEqualToString:[PFUser currentUser].objectId]) {
+            currentUserHaveLiked = YES;
+            break;
+        }
+    }
+
+    BOOL currentUserHaveCommented = NO;
+    for(int i = 0; i < [commenters count]; i++) {
+        if([[[commenters objectAtIndex:i] objectId]  isEqualToString:[PFUser currentUser].objectId]) {
+            currentUserHaveCommented = YES;
+            break;
+        }
+    }
+
     NSString *countTexts = [NSString stringWithFormat:@"%d%d", likeCount, commentCount];
-    CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:countFontSize]}];
+    CGSize countTextsSize = [countTexts sizeWithAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Gotham-Medium" size:countFontSize]}];
 
     CGSize newTagSize = countTextsSize;
     // allocate space for icons:
@@ -472,12 +488,15 @@ replacementString:(NSString *)string {
     [self.likeButton setAdjustsImageWhenHighlighted:NO];
 
     [self.likeButton setAdjustsImageWhenDisabled:NO];
-    FAKIonIcons *likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:iconFontSize];
+    FAKIonIcons *likeIcon;
+    if(currentUserHaveLiked) {
+        likeIcon = [FAKIonIcons iosHeartIconWithSize:iconFontSize];
+    } else {
+        likeIcon = [FAKIonIcons iosHeartOutlineIconWithSize:iconFontSize];
+    }
     [likeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f / 255.0f green:50.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f]];
     [self.likeButton setBackgroundImage:[likeIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
-    FAKIonIcons *likeIconSelected = [FAKIonIcons iosHeartIconWithSize:iconFontSize];
-    [likeIconSelected addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:247.0f / 255.0f green:50.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f]];
-    [self.likeButton setBackgroundImage:[likeIconSelected imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateSelected];
+
     [self.likeButton setSelected:NO];
     [self.tagTextField addSubview:self.likeButton];
 
@@ -495,7 +514,12 @@ replacementString:(NSString *)string {
     self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.commentButton setFrame:CGRectMake(32.0, 3.0f, iconFontSize, iconFontSize)];
     [self.commentButton setBackgroundColor:[UIColor clearColor]];
-    FAKIonIcons *commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:iconFontSize];
+    FAKIonIcons *commentIcon;
+    if(currentUserHaveCommented) {
+        commentIcon = [FAKIonIcons iosChatbubbleIconWithSize:iconFontSize];
+    } else {
+        commentIcon = [FAKIonIcons iosChatbubbleOutlineIconWithSize:iconFontSize];
+    }
     [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:254.0f / 255.0f green:254.0f / 255.0f blue:254.0f / 255.0f alpha:1.0f]];
     [self.commentButton setBackgroundImage:[commentIcon imageWithSize:CGSizeMake(iconFontSize, iconFontSize)] forState:UIControlStateNormal];
     [self.commentButton setSelected:NO];
