@@ -1,20 +1,10 @@
-//
-//  PAPFindFriendsCell.m
-//  Anypic
-//
-//  Created by Mattieu Gamache-Asselin on 5/31/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
 
 #import "CONPhotoCaptionView.h"
 #import "PAPProfileImageView.h"
 #import "PAPBaseTextCell.h"
 #import "PAPAccountViewController.h"
-//#import "UIColor+CreateMethods.h"
 
 @interface CONPhotoCaptionView ()
-/*! The cell's views. These shouldn't be modified but need to be exposed for the subclass */
-//@property (nonatomic, strong) PFObject *photo;
 
 @end
 
@@ -26,7 +16,7 @@
 #pragma mark - NSObject
 
 - (id)initWithPhoto:(PFObject *)aPhoto {
-    self = [super initWithFrame:CGRectMake(0.0, 0.0, 400.0, 44.0)];
+    self = [super initWithFrame:CGRectMake(0.0, 0.0, 400.0, 43.0)];
     if (self) {
         self.photo = aPhoto;
         self.backgroundColor = [UIColor whiteColor];
@@ -55,7 +45,7 @@
 #pragma mark - ()
 
 + (CGFloat)heightForCell {
-    return 67.0f;
+    return 43.0f;
 }
 
 /* Inform delegate that a user image or name was tapped */

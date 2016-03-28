@@ -150,7 +150,7 @@
         return 10.0f;
     } else if (indexPath.row % 4 == 2) {
         // caption space
-        return 44.0f;
+        return 43.0f;
     }
 
     return 320.0f;
