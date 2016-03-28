@@ -99,6 +99,7 @@ extern NSString *const kPAPUserProfilePicMediumKey;
 extern NSString *const kPAPUserFacebookFriendsKey;
 extern NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey;
 extern NSString *const kPAPUserEmailKey;
+extern NSString *const kPAPUserLocationKey;
 extern NSString *const kPAPUserPhoneNumberKey;
 extern NSString *const kPAPUserObjectIdKey;
 extern NSString *const kPAPUserAutoFollowKey;

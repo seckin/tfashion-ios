@@ -69,7 +69,7 @@
     loginButton.center = self.view.center;
     CGRect frame = CGRectMake(36.0f, yPosition, 244.0f, 44.0f);
     loginButton.center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-    loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends", @"user_location"];
     [self.view addSubview:loginButton];
     
     

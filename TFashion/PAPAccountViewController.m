@@ -1,10 +1,3 @@
-//
-//  PAPAccountViewController.m
-//  Anypic
-//
-//  Created by Héctor Ramos on 5/2/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
 
 #import "PAPAccountViewController.h"
 #import "PAPPhotoCell.h"
@@ -86,10 +79,7 @@
     if ([PAPUtility userHasProfilePictures:self.user]) {
         PFFile *imageFile = [self.user objectForKey:kPAPUserProfilePicMediumKey];
         [profilePictureImageView setFile:imageFile];
-//        NSString *substring = [profilePictureImageView.file.url substringFromIndex:7];
-//        NSString *prefix = @"https://s3.amazonaws.com/";
-//        NSString *httpsfileurl = [prefix stringByAppendingString:substring];
-//        [profilePictureImageView sd_setImageWithURL:[NSURL URLWithString:httpsfileurl] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
+        [profilePictureImageView sd_setImageWithURL:[NSURL URLWithString:profilePictureImageView.file.url] placeholderImage:[UIImage imageNamed:@"AvatarPlaceholderBig.png"]];
     } else {
         profilePictureImageView.image = [PAPUtility defaultProfilePicture];
     }
@@ -171,14 +161,48 @@
     [userDisplayNameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:16.0f]];
     [self.headerView addSubview:userDisplayNameLabel];
     
-    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 35.0f, self.headerView.bounds.size.width, 22.0f)];
+    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(88, 30.0f, self.headerView.bounds.size.width, 22.0f)];
     [usernameLabel setTextAlignment:NSTextAlignmentLeft];
     [usernameLabel setBackgroundColor:[UIColor clearColor]];
     [usernameLabel setTextColor:[UIColor colorWithRed:239.0f/255.0f green:53.0f/255.0f blue:103.0f/255.0f alpha:1.0f]];
-    [usernameLabel setText:[self.user objectForKey:@"username"]];
     [usernameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [usernameLabel setText:[NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]]];
     [self.headerView addSubview:usernameLabel];
+
+    if([self.user objectForKey:@"location"] && [[self.user objectForKey:@"location"] length] > 0) {
+        // add location icon
+        float locationButtonIconSize = 20.0f;
+        UIButton *locationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [locationButton setFrame:CGRectMake(83.0, 55.0f, locationButtonIconSize, locationButtonIconSize)];
+        [locationButton setBackgroundColor:[UIColor clearColor]];
+        FAKIonIcons *locationIcon = [FAKIonIcons iosLocationIconWithSize:locationButtonIconSize];
+        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:53.0f / 255.0f green:60.0f / 255.0f blue:65.0f / 255.0f alpha:0.8f]];
+        [locationButton setBackgroundImage:[locationIcon imageWithSize:CGSizeMake(locationButtonIconSize, locationButtonIconSize)] forState:UIControlStateNormal];
+        [locationButton setSelected:NO];
+        [self.headerView addSubview:locationButton];
+
+        UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(103, 55.0f, self.headerView.bounds.size.width, 22.0f)];
+        [locationLabel setTextAlignment:NSTextAlignmentLeft];
+        [locationLabel setBackgroundColor:[UIColor clearColor]];
+        [locationLabel setTextColor:[UIColor colorWithRed:53.0f / 255.0f green:60.0f / 255.0f blue:65.0f / 255.0f alpha:1.0f]];
+        [locationLabel setText:[self.user objectForKey:@"location"]];
+        [locationLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
+        [self.headerView addSubview:locationLabel];
+    }
+
+    if([self.user objectForKey:@"isSister"]) {
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.width - 90, 10.0f, 85, 22.0f)];
+        [myLabel setText:@"💃Sister💃"];
+        myLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:12.0f];
+        [myLabel sizeThatFits:CGSizeMake(20, 20)];
+//    myLabel.tintColor = [UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f];
+        myLabel.layer.borderColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f].CGColor;//[UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f].CGColor;
+        myLabel.textColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f];//[UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f];
+        myLabel.textAlignment = NSTextAlignmentCenter;
+        myLabel.layer.borderWidth = 1.0;
+        myLabel.layer.cornerRadius = 3.0;
+        [self.headerView addSubview:myLabel];
+    }
 
     [followerCountButton setTitle:@"0" forState:UIControlStateNormal];
     

@@ -92,6 +92,7 @@ NSString *const kPAPUserProfilePicMediumKey                     = @"profilePictu
 NSString *const kPAPUserFacebookFriendsKey                      = @"facebookFriends";
 NSString *const kPAPUserAlreadyAutoFollowedFacebookFriendsKey   = @"userAlreadyAutoFollowedFacebookFriends";
 NSString *const kPAPUserEmailKey                                = @"email";
+NSString *const kPAPUserLocationKey                             = @"location";
 NSString *const kPAPUserPhoneNumberKey                          = @"phoneNumber";
 NSString *const kPAPUserObjectIdKey                             = @"objectId";
 NSString *const kPAPUserAutoFollowKey                           = @"autoFollow";

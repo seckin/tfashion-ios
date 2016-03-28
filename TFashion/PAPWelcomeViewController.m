@@ -190,7 +190,7 @@
     
     
     NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:@"id,name,email" forKey:@"fields"];
+    [parameters setValue:@"id,name,email,location" forKey:@"fields"];
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me"
                                                                    parameters:parameters];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
@@ -213,10 +213,19 @@
         }
         
         NSLog(@"email should be here: %@", result);
+        NSLog(@"location should be here: %@", result);
                 
         NSString *email = result[@"email"];
         if (email && [email length] != 0) {
             [currentParseUser setObject:email forKey:kPAPUserEmailKey];
+        }
+
+        if(result[@"location"]) {
+            NSString *location = result[@"location"][@"name"];
+            if (location && [location length] != 0) {
+                [currentParseUser setObject:location forKey:kPAPUserLocationKey];
+                NSLog(@"location saved: %@", location);
+            }
         }
         
         [self processedFacebookResponse];
