@@ -89,13 +89,14 @@
     _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
     _commentTextView.delegate = self;
     _commentTextView.presentingView = self.view;
+    _commentTextView.placeholder = @"Add a caption";
     [_inputBar addSubview:_commentTextView];
 
     // Set send button
     _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
     _sendButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.0];
-    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+    [_sendButton setTitle:NSLocalizedString(@"Publish", nil) forState:UIControlStateNormal];
     [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _sendButton.enabled = NO;
     [_inputBar addSubview:_sendButton];

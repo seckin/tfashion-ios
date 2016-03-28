@@ -112,7 +112,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
         
         self.avatarImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.avatarImageButton setBackgroundColor:[UIColor clearColor]];
-        [self.avatarImageButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        if(self.user) {
+            [self.avatarImageButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
 
         [mainView addSubview:self.avatarImageButton];
         
@@ -137,6 +139,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self.avatarImageView setFrame:CGRectMake(avatarX, avatarY + 5.0f, avatarDim, avatarDim)];
     [self.avatarImageButton setFrame:CGRectMake(avatarX, avatarY + 5.0f, avatarDim, avatarDim)];
 
+
     // Layout the name button
     CGSize nameSize = [self.nameButton.titleLabel.text boundingRectWithSize:CGSizeMake(nameMaxWidth, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin // word wrap?
@@ -144,10 +147,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
                                                     context:nil].size;
     [self.nameButton setFrame:CGRectMake(nameX, nameY + 4.0f, nameSize.width, nameSize.height)];
 
+
     // Layout the content
     CGSize maxSize = CGSizeMake(horizontalTextSpace, CGFLOAT_MAX);
     CGSize requiredSize = [self.contentLabel sizeThatFits:maxSize];
-    self.contentLabel.frame = CGRectMake(nameX, vertTextBorderSpacing + 5.0f, requiredSize.width, requiredSize.height);
+    if(self.user) {
+        self.contentLabel.frame = CGRectMake(nameX, vertTextBorderSpacing + 5.0f, requiredSize.width, requiredSize.height);
+    } else {
+        // if we are showing caption, not a comment, don't put too much X padding:
+        self.contentLabel.frame = CGRectMake(avatarX, vertTextBorderSpacing + 5.0f, requiredSize.width, requiredSize.height);
+    };
 
     // Layout the timestamp label
     CGSize timeSize = [self.timeLabel.text boundingRectWithSize:CGSizeMake(horizontalTextSpace, CGFLOAT_MAX)

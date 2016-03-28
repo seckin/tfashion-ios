@@ -39,12 +39,13 @@
         textArea.contentLabel.delegate = self;
         textArea.contentLabel.userInteractionEnabled = YES;
 
-//        [textArea setUser:[self.photo objectForKey:kPAPPhotoUserKey]];
+        [textArea setUser:nil];
         [textArea setContentObject:self.photo];
         [textArea setContentText:[self.photo objectForKey:kPAPPhotoCaptionKey]];
 //        [textArea setDate:[self.photo createdAt]];
 
         [self.contentView addSubview:textArea];
+        [self.contentView layoutSubviews];
         [self setNeedsDisplay];
     }
     return self;

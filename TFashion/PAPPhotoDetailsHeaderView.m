@@ -9,6 +9,7 @@
 #import "PAPPhotoDetailsHeaderView.h"
 #import "PAPProfileImageView.h"
 #import "TTTTimeIntervalFormatter.h"
+#import "CONPhotoCaptionView.h"
 #import <ParseUI/ParseUI.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -43,14 +44,20 @@
 #define mainImageWidth baseWidth
 #define mainImageHeight 320.0f
 
+#define captionBarX baseHorizontalOffset
+#define captionBarY nameHeaderHeight + mainImageHeight
+#define captionBarWidth baseWidth
+#define captionBarHeight 43.0f
+
 #define likeBarX baseHorizontalOffset
-#define likeBarY nameHeaderHeight + mainImageHeight
+#define likeBarY nameHeaderHeight + mainImageHeight + captionBarHeight
 #define likeBarWidth baseWidth
 #define likeBarHeight 43.0f
 
 #define likeButtonX 9.0f
 #define likeButtonY 8.0f
 #define likeButtonDim 28.0f
+
 
 #define likeProfileXBase 46.0f
 #define likeProfileXSpace 3.0f
@@ -221,15 +228,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     PFFile *imageFile = [self.photo objectForKey:kPAPPhotoPictureKey];
-//    NSString *substring = [imageFile.url substringFromIndex:7];
-//    NSString *prefix = @"https://s3.amazonaws.com/";
-//    NSString *updatedImageUrl = [prefix stringByAppendingString:substring];
-
     [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageFile.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
-//    NSLog(@"updatedImageUrl: %@", updatedImageUrl);
-    
     [self addSubview:self.photoImageView];
-    
+
     /*
      Create top of header view with name and avatar
      */
@@ -307,7 +308,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
         
         [self setNeedsDisplay];
     }];
-    
+
+
+    CONPhotoCaptionView *captionView;
+    captionView = [[CONPhotoCaptionView alloc] initWithPhoto:self.photo];
+    [captionView setFrame:CGRectMake(captionBarX, captionBarY, captionBarWidth, captionBarHeight)];
+    captionView.delegate = self;
+    captionView.selectionStyle = UITableViewCellSelectionStyleNone;
+    captionView.photo = self.photo;
+    [self addSubview:captionView];
+
     /*
      Create bottom section fo the header view; the likes
      */
