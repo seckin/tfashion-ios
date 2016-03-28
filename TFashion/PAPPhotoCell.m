@@ -3,9 +3,11 @@
 #import "CONImageOverlay.h"
 #import "pop.h"
 #import "PINCache.h"
+#import "PAPBaseTextCell.h"
 
 @implementation PAPPhotoCell
 @synthesize photo;
+@synthesize captioncell;
 @synthesize photoButton;
 @synthesize imageOverlay;
 @synthesize clothOverlays;
@@ -134,6 +136,7 @@
     [super layoutSubviews];
     self.imageView.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
     self.photoButton.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
+    self.captioncell.frame = CGRectMake( 0.0f, 0.0f, self.bounds.size.width, self.bounds.size.width);
 }
 
 @end

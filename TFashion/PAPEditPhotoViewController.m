@@ -85,20 +85,20 @@
     _inputBar.layer.borderColor =  [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:205.0/255.0 alpha:1.0].CGColor;
     [self.scrollView addSubview:_inputBar];
     
-//    // Set comment text view
-//    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
-//    _commentTextView.delegate = self;
-//    _commentTextView.presentingView = self.view;
-//    [_inputBar addSubview:_commentTextView];
-//
-//    // Set send button
-//    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
-//    _sendButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.0];
-//    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
-//    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//    _sendButton.enabled = NO;
-//    [_inputBar addSubview:_sendButton];
+    // Set comment text view
+    _commentTextView = [[CONCommentTextView alloc] initWithFrame:CGRectMake(6, 3, 240, 40)];
+    _commentTextView.delegate = self;
+    _commentTextView.presentingView = self.view;
+    [_inputBar addSubview:_commentTextView];
+
+    // Set send button
+    _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _sendButton.frame = CGRectMake(_inputBar.frame.size.width - 69, 8, 63, 27);
+    _sendButton.titleLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:15.0];
+    [_sendButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+    [_sendButton addTarget:self action:@selector(sendButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    _sendButton.enabled = NO;
+    [_inputBar addSubview:_sendButton];
 
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + _inputBar.frame.size.height)];
 }
@@ -310,26 +310,20 @@
 
 - (void)sendButtonAction:(id)sender {
     NSDictionary *userInfo = [NSDictionary dictionary];
-    NSString *trimmedComment = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (trimmedComment.length != 0) {
-        userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  trimmedComment,kPAPEditPhotoViewControllerUserInfoCommentKey,
-                                  nil];
-    }
-    
+    NSString *caption = [self.commentTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
     if (!self.photoFile || !self.thumbnailFile) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
         [alert show];
         return;
     }
     
-    // both files have finished uploading
-    
     // create a photo object
     PFObject *photo = [PFObject objectWithClassName:kPAPPhotoClassKey];
     [photo setObject:[PFUser currentUser] forKey:kPAPPhotoUserKey];
     [photo setObject:self.photoFile forKey:kPAPPhotoPictureKey];
     [photo setObject:self.thumbnailFile forKey:kPAPPhotoThumbnailKey];
+    [photo setObject:caption forKey:kPAPPhotoCaptionKey];
     
     // photos are public, but may only be modified by the user who uploaded them
     PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -347,35 +341,35 @@
             NSLog(@"Photo uploaded");
 
             // userInfo might contain any caption which might have been posted by the uploader
-            if (userInfo) {
-                // *** TODO: change this to caption activity from a comment activity
-                NSString *commentText = [userInfo objectForKey:kPAPEditPhotoViewControllerUserInfoCommentKey];
-                if (commentText && commentText.length != 0) {
-                    // create and save photo caption
-                    PFObject *comment = [PFObject objectWithClassName:kPAPActivityClassKey];
-                    [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
-                    [comment setObject:photo forKey:kPAPActivityPhotoKey];
-                    [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
-                    [comment setObject:[PFUser currentUser] forKey:kPAPActivityToUserKey];
-                    [comment setObject:commentText forKey:kPAPActivityContentKey];
-                    
-                    PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-                    [ACL setPublicReadAccess:YES];
-                    comment.ACL = ACL;
-                    
-                    [comment saveEventually];
-//                    for (CONTag *tag in self.mentionLinkArray) {
-//                        tag.activity = comment;
-//                        [tag saveEventually];
+//            if (userInfo) {
+//                // *** TODO: change this to caption activity from a comment activity
+//                NSString *commentText = [userInfo objectForKey:kPAPEditPhotoViewControllerUserInfoCommentKey];
+//                if (commentText && commentText.length != 0) {
+//                    // create and save photo caption
+//                    PFObject *comment = [PFObject objectWithClassName:kPAPActivityClassKey];
+//                    [comment setObject:kPAPActivityTypeComment forKey:kPAPActivityTypeKey];
+//                    [comment setObject:photo forKey:kPAPActivityPhotoKey];
+//                    [comment setObject:[PFUser currentUser] forKey:kPAPActivityFromUserKey];
+//                    [comment setObject:[PFUser currentUser] forKey:kPAPActivityToUserKey];
+//                    [comment setObject:commentText forKey:kPAPActivityContentKey];
+//
+//                    PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+//                    [ACL setPublicReadAccess:YES];
+//                    comment.ACL = ACL;
+//
+//                    [comment saveEventually];
+////                    for (CONTag *tag in self.mentionLinkArray) {
+////                        tag.activity = comment;
+////                        [tag saveEventually];
+////                    }
+//                    for (PFObject *mention in self.mentionLinkArray) {
+//                        [mention setObject:comment forKey:kPAPActivityCommentKey];
+//                        [mention saveEventually];
 //                    }
-                    for (PFObject *mention in self.mentionLinkArray) {
-                        [mention setObject:comment forKey:kPAPActivityCommentKey];
-                        [mention saveEventually];
-                    }
-                    
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
-            }
+//
+//                }
+//                [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
+//            }
         } else {
             NSLog(@"Photo failed to save: %@", error);
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];

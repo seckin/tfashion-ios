@@ -10,6 +10,7 @@
 #import "PINCache.h"
 #import "PAPFindFriendsViewController.h"
 #import "PAPPhotoEmptySpaceView.h"
+#import "CONPhotoCaptionView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PAPPhotoTimelineViewController ()
@@ -115,7 +116,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count * 3 + (self.paginationEnabled ? 1 : 0);
+    return self.objects.count * 4 + (self.paginationEnabled ? 1 : 0);
 }
 
 
@@ -138,15 +139,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.paginationEnabled && (self.objects.count * 3) == indexPath.row) {
+    if (self.paginationEnabled && (self.objects.count * 4) == indexPath.row) {
         // Load More Section
         return 44.0f;
-    } else if (indexPath.row % 3 == 0) {
+    } else if (indexPath.row % 4 == 0) {
         // profile header part
         return 44.0f;
-    } else if (indexPath.row % 3 == 2) {
+    } else if (indexPath.row % 4 == 3) {
         // empty space
         return 10.0f;
+    } else if (indexPath.row % 4 == 2) {
+        // caption space
+        return 44.0f;
     }
 
     return 320.0f;
@@ -223,11 +227,16 @@
     
     NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
 
-    if (indexPath.row % 3 == 0) {
+    if (indexPath.row % 4 == 0) {
         return [self detailPhotoCellForRowAtIndexPath:indexPath];
-    } else if (indexPath.row % 3 == 2) {
-        // empty space bw photos
+    } else if (indexPath.row % 4 == 3) {
         return [self emptyspacePhotoCellForRowAtIndexPath:indexPath];
+    } else if (indexPath.row % 4 == 2) {
+        if([object objectForKey:@"caption"] && [[object objectForKey:@"caption"] length] > 0) {
+            return [self captionPhotoCellForRowAtIndexPath:indexPath];
+        } else {
+            return [self emptyspacePhotoCellForRowAtIndexPath:indexPath];
+        }
     } else {
         [tableView registerClass:[PAPPhotoCell class] forCellReuseIdentifier:CellIdentifier];
         PAPPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -235,6 +244,8 @@
         cell.tag = index;
         cell.photoButton.tag = index;
         cell.photo = object;
+        PAPBaseTextCell *captioncell = [[PAPBaseTextCell alloc] init];
+        cell.captioncell = captioncell;
         
         // remove residual popovers
         for (UIView *subV in [cell.contentView subviews]) {
@@ -373,13 +384,16 @@
 
                 }
             }];
+
+//            [cell.captioncell setUser:[object objectForKey:kPAPActivityFromUserKey]];
+            NSLog(@"[object objectForKey:kPAPPhotoCaptionKey] : %@", [object objectForKey:kPAPPhotoCaptionKey]);
+            [cell.captioncell setContentObject:[object objectForKey:kPAPPhotoCaptionKey]];
+            [cell.captioncell setContentText:[object objectForKey:kPAPPhotoCaptionKey]];
+//            [cell.captioncell setDate:[object createdAt]];
+
             [cell.contentView setNeedsDisplay];
             [CATransaction flush];
 
-
-//            NSString *substring = [cell.imageView.file.url substringFromIndex:7];
-//            NSString *prefix = @"https://s3.amazonaws.com/";
-//            NSString *httpsfileurl = [prefix stringByAppendingString:substring];
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:cell.imageView.file.url] placeholderImage:[UIImage imageNamed:@"PlaceholderPhoto.png"]];
         }
 
@@ -434,7 +448,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (UITableViewCell *)detailPhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"DetailPhotoCell";
 
-    if (self.paginationEnabled && indexPath.row == self.objects.count * 3) {
+    if (self.paginationEnabled && indexPath.row == self.objects.count * 4) {
         // Load More section
         return nil;
     }
@@ -454,10 +468,35 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return headerView;
 }
 
+
+- (UITableViewCell *)captionPhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"CaptionPhotoCell";
+
+    if (self.paginationEnabled && indexPath.row == self.objects.count * 4) {
+        // Load More section
+        return nil;
+    }
+
+    NSUInteger index = [self indexForObjectAtIndexPath:indexPath];
+
+    CONPhotoCaptionView *captionView;
+//    CONPhotoCaptionView *captionView = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    PFObject *object = [self objectAtIndexPath:indexPath];
+    if (!captionView) {
+        captionView = [[CONPhotoCaptionView alloc] initWithPhoto:object];
+        captionView.delegate = self;
+        captionView.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    captionView.photo = object;
+    captionView.tag = index;
+
+    return captionView;
+}
+
 - (UITableViewCell *)emptyspacePhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"emptyspacePhotoCell";
 
-    if (self.paginationEnabled && indexPath.row == self.objects.count * 3) {
+    if (self.paginationEnabled && indexPath.row == self.objects.count * 4) {
         // Load More section
         return nil;
     }
@@ -479,7 +518,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     for (int i = 0; i < self.objects.count; i++) {
         PFObject *object = [self.objects objectAtIndex:i];
         if ([[object objectId] isEqualToString:[targetObject objectId]]) {
-            return [NSIndexPath indexPathForRow:i*3+1 inSection:0];
+            return [NSIndexPath indexPathForRow:i*4+1 inSection:0];
         }
     }
 
@@ -545,11 +584,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
  */
 
 - (NSIndexPath *)indexPathForObjectAtIndex:(NSUInteger)index header:(BOOL)header {
-    return [NSIndexPath indexPathForItem:(index * 3 + (header ? 0 : 1)) inSection:0];
+    return [NSIndexPath indexPathForItem:(index * 4 + (header ? 0 : 1)) inSection:0];
 }
 
 - (NSUInteger)indexForObjectAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row / 3;
+    return indexPath.row / 4;
 }
 
 - (void)inviteFriendsButtonAction:(id)sender {

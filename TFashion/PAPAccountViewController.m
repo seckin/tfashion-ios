@@ -195,9 +195,8 @@
         [myLabel setText:@"💃Sister💃"];
         myLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:12.0f];
         [myLabel sizeThatFits:CGSizeMake(20, 20)];
-//    myLabel.tintColor = [UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f];
-        myLabel.layer.borderColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f].CGColor;//[UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f].CGColor;
-        myLabel.textColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f];//[UIColor colorWithRed:64/255.0f green:153/255.0f blue:255/255.0f alpha:1.0f];
+        myLabel.layer.borderColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f].CGColor;
+        myLabel.textColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f];
         myLabel.textAlignment = NSTextAlignmentCenter;
         myLabel.layer.borderWidth = 1.0;
         myLabel.layer.cornerRadius = 3.0;

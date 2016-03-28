@@ -4,10 +4,12 @@
 @class PFImageView;
 @class CONImageOverlay;
 @class CONTagPopover;
+@class PAPBaseTextCell;
 
 @interface PAPPhotoCell : PFTableViewCell
 
 @property (nonatomic, strong) PFObject *photo;
+@property (nonatomic, strong) PAPBaseTextCell *captioncell;
 @property (nonatomic, strong) UIButton *photoButton;
 // flashing part:
 @property (nonatomic, strong) CONImageOverlay *imageOverlay;

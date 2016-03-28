@@ -337,10 +337,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [likeBarView addSubview:likeButton];
     
     [self reloadLikeBar];
-    
-//    UIImageView *separator = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SeparatorComments.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 1.0f, 0.0f, 1.0f)]];
-//    [separator setFrame:CGRectMake(0.0f, likeBarView.frame.size.height - 1.0f, likeBarView.frame.size.width, 1.0f)];
-//    [likeBarView addSubview:separator];
 }
 
 - (void)didTapLikeClothButtonAction:(UIButton *)button {
