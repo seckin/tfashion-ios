@@ -7,8 +7,9 @@
 //
 
 #import "PAPPhotoTimelineViewController.h"
+#import "TBActionSheet.h"
 
-@interface PAPAccountViewController : PAPPhotoTimelineViewController
+@interface PAPAccountViewController : PAPPhotoTimelineViewController <TBActionSheetDelegate>
 
 @property (nonatomic, strong) PFUser *user;
 

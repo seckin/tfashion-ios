@@ -14,10 +14,12 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *followerCountButton;
 @property (nonatomic, strong) UIButton *followingCountButton;
+@property (nonatomic, strong) UIButton *reportButton;
 @property (nonatomic, strong) UILabel *photoCountLabel;
 @property (nonatomic, strong) UILabel *photoCountTextLabel;
 @property (nonatomic, strong) UILabel *followingCountTextLabel;
 @property (nonatomic, strong) UILabel *followerCountTextLabel;
+@property (nonatomic, strong) TBActionSheet *popup;
 @end
 
 @implementation PAPAccountViewController
@@ -25,10 +27,12 @@
 @synthesize user;
 @synthesize followerCountButton;
 @synthesize followingCountButton;
+@synthesize reportButton;
 @synthesize photoCountLabel;
 @synthesize photoCountTextLabel;
 @synthesize followingCountTextLabel;
 @synthesize followerCountTextLabel;
+@synthesize popup;
 
 #pragma mark - Initialization
 
@@ -168,6 +172,31 @@
     [usernameLabel setFont:[UIFont fontWithName:@"Gotham-Medium" size:12.0f]];
     [usernameLabel setText:[NSString stringWithFormat:@"@%@", [self.user objectForKey:@"username"]]];
     [self.headerView addSubview:usernameLabel];
+
+    // report
+    if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+        self.reportButton = [[UIButton alloc] initWithFrame:CGRectMake( self.headerView.bounds.size.width - 50, 12.0f, 62.0f, 30.0f)];
+        float ellipsisiconsize = 16.0f;
+        FAKFontAwesome *plusIcon = [FAKFontAwesome ellipsisHIconWithSize:ellipsisiconsize];
+        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        [self.reportButton setOpaque:YES];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)] forState:UIControlStateNormal];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)]
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateNormal];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitleColor:[UIColor blackColor]
+                                forState:UIControlStateNormal];
+        [self.reportButton setTitleColor:[UIColor whiteColor]
+                                forState:UIControlStateSelected];
+        [self.reportButton addTarget:self action:@selector(didTapReportButtonAction:)
+                    forControlEvents:UIControlEventTouchUpInside];
+
+        [self.headerView addSubview:self.reportButton];
+    }
+
 
     if([self.user objectForKey:@"location"] && [[self.user objectForKey:@"location"] length] > 0) {
         // add location icon
@@ -401,6 +430,65 @@
 {
     CONFollowingViewController *followingVC = [[CONFollowingViewController alloc] initWithUser:self.user];
     [self.navigationController pushViewController:followingVC animated:YES];
+}
+
+
+- (void)didTapReportButtonAction:(UIButton *)sender {
+    self.popup = [[TBActionSheet alloc] init];
+    self.popup.delegate = self;
+    self.popup.title = @"Select an option:";
+    [self.popup addButtonWithTitle:@"Block"];
+    self.popup.cancelButtonIndex = [self.popup addButtonWithTitle:@"Cancel"];
+
+    popup.tag = 1;
+    UIViewController *vc = (UIViewController *)[self getViewController];
+    [self.popup showInView:vc.view];
+}
+
+- (UIViewController *)getViewController
+{
+    id vc = [self nextResponder];
+    while(![vc isKindOfClass:[UIViewController class]] && vc!=nil)
+    {
+        vc = [vc nextResponder];
+    }
+
+    return vc;
+}
+
+- (void)actionSheet:(TBActionSheet *)sheetpopup clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    switch (sheetpopup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    NSLog(@"button index 0 clicked");
+                    [self saveBlock];
+                    break;
+                case 1:
+                    NSLog(@"button index 1 clicked - cancel button");
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)saveBlock {
+    PFObject *report = [PFObject objectWithClassName:kPAPReportClassKey];
+
+    [report setObject:self.user forKey:kPAPReportToUserKey];
+    [report setObject:[PFUser currentUser] forKey:kPAPReportFromUserKey];
+//    [report setObject:nil forKey:kPAPReportPhotoKey];
+    [report saveEventually];
+    [TSMessage showNotificationWithTitle:@"User blocked" type:TSMessageNotificationTypeSuccess];
+
+    [self configureFollowButton];
+    [PAPUtility unfollowUserEventually:self.user];
 }
 
 @end
