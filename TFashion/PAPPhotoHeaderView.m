@@ -77,27 +77,7 @@
         [self.timestampLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
         [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
 
-        // report
-        self.reportButton = [[UIButton alloc] initWithFrame:CGRectMake( 230.0f, 5.0f, 100.0f, 30.0f)];
-        float ellipsisiconsize = 16.0f;
-        FAKFontAwesome *plusIcon = [FAKFontAwesome ellipsisHIconWithSize:ellipsisiconsize];
-        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
-        [self.reportButton setOpaque:YES];
-        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)] forState:UIControlStateNormal];
-        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)]
-                           forState:UIControlStateSelected];
-        [self.reportButton setTitle:@""
-                           forState:UIControlStateNormal];
-        [self.reportButton setTitle:@""
-                           forState:UIControlStateSelected];
-        [self.reportButton setTitleColor:[UIColor blackColor]
-                                forState:UIControlStateNormal];
-        [self.reportButton setTitleColor:[UIColor whiteColor]
-                                forState:UIControlStateSelected];
-        [self.reportButton addTarget:self action:@selector(didTapReportButtonAction:)
-                    forControlEvents:UIControlEventTouchUpInside];
 
-        [containerView addSubview:self.reportButton];
 //        [self.timestampLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
 //        [self.timestampLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
 //        [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
@@ -150,7 +130,32 @@
     NSTimeInterval timeInterval = [[self.photo createdAt] timeIntervalSinceNow];
     NSString *timestamp = [self.timeIntervalFormatter stringForTimeInterval:timeInterval];
     [self.timestampLabel setText:timestamp];
-    NSLog(@"framesize: %@", self.reportButton);
+
+    // report
+//    NSLog(@"[self.photo objectForKey:kPAPPhotoUserKey] objectId]: %@ %@", self.photo, [[PFUser currentUser] objectId]);
+    if (![[[photo objectForKey:kPAPPhotoUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+        self.reportButton = [[UIButton alloc] initWithFrame:CGRectMake( 230.0f, 5.0f, 100.0f, 30.0f)];
+        float ellipsisiconsize = 16.0f;
+        FAKFontAwesome *plusIcon = [FAKFontAwesome ellipsisHIconWithSize:ellipsisiconsize];
+        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        [self.reportButton setOpaque:YES];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)] forState:UIControlStateNormal];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)]
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateNormal];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitleColor:[UIColor blackColor]
+                                forState:UIControlStateNormal];
+        [self.reportButton setTitleColor:[UIColor whiteColor]
+                                forState:UIControlStateSelected];
+        [self.reportButton addTarget:self action:@selector(didTapReportButtonAction:)
+                    forControlEvents:UIControlEventTouchUpInside];
+
+        [containerView addSubview:self.reportButton];
+    }
+
 
     [self setNeedsDisplay];
 }
