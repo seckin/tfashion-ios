@@ -63,6 +63,15 @@ extern NSString *const kPAPClothPieceClassKey;
 // Field key
 extern NSString *const kPAPClothPieceClothKey;
 
+#pragma mark - PFObject Report Class
+extern NSString *const kPAPReportClassKey;
+
+// Field keys
+extern NSString *const kPAPReportPhotoKey;
+extern NSString *const kPAPReportToUserKey;
+extern NSString *const kPAPReportFromUserKey;
+
+
 // Field keys
 extern NSString *const kPAPActivityTypeKey;
 extern NSString *const kPAPActivityFromUserKey;

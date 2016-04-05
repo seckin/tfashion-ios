@@ -113,6 +113,7 @@ PODS:
     - cocoa-oauth
     - SimpleAuth/Core
   - SocketRocket (0.4.2)
+  - TBActionSheet (1.4)
   - TSMessages (0.9.12):
     - HexColors (~> 2.2.0)
   - TTTAttributedLabel (1.13.4)
@@ -146,6 +147,7 @@ DEPENDENCIES:
   - SimpleAuth/Instagram
   - SimpleAuth/Tumblr
   - SimpleAuth/TwitterWeb
+  - TBActionSheet
   - TSMessages
   - TTTAttributedLabel
   - YLProgressBar
@@ -187,6 +189,7 @@ SPEC CHECKSUMS:
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SimpleAuth: bc7d594f90711a7e6ef7624dce5aa8c8b09770ab
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
+  TBActionSheet: eff5022fbc721078712ef06c588a3fb3dca77fdb
   TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   YLProgressBar: b6ec76bea4a1b8d6bdfd2995d828055a7e5f3e9a

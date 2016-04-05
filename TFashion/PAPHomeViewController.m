@@ -63,13 +63,6 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-    NSLog(@"home objectsDidLoad called");
-    NSLog(@"home self.objects.count = %d", self.objects.count);
-    if([[self queryForTable] hasCachedResult]) {
-        NSLog(@"home queryfortable has cached result");
-    } else {
-        NSLog(@"home queryfortable does not have cached result");
-    }
     if (self.objects.count == 0) {
         self.tableView.scrollEnabled = NO;
         

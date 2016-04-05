@@ -10,13 +10,16 @@
 #import "PAPProfileImageView.h"
 #import "TTTTimeIntervalFormatter.h"
 #import "PAPUtility.h"
+#import "TBActionSheet.h"
 
 @interface PAPPhotoHeaderView () 
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) PAPProfileImageView *avatarImageView;
 @property (nonatomic, strong) UIButton *userButton;
 @property (nonatomic, strong) UILabel *timestampLabel;
+@property (nonatomic, strong) UIButton *reportButton;
 @property (nonatomic, strong) TTTTimeIntervalFormatter *timeIntervalFormatter;
+@property (nonatomic, strong) TBActionSheet *popup;
 @end
 
 @implementation PAPPhotoHeaderView
@@ -24,10 +27,12 @@
 @synthesize avatarImageView;
 @synthesize userButton;
 @synthesize timestampLabel;
+@synthesize reportButton;
 @synthesize timeIntervalFormatter;
 @synthesize photo;
 @synthesize buttons;
 @synthesize delegate;
+@synthesize popup;
 
 #pragma mark - Initialization
 
@@ -71,6 +76,31 @@
         [self.timestampLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
         [self.timestampLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
         [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
+
+        // report
+        self.reportButton = [[UIButton alloc] initWithFrame:CGRectMake( 230.0f, 5.0f, 100.0f, 30.0f)];
+        float ellipsisiconsize = 16.0f;
+        FAKFontAwesome *plusIcon = [FAKFontAwesome ellipsisHIconWithSize:ellipsisiconsize];
+        [plusIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+        [self.reportButton setOpaque:YES];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)] forState:UIControlStateNormal];
+        [self.reportButton setImage:[plusIcon imageWithSize:CGSizeMake(ellipsisiconsize, ellipsisiconsize)]
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateNormal];
+        [self.reportButton setTitle:@""
+                           forState:UIControlStateSelected];
+        [self.reportButton setTitleColor:[UIColor blackColor]
+                                forState:UIControlStateNormal];
+        [self.reportButton setTitleColor:[UIColor whiteColor]
+                                forState:UIControlStateSelected];
+        [self.reportButton addTarget:self action:@selector(didTapReportButtonAction:)
+                    forControlEvents:UIControlEventTouchUpInside];
+
+        [containerView addSubview:self.reportButton];
+//        [self.timestampLabel setTextColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]];
+//        [self.timestampLabel setFont:[UIFont fontWithName:@"Gotham-Book" size:11.0f]];
+//        [self.timestampLabel setBackgroundColor:[UIColor clearColor]];
     }
 
     return self;
@@ -120,6 +150,7 @@
     NSTimeInterval timeInterval = [[self.photo createdAt] timeIntervalSinceNow];
     NSString *timestamp = [self.timeIntervalFormatter stringForTimeInterval:timeInterval];
     [self.timestampLabel setText:timestamp];
+    NSLog(@"framesize: %@", self.reportButton);
 
     [self setNeedsDisplay];
 }
@@ -138,4 +169,62 @@
     }
 }
 
+- (void)didTapReportButtonAction:(UIButton *)sender {
+    self.popup = [[TBActionSheet alloc] init];
+//    self.popup = [[TBActionSheet alloc] initWithTitle:@"Options:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+//                            @"Report",
+//                            nil];
+    self.popup.delegate = self;
+    self.popup.title = @"Select an option:";
+    [self.popup addButtonWithTitle:@"Report"];
+    self.popup.cancelButtonIndex = [self.popup addButtonWithTitle:@"Cancel"];
+//    self.popup.cancel
+
+    popup.tag = 1;
+    UIViewController *vc = (UIViewController *)[self getViewController];
+    [self.popup showInView:vc.view];
+}
+
+- (UIViewController *)getViewController
+{
+    id vc = [self nextResponder];
+    while(![vc isKindOfClass:[UIViewController class]] && vc!=nil)
+    {
+        vc = [vc nextResponder];
+    }
+
+    return vc;
+}
+
+- (void)actionSheet:(TBActionSheet *)sheetpopup clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    switch (sheetpopup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    NSLog(@"button index 0 clicked");
+                    [self saveReport];
+                    break;
+                case 1:
+                    NSLog(@"button index 1 clicked - cancel button");
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)saveReport {
+    PFObject *report = [PFObject objectWithClassName:kPAPReportClassKey];
+
+    [report setObject:[self.photo objectForKey:kPAPPhotoUserKey] forKey:kPAPReportToUserKey];
+    [report setObject:[PFUser currentUser] forKey:kPAPReportFromUserKey];
+    [report setObject:self.photo forKey:kPAPReportPhotoKey];
+    [report saveEventually];
+    [TSMessage showNotificationWithTitle:@"Report sent" type:TSMessageNotificationTypeSuccess];
+}
 @end

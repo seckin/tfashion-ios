@@ -1,10 +1,5 @@
-//
-//  PAPPhotoHeaderView.h
-//  Anypic
-//
-//  Created by Héctor Ramos on 5/15/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
-//
+
+#import "TBActionSheet.h"
 
 typedef enum {
     PAPPhotoHeaderButtonsNone = 0,
@@ -14,7 +9,7 @@ typedef enum {
 
 @protocol PAPPhotoHeaderViewDelegate;
 
-@interface PAPPhotoHeaderView : UITableViewCell
+@interface PAPPhotoHeaderView : UITableViewCell <TBActionSheetDelegate>
 
 /*! @name Creating Photo Header View */
 /*!

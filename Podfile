@@ -39,6 +39,7 @@ pod 'FBSDKLoginKit'
 pod 'OneSignal'
 pod 'ParseFacebookUtilsV4'
 pod "TSMessages"
+pod 'TBActionSheet'
 
 post_install do |installer|
   installer.pods_project.build_configuration_list.build_configurations.each do |configuration|

@@ -385,11 +385,8 @@
                 }
             }];
 
-//            [cell.captioncell setUser:[object objectForKey:kPAPActivityFromUserKey]];
-            NSLog(@"[object objectForKey:kPAPPhotoCaptionKey] : %@", [object objectForKey:kPAPPhotoCaptionKey]);
             [cell.captioncell setContentObject:[object objectForKey:kPAPPhotoCaptionKey]];
             [cell.captioncell setContentText:[object objectForKey:kPAPPhotoCaptionKey]];
-//            [cell.captioncell setDate:[object createdAt]];
 
             [cell.contentView setNeedsDisplay];
             [CATransaction flush];

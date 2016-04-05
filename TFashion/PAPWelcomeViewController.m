@@ -212,9 +212,6 @@
             [currentParseUser setUsername:lowercaseconcatanatedName];
         }
         
-        NSLog(@"email should be here: %@", result);
-        NSLog(@"location should be here: %@", result);
-                
         NSString *email = result[@"email"];
         if (email && [email length] != 0) {
             [currentParseUser setObject:email forKey:kPAPUserEmailKey];
@@ -224,7 +221,6 @@
             NSString *location = result[@"location"][@"name"];
             if (location && [location length] != 0) {
                 [currentParseUser setObject:location forKey:kPAPUserLocationKey];
-                NSLog(@"location saved: %@", location);
             }
         }
         

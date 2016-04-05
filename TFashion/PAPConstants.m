@@ -50,6 +50,16 @@ NSString *const kPAPClothClassKey = @"Cloth";
 // Field keys
 NSString *const kPAPClothPhotoKey       = @"photo";
 
+#pragma mark - Report Class
+// Class key
+NSString *const kPAPReportClassKey = @"Report";
+
+// Field keys
+NSString *const kPAPReportToUserKey       = @"toUser";
+NSString *const kPAPReportFromUserKey     = @"fromUser";
+NSString *const kPAPReportPhotoKey        = @"photo";
+
+
 #pragma mark - ClothPiece Class
 // Class key
 NSString *const kPAPClothPieceClassKey = @"ClothPiece";
