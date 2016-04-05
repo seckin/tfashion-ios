@@ -138,7 +138,10 @@ static TTTTimeIntervalFormatter *timeFormatter;
             }
         }];
     } else {
-        [self setActivityImageFile:(PFFile*)[[activity objectForKey:kPAPActivityPhotoKey] objectForKey:kPAPPhotoThumbnailKey]];
+        PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
+        [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_photo, NSError *error) {
+            [self setActivityImageFile:(PFFile*)[fetched_photo objectForKey:kPAPPhotoThumbnailKey]];
+        }];
     }
     
     NSString *activityString = [PAPActivityFeedViewController stringForActivityType:(NSString*)[activity objectForKey:kPAPActivityTypeKey]];
