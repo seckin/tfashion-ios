@@ -115,7 +115,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)setIsNew:(BOOL)isNew {
     if (isNew) {
-        [self.mainView setBackgroundColor:[UIColor colorWithRed:254.0f/255.0f green:254.0f/255.0f blue:254.0f/255.0f alpha:1.0f]];
+        [self.mainView setBackgroundColor:[UIColor colorWithRed:200.0f/255.0f green:200.0f/255.0f blue:200.0f/255.0f alpha:1.0f]];
     } else {
         [self.mainView setBackgroundColor:[UIColor whiteColor]];
     }
@@ -133,14 +133,30 @@ static TTTTimeIntervalFormatter *timeFormatter;
             if (!error) {
                 PFObject *photo = [object objectForKey:kPAPActivityPhotoKey];
                 [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_photo, NSError *error) {
-                    [self setActivityImageFile:(PFFile*)[photo objectForKey:kPAPPhotoThumbnailKey]];
+                    [self setActivityImageFile:(PFFile*)[fetched_photo objectForKey:kPAPPhotoThumbnailKey]];
+                    // *** TODO: fix below to show pictures on first page load
+                    UITableViewController *vc = (UITableViewController *)[self getViewController];
+//                    [vc.tableView reloadData];
+                    [vc.tableView setNeedsDisplay];
+                    [self setNeedsDisplay];
+                    [CATransaction flush];
                 }];
             }
         }];
     } else {
-        PFObject *photo = [activity objectForKey:kPAPActivityPhotoKey];
-        [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_photo, NSError *error) {
-            [self setActivityImageFile:(PFFile*)[fetched_photo objectForKey:kPAPPhotoThumbnailKey]];
+        PFObject *cloth = [activity objectForKey:kPAPActivityClothKey];
+
+        [cloth fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_cloth, NSError *error) {
+            PFObject *photo = [cloth objectForKey:kPAPClothPhotoKey];
+            [photo fetchIfNeededInBackgroundWithBlock:^(PFObject *fetched_photo, NSError *error) {
+                [self setActivityImageFile:(PFFile*)[fetched_photo objectForKey:kPAPPhotoThumbnailKey]];
+                // *** TODO: fix below to show pictures on first page load
+                UITableViewController *vc = (UITableViewController *)[self getViewController];
+                [vc.tableView setNeedsDisplay];
+                [self setNeedsDisplay];
+                [CATransaction flush];
+                NSLog(@"girdi %@", [fetched_photo objectForKey:kPAPPhotoThumbnailKey]);
+            }];
         }];
     }
     
@@ -209,6 +225,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
     }
 }
 
+- (UIViewController *)getViewController
+{
+    id vc = [self nextResponder];
+    while(![vc isKindOfClass:[UIViewController class]] && vc!=nil)
+    {
+        vc = [vc nextResponder];
+    }
+
+    return vc;
+}
 
 #pragma mark - ()
 
