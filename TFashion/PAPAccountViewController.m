@@ -173,7 +173,7 @@
         // add location icon
         float locationButtonIconSize = 20.0f;
         UIButton *locationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [locationButton setFrame:CGRectMake(83.0, 55.0f, locationButtonIconSize, locationButtonIconSize)];
+        [locationButton setFrame:CGRectMake(83.0, 52.0f, locationButtonIconSize, locationButtonIconSize)];
         [locationButton setBackgroundColor:[UIColor clearColor]];
         FAKIonIcons *locationIcon = [FAKIonIcons iosLocationIconWithSize:locationButtonIconSize];
         [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:53.0f / 255.0f green:60.0f / 255.0f blue:65.0f / 255.0f alpha:0.8f]];
@@ -181,7 +181,7 @@
         [locationButton setSelected:NO];
         [self.headerView addSubview:locationButton];
 
-        UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(103, 55.0f, self.headerView.bounds.size.width, 22.0f)];
+        UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(103, 52.0f, self.headerView.bounds.size.width, 22.0f)];
         [locationLabel setTextAlignment:NSTextAlignmentLeft];
         [locationLabel setBackgroundColor:[UIColor clearColor]];
         [locationLabel setTextColor:[UIColor colorWithRed:53.0f / 255.0f green:60.0f / 255.0f blue:65.0f / 255.0f alpha:1.0f]];
@@ -191,10 +191,10 @@
     }
 
     if([self.user objectForKey:@"isSister"]) {
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.width - 90, 10.0f, 85, 22.0f)];
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(88.0, 77.0, 85, 18.0f)];
         [myLabel setText:@"💃Sister💃"];
         myLabel.font = [UIFont fontWithName:@"Gotham-Medium" size:12.0f];
-        [myLabel sizeThatFits:CGSizeMake(20, 20)];
+        [myLabel sizeThatFits:CGSizeMake(16, 16)];
         myLabel.layer.borderColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f].CGColor;
         myLabel.textColor = [UIColor colorWithRed:239.0f / 255.0f green:53.0f / 255.0f blue:103.0f / 255.0f alpha:1.0f];
         myLabel.textAlignment = NSTextAlignmentCenter;
