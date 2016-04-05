@@ -23,7 +23,7 @@
 }
 
 @property (nonatomic, strong) MBProgressHUD *hud;
-
+@property (nonatomic, strong) UIWebView *webView;
 
 
 @end
@@ -43,6 +43,9 @@
 
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchBackGround.png"]];
 
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80.0f, self.view.bounds.size.width, self.view.bounds.size.height - 80.0f)];
+    self.webView.delegate = self;
+
     appName = [[UILabel alloc] init];
     [appName setText: @"Standout"];
     [appName setTextColor:[UIColor whiteColor]];
@@ -60,9 +63,9 @@
     [self.view addSubview:appIntro];
 
     //Position of the Facebook button
-    CGFloat yPosition = 360.0f;
+    CGFloat yPosition = 340.0f;
     if ([UIScreen mainScreen].bounds.size.height > 480.0f) {
-        yPosition = 450.0f;
+        yPosition = 430.0f;
     }
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     // Optional: Place the button in the center of your view.
@@ -71,6 +74,32 @@
     loginButton.center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
     loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends", @"user_location"];
     [self.view addSubview:loginButton];
+
+    TTTAttributedLabel *tttLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    tttLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    tttLabel.numberOfLines = 0;
+    [tttLabel setBackgroundColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f]];
+    [tttLabel setFirstLineIndent:5.0f];
+    [tttLabel setVerticalAlignment:TTTAttributedLabelVerticalAlignmentTop];
+    tttLabel.textInsets = UIEdgeInsetsMake(5.0f, 5.0f, 0.0f, 5.0f);
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:@"By clicking 'Log in with Facebook' you are agreeing that you have read and agree to our terms of service and privacy policy and that you wish to receive periodic emails and notices regarding Standout."
+                                                                    attributes:@{
+                                                                                 (id)kCTForegroundColorAttributeName : (id)[UIColor colorWithRed:20.0f/255.0f green:20.0f/255.0f blue:20.0f/255.0f alpha:1.0f].CGColor,
+                                                                                 NSFontAttributeName : [UIFont fontWithName:@"Gotham-Book" size:11.0f],
+                                                                                 NSKernAttributeName : [NSNull null],
+                                                                                 (id)kTTTBackgroundFillColorAttributeName : (id)[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor
+                                                                                 }];
+//    NSString *labelText = @"Lost? Learn more.";
+    tttLabel.text = attString;
+    tttLabel.delegate = self;
+    NSRange r = [attString.string rangeOfString:@"terms of service"];
+    [tttLabel addLinkToURL:[NSURL URLWithString:@"action://show-terms-of-service"] withRange:r];
+    NSRange r2 = [attString.string rangeOfString:@"privacy policy"];
+    [tttLabel addLinkToURL:[NSURL URLWithString:@"action://show-privacy-policy"] withRange:r2];
+    CGRect tttframe = CGRectMake(18.0f, yPosition + 50, 280.0f, 70.0f);
+//    tttLabel.center = CGPointMake(CGRectGetMidX(tttframe), CGRectGetMidY(tttframe));
+    [tttLabel setFrame:tttframe];
+    [self.view addSubview:tttLabel];
     
     
     // Sign up button
@@ -163,6 +192,50 @@
     }
     
     return file;
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([[url scheme] hasPrefix:@"action"]) {
+        if ([[url host] hasPrefix:@"show-terms-of-service"]) {
+            /* load help screen */
+            NSLog(@"clicked terms");
+            [self loadUIWebView:@"https://standouthq.com/tos.html"];
+        } else if ([[url host] hasPrefix:@"show-privacy-policy"]) {
+            /* load settings screen */
+            [self loadUIWebView:@"https://standouthq.com/privacy.html"];
+        }
+    } else {
+        /* deal with http links here */
+    }
+}
+
+- (void)loadUIWebView:(NSString *)currentURL
+{
+    UINavigationBar *myBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
+    myBar.tag = 1;
+    [self.view addSubview:myBar];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"< Back"
+                                   style:UIBarButtonItemStyleDone
+                                   target:self
+                                   action:@selector(remove:)];
+    UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:@""];
+    [item setLeftBarButtonItem:backButton];
+    [myBar setItems:[NSArray arrayWithObject:item]];
+
+//    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];  //Change self.view.bounds to a smaller CGRect if you don't want it to take up the whole screen
+    self.webView.tag = 2;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:currentURL]]];
+
+    [self.view addSubview:self.webView];
+}
+
+- (void)remove:(id)sender
+{
+    [[self.view viewWithTag:1] removeFromSuperview];
+    [[self.view viewWithTag:2] removeFromSuperview];
+    [self.webView stopLoading];
+    self.webView.delegate = nil;
 }
 
 #pragma mark - ()

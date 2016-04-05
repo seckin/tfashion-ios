@@ -11,11 +11,12 @@
 #import "FBSDKLoginKit.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 
 @protocol PAPLogInViewControllerDelegate;
 
 //@interface PAPLogInViewController : UIViewController <FBLoginViewDelegate, PFLogInViewControllerDelegate>
-@interface PAPLogInViewController : UIViewController <PFLogInViewControllerDelegate>
+@interface PAPLogInViewController : UIViewController <PFLogInViewControllerDelegate, TTTAttributedLabelDelegate, UIWebViewDelegate>
 
 @property (nonatomic, assign) id<PAPLogInViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;

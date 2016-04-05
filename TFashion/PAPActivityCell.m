@@ -155,7 +155,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
                 [vc.tableView setNeedsDisplay];
                 [self setNeedsDisplay];
                 [CATransaction flush];
-                NSLog(@"girdi %@", [fetched_photo objectForKey:kPAPPhotoThumbnailKey]);
             }];
         }];
     }
@@ -177,7 +176,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
     
     [self.nameButton setTitle:nameString forState:UIControlStateNormal];
     [self.nameButton setTitle:nameString forState:UIControlStateHighlighted];
-
     
     // If user is set after the contentText, we reset the content to include padding
     if (self.contentLabel.text) {
